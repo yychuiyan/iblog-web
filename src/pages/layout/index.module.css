@@ -1,0 +1,34 @@
+.bg0 {
+  background-image: url(../../assets/images/bg01.webp);
+}
+.bg1 {
+  background-image: url(../../assets/images/bg02.webp);
+}
+.bg2 {
+  background-image: url(../../assets/images/bg03.webp);
+}
+.img_style {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-default);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  -webkit-background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -webkit-background-attachment: fixed;
+}
+
+.img_style::before {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}

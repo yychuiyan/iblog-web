@@ -1,0 +1,310 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 重写基本SVG样式以使用Ant Design 图标*/
+svg {
+  vertical-align: initial;
+}
+
+:root {
+  --color-default: #333539;
+  --color-active-default: #2c303b;
+  --color-canvas-default: #2c303b;
+  --color-fd-default: #ebebeb;
+  --color-placeholder-default: #ebebeb;
+  --color-icon-default: #ebebeb;
+}
+
+[data-theme='light'] {
+  --color-default: #fcfcfc;
+  --color-active-default: #e0e0e0;
+  --color-canvas-default: #fcfcfc;
+  --color-placeholder-default: #838383;
+  --color-submit-default: #b3b3b3;
+  --color-btn-default: #e0e0e0;
+  --color-fd-default: #2c303b;
+  --color-placeholder-default: #2c303b;
+  --color-icon-default: #2c303b;
+  --color-copy-default: #fcfcfc;
+  --color-scroll-default: #838383;
+  --color-error-default: #8e9097;
+}
+[data-theme='night'] {
+  --color-default: #4b505c;
+  --color-active-default: #444851;
+  --color-canvas-default: #2c303b;
+  --color-submit-default: #393c44;
+  --color-btn-default: #444851;
+  --color-fd-default: #fcfcfc;
+  --color-placeholder-default: #fcfcfc;
+  --color-icon-default: #fcfcfc;
+  --color-scroll-default: #8e9097;
+  --color-error-default: #8e9097;
+  color: #ebebeb;
+}
+[data-theme='navy'] {
+  --color-default: #53637f;
+  --color-active-default: #424f66;
+  --color-canvas-default: #424f66;
+  --color-copy-default: #53637f;
+  --color-submit-default: #424f66;
+  --color-btn-default: #505a70;
+  --color-fd-default: #ebebeb;
+  --color-icon-default: #ebebeb;
+  --color-placeholder-default: #ebebeb;
+  --color-scroll-default: #305261;
+  --color-error-default: #8e9097;
+  color: #ebebeb;
+}
+body {
+  background-color: var(--color-default);
+  background-color: var(--color-active-default);
+  background-color: var(--color-canvas-default);
+  background-color: var(--color-fg-default);
+  background-color: var(--color-fd-default);
+  background-color: var(--color-icon-default);
+  background-color: var(--color-placeholder-default);
+  background-color: var(--color-copy-default);
+  background-color: var(--color-scroll-default);
+  background-color: var(--color-error-default);
+  background-color: var(--color-submit-default);
+  background-color: var(--color-btn-default);
+}
+
+/* 分页的效果 */
+.ant-pagination-item-link {
+  width: 45px !important;
+  height: 45px !important;
+  font-size: 18px !important;
+  color: var(--color-fd-default) !important;
+  background-color: var(--color-default) !important;
+  border-color: var(--color-fd-default) !important;
+}
+.ant-pagination .ant-pagination-item {
+  width: 45px;
+  height: 45px;
+  background-color: var(--color-default) !important;
+  border-color: var(--color-fd-default) !important;
+}
+.ant-pagination .ant-pagination-prev {
+  width: 45px;
+  height: 45px;
+
+  background-color: var(--color-default) !important;
+}
+
+.ant-pagination .ant-pagination-next {
+  width: 45px;
+  height: 45px;
+}
+.ant-pagination .ant-pagination-item-active {
+  width: 45px;
+  height: 45px;
+  border: 2px solid;
+  border-color: var(--color-fd-default) !important;
+}
+
+.ant-pagination .ant-pagination-item-active a {
+  line-height: 45px;
+}
+.ant-pagination .ant-pagination-item-active a:hover {
+  line-height: 45px;
+}
+.ant-pagination .ant-pagination-item a {
+  line-height: 45px;
+  color: var(--color-fd-default) !important;
+  font-weight: normal !important;
+}
+.ant-pagination .ant-pagination-item a:hover {
+  line-height: 45px;
+  color: var(--color-fd-default) !important;
+}
+/* 回到顶部颜色 */
+.ant-float-btn-default {
+  background-color: var(--color-default) !important;
+}
+.ant-float-btn-body {
+  background-color: var(--color-default) !important;
+}
+.ant-float-btn-default .ant-float-btn-body .ant-float-btn-content .ant-float-btn-icon {
+  color: var(--color-fd-default) !important;
+}
+
+/* 搜索页 */
+.ant-modal {
+  color: var(--color-fd-default) !important;
+}
+.ant-modal-content {
+  background-color: var(--color-default) !important;
+}
+.ant-input-affix-wrapper {
+  background-color: var(--color-default) !important;
+  border-color: var(--color-fd-default) !important;
+}
+.ant-input-affix-wrapper-focused {
+  box-shadow: none !important;
+}
+/* 头部颜色 */
+.ant-modal .ant-modal-header {
+  background-color: var(--color-default) !important;
+}
+/* 标题 */
+.ant-modal-title {
+  color: var(--color-fd-default) !important;
+}
+/* 列表信息 */
+.ant-list .ant-list-item {
+  color: var(--color-fd-default) !important;
+  font-weight: 500;
+}
+.ant-modal .ant-modal-close {
+  color: var(--color-fd-default) !important;
+  font-weight: 500;
+}
+.ant-input-affix-wrapper .ant-input-clear-icon {
+  color: var(--color-fd-default) !important;
+}
+::-webkit-input-placeholder {
+  color: var(--color-error-default) !important;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: var(--color-error-default) !important;
+}
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: var(--color-error-default) !important;
+}
+.ant-select-search__field__placeholder {
+  color: var(--color-error-default) !important;
+}
+input:-ms-input-placeholder {
+  /* IE 10+ */
+  color: var(--color-scroll-default) !important;
+}
+
+/* 评论留言UI */
+.ant-card {
+  /* background-color: var(--color-default) !important; */
+  color: var(--color-fd-default) !important;
+}
+/* 边框 */
+.ant-card-bordered {
+  border: 0 !important;
+}
+/* 评论列表 */
+/* .ant-comment {
+  background-color: var(--color-default) !important;
+} */
+.ant-input {
+  background-color: var(--color-default) !important;
+  border-color: var(--color-placeholder-default) !important;
+  color: var(--color-fd-default) !important;
+}
+:where(.css-dev-only-do-not-override-j0nf2s).ant-input:focus,
+:where(.css-dev-only-do-not-override-j0nf2s).ant-input-focused {
+  box-shadow: none;
+}
+:where(.css-dev-only-do-not-override-j0nf2s).ant-input-status-error:not(.ant-input-disabled):not(
+    .ant-input-borderless
+  ).ant-input:focus,
+:where(.css-dev-only-do-not-override-j0nf2s).ant-input-status-error:not(.ant-input-disabled):not(
+    .ant-input-borderless
+  ).ant-input-focused {
+  box-shadow: none;
+}
+.ant-input-affix-wrapper {
+  color: var(--color-fd-default) !important;
+}
+.ant-list .ant-list-item .ant-list-item-meta {
+  align-items: baseline;
+}
+.ant-form-item .ant-form-item-label > label {
+  color: var(--color-fd-default) !important;
+}
+.ant-list-item-meta-title {
+  color: var(--color-fd-default) !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+}
+.ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-description {
+  color: var(--color-fd-default) !important;
+}
+.user_content {
+  color: var(--color-icon-default) !important;
+}
+.user_desc {
+  color: var(--color-placeholder-default) !important;
+}
+.ant-comment .ant-comment-content {
+  color: var(--color-fd-default) !important;
+}
+.replay_title {
+  color: var(--color-icon-default) !important;
+  font-size: 14px;
+}
+.ant-comment .ant-comment-content-author-time {
+  color: var(--color-placeholder-default) !important;
+  margin-top: 3px;
+}
+
+/* markdown active */
+.markdown-navigation .title-anchor:hover,
+.markdown-navigation .title-anchor.active {
+  background-color: var(--color-active-default) !important;
+}
+.markdown-navigation .title-anchor {
+  color: var(--color-icon-default) !important;
+}
+/* 导航栏文字颜色 */
+.text-base-content {
+  color: var(--color-fd-default) !important;
+}
+/* 顶部文字样式 */
+.page_title {
+  font-size: 2rem;
+  font-weight: 500;
+}
+/* 提交按钮颜色 */
+.ant-btn-primary {
+  background-color: var(--color-btn-default) !important;
+  box-shadow: 0px 0px 0px 0px;
+  border-color: var(--color-btn-default) !important;
+  color: var(--color-fd-default) !important;
+}
+.ant-btn-primary:hover {
+  background-color: var(--color-submit-default) !important;
+}
+.ant-btn-default {
+  background-color: var(--color-btn-default) !important;
+  box-shadow: 0px 0px 0px 0px;
+  border-color: var(--color-btn-default) !important;
+  color: var(--color-fd-default) !important;
+}
+.ant-btn-default:hover {
+  background-color: var(--color-submit-default) !important;
+}
+.ant-form-item .ant-form-item-explain-error {
+  color: var(--color-error-default) !important;
+}
+/* 悬浮线效果显示 */
+.downline {
+  background: linear-gradient(to right, var(--color-icon-default), var(--color-icon-default))
+    no-repeat right bottom;
+  background-size: 0 1px;
+  transition: background-size 800ms;
+}
+.downline:hover {
+  background-position-x: left;
+  background-size: 100% 1px;
+}
+
+/* 列表滚动加载 */
+.infinite-scroll-component {
+  overflow: hidden !important;
+}
+/* 预览显示 */
+.ant-image-preview-operations {
+  height: 4rem !important;
+}
