@@ -49,7 +49,15 @@ const Home = (props: any) => {
   }, [props.BlogActions]);
   // 默认顶部
   useEffect(() => {
-    scrollTo(0, 0);
+    if (myRef.current) {
+      // window.scrollTo(0, myRef.current.offsetTop || 0);
+      window.scroll({
+        //@ts-ignore
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
   }, [scrollTo]);
   // 点击滑动到数据页面
   const handleScroll = () => {
@@ -64,6 +72,7 @@ const Home = (props: any) => {
     }
   };
   return (
+    // @ts-ignore
     <div className="w-full">
       <div
         className="flex justify-center items-center flex-col h-screen relative bottom-10 lg:h-36"
