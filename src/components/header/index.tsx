@@ -13,7 +13,7 @@ const NavBar = (props: any) => {
   const items = [
     {
       path: '/rblog/home',
-      title: '首页',
+      title: '首页测试',
     },
     {
       path: '/rblog/rindex',
