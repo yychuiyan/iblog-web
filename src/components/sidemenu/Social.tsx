@@ -6,7 +6,7 @@ const Social = () => {
   const [show, setShow] = useState(false);
   // 跳转到github
   const handleGitHub = () => {
-    window.open(`https://github.com/zhanghaoju`);
+    window.open(`https://github.com/yychuiyan`);
   };
   // 跳转到语雀
   const handleYuQue = () => {
