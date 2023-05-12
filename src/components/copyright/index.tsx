@@ -20,7 +20,7 @@ const CopyRight = (props: any) => {
   }
   return (
     <div className="flex items-center relative h-28 w-full shadow-md overflow-hidden rounded-xl bg-base-200 lg:w-full lg:top-5 lg:h-28">
-      <div className="flex flex-col h-20 px-5 w-full z-10 lg:z-0 lg:h-20 lg:overflow-hidden">
+      <div className="flex flex-col h-20 px-5 w-full z-10 lg:z-0 lg:h-24 lg:overflow-hidden">
         <span className='text-xl lg:hidden'>{props.content}</span>
         <p className='flex h-3'>
           <span className='lg:break-normal lg:underline block lg:hidden'>{link}</span>

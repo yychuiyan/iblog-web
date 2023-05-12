@@ -134,7 +134,7 @@ const Content = (props: any) => {
                         {item.introduction}
                       </p>
                     </div>
-                    <div className="flex items-center justify-between h-8 px-2">
+                    <div className="flex items-center justify-between h-9 px-2">
                       <div className="flex">
                         <span
                           className={`h-auto w-10 bg-base-200 text-center rounded-md ${item.isTop === 1 ? 'block' : 'hidden'}`}

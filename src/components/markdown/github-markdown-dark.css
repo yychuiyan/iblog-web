@@ -780,12 +780,13 @@
 
 .markdown-body code,
 .markdown-body tt {
-  padding: 0.2em 0.4em;
+  padding: 0.1em 0.3em;
   margin: 0;
   font-size: 100%;
   white-space: break-spaces;
-  background-color: var(--color-neutral-muted);
+  background-color:#f9f2f4;
   border-radius: 6px;
+  color: #c7254e;
 }
 
 .markdown-body code br,

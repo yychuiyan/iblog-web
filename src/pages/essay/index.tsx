@@ -135,7 +135,7 @@ const Essay = (props: any) => {
             return (
               <div
                 className="relative left-16 h-auto pt-3
-              lg:relative lg:left-10 lg:float-left lg:w-full sm:w-full"
+                lg:relative lg:left-[1rem] lg:float-left lg:w-full sm:w-full"
                 key={index}
               >
                 <div className="float-left w-16 h-16 mr-3 mt-2 lg:float-left">
