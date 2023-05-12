@@ -146,7 +146,7 @@ const Essay = (props: any) => {
                   />
                 </div>
                 <div
-                  className="flex flex-col mt-2 w-[780px] p-2 shadow-sm bg-base-200 rounded-xl hover:bg-base-300 hover:transition hover:duration-500 cursor-pointer
+                  className="flex flex-col mt-2 w-[790px] p-2 shadow-sm bg-base-200 rounded-xl hover:bg-base-300 hover:transition hover:duration-500 cursor-pointer
                lg:float-left lg:flex lg:w-4/5 sm:w-3/5
               "
                 >
