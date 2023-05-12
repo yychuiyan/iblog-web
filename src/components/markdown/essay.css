@@ -38,6 +38,9 @@
 .ant-image .ant-image-img{
   border-radius: 10px !important;
 }
+.ant-image .ant-image-mask{
+  border-radius: 10px !important;
+}
 .ant-image .ant-image-mask:hover{
   border-radius: 10px !important;
 }
