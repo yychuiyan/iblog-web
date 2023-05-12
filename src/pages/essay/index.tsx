@@ -166,9 +166,7 @@ const Essay = (props: any) => {
                     )}
                   </div>
                   <p className="ext-base flex justify-end mt-1">
-                    {dayjs(
-                      item.updateTime ? item.updateTime * 1000 : item.createTime * 1000
-                    ).format('YYYY-MM-DD HH:mm:ss')}
+                    {dayjs(item.createTime * 1000).format('YYYY-MM-DD HH:mm:ss')}
                   </p>
                 </div>
               </div>
