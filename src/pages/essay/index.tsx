@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import PageDesc from '@/components/sidemenu/PageDesc';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Image } from 'antd';
+import MarkDown from '@/components/markdown/MarkDownEssay';
 const Essay = (props: any) => {
   // 随笔列表
   const [list, setList] = useState([]);
@@ -40,6 +41,7 @@ const Essay = (props: any) => {
     props.BlogActions.asyncEssayListAction(currentPage, pageSize, '').then((res: any) => {
       // 获取随笔
       let { data, totalCount, page, pageSize } = res.data;
+      console.log("data", data);
       let newData = data.map((item: any) => {
         // return {
         if (Boolean(item.cover)) {
@@ -144,15 +146,20 @@ const Essay = (props: any) => {
                   />
                 </div>
                 <div
-                  className="flex flex-col mt-2 w-800 p-2 shadow-sm bg-base-200 rounded-xl hover:bg-base-300 hover:transition hover:duration-500 cursor-pointer
+                  className="flex flex-col mt-2 w-[780px] p-2 shadow-sm bg-base-200 rounded-xl hover:bg-base-300 hover:transition hover:duration-500 cursor-pointer
                lg:float-left lg:flex lg:w-4/5 sm:w-3/5
               "
                 >
                   <div>
-                    <div className="text-base" style={{ whiteSpace: 'pre-wrap' }}>{item.content}</div>
+                    <div className="font-style mx-2 mb-2 text-xl" style={{ whiteSpace: 'pre-wrap' }}>
+                      <MarkDown content={item.content} />
+                      {/* {item.content} */}
+                    </div>
                     {item.cover !== undefined ? (
-                      <div className="">
-                        <Image src={item.cover} width={200} height={200} />
+                      <div className="ml-2 flex flex-row flex-wrap">
+                        {
+                          item.cover.map((cover: any) => <Image src={cover.imgUrl} width={190} height={180} className='px-1 pb-1' />)
+                        }
                       </div>
                     ) : (
                       <div className={`w-36`}></div>
