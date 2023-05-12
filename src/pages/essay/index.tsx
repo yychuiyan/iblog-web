@@ -158,7 +158,7 @@ const Essay = (props: any) => {
                     {item.cover !== undefined ? (
                       <div className="ml-2 flex flex-row flex-wrap">
                         {
-                          item.cover.map((cover: any) => <Image src={cover.thumbUrl} width={190} height={180} className='px-1 pb-1' />)
+                          item.cover.map((cover: any) => <Image src={cover.thumbUrl} width={190} height={180} style={{ marginRight: '5px' }} />)
                         }
                       </div>
                     ) : (
