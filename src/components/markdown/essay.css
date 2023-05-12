@@ -32,8 +32,6 @@
   margin: 14px auto;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
 }
-.ant-image .ant-image-mask:hover{
-  width: 182px !important;
-  height: 176px !important;
-  left: 4px !important;
+.ant-image{
+  margin: 2px !important;
 }
