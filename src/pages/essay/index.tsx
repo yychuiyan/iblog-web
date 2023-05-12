@@ -151,14 +151,14 @@ const Essay = (props: any) => {
               "
                 >
                   <div>
-                    <div className="font-style mx-2 mb-2 text-xl" style={{ whiteSpace: 'pre-wrap' }}>
+                    <div className="font-style mx-2 mb-2 text-lg" style={{ whiteSpace: 'pre-wrap' }}>
                       <MarkDown content={item.content} />
                       {/* {item.content} */}
                     </div>
                     {item.cover !== undefined ? (
                       <div className="ml-2 flex flex-row flex-wrap">
                         {
-                          item.cover.map((cover: any) => <Image src={cover.imgUrl} width={190} height={180} className='px-1 pb-1' />)
+                          item.cover.map((cover: any) => <Image src={cover.thumbUrl} width={190} height={180} className='px-1 pb-1' />)
                         }
                       </div>
                     ) : (
