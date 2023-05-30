@@ -1,3 +1,4 @@
+import { CategoryData } from '@/types/comm';
 import React, { useEffect, useState } from 'react';
 
 const WebSite = (props: any) => {
@@ -7,7 +8,7 @@ const WebSite = (props: any) => {
   const [days, setDays] = useState(0);
   useEffect(() => {
     let articles = props.data;
-    let viewTemp = articles.map((item: any) => item.views);
+    let viewTemp = articles.map((item: CategoryData) => item.views);
 
     let init = 0;
     let viewCount = viewTemp.reduce((prev: any, curr: any) => {

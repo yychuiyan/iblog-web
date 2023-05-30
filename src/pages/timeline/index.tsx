@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
 import dayjs from 'dayjs';
 import PageDesc from '@/components/sidemenu/PageDesc';
+import { ArticleList } from '@/types/comm'
 const TimeLine = (props: any) => {
   // 文章列表
   const [list, setList] = useState<any>([]);
@@ -22,9 +23,9 @@ const TimeLine = (props: any) => {
   }, []);
   // 获取文章列表数据
   useEffect(() => {
-    props.BlogActions.asyncArticleAllListAction(1, 1).then((res: any) => {
+    props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
       // 获取文章
-      let { data } = res.data;
+      let { data } = res.data as unknown as ArticleList;
       // 日期排序
       let sortTime = data.sort((curr: any, prev: any) => {
         return prev.createTime - curr.createTime;
@@ -60,7 +61,7 @@ const TimeLine = (props: any) => {
     });
   }, [props.BlogActions]);
   // 点击文章跳转到详情页面
-  const handleClickTime = (id: any) => {
+  const handleClickTime = (id: string) => {
     props.history.push(`/rblog/article/detail/${id}`);
   };
   return (
@@ -99,7 +100,7 @@ const TimeLine = (props: any) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     BlogActions: bindActionCreators(BlogActions, dispatch),
   };

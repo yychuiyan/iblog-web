@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
 import { withRouter } from 'react-router-dom';
 import qs from 'qs';
+import { CategoryData } from '@/types/comm';
 const CategorySwitch = (props: any) => {
   // 获取路由
   const { c } = qs.parse(props.location.search.slice(1));
@@ -16,7 +17,7 @@ const CategorySwitch = (props: any) => {
   useEffect(() => {
     // 获取文章
     let data = props.data;
-    let newList = data.map((item: any) => {
+    let newList = data.map((item: CategoryData) => {
       return {
         categories: item.categories,
         _id: item._id,
@@ -45,7 +46,7 @@ const CategorySwitch = (props: any) => {
   }, [props.data]);
 
   // 路由跳转
-  const handleCategory = (name: any) => {
+  const handleCategory = (name: string) => {
     props.history.push(`/rblog/category?c=${name}`);
   };
   return (
@@ -61,7 +62,7 @@ const CategorySwitch = (props: any) => {
         分类信息
       </p>
       <div className=' w-[310px] h-96 overflow-auto'>
-        {categoryList.map((item: any, index: any) => {
+        {categoryList.map((item: CategoryData, index: number) => {
           return (
             <p
               className={`flex justify-between items-center${item.name === c
@@ -81,7 +82,7 @@ const CategorySwitch = (props: any) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     BlogActions: bindActionCreators(BlogActions, dispatch),
   };

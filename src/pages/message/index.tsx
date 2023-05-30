@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Card, Form, Input, Button, message, List, Avatar, Row, Col, Modal, Tooltip } from 'antd';
 import { Comment } from '@ant-design/compatible';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
 import MyPagination from '@/components/pagination';
 import { CloudUploadOutlined, CommentOutlined, MessageOutlined } from '@ant-design/icons';
@@ -10,10 +10,31 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { withRouter } from 'react-router-dom';
 import PageDesc from '@/components/sidemenu/PageDesc';
-
+interface DataType {
+  _id: string;
+  nickname: any;
+  content: any;
+  children: any;
+  messageTime: any;
+  pid: string;
+  targetReplayId: string;
+  targetReplayContent: string;
+  currentReplayContent: string;
+  auditTime: string;
+  auditStatus: string;
+  avatar: string;
+  email: string;
+  nickName: string;
+}
+interface MessageData {
+  data: DataType[];
+  totalCount: number;
+  page: number;
+  pageSize: number;
+}
 const Message = (props: any) => {
   // 留言列表数据
-  const [messageList, setMessageList] = useState([]);
+  const [messageList, setMessageList] = useState<DataType[]>([]);
 
   // 回复的文本对象信息
   const [replyObj, setReplyObj] = useState({ _id: '', pid: '-1' });
@@ -48,11 +69,11 @@ const Message = (props: any) => {
     }
   }, []);
   useEffect(() => {
-    props.BlogActions.asyncMessageListAction(currentPage, pageSize, 1).then((res: any) => {
+    props.BlogActions.asyncMessageListAction(currentPage, pageSize, 1).then((res: MessageData) => {
       // 获取留言数据
-      let { data, totalCount, page, pageSize } = res.data;
+      let { data, totalCount, page, pageSize } = res.data as unknown as MessageData;
       // 时间格式化
-      data.map((item: any) => {
+      data.map((item) => {
         item.messageTime = dayjs(item.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss');
         item.children.map((it: any) => {
           it.messageTime = dayjs(it.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss');
@@ -65,7 +86,7 @@ const Message = (props: any) => {
     });
   }, [currentPage, pageSize, props.BlogActions]);
   // 提交留言数据
-  const onFinish = (values: any) => {
+  const onFinish = (values: DataType) => {
     props.BlogActions.asyncMessageInsertAction({
       pid: replyObj.pid,
       targetReplayId: replyObj._id || '-1',
@@ -76,7 +97,7 @@ const Message = (props: any) => {
       avatar: 'http://dummyimage.com/100x100',
       email: values.email,
       nickName: values.nickname,
-    }).then((res: any) => {
+    }).then(() => {
       setTimeout(() => {
         message.success('留言成功!');
         if (type === 1) {
@@ -87,11 +108,11 @@ const Message = (props: any) => {
           replyForm.resetFields();
         }
         // 重新调用查询接口
-        props.BlogActions.asyncMessageListAction(currentPage, pageSize, 1).then((res: any) => {
+        props.BlogActions.asyncMessageListAction(currentPage, pageSize, 1).then((res: MessageData) => {
           // 获取留言数据
-          let { data, totalCount, page, pageSize } = res.data;
+          let { data, totalCount, page, pageSize } = res.data as unknown as MessageData;
           // 时间格式化
-          data.map((item: any) => {
+          data.map((item) => {
             item.messageTime = dayjs(item.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss');
             item.children.map((it: any) => {
               it.messageTime = dayjs(it.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss');
@@ -127,7 +148,7 @@ const Message = (props: any) => {
     }
   };
   // 提交回复
-  const onFinishReply = (values: any) => {
+  const onFinishReply = (values: DataType) => {
     setType(2);
     props.BlogActions.asyncMessageInsertAction({
       pid: replyObj.pid === '-1' ? replyObj._id : replyObj.pid,
@@ -140,7 +161,7 @@ const Message = (props: any) => {
       avatar: 'http://dummyimage.com/100x100',
       email: values.email,
       nickName: values.nickname,
-    }).then((res: any) => {
+    }).then(() => {
       setTimeout(() => {
         message.success('回复成功!');
         if (type === 1) {
@@ -155,7 +176,7 @@ const Message = (props: any) => {
           // 获取留言数据
           let { data, totalCount, page, pageSize } = res.data;
           // 时间格式化
-          data.map((item: any) => {
+          data.map((item: DataType) => {
             item.messageTime = dayjs(item.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss');
             item.children.map((it: any) => {
               it.messageTime = dayjs(it.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss');
@@ -212,11 +233,11 @@ const Message = (props: any) => {
   //   setList(newMessage);
   // };
   // 跳转页数
-  const onChangePage = (page: any, pageSize: any) => {
+  const onChangePage = (page: number, pageSize: number) => {
     // 重新调用接口将参数传递过去
-    props.BlogActions.asyncArticleCommentsAction(page, pageSize, 1).then((res: any) => {
+    props.BlogActions.asyncArticleCommentsAction(page, pageSize, 1).then((res: MessageData) => {
       // 获取留言数据
-      let { data, totalCount, page, pageSize } = res.data;
+      let { data, totalCount, page, pageSize } = res.data as unknown as MessageData;
       setMessageList(data);
       setTotal(totalCount);
       setCurrentPage(page);
@@ -342,7 +363,7 @@ const Message = (props: any) => {
                   itemLayout="horizontal"
                   className="sm:w-full lg:w-full"
                   dataSource={messageList}
-                  renderItem={(item: any, index: any) => (
+                  renderItem={(item, index) => (
                     <List.Item actions={[]} key={index}>
                       <List.Item.Meta
                         avatar={
@@ -361,7 +382,7 @@ const Message = (props: any) => {
                                 dangerouslySetInnerHTML={{
                                   __html: item.currentReplayContent.replace(
                                     /((http|https):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|])/g,
-                                    ($url: any) => {
+                                    ($url) => {
                                       return (
                                         "<a href='" + $url + "' target='_blank'>" + $url + '</a>'
                                       );
@@ -433,7 +454,7 @@ const Message = (props: any) => {
                                           dangerouslySetInnerHTML={{
                                             __html: innerItem.currentReplayContent.replace(
                                               /((http|https):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|])/g,
-                                              ($url: any) => {
+                                              ($url: string) => {
                                                 return (
                                                   "<a href='" +
                                                   $url +
@@ -582,7 +603,7 @@ const Message = (props: any) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     BlogActions: bindActionCreators(BlogActions, dispatch),
   };

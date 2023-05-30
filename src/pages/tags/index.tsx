@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Content from '@/components/content';
 import TagsDetail from '@/components/sidemenu/Tags';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
 import { withRouter } from 'react-router-dom';
 import { Affix, FloatButton } from 'antd';
 import User from '@/components/sidemenu/User';
 import PageDesc from '@/components/sidemenu/PageDesc';
+import { ArticleList, DataType } from '@/types/comm'
 const Tags = (props: any) => {
   // 文章列表
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<DataType[]>([]);
   // 页面可视化宽度
   const [clientWidth, setClientWidth] = useState(970);
   // 滚动位置
@@ -28,9 +29,9 @@ const Tags = (props: any) => {
   }, []);
   // 获取文章列表数据
   useEffect(() => {
-    props.BlogActions.asyncArticleAllListAction(1, 1).then((res: any) => {
+    props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
       // 获取文章
-      let { data } = res.data;
+      let { data } = res.data as unknown as ArticleList;
       setList(data);
     });
   }, [props.BlogActions]);
@@ -70,7 +71,7 @@ const Tags = (props: any) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     BlogActions: bindActionCreators(BlogActions, dispatch),
   };

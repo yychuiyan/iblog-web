@@ -110,8 +110,8 @@ const NavBar = (props: any) => {
   // 移动端导航数据处理
   useEffect(() => {
     let newRouterList: any = []; // 用于存放转换后的数组
-    const routerList = (arrays: any) => {
-      arrays.map((item: any) => {
+    const routerList = (arrays: any[]) => {
+      arrays.map((item) => {
         let { title, path, children } = item;
         if (children) {
           return routerList(children);
@@ -149,7 +149,7 @@ const NavBar = (props: any) => {
     setClientWidth(document.body.clientWidth);
   };
   // 切换路由
-  const handleRouter = (e: any) => {
+  const handleRouter = (e: string) => {
     props.history.push(e);
   };
   // 阻止冒泡
@@ -162,7 +162,7 @@ const NavBar = (props: any) => {
     document.removeEventListener('click', handleDropdown, true);
   };
   // 遍历路由pc
-  const renderMenu = (menuList: any) => {
+  const renderMenu = (menuList: string[] | any) => {
     return menuList.map((item: any) => {
       // 如果有子数组就渲染下拉菜单下的列表数据
       if (item.children?.length > 0) {
@@ -262,7 +262,7 @@ const NavBar = (props: any) => {
   };
 
   // 点击文章名称跳转到详情页面
-  const handleSearchData = (id: any) => {
+  const handleSearchData = (id: string) => {
     props.history.push(`/rblog/article/detail/${id}`);
     // 模态框
     setIsModalOpen(!isModalOpen);
@@ -272,7 +272,7 @@ const NavBar = (props: any) => {
     props.history.push('/rblog/home');
   };
   // 背景图片显示
-  const handleChangeImage = (i: any) => {
+  const handleChangeImage = (i: number | string | any) => {
     localStorage.setItem('localmode', i);
     props.BlogActions.asyncModeAction(Number(localStorage.getItem('localmode')));
   };

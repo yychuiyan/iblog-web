@@ -3,7 +3,7 @@ import React from 'react'
 const NotFound = () => {
   return (
     <div>
-      页面找不到了...
+      页面已经飞到火星·······
     </div>
   )
 }

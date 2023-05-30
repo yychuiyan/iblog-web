@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
 import MarkDown from '@/components/markdown/MarkDown';
 import '@/components/markdown/github-markdown-dark.css';
 import PageDesc from '@/components/sidemenu/PageDesc';
+interface DataType {
+  checked: boolean;
+  content: string;
+  createTime: string;
+  updateTime: string;
+  _id: string;
+}
+interface AboutData {
+  data: DataType[]
+}
 const About = (props: any) => {
   // 选中状态
   const [isChecked, setIsChecked] = useState(false);
   // 关于信息
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<DataType[]>([]);
   // 滚动位置
   const myRef = React.useRef();
   useEffect(() => {
@@ -25,10 +35,9 @@ const About = (props: any) => {
   }, []);
   // 获取关于列表数据
   useEffect(() => {
-    props.BlogActions.asyncAboutListAction(isChecked).then((res: any) => {
+    props.BlogActions.asyncAboutListAction(isChecked).then((res: AboutData) => {
       // 获取关于
-      let { data } = res.data;
-
+      let { data } = res.data as unknown as AboutData;
       setList(data);
     });
   }, [props.BlogActions, isChecked]);
@@ -67,19 +76,19 @@ const About = (props: any) => {
 
         {/* 具体内容-关于本站 */}
         {isChecked
-          ? list.map((item: any) => {
+          ? list.map((item) => {
             return (
               <div className={`block ${isChecked ? 'block' : 'hidden'}`} key={item._id}>
                 <div className="rounded-lg">
                   <div className="markdown-body content">
                     <MarkDown content={item.content} />
-                    {/* <Comment title={list.map((item: any) => item.title)} /> */}
+                    {/* <Comment title={list.map((item) => item.title)} /> */}
                   </div>
                 </div>
               </div>
             );
           })
-          : list.map((item: any) => {
+          : list.map((item) => {
             return (
               <div className={`block ${isChecked ? 'hidden' : 'block'}`} key={item._id}>
                 <div>
@@ -95,7 +104,7 @@ const About = (props: any) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     BlogActions: bindActionCreators(BlogActions, dispatch),
   };

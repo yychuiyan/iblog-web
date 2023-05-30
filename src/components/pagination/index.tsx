@@ -17,7 +17,7 @@ const MyPagination = (props: any) => {
     setPageSize(props.pageSize);
   }, [props]);
 
-  const onChangePage = (page: any, pageSize: any) => {
+  const onChangePage = (page: number, pageSize: number) => {
     // 将切换的页码参数传递过去
     props.onChange(page, pageSize);
   };

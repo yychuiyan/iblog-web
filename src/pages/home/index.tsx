@@ -4,23 +4,23 @@ import Social from '@/components/sidemenu/Social';
 import User from '@/components/sidemenu/User';
 import Content from '@/components/content/HomePage';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
 import HotArticles from '@/components/sidemenu/HotArticles';
 import { Affix, FloatButton } from 'antd';
 import WebSite from '@/components/sidemenu/WebSite';
 import useTypewriter from 'react-typewriter-hook';
-
+import { ArticleList, DataType } from '@/types/comm'
 const Home = (props: any) => {
   // 文章列表
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<DataType[]>([]);
   // 诗词列表
   const [verse, setVerse] = useState<any>();
   // 滚动位置
   const myRef = React.useRef();
   // 获取诗词
   useEffect(() => {
-    props.BlogActions.asyncVerseAction().then((res: any) => {
+    props.BlogActions.asyncVerseAction().then((res: { content: string }) => {
       setVerse(res.content);
     });
   }, [props.BlogActions]);
@@ -41,9 +41,9 @@ const Home = (props: any) => {
   // }, []);
   // 获取文章列表数据
   useEffect(() => {
-    props.BlogActions.asyncArticleAllListAction(1, 1).then((res: any) => {
+    props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
       // 获取文章
-      let { data } = res.data;
+      let { data } = res.data as unknown as ArticleList;
       setList(data);
     });
   }, [props.BlogActions]);
@@ -131,7 +131,7 @@ const Home = (props: any) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     BlogActions: bindActionCreators(BlogActions, dispatch),
   };

@@ -1,3 +1,4 @@
+import { CategoryData } from '@/types/comm';
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
@@ -18,7 +19,7 @@ const User = (props: any) => {
   // 分类数量
   useEffect(() => {
     let articleList = props.data;
-    let newList = articleList.map((item: any) => {
+    let newList = articleList.map((item: CategoryData) => {
       return {
         categories: item.categories,
         _id: item._id,
@@ -51,7 +52,7 @@ const User = (props: any) => {
   useEffect(() => {
     let tagsArticle = props.data;
     // 展开全部标签数据
-    let newTags = tagsArticle.map((item: any) => item.tags);
+    let newTags = tagsArticle.map((item: CategoryData) => item.tags);
     let newArr: any[] = [];
     for (let i = 0; i < newTags.length; i++) {
       newArr.push(...newTags[i]);
@@ -63,7 +64,7 @@ const User = (props: any) => {
     }
     // 转换为数组对象
     let i = 0;
-    let tags = tagsArr.map((tag: any) => {
+    let tags = tagsArr.map((tag: CategoryData) => {
       return {
         name: tag,
         id: i++,

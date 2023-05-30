@@ -1,15 +1,34 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
 import MyPagination from '@/components/pagination';
 import { withRouter, useLocation } from 'react-router-dom';
 import dayjs from 'dayjs';
 import qs from 'qs';
-
+interface DataType {
+  comment: string;
+  createTime: number;
+  isTop: number;
+  introduction: string;
+  title: string;
+  cover: string;
+  _id: any;
+  page: number,
+  pageSize: number,
+  status: number,
+  publishStatus: number,
+  categories: string,
+  tags: string[]
+}
+interface ArticleList {
+  isTop: number;
+  totalCount: number; page: number; pageSize: number;
+  data: DataType[]
+}
 const Content = (props: any) => {
   // 文章列表
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<DataType[]>([]);
   // 分页总数
   const [total, setTotal] = useState(0);
   // 当前第几页
@@ -26,9 +45,9 @@ const Content = (props: any) => {
     Boolean(c) === false ? (category = '') : (category = c);
     Boolean(t) === false ? (tag = '') : (tag = t);
     props.BlogActions.asyncArticleListAction(currentPage, pageSize, 1, 1, category, tag).then(
-      (res: any) => {
+      (res: ArticleList) => {
         // 获取文章
-        let { data, totalCount, page, pageSize } = res.data;
+        let { data, totalCount, page, pageSize } = res.data as unknown as ArticleList;
         setList(data);
         setTotal(totalCount);
         setCurrentPage(page);
@@ -43,7 +62,7 @@ const Content = (props: any) => {
     });
   }, [currentPage, pageSize, props.BlogActions, props.location.search]);
   // 跳转页数
-  const onChangePage = (page: any, pageSize: any) => {
+  const onChangePage = (page: number, pageSize: number) => {
     // 滚动到顶部
     if (myRef.current) {
       // window.scrollTo(0, myRef.current.offsetTop || 0);
@@ -59,9 +78,9 @@ const Content = (props: any) => {
     Boolean(t) === false ? (tag = '') : (tag = t);
     // 重新调用接口将参数传递过去
     props.BlogActions.asyncArticleListAction(page, pageSize, 1, 1, category, tag).then(
-      (res: any) => {
+      (res: ArticleList) => {
         // 获取列表数据
-        let { data } = res.data;
+        let { data } = res.data as unknown as ArticleList;
         setList(data);
         // 切换行
         setCurrentPage(page);
@@ -70,19 +89,19 @@ const Content = (props: any) => {
       }
     );
   };
-  const handleTags = (name: any) => {
+  const handleTags = (name: string) => {
     props.history.push(`/rblog/tags?t=${name}`);
   };
-  const handleCategory = (name: any) => {
+  const handleCategory = (name: string) => {
     props.history.push(`/rblog/category?c=${name}`);
   };
-  const handleArticle = (id: any) => {
+  const handleArticle = (id: string) => {
     props.history.push(`/rblog/article/detail/${id}`);
   };
   return (
     // @ts-ignore
     <div ref={myRef}>
-      {list.map((item: any) => {
+      {list.map((item) => {
         return (
           <div
             className="
@@ -138,7 +157,7 @@ const Content = (props: any) => {
                         <p className="flex items-center sm:hidden">
                           {/* 标签: */}
 
-                          {item.tags.map((it: any, i: any) => {
+                          {item.tags.map((it, i) => {
                             return (
                               <span
                                 className="inline-block w-auto px-2 h-6 text-center leading-6 ml-1 rounded-md bg-base-200 cursor-pointer hover:bg-base-300 hover:transition hover:duration-500"
@@ -181,7 +200,7 @@ const Content = (props: any) => {
     </div>
   );
 };
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     BlogActions: bindActionCreators(BlogActions, dispatch),
   };

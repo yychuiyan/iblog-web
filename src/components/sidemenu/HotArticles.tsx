@@ -1,3 +1,4 @@
+import { CategoryData } from '@/types/comm';
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
@@ -11,7 +12,7 @@ const HotArticles = (props: any) => {
     setList(newHotdata);
   }, [props.data]);
 
-  const handleLastUpdate = (id: any) => {
+  const handleLastUpdate = (id: string) => {
     props.history.push(`/rblog/article/detail/${id}`);
   };
   return (
@@ -22,7 +23,7 @@ const HotArticles = (props: any) => {
       >
         热门文章
       </p>
-      {list.map((item: any) => {
+      {list.map((item: CategoryData) => {
         return (
           <div key={item._id}>
             <span

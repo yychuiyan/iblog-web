@@ -1,15 +1,27 @@
 import { message } from 'antd';
-import axios from 'axios';
+import axios, {
+  InternalAxiosRequestConfig as AxiosRequestConfig,
+  AxiosResponse,
+  AxiosError,
+} from 'axios';
 import store from '@/redux/store';
 import { CHANGE_LOADING } from '@/redux/constants';
+
+interface ErrorResponse {
+  status: number;
+}
+
 // 配置超时时间和跨域携带凭证
-axios.defaults.timeout = 20000;
+axios.defaults.timeout = 200000;
 axios.defaults.withCredentials = true;
+
 // 请求拦截器
 axios.interceptors.request.use(
   // 请求前响应
-  (config: any) => {
-    let token: any = localStorage.getItem('token');
+  (config: AxiosRequestConfig) => {
+    let token: string | null = localStorage.getItem('token');
+    // 如果headers不存在，则创建一个空对象
+    config.headers = config.headers || {};
     // 写到请求头上
     token && (config.headers.Authorization = 'Bearer ' + token);
     // 发送dispatch请求修改loading状态
@@ -19,15 +31,15 @@ axios.interceptors.request.use(
     });
     return config;
   },
-  error => Promise.reject(error)
+  (error: AxiosError) => Promise.reject(error)
 );
 
 // 响应拦截器
-axios.defaults.validateStatus = (status: any) => /^(2|3)\d{2}$/.test(status);
+axios.defaults.validateStatus = (status: number) => /^(2|3)\d{2}$/.test(status.toString());
 
 axios.interceptors.response.use(
   // 隐藏loading
-  response => {
+  (response: AxiosResponse) => {
     // 发送dispatch请求修改loading状态
     store.dispatch({
       type: CHANGE_LOADING,
@@ -35,7 +47,7 @@ axios.interceptors.response.use(
     });
     return response.data;
   },
-  error => {
+  (error: AxiosError<ErrorResponse>) => {
     // 发送dispatch请求修改loading状态
     store.dispatch({
       type: CHANGE_LOADING,

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
+import { CategoryData } from '@/types/comm';
 const Category = (props: any) => {
   const [list, setList] = useState<any>([]);
   useEffect(() => {
     let articleList = props.data;
-    let newList = articleList.map((item: any) => {
+    let newList = articleList.map((item: CategoryData) => {
       return {
         categories: item.categories,
         _id: item._id,
@@ -34,7 +35,7 @@ const Category = (props: any) => {
     setList(newArticles);
   }, [props.data]);
 
-  const handleCategory = (name: any) => {
+  const handleCategory = (name: string) => {
     props.history.push(`/rblog/category?c=${name}`);
   };
   return (
@@ -45,7 +46,7 @@ const Category = (props: any) => {
       >
         分类信息
       </p>
-      {list.map((item: any, index: any) => {
+      {list.map((item: CategoryData, index: number) => {
         return (
           <p
             className="flex justify-between items-center h-8 m-3 px-3 text-base bg-base-200 rounded-lg hover:bg-base-300 hover:transition hover:duration-500 cursor-pointer"

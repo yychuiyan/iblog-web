@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
 import dayjs from 'dayjs';
 import Comment from '../comment';
@@ -23,32 +23,53 @@ import {
   faEye,
 } from '@fortawesome/free-solid-svg-icons';
 import CopyRight from '../copyright';
-
+interface DataType {
+  updateTime: number;
+  views: number;
+  content: string;
+  comment: string;
+  createTime: number;
+  isTop: number;
+  introduction: string;
+  title: string;
+  cover: string;
+  _id: any;
+  page: number,
+  pageSize: number,
+  status: number,
+  publishStatus: number,
+  categories: string,
+  tags: string[]
+}
+interface ArticleList {
+  isTop: number;
+  data: DataType[]
+}
 const ArticleDetail = (props: any) => {
   // 文章列表
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<DataType[]>([]);
   // 全部文章信息
-  const [allData, setAllData] = useState([]);
+  const [allData, setAllData] = useState<DataType[]>([]);
   // 目录展示隐藏
   const [navVisible, setNavVisible] = useState(false);
   // 当前展示的文章数据
-  const [dataFilter, setDataFilter] = useState([]);
+  const [dataFilter, setDataFilter] = useState<DataType[]>([]);
   // 内容
   const [content, setContent] = useState('');
 
   // 获取文章列表数据
   useEffect(() => {
     let articleId = props.match.params.id;
-    props.BlogActions.asyncArticleAllListAction(1, 1).then((res: any) => {
+    props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
       // 获取文章
-      let { data } = res.data;
-      let dataFilter = data.filter((item: any) => item._id === articleId);
+      let { data } = res.data as unknown as ArticleList;
+      let dataFilter = data.filter((item) => item._id === articleId);
       setDataFilter(dataFilter);
       // 获取文章内容
-      let content = dataFilter.map((item: any) => item.content).join('');
+      let content = dataFilter.map((item) => item.content).join('');
       setContent(content);
       // 访问量
-      let view = parseInt(dataFilter.map((item: any) => (item.views = item.views + 1)).join(''));
+      let view = parseInt(dataFilter.map((item) => (item.views = item.views + 1)).join(''));
       props.BlogActions.asyncArticleViewsAction({
         views: view,
         id: articleId,
@@ -66,7 +87,7 @@ const ArticleDetail = (props: any) => {
       style={{ scrollBehavior: 'smooth' }}
     >
       <div className="w-full h-80 lg:h-60 lg:w-full">
-        {list.map((item: any, index: any) => {
+        {list.map((item, index) => {
           return (
             <div key={item._id} style={{ userSelect: 'none' }}>
               <div className="flex justify-center items-center flex-col h-72 sm:h-52 sm:mb-16 ">
@@ -93,7 +114,7 @@ const ArticleDetail = (props: any) => {
       </div>
       <div className="flex flex-row justify-between w-1200 lg:w-full sm:w-full">
         <article className="w-[calc(100%-320px)]  lg:w-full lg:mx-5 sm:w-full sm:mx-0">
-          {list.map((item: any, index: any) => {
+          {list.map((item, index) => {
             return (
               <div key={item._id}>
                 <div className="flex flex-row ">
@@ -101,7 +122,7 @@ const ArticleDetail = (props: any) => {
                   <div className="markdown-body  content lg:w-[calc(100%-38px)] lg:mx-auto">
                     <MarkDown content={item.content} />
 
-                    {dataFilter.map((item: any) => {
+                    {dataFilter.map((item) => {
                       return (
                         <div className="flex items-center relative lg:top-5" key={item._id}>
                           <div
@@ -117,7 +138,7 @@ const ArticleDetail = (props: any) => {
                             </p>
                             <p className="lg:pl-5">
                               <FontAwesomeIcon icon={faTags} />
-                              {item.tags.map((it: any, index: any) => (
+                              {item.tags.map((it, index) => (
                                 <span
                                   className="inline-block w-auto h-6 text-center text-md leading-6 ml-2 px-2  rounded-lg bg-base-200 cursor-pointer  hover:bg-base-300 hover:transition hover:duration-500"
                                   key={index}
@@ -130,8 +151,8 @@ const ArticleDetail = (props: any) => {
                         </div>
                       );
                     })}
-                    <CopyRight content={dataFilter.map((item: any) => item.title).join('')} />
-                    <Comment title={list.map((item: any) => item.title)} />
+                    <CopyRight content={dataFilter.map((item) => item.title).join('')} />
+                    <Comment title={list.map((item) => item.title)} />
                   </div>
                 </div>
               </div>
@@ -216,7 +237,7 @@ const ArticleDetail = (props: any) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     BlogActions: bindActionCreators(BlogActions, dispatch),
   };

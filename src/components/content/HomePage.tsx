@@ -1,15 +1,32 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
 import MyPagination from '@/components/pagination';
-import { withRouter, useLocation } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import dayjs from 'dayjs';
-import qs from 'qs';
-
+interface DataType {
+  comment: string;
+  createTime: number;
+  isTop: number;
+  introduction: string;
+  title: string;
+  cover: string;
+  _id: any;
+  page: number,
+  pageSize: number,
+  status: number,
+  publishStatus: number,
+  categories: string,
+  tags: string[]
+}
+interface ArticleList {
+  isTop: any;
+  data: DataType[]
+}
 const Content = (props: any) => {
   // 文章列表
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<DataType[]>([]);
   // 分页总数
   const [total, setTotal] = useState(0);
   // 当前第几页
@@ -22,9 +39,9 @@ const Content = (props: any) => {
   const myRef = React.useRef();
   // 获取全部数据
   useEffect(() => {
-    props.BlogActions.asyncArticleAllListAction(1, 1).then((res: any) => {
-      let { data } = res.data
-      let topData = data.map((item: any) => {
+    props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
+      let { data } = res.data as unknown as ArticleList;
+      let topData = data.map((item) => {
         return {
           ...item,
           isTop: Number(item.isTop)
@@ -34,20 +51,13 @@ const Content = (props: any) => {
       topData.sort((prev: any, curr: any) => {
         return curr.isTop - prev.isTop
       })
-      // 置顶效果
-      // topData.forEach((item: any, index: any) => {
-      //   if (item.isTop === 1) {
-      //     topData.unshift(topData.splice(index, 1)[0])
-      //   }
-      // })
-
       setTotal(topData.length);
       setList(topData);
 
     });
   }, [props.BlogActions]);
   // 跳转页数
-  const onChangePage = (page: any) => {
+  const onChangePage = (page: number) => {
     // 滚动到顶部
     if (myRef.current) {
       window.scroll({
@@ -81,19 +91,19 @@ const Content = (props: any) => {
       });
     }
   };
-  const handleTags = (name: any) => {
+  const handleTags = (name: string) => {
     props.history.push(`/rblog/tags?t=${name}`);
   };
-  const handleCategory = (name: any) => {
+  const handleCategory = (name: string) => {
     props.history.push(`/rblog/category?c=${name}`);
   };
-  const handleArticle = (id: any) => {
+  const handleArticle = (id: string) => {
     props.history.push(`/rblog/article/detail/${id}`);
   };
   return (
     // @ts-ignore
     <div ref={myRef}>
-      {list.slice(minVal, maxVal).map((item: any) => {
+      {list.slice(minVal, maxVal).map((item: DataType) => {
         return (
           <div
             className="
@@ -153,7 +163,7 @@ const Content = (props: any) => {
                         <p className="flex items-center sm:hidden">
                           {/* 标签: */}
 
-                          {item.tags.map((it: any, i: any) => {
+                          {item.tags.map((it, i) => {
                             return (
                               <span
                                 className="inline-block w-auto px-2 h-6 text-center leading-6 ml-1 rounded-md bg-base-200 cursor-pointer hover:bg-base-300 hover:transition hover:duration-500"
@@ -196,7 +206,7 @@ const Content = (props: any) => {
     </div>
   );
 };
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     BlogActions: bindActionCreators(BlogActions, dispatch),
   };

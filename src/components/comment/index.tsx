@@ -2,17 +2,38 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Card, Form, Input, Button, message, List, Avatar, Row, Col, Modal, Tooltip } from 'antd';
 import { Comment } from '@ant-design/compatible';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
 import MyPagination from '@/components/pagination';
 import { CloudUploadOutlined, CommentOutlined, MessageOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { withRouter } from 'react-router-dom';
-
+interface DataType {
+  _id: string;
+  nickName: string;
+  content: string;
+  children: any;
+  commentTime: string | number | any;
+  pid: string;
+  targetReplayId: string;
+  targetReplayContent: string;
+  currentReplayContent: string;
+  avatar: string;
+  email: string;
+  nickname: string;
+  articleId: string;
+  articleTitle: string;
+}
+interface CommentData {
+  data: DataType[];
+  totalCount: number;
+  page: number;
+  pageSize: number;
+}
 const ArticleComment = (props: any) => {
   // 评论列表数据
-  const [commentList, setCommentList] = useState([]);
+  const [commentList, setCommentList] = useState<DataType[]>([]);
   // 处理后的分层评论列表
   const [list, setList] = useState([]);
   // 回复的文本对象信息
@@ -42,13 +63,13 @@ const ArticleComment = (props: any) => {
     let articleId = props.match.params.id;
     setArticleId(articleId)
     props.BlogActions.asyncArticleCommentsAction(currentPage, pageSize, articleId).then(
-      (res: any) => {
+      (res: CommentData) => {
         // 获取评论数据
-        let { data, totalCount, page, pageSize } = res.data;
+        let { data, totalCount, page, pageSize } = res.data as unknown as CommentData;
         // 时间格式化
-        data.map((item: any) => {
+        data.map((item) => {
           item.commentTime = dayjs(item.commentTime * 1000).format('YYYY-MM-DD HH:mm:ss');
-          item.children.map((it: any) => {
+          item.children.map((it: { commentTime: string | number | any; }) => {
             it.commentTime = dayjs(it.commentTime * 1000).format('YYYY-MM-DD HH:mm:ss');
           });
         });
@@ -61,7 +82,7 @@ const ArticleComment = (props: any) => {
   }, [currentPage, pageSize, props.BlogActions, props.title]);
 
   // 提交评论数据
-  const onFinish = (values: any) => {
+  const onFinish = (values: DataType) => {
     props.BlogActions.asyncArticleCommentInsertAction({
       pid: replyObj.pid,
       targetReplayId: replyObj._id || '-1',
@@ -72,7 +93,7 @@ const ArticleComment = (props: any) => {
       nickName: values.nickname,
       articleId: articleId,
       articleTitle: articleTitle,
-    }).then((res: any) => {
+    }).then(() => {
       setTimeout(() => {
         message.success('评论成功!');
         if (type === 1) {
@@ -84,13 +105,13 @@ const ArticleComment = (props: any) => {
         }
         // 重新调用查询接口
         props.BlogActions.asyncArticleCommentsAction(currentPage, pageSize, articleId).then(
-          (res: any) => {
+          (res: CommentData) => {
             // 获取评论数据
-            let { data, totalCount, page, pageSize } = res.data;
+            let { data, totalCount, page, pageSize } = res.data as unknown as CommentData;
             // 时间格式化
-            data.map((item: any) => {
+            data.map((item) => {
               item.commentTime = dayjs(item.commentTime * 1000).format('YYYY-MM-DD HH:mm:ss');
-              item.children.map((it: any) => {
+              item.children.map((it: { commentTime: string | number | any; }) => {
                 it.commentTime = dayjs(it.commentTime * 1000).format('YYYY-MM-DD HH:mm:ss');
               });
             });
@@ -124,7 +145,7 @@ const ArticleComment = (props: any) => {
     }
   };
   // 提交回复
-  const onFinishReply = (values: any) => {
+  const onFinishReply = (values: DataType) => {
     setType(2);
     props.BlogActions.asyncArticleCommentInsertAction({
       pid: replyObj.pid === '-1' ? replyObj._id : replyObj.pid,
@@ -137,7 +158,7 @@ const ArticleComment = (props: any) => {
       nickName: values.nickname,
       articleId: articleId,
       articleTitle: articleTitle,
-    }).then((res: any) => {
+    }).then(() => {
       setTimeout(() => {
         message.success('评论回复成功!');
         if (type === 1) {
@@ -149,13 +170,13 @@ const ArticleComment = (props: any) => {
         }
         // 重新调用查询接口
         props.BlogActions.asyncArticleCommentsAction(currentPage, pageSize, articleId).then(
-          (res: any) => {
+          (res: CommentData) => {
             // 获取评论数据
-            let { data, totalCount, page, pageSize } = res.data;
+            let { data, totalCount, page, pageSize } = res.data as unknown as CommentData;
             // 时间格式化
-            data.map((item: any) => {
+            data.map((item) => {
               item.commentTime = dayjs(item.commentTime * 1000).format('YYYY-MM-DD HH:mm:ss');
-              item.children.map((it: any) => {
+              item.children.map((it: { commentTime: string | number | any; }) => {
                 it.commentTime = dayjs(it.commentTime * 1000).format('YYYY-MM-DD HH:mm:ss');
               });
             });
@@ -201,20 +222,20 @@ const ArticleComment = (props: any) => {
       };
     });
     // 时间格式化
-    newMessage.map((item: any) => {
+    newMessage.map((item: DataType) => {
       item.commentTime = dayjs(item.commentTime * 1000).format('YYYY-MM-DD HH:mm:ss');
-      item.children.map((it: any) => {
+      item.children.map((it: { commentTime: string | number | any; }) => {
         it.commentTime = dayjs(it.commentTime * 1000).format('YYYY-MM-DD HH:mm:ss');
       });
     });
     setList(newMessage);
   };
   // 跳转页数
-  const onChangePage = (page: any, pageSize: any) => {
+  const onChangePage = (page: number, pageSize: number) => {
     // 重新调用接口将参数传递过去
-    props.BlogActions.asyncArticleCommentsAction(page, pageSize, articleId).then((res: any) => {
+    props.BlogActions.asyncArticleCommentsAction(page, pageSize, articleId).then((res: CommentData) => {
       // 获取评论数据
-      let { data, totalCount, page, pageSize } = res.data;
+      let { data, totalCount, page, pageSize } = res.data as unknown as CommentData;
       setCommentList(data);
       setTotal(totalCount);
       setCurrentPage(page);
@@ -312,7 +333,7 @@ const ArticleComment = (props: any) => {
               <List
                 itemLayout="horizontal"
                 dataSource={commentList}
-                renderItem={(item: any, index: any) => (
+                renderItem={(item, index) => (
                   <List.Item actions={[]} key={index}>
                     <List.Item.Meta
                       avatar={
@@ -329,7 +350,7 @@ const ArticleComment = (props: any) => {
                               dangerouslySetInnerHTML={{
                                 __html: item.currentReplayContent.replace(
                                   /((http|https):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|])/g,
-                                  ($url: any) => {
+                                  ($url) => {
                                     return (
                                       "<a href='" + $url + "' target='_blank'>" + $url + '</a>'
                                     );
@@ -392,7 +413,7 @@ const ArticleComment = (props: any) => {
                                         dangerouslySetInnerHTML={{
                                           __html: innerItem.currentReplayContent.replace(
                                             /((http|https):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|])/g,
-                                            ($url: any) => {
+                                            ($url: string) => {
                                               return (
                                                 "<a href='" +
                                                 $url +
@@ -529,7 +550,7 @@ const ArticleComment = (props: any) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     BlogActions: bindActionCreators(BlogActions, dispatch),
   };

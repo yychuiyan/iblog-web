@@ -1,15 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
 import dayjs from 'dayjs';
 import PageDesc from '@/components/sidemenu/PageDesc';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Image } from 'antd';
 import MarkDown from '@/components/markdown/MarkDownEssay';
+interface CoverData {
+  thumbUrl: string | undefined;
+}
+interface DataType {
+  createTime: number;
+  updateTime: string;
+  content: string;
+  cover?: any;
+  _id: string;
+}
+interface EssayData {
+  data: DataType[];
+  totalCount: number; page: number; pageSize: number;
+}
 const Essay = (props: any) => {
   // 随笔列表
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<DataType[]>([]);
   // 分页随笔列表数据
   const [essayList, setEssayList] = useState<any>({});
   // 分页总数
@@ -38,12 +52,10 @@ const Essay = (props: any) => {
   useEffect(() => {
     setHashMore(true);
     setCurrentPage(1);
-    props.BlogActions.asyncEssayListAction(currentPage, pageSize, '').then((res: any) => {
+    props.BlogActions.asyncEssayListAction(currentPage, pageSize, '').then((res: EssayData) => {
       // 获取随笔
-      let { data, totalCount, page, pageSize } = res.data;
-      console.log("data", data);
-      let newData = data.map((item: any) => {
-        // return {
+      let { data, totalCount, page, pageSize } = res.data as unknown as EssayData;
+      let newData = data.map((item) => {
         if (Boolean(item.cover)) {
           return {
             createTime: item.createTime,
@@ -81,10 +93,10 @@ const Essay = (props: any) => {
       if (hasMore) {
         let i = 1;
         setCurrentPage((currentPage += i));
-        props.BlogActions.asyncEssayListAction(currentPage, pageSize, '').then((res: any) => {
+        props.BlogActions.asyncEssayListAction(currentPage, pageSize, '').then((res: EssayData) => {
           // 获取随笔
-          let { data } = res.data;
-          let newData = data.map((item: any) => {
+          let { data } = res.data as unknown as EssayData;
+          let newData = data.map((item) => {
             // return {
             if (Boolean(item.cover)) {
               return {
@@ -131,7 +143,7 @@ const Essay = (props: any) => {
           // 加载结束提示信息
           endMessage={<div className="divider text-xl mt-10">我也是有底线的~</div>}
         >
-          {list.map((item: any, index: any) => {
+          {list.map((item, index) => {
             return (
               <div
                 className="relative left-16 h-auto pt-3
@@ -158,7 +170,7 @@ const Essay = (props: any) => {
                     {item.cover !== undefined ? (
                       <div className="ml-2 flex flex-row flex-wrap">
                         {
-                          item.cover.map((cover: any) => <Image src={cover.thumbUrl} width={190} height={180} style={{ marginRight: '5px' }} />)
+                          item.cover.map((cover: CoverData) => <Image src={cover.thumbUrl} width={190} height={180} style={{ marginRight: '5px' }} />)
                         }
                       </div>
                     ) : (
@@ -178,7 +190,7 @@ const Essay = (props: any) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     BlogActions: bindActionCreators(BlogActions, dispatch),
   };

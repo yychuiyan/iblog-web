@@ -15,7 +15,7 @@ const CopyRight = (props: any) => {
   const handleJump = () => {
     window.open('https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh')
   }
-  const handleJumpDetail = (link: any) => {
+  const handleJumpDetail = (link: string) => {
     window.open(link)
   }
   return (

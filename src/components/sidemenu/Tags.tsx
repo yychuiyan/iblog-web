@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import qs from 'qs';
+import { CategoryData } from '@/types/comm';
 const Category = (props: any) => {
   const [list, setList] = useState<any>([]);
   const { t } = qs.parse(props.location.search.slice(1));
@@ -9,7 +10,7 @@ const Category = (props: any) => {
   useEffect(() => {
     let tagsArticle = props.data;
     // 展开全部标签数据
-    let newTags = tagsArticle.map((item: any) => item.tags);
+    let newTags = tagsArticle.map((item: CategoryData) => item.tags);
     let newArr: any[] = [];
     for (let i = 0; i < newTags.length; i++) {
       newArr.push(...newTags[i]);
@@ -21,7 +22,7 @@ const Category = (props: any) => {
     }
     // 转换为数组对象
     let i = 0;
-    let tags = tagsArr.map((tag: any) => {
+    let tags = tagsArr.map((tag: CategoryData) => {
       return {
         name: tag,
         id: i++,
@@ -31,7 +32,7 @@ const Category = (props: any) => {
     setList(tags);
   }, [props.data]);
 
-  const handleTags = (name: any) => {
+  const handleTags = (name: string) => {
     props.history.push(`/rblog/tags?t=${name}`);
   };
   return (
@@ -48,7 +49,7 @@ const Category = (props: any) => {
         全部标签
       </p>
       <div className='max-h-[24.5rem] w-[320px] overflow-auto'>
-        {list.map((item: any) => {
+        {list.map((item: CategoryData) => {
           return (
             <span
               className={`inline-block my-2  px-2 text-ls  rounded-lg   cursor-pointer

@@ -9,7 +9,7 @@ const CodeCopyBtn = (props: any) => {
   // 语言
   useEffect(() => {
     let { children } = props
-    let language = children.map((item: any) => item.props.className).join('').slice(9)
+    let language = children.map((item: { props: { className: string; }; }) => item.props.className).join('').slice(9)
     setLanguage(language)
 
   }, [])
@@ -17,7 +17,7 @@ const CodeCopyBtn = (props: any) => {
     let status = props.status
     setCopyShow(status)
   }, [props.status])
-  const handleClick = (e: any) => {
+  const handleClick = () => {
     navigator.clipboard.writeText(props.children[0].props.children[0]);
     setCopyContent('复制成功!')
     setTimeout(() => {

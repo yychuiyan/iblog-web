@@ -1,3 +1,4 @@
+import { CategoryData } from '@/types/comm';
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ const LastUpdate = (props: any) => {
     let newLastUpdate = lastUpdateData.slice(0, 6);
     setLastData(newLastUpdate);
   }, [props.data]);
-  const handleLastUpdate = (id: any) => {
+  const handleLastUpdate = (id: string) => {
     props.history.push(`/rblog/article/detail/${id}`);
   };
   return (
@@ -21,7 +22,7 @@ const LastUpdate = (props: any) => {
       >
         最近更新
       </p>
-      {lastData.map((item: any) => {
+      {lastData.map((item: CategoryData) => {
         return (
           <div key={item._id}>
             <span
