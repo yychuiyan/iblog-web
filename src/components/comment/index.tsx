@@ -59,6 +59,7 @@ const ArticleComment = (props: any) => {
   dayjs.extend(relativeTime);
   // 获取文章标题
   let articleTitle = props.title.join('');
+  console.log("props", props);
   useEffect(() => {
     let articleId = props.match.params.id;
     setArticleId(articleId)
@@ -123,7 +124,7 @@ const ArticleComment = (props: any) => {
         // 邮件提醒
         let email = "haoju.zhang@outlook.com"
         let title = `【${articleTitle}】收到来自${values.nickname}<${values.email}>的评论`
-        let content = `<div><p>${values.content}</p><p><a href="https://yychuiyan.com/rblog/message" target="_blank">查看详情</a></p></div>`
+        let content = `<div><p>${values.content}</p><p><a href="https://yychuiyan.com/rblog/article/detail/${articleId}" target="_blank">查看详情</a></p></div>`
         props.BlogActions.asyncSendMailAction(email, title, content);
       }, 500);
     });
@@ -191,7 +192,7 @@ const ArticleComment = (props: any) => {
         let email = replyObj.email
         let title = `【${articleTitle}】收到来自${values.nickname}的回复`
         //@ts-ignore
-        let content = `<div><p><b>${values.nickname}</b>在文章【<b>${articleTitle}</b>】中回复了你的评论内容：<q><cite>${replyObj.currentReplayContent}</cite></q></p><hr><p>${values.content}</p><p><a href="https://yychuiyan.com/rblog/message" target="_blank">查看详情</a></p></p></div>`
+        let content = `<div><p><b>${values.nickname}</b>在文章【<b>${articleTitle}</b>】中回复了你的评论内容：<q><cite>${replyObj.currentReplayContent}</cite></q></p><hr><p>${values.content}</p><p><a href="https://yychuiyan.com/rblog/article/detail/${articleId}"" target="_blank">查看详情</a></p></p></div>`
         props.BlogActions.asyncSendMailAction(email, title, content);
       }, 500);
     });
