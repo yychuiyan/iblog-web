@@ -41,6 +41,7 @@ const Content = (props: any) => {
   useEffect(() => {
     props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
       let { data } = res.data as unknown as ArticleList;
+
       let topData = data.map((item) => {
         return {
           ...item,

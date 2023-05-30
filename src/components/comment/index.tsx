@@ -59,7 +59,6 @@ const ArticleComment = (props: any) => {
   dayjs.extend(relativeTime);
   // 获取文章标题
   let articleTitle = props.title.join('');
-  console.log("props", props);
   useEffect(() => {
     let articleId = props.match.params.id;
     setArticleId(articleId)
