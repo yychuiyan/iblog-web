@@ -487,7 +487,7 @@ const NavBar = (props: any) => {
           />
           <div
             className={`${searchVal !== '' ? 'block' : 'hidden'
-              } mt-2 py-2 rounded-lg px-4 font-medium border border-solid min-h-96 overflow-auto`}
+              } mt-2 py-2 rounded-lg px-4 font-medium border border-solid max-h-96 overflow-auto`}
           >
             <Spin size="large" spinning={props.isLoading}>
               {list.length > 0 ? (
@@ -495,7 +495,7 @@ const NavBar = (props: any) => {
                   return (
                     <div
                       key={item._id}
-                      className="hover:bg-base-300 hover:transition hover:duration-500 rounded-lg p-2 cursor-pointer"
+                      className="hover:bg-base-300 hover:transition hover:duration-500 rounded-lg p-2 cursor-pointer "
                       onClick={() => handleSearchData(item._id)}
                     >
                       {item.title}
