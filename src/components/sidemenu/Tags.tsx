@@ -48,7 +48,7 @@ const Category = (props: any) => {
       >
         全部标签
       </p>
-      <div className='max-h-[24.5rem] w-[calc(100%-10px)] overflow-auto'>
+      <div className='max-h-[24.5rem] w-[calc(100%+10px)] overflow-auto'>
         {list.map((item: CategoryData) => {
           return (
             <span

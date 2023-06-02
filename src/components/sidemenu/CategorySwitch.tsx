@@ -61,7 +61,7 @@ const CategorySwitch = (props: any) => {
       >
         分类信息
       </p>
-      <div className='w-[calc(100%-10px)] h-96 overflow-auto'>
+      <div className='w-[calc(100%+10px)] h-96 overflow-auto'>
         {categoryList.map((item: CategoryData, index: number) => {
           return (
             <p
