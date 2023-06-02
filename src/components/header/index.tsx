@@ -249,7 +249,8 @@ const NavBar = (props: any) => {
   };
   const onChangeSearch = () => {
     // 获取输入框中值
-    let searchVals = inputRef.current?.input?.value;
+    let searchValData = inputRef.current?.input?.value;
+    let searchVals = searchValData?.replace(/\\/g, "");
     setSearchVal(searchVals);
     // 获取文章列表数据
     setTimeout(() => {
