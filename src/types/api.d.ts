@@ -43,6 +43,11 @@ interface MessageAdd {
   email: string;
   nickName: string;
 }
+interface SendMail {
+  email: string;
+  subject: string;
+  html: string;
+}
 export interface Api {
   getArticleList(
     page: number,
@@ -63,5 +68,5 @@ export interface Api {
   getFriendlyList(): Promise<ApiResponse>;
   getAboutList(checked: boolean): Promise<ApiResponse>;
   getVerse(): Promise<ApiResponse>;
-  sendMail(emial: string, subject: string, html: string): Promise<ApiResponse>;
+  sendMail(params: SendMail): Promise<ApiResponse>;
 }

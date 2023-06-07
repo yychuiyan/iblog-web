@@ -1,5 +1,5 @@
 import axios from '@/utils/http';
-import { Api, ArticleViews, CommentAdd, MessageAdd } from '@/types/api';
+import { Api, ArticleViews, CommentAdd, MessageAdd, SendMail } from '@/types/api';
 // 接口请求
 const api: Api = {
   // 文章列表分页
@@ -66,8 +66,8 @@ const api: Api = {
     return axios.get(`/all.json`);
   },
   // 发送邮件
-  sendMail(emial: string, subject: string, html: string) {
-    return axios.get(`/iblog/sendmail?email=${emial}&&subject=${subject}&&html=${html}`);
+  sendMail(params: SendMail) {
+    return axios.post(`/iblog/sendmail`, params);
   },
 };
 export default api;

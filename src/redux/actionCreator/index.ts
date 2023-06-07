@@ -15,7 +15,7 @@ import {
   GET_VERSE,
   SEND_MAIL,
 } from '@/redux/constants';
-import { ArticleViews, CommentAdd, MessageAdd } from '@/types/api';
+import { ArticleViews, CommentAdd, MessageAdd, SendMail } from '@/types/api';
 import { useState } from 'react';
 import { Dispatch } from 'redux';
 // 文章列表
@@ -173,9 +173,9 @@ export const asyncVerseAction = () => {
   };
 };
 // 邮件提醒
-export const asyncSendMailAction = (emial: string, subject: string, html: string) => {
+export const asyncSendMailAction = (parmas: SendMail) => {
   return async (dispatch: Dispatch) => {
-    const res = await api.sendMail(emial, subject, html);
+    const res = await api.sendMail(parmas);
     dispatch({
       type: SEND_MAIL,
       mail: res,

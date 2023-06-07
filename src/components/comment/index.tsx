@@ -95,7 +95,7 @@ const ArticleComment = (props: any) => {
       articleTitle: articleTitle,
     }).then(() => {
       setTimeout(() => {
-        message.success('评论成功!');
+        message.success('评论成功~');
         if (type === 1) {
           form.resetFields();
         }
@@ -122,9 +122,14 @@ const ArticleComment = (props: any) => {
           });
         // 邮件提醒
         let email = "haoju.zhang@outlook.com"
-        let title = `【${articleTitle}】收到来自${values.nickname}<${values.email}>的评论`
-        let content = `<div><p>${values.content}</p><p><a href="https://yychuiyan.com/rblog/article/detail/${articleId}" target="_blank">查看详情</a></p></div>`
-        props.BlogActions.asyncSendMailAction(email, title, content);
+        let title = `您的文章【${articleTitle}】收到来自${values.nickname}<${values.email}>的评论`
+        let content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上的文章《${articleTitle}》收到新的评论</p><hr /><span style="color: cadetblue">${values.nickname}:</span><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/rblog/article/detail/${articleId}"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
+        let newContent = content.split('\n').join('\n<br/>\n')
+        props.BlogActions.asyncSendMailAction({
+          email,
+          subject: title,
+          html: newContent
+        });
       }, 500);
     });
   };
@@ -160,7 +165,7 @@ const ArticleComment = (props: any) => {
       articleTitle: articleTitle,
     }).then(() => {
       setTimeout(() => {
-        message.success('评论回复成功!');
+        message.success('评论回复成功~');
         if (type === 1) {
           form.resetFields();
         }
@@ -189,10 +194,15 @@ const ArticleComment = (props: any) => {
         // 邮件提醒
         //@ts-ignore
         let email = replyObj.email
-        let title = `【${articleTitle}】收到来自${values.nickname}的回复`
+        let title = `您在夜雨炊烟小站文章《${articleTitle}》的评论收到了回复`
         //@ts-ignore
-        let content = `<div><p><b>${values.nickname}</b>在文章【<b>${articleTitle}</b>】中回复了你的评论内容：<q><cite>${replyObj.currentReplayContent}</cite></q></p><hr><p>${values.content}</p><p><a href="https://yychuiyan.com/rblog/article/detail/${articleId}"" target="_blank">查看详情</a></p></p></div>`
-        props.BlogActions.asyncSendMailAction(email, title, content);
+        let content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上的文章《${articleTitle}》的评论：</p><hr /><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${replyObj.currentReplayContent}</span></p>收到<span style="color: cadetblue;padding-right:2px;">${values.nickname}</span>的回复:<p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/rblog/article/detail/${articleId}"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
+        let newContent = content.split('\n').join('\n<br/>\n')
+        props.BlogActions.asyncSendMailAction({
+          email,
+          subject: title,
+          html: newContent
+        });
       }, 500);
     });
     // 关闭窗口
