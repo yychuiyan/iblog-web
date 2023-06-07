@@ -29,6 +29,10 @@ svg {
   --color-copy-default: #fcfcfc;
   --color-scroll-default: #838383;
   --color-error-default: #8e9097;
+  --bgcolor-navbar-hover:#00CC00;
+  --bgcolor-navbar-click:#33CC33;
+  --bgcolor-navbar-default:#fff;
+  --color-font-color:#fff;
 }
 [data-theme='night'] {
   --color-default: #4b505c;
@@ -55,6 +59,7 @@ svg {
   --color-placeholder-default: #ebebeb;
   --color-scroll-default: #305261;
   --color-error-default: #8e9097;
+  --color-navbar-default:#ed974f;
   color: #ebebeb;
 }
 body {
@@ -70,6 +75,11 @@ body {
   background-color: var(--color-error-default);
   background-color: var(--color-submit-default);
   background-color: var(--color-btn-default);
+  background-color: var(--color-navbar-default);
+  background-color: var(--bgcolor-navbar-default);
+  background-color: var(--bgcolor-navbar-click);
+  background-color: var(--bgcolor-navbar-hover);
+  background-color: var(--color-font-color);
 }
 
 /* 分页的效果 */

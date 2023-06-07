@@ -170,7 +170,7 @@ const NavBar = (props: any) => {
           <div
             key={item.path}
             tabIndex={0}
-            className="dropdown dropdown-end text-xl font-medium flex cursor-pointer ml-3"
+            className="dropdown dropdown-end text-xl font-medium flex cursor-pointer ml-4"
           >
             <span>{item.title}</span>
             <div>
@@ -184,11 +184,11 @@ const NavBar = (props: any) => {
               </svg>
             </div>
             {/* 下拉显示 */}
-            <div className="dropdown-content bg-base-100  shadow-2xl  rounded-t-box rounded-b-box top-px w-32 overflow-y-auto mt-12">
-              <div tabIndex={0} className="bg-base-100">
+            <div className="dropdown-content bg-base-100 shadow-2xl  rounded-t-box rounded-b-box top-px w-28 overflow-y-auto mt-12">
+              <div tabIndex={0} className="bg-base-100 -ml-2">
                 <li
                   key={item.children.path}
-                  className="flex flex-col items-center cursor-pointer rounded-xl text-xl font-medium"
+                  className="flex flex-col items-center justify-center cursor-pointer rounded-xl text-base font-medium"
                 >
                   {renderMenu(item.children)}
                 </li>
@@ -203,8 +203,8 @@ const NavBar = (props: any) => {
           <ul className={`flex items-center font-medium text-xl list-none h-16`}>
             <li
               className={`px-5 cursor-pointer  ${selectKeys === item.path
-                ? 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl ring-1  ring-current'
-                : 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl hover:ring-1 hover:transition hover:duration-300 ring-current '
+                ? 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl text-[var(--color-font-color)] bg-[var(--bgcolor-navbar-click)]'
+                : 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl hover:bg-[var(--bgcolor-navbar-hover)] hover:text-[var(--color-font-color)] hover:transition hover:duration-300 ring-current '
                 }`}
               onClick={() => handleRouter(item.path)}
             >
@@ -280,8 +280,8 @@ const NavBar = (props: any) => {
 
   return (
     <nav
-      className={`shadow-sm  w-full backdrop-blur-none bg-base-100  h-16 z-50 fixed top-0
-      ${isShow ? 'fixed -top-16' : 'fixed top-0'}
+      className={`shadow-sm  w-full backdrop-blur-none bg-[var(--bgcolor-navbar-default)]  h-16 z-50 fixed -top-16
+      ${isShow ? 'fixed -top-16 transform duration-300 ease-in' : 'fixed top-0 transform duration-300 ease-in'}
         `}
     >
       <div className="flex justify-between h-16">
@@ -294,8 +294,9 @@ const NavBar = (props: any) => {
               <FontAwesomeIcon icon={faBars} size="xl" />
             </div>
           </div>
-          <div className="flex items-center cursor-pointer" onClick={handleHomeRouter}>
-            <span className="text-xl ml-2 lg:hidden lg:text-base lg:ml-2 lg:z-50">夜雨炊烟</span>
+          <div className="rainbow-text flex items-center cursor-pointer" onClick={handleHomeRouter}>
+
+            <span className="text text-xl ml-2 lg:hidden lg:text-base lg:ml-2 lg:z-50">夜雨炊烟</span>
           </div>
         </div>
         {/* 中间导航栏 */}
