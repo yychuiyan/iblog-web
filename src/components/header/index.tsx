@@ -280,7 +280,7 @@ const NavBar = (props: any) => {
 
   return (
     <nav
-      className={`shadow-sm  w-full backdrop-blur-none bg-[var(--bgcolor-navbar-default)]  h-16 z-50 fixed -top-16
+      className={`shadow-sm  w-full backdrop-blur-none bg-[var(--bgcolor-navbar-default)]  h-16 z-50 fixed top-0
       ${isShow ? 'fixed -top-16 transform duration-300 ease-in' : 'fixed top-0 transform duration-300 ease-in'}
         `}
     >
