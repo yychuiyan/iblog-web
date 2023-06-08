@@ -71,7 +71,9 @@ const NavBar = (props: any) => {
   // 背景图片
   const [mode, setMode] = useState<any>();
   // 导航栏滚动显示隐藏
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState(true);
+  // 选中状态
+  const [isChecked, setIsChecked] = useState(false);
   useEffect(() => {
     // 监听
     window.addEventListener('scroll', handleScroll);
@@ -143,6 +145,7 @@ const NavBar = (props: any) => {
   // 背景图片
   useEffect(() => {
     props.BlogActions.asyncModeAction(Number(localStorage.getItem('localmode')));
+    setIsChecked(Boolean(Number(localStorage.getItem('localmode'))))
   }, []);
   // 页面可视化宽度
   let setPageHeight = () => {
@@ -172,10 +175,10 @@ const NavBar = (props: any) => {
             tabIndex={0}
             className="dropdown dropdown-end text-xl font-medium flex cursor-pointer ml-4"
           >
-            <span>{item.title}</span>
+            <span className="text-[var(--color-font-color)]">{item.title}</span>
             <div>
               <svg
-                className="fill-current"
+                className="fill-current text-[var(--color-font-color)]"
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
                 height="20"
@@ -200,11 +203,13 @@ const NavBar = (props: any) => {
       // 如果没有 正常渲染列表 添加点击事件进行路由跳转
       return (
         <div onClick={handleCancel} key={item.path}>
-          <ul className={`flex items-center font-medium text-xl list-none h-16`}>
+          <ul
+            className={`flex items-center font-medium text-xl text-[var(--color-font-color)] list-none h-16`}
+          >
             <li
               className={`px-5 cursor-pointer  ${selectKeys === item.path
-                ? 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl text-[var(--color-font-color)] bg-[var(--bgcolor-navbar-click)]'
-                : 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl hover:bg-[var(--bgcolor-navbar-hover)] hover:text-[var(--color-font-color)] hover:transition hover:duration-300 ring-current '
+                ? 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl text-[var(--bgcolor-navbar-default)] bg-[var(--bgcolor-navbar-click)]'
+                : 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl hover:bg-[var(--bgcolor-navbar-hover)] hover:text-[var(--bgcolor-navbar-default)] hover:transition hover:duration-300 ring-current '
                 }`}
               onClick={() => handleRouter(item.path)}
             >
@@ -274,6 +279,8 @@ const NavBar = (props: any) => {
   };
   // 背景图片显示
   const handleChangeImage = (i: number | string | any) => {
+    console.log("点击", !isChecked);
+    setIsChecked(!isChecked)
     localStorage.setItem('localmode', i);
     props.BlogActions.asyncModeAction(Number(localStorage.getItem('localmode')));
   };
@@ -281,7 +288,11 @@ const NavBar = (props: any) => {
   return (
     <nav
       className={`shadow-sm  w-full backdrop-blur-none bg-[var(--bgcolor-navbar-default)]  h-16 z-50 fixed top-0
-      ${isShow ? 'fixed -top-16 transform duration-300 ease-in' : 'fixed top-0 transform duration-300 ease-in'}
+      ${
+        isShow
+          ? 'fixed -top-16 transform duration-300 ease-in'
+          : 'fixed top-0 transform duration-300 ease-in'
+      }
         `}
     >
       <div className="flex justify-between h-16">
@@ -295,21 +306,22 @@ const NavBar = (props: any) => {
             </div>
           </div>
           <div className="rainbow-text flex items-center cursor-pointer" onClick={handleHomeRouter}>
-
-            <span className="text text-xl ml-2 lg:hidden lg:text-base lg:ml-2 lg:z-50">夜雨炊烟</span>
+            <span className="text text-xl ml-2 lg:hidden lg:text-base lg:ml-2 lg:z-50">
+              夜雨炊烟
+            </span>
           </div>
         </div>
         {/* 中间导航栏 */}
         <div className="flex items-center">
           {/* pc */}
           <div
-            className="flex items-center w-52 h-8 rounded-xl border-[1px] border-solid bg-base-100  cursor-pointer
+            className="flex items-center w-48 h-8 rounded-xl border-[1px] border-solid border-[var(--bgcolor-navbar-hover)] bg-base-100  cursor-pointer
             lg:hidden
             "
             onClick={showModal}
           >
-            <span className="flex items-center bg-base-100 h-full w-full rounded-xl text-xs px-3 ">
-              搜索想要查看的文章内容
+            <span className="flex items-center bg-base-100 text-[var(--border-search-color)] h-full w-full rounded-xl text-xs px-3 ">
+              搜索想要查看的文章
             </span>
           </div>
           {/* 移动 */}
@@ -347,124 +359,32 @@ const NavBar = (props: any) => {
           </div>
         </div>
         {/* 切换主题 */}
-        <div className="dropdown dropdown-end flex items-center">
-          <div className="flex items-center flex-col mr-5 ml-2">
-            {/* <Switcher /> */}
-            <div tabIndex={0} className="flex items-center cursor-pointer">
-              <svg
-                width="20"
-                height="20"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="inline-block h-5 w-5 stroke-current"
+        <div className="h-8 w-16 rounded-3xl bg-base-200 border border-solid border-1 border-[var(--bgcolor-navbar-hover)] relative top-4 right-3" tabIndex={0}>
+          {
+            isChecked ? <button
+              className="rounded-3xl border-none h-8 w-8 absolute left-[0.9rem] bg-[var(--bgcolor-navbar-default)]  translate-x-1/2 transition-all  cursor-pointer"
+              data-set-theme="light"
+              onClick={() => handleChangeImage(0)}
+            >
+
+              {/* <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewBox="0 0 24 24" className="vt-switch-appearance-moon" width={15} height={15}><path d="M12.1,22c-0.3,0-0.6,0-0.9,0c-5.5-0.5-9.5-5.4-9-10.9c0.4-4.8,4.2-8.6,9-9c0.4,0,0.8,0.2,1,0.5c0.2,0.3,0.2,0.8-0.1,1.1c-2,2.7-1.4,6.4,1.3,8.4c2.1,1.6,5,1.6,7.1,0c0.3-0.2,0.7-0.3,1.1-0.1c0.3,0.2,0.5,0.6,0.5,1c-0.2,2.7-1.5,5.1-3.6,6.8C16.6,21.2,14.4,22,12.1,22zM9.3,4.4c-2.9,1-5,3.6-5.2,6.8c-0.4,4.4,2.8,8.3,7.2,8.7c2.1,0.2,4.2-0.4,5.8-1.8c1.1-0.9,1.9-2.1,2.4-3.4c-2.5,0.9-5.3,0.5-7.5-1.1C9.2,11.4,8.1,7.7,9.3,4.4z"></path></svg> */}
+              <svg className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="27119" width="30" height="30"><path d="M565 200.4c25.6 44.6 40.4 96.2 40.4 151.3 0 167.9-136.1 304-304 304-22.9 0-45.2-2.6-66.7-7.4C284.5 760.7 397 839.2 527.8 839.2c177 0 320.5-143.5 320.5-320.5 0-164.4-123.8-299.8-283.3-318.3zM312.9 243.6h-39.2v-39.2c0-10.8-8.8-19.6-19.6-19.6s-19.6 8.8-19.6 19.6v39.2h-39.2c-10.8 0-19.6 8.8-19.6 19.6s8.8 19.6 19.6 19.6h39.2V322c0 10.8 8.8 19.6 19.6 19.6s19.6-8.8 19.6-19.6v-39.2h39.2c10.8 0 19.6-8.8 19.6-19.6s-8.8-19.6-19.6-19.6z" fill="#FFF0C2" p-id="27120"></path><path d="M306.9 245.6h-35.2v-35.2c0-9.7-7.9-17.6-17.6-17.6-9.7 0-17.6 7.9-17.6 17.6v35.2h-35.2c-9.7 0-17.6 7.9-17.6 17.6 0 9.7 7.9 17.6 17.6 17.6h35.2V316c0 9.7 7.9 17.6 17.6 17.6 9.7 0 17.6-7.9 17.6-17.6v-35.2h35.2c9.7 0 17.6-7.9 17.6-17.6 0-9.7-7.9-17.6-17.6-17.6z" fill="#FFC445" p-id="27121"></path><path d="M427.8 475.3h-27.5v-27.5c0-7.6-6.2-13.8-13.8-13.8-7.6 0-13.8 6.2-13.8 13.8v27.5h-27.5c-7.6 0-13.8 6.2-13.8 13.8 0 7.6 6.2 13.8 13.8 13.8h27.5v27.5c0 7.6 6.2 13.8 13.8 13.8 7.6 0 13.8-6.2 13.8-13.8v-27.5h27.5c7.6 0 13.8-6.2 13.8-13.8 0-7.6-6.2-13.8-13.8-13.8z" fill="#FFF0C2" p-id="27122"></path><path d="M423.6 476.7h-24.7V452c0-6.8-5.5-12.4-12.4-12.4-6.8 0-12.4 5.5-12.4 12.4v24.7h-24.7c-6.8 0-12.4 5.5-12.4 12.4 0 6.8 5.5 12.4 12.4 12.4h24.7v24.7c0 6.8 5.5 12.4 12.4 12.4 6.8 0 12.4-5.5 12.4-12.4v-24.7h24.7c6.8 0 12.4-5.5 12.4-12.4 0-6.8-5.5-12.4-12.4-12.4z" fill="#FFC445" p-id="27123"></path><path d="M563.4 223c23.8 41.4 37.5 89.4 37.5 140.6 0 156-126.5 282.5-282.5 282.5-21.3 0-42-2.4-62-6.9 46.3 104.5 150.8 177.4 272.4 177.4 164.5 0 297.9-133.4 297.9-297.9 0-152.7-115.1-278.6-263.3-295.7z" fill="#FFB948" p-id="27124"></path></svg>
+              <div data-theme="light" className="">
+                <div className="flex-grow text-sm font-bold"></div>
+              </div>
+            </button> :
+              <button
+                className="flex items-center justify-center rounded-3xl border-none h-8 w-8 absolute left-[1.04rem] bg-[var(--bgcolor-navbar-default)]  -translate-x-1/2 transition-all  cursor-pointer"
+                data-set-theme="night"
+                onClick={() => handleChangeImage(1)}
               >
-                <path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
-              </svg>
-              <span className="text-lg">主题</span>
-              <div>
-                <svg
-                  className="fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                >
-                  <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                </svg>
-              </div>
-            </div>
-            <div className="dropdown-content  bg-base-100  shadow-2xl  rounded-t-box rounded-b-box top-px w-52 overflow-y-auto mt-16">
-              <div className="grid grid-cols-1 gap-5 p-2" tabIndex={0}>
-                <button
-                  className="outline-base-content overflow-hidden rounded-lg  text-left"
-                  data-set-theme="light"
-                  onClick={() => handleChangeImage(0)}
-                >
-                  <div data-theme="light" className="bg-base-100  w-full cursor-pointer font-sans">
-                    <div className="grid grid-cols-5 grid-rows-3">
-                      <div className="col-span-5 row-span-3 row-start-1 flex gap-2 py-3 px-4 items-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-3 h-3 invisible"
-                        >
-                          <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path>
-                        </svg>{' '}
-                        <div className="flex-grow text-sm font-bold">light</div>{' '}
-                        <div className="flex flex-shrink-0 flex-wrap gap-1 h-full">
-                          <div className="bg-primary w-2 rounded"></div>{' '}
-                          <div className="bg-secondary w-2 rounded"></div>{' '}
-                          <div className="bg-accent w-2 rounded"></div>{' '}
-                          <div className="bg-neutral w-2 rounded"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-                <button
-                  className="outline-base-content overflow-hidden rounded-lg text-left"
-                  data-set-theme="night"
-                  onClick={() => handleChangeImage(1)}
-                >
-                  <div data-theme="night" className="bg-base-100 w-full cursor-pointer font-sans">
-                    <div className="grid grid-cols-5 grid-rows-3">
-                      <div className="col-span-5 row-span-3 row-start-1 flex gap-2 py-3 px-4 items-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-3 h-3 invisible"
-                        >
-                          <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path>
-                        </svg>
-                        <div className="flex-grow text-sm font-bold">night</div>
-                        <div className="flex flex-shrink-0 flex-wrap gap-1 h-full">
-                          <div className="bg-primary w-2 rounded"></div>
-                          <div className="bg-secondary w-2 rounded"></div>
-                          <div className="bg-accent w-2 rounded"></div>
-                          <div className="bg-neutral w-2 rounded"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-                <button
-                  className="outline-base-content overflow-hidden rounded-lg text-left"
-                  data-set-theme="navy"
-                  onClick={() => handleChangeImage(2)}
-                >
-                  <div data-theme="navy" className="bg-base-100  w-full cursor-pointer font-sans">
-                    <div className="grid grid-cols-5 grid-rows-3">
-                      <div className="col-span-5 row-span-3 row-start-1 flex gap-2 py-3 px-4 items-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-3 h-3 invisible"
-                        >
-                          <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path>
-                        </svg>
-                        <div className="flex-grow text-sm font-bold">navy</div>
-                        <div className="flex flex-shrink-0 flex-wrap gap-1 h-full">
-                          <div className="bg-primary w-2 rounded"></div>
-                          <div className="bg-secondary w-2 rounded"></div>
-                          <div className="bg-accent w-2 rounded"></div>
-                          <div className="bg-neutral w-2 rounded"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
+                {/* <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewBox="0 0 24 24" className="vt-switch-appearance-sun" width={15} height={15}><path d="M12,18c-3.3,0-6-2.7-6-6s2.7-6,6-6s6,2.7,6,6S15.3,18,12,18zM12,8c-2.2,0-4,1.8-4,4c0,2.2,1.8,4,4,4c2.2,0,4-1.8,4-4C16,9.8,14.2,8,12,8z"></path><path d="M12,4c-0.6,0-1-0.4-1-1V1c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,3.6,12.6,4,12,4z"></path><path d="M12,24c-0.6,0-1-0.4-1-1v-2c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,23.6,12.6,24,12,24z"></path><path d="M5.6,6.6c-0.3,0-0.5-0.1-0.7-0.3L3.5,4.9c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C6.2,6.5,5.9,6.6,5.6,6.6z"></path><path d="M19.8,20.8c-0.3,0-0.5-0.1-0.7-0.3l-1.4-1.4c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C20.3,20.7,20,20.8,19.8,20.8z"></path><path d="M3,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S3.6,13,3,13z"></path><path d="M23,13h-2c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S23.6,13,23,13z"></path><path d="M4.2,20.8c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C4.7,20.7,4.5,20.8,4.2,20.8z"></path><path d="M18.4,6.6c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C18.9,6.5,18.6,6.6,18.4,6.6z"></path></svg> */}
+                <svg className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="24606" width="20" height="20"><path d="M512 0a58.514286 58.514286 0 0 1 58.514286 58.514286v73.142857a58.514286 58.514286 0 1 1-117.028572 0V58.514286a58.514286 58.514286 0 0 1 58.514286-58.514286z m0 833.828571a58.514286 58.514286 0 0 1 58.514286 58.514286v73.142857a58.514286 58.514286 0 1 1-117.028572 0v-73.142857a58.514286 58.514286 0 0 1 58.514286-58.514286z m512-321.828571a58.514286 58.514286 0 0 1-58.514286 58.514286h-73.142857a58.514286 58.514286 0 1 1 0-117.028572h73.142857a58.514286 58.514286 0 0 1 58.514286 58.514286z m-833.828571 0a58.514286 58.514286 0 0 1-58.514286 58.514286H58.514286a58.514286 58.514286 0 1 1 0-117.028572h73.142857a58.514286 58.514286 0 0 1 58.514286 58.514286z m683.871085-362.042514a58.514286 58.514286 0 0 1 0 82.753828l-51.726628 51.726629a58.514286 58.514286 0 1 1-82.753829-82.753829l51.726629-51.726628a58.514286 58.514286 0 0 1 82.753828 0zM284.437943 739.562057a58.514286 58.514286 0 0 1 0 82.753829l-51.726629 51.726628a58.514286 58.514286 0 1 1-82.753828-82.753828l51.726628-51.726629a58.514286 58.514286 0 0 1 82.753829 0z m589.604571 134.480457a58.514286 58.514286 0 0 1-82.753828 0l-51.726629-51.726628a58.514286 58.514286 0 0 1 82.753829-82.753829l51.726628 51.726629a58.514286 58.514286 0 0 1 0 82.753828zM284.437943 284.437943a58.514286 58.514286 0 0 1-82.753829 0l-51.726628-51.726629a58.514286 58.514286 0 1 1 82.753828-82.753828l51.726629 51.726628a58.514286 58.514286 0 0 1 0 82.753829zM512 731.428571c-121.183086 0-219.428571-98.245486-219.428571-219.428571 0-121.183086 98.245486-219.428571 219.428571-219.428571 121.183086 0 219.428571 98.245486 219.428571 219.428571 0 121.183086-98.245486 219.428571-219.428571 219.428571z" fill="#F7B500" p-id="24607"></path></svg>
+                <div data-theme="night" className="">
+                  <div className="flex-grow text-sm font-bold"></div>
+                </div>
+              </button>
+          }
         </div>
       </div>
       {/* 模态框展示 */}

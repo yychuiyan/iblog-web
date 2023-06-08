@@ -333,9 +333,9 @@ const ArticleComment = (props: any) => {
             </Button>
           </Form.Item>
         </Form>
-        <Row style={{ marginTop: '36px', userSelect: 'none' }} >
+        <Row style={{ marginTop: '36px' }} >
           <Col span={24}>
-            <b style={{ marginBottom: '24px', color: 'var(--color-icon-default)' }}>
+            <b style={{ marginBottom: '24px', color: 'var(--color-icon-default)', userSelect: 'none' }}>
               评论展示&nbsp;
               <CommentOutlined />
             </b>
@@ -347,11 +347,11 @@ const ArticleComment = (props: any) => {
                   <List.Item actions={[]} key={index}>
                     <List.Item.Meta
                       avatar={
-                        <Avatar style={{ backgroundColor: '#1890ff' }}>
+                        <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }}>
                           {item.nickName?.slice(0, 1)?.toUpperCase()}
                         </Avatar>
                       }
-                      title={<b style={{ color: 'var(--color-icon-default)' }}>{item.nickName}</b>}
+                      title={<b style={{ color: 'var(--color-icon-default)', userSelect: 'none' }}>{item.nickName}</b>}
                       description={
                         <>
                           <div className="user_content font-normal lg:w-full">
@@ -382,7 +382,7 @@ const ArticleComment = (props: any) => {
                               justifyContent: 'space-between',
                             }}
                           >
-                            <span className="user_desc">
+                            <span className="user_desc" style={{ userSelect: 'none' }}>
                               用户&nbsp;{item.nickName}&nbsp;&nbsp;发表于&nbsp;
                               {item.commentTime}
                             </span>
@@ -403,7 +403,7 @@ const ArticleComment = (props: any) => {
                                 <Comment
                                   key={innerIndex}
                                   author={
-                                    <span className="replay_title">
+                                    <span className="replay_title" style={{ userSelect: 'none' }}>
                                       {innerItem.targetReplayContent.substring(0, 40) + '···'}
                                     </span>
                                   }
@@ -412,7 +412,7 @@ const ArticleComment = (props: any) => {
                                     // https://img.paulzzh.tech/touhou/random
                                     // https://source.unsplash.com/random
                                     // <Avatar src="https://img.paulzzh.tech/touhou/random"></Avatar>
-                                    <Avatar style={{ backgroundColor: '#1890ff' }}>
+                                    <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }}>
                                       {innerItem.nickName?.slice(0, 1)?.toUpperCase()}
                                     </Avatar>
                                   }
@@ -439,7 +439,7 @@ const ArticleComment = (props: any) => {
                                   }
                                   datetime={
                                     <Tooltip title={item.commentTime}>
-                                      <span>{dayjs(item.commentTime).fromNow()}</span>
+                                      <span style={{ userSelect: 'none' }}>{dayjs(item.commentTime).fromNow()}</span>
                                     </Tooltip>
                                   }
                                   actions={[

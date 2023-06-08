@@ -49,7 +49,7 @@ const Category = (props: any) => {
       {list.map((item: CategoryData, index: number) => {
         return (
           <p
-            className="flex justify-between items-center h-8 m-3 px-3 text-base bg-base-200 rounded-lg hover:bg-base-300 hover:transition hover:duration-500 cursor-pointer"
+            className="flex justify-between items-center h-8 m-3 px-3 text-base bg-base-200 rounded-lg hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500 cursor-pointer"
             key={index}
             onClick={() => handleCategory(item.name)}
           >

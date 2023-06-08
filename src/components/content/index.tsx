@@ -160,7 +160,7 @@ const Content = (props: any) => {
                           {item.tags.map((it, i) => {
                             return (
                               <span
-                                className="inline-block w-auto px-2 h-6 text-center leading-6 ml-1 rounded-md bg-base-200 cursor-pointer hover:bg-base-300 hover:transition hover:duration-500"
+                                className="inline-block w-auto px-2 h-6  text-center leading-6 ml-1 rounded-md  cursor-pointer text-[var(--article-content-tags-font)] bg-[var(--article-content-tags-bgcolor)] hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500"
                                 key={it}
                                 onClick={() => handleTags(it)}
                               >
@@ -174,7 +174,7 @@ const Content = (props: any) => {
                           onClick={() => handleCategory(item.categories)}
                         >
                           分类:
-                          <span className="inline-block w-auto h-6 text-center leading-6 px-2 mx-1 bg-base-200 rounded-md hover:bg-base-300 hover:transition hover:duration-500  cursor-pointer z-11">
+                          <span className="inline-block w-auto h-6 text-center  leading-6 px-2 mx-1 rounded-md text-[var(--article-content-tags-font)] bg-[var(--article-content-tags-bgcolor)] hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500  cursor-pointer z-11">
                             {item.categories}
                           </span>
                         </p>

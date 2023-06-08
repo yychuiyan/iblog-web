@@ -17,7 +17,7 @@ svg {
 }
 
 [data-theme='light'] {
-  --color-default: #fcfcfc;
+  --color-default: #f5f5f5;
   --color-active-default: #e0e0e0;
   --color-canvas-default: #fcfcfc;
   --color-placeholder-default: #838383;
@@ -29,10 +29,22 @@ svg {
   --color-copy-default: #fcfcfc;
   --color-scroll-default: #838383;
   --color-error-default: #8e9097;
-  --bgcolor-navbar-hover:#00CC00;
-  --bgcolor-navbar-click:#33CC33;
-  --bgcolor-navbar-default:#fff;
-  --color-font-color:#fff;
+  --bgcolor-navbar-hover:#344d68;
+  --bgcolor-navbar-click:#0f3460;
+  --bgcolor-navbar-default:#fcfcfc;
+  --color-font-color:#000;
+  --border-modal-color:#222f3e;
+  --border-search-color:#333333;
+  --article-content-default:#666666;
+  --article-content-tags-bgcolor:#f5f5f5;
+  --article-content-tags-bgcolor-hover:#dfe7f0;
+  --article-content-tags-font:#333333;
+  --article-content-tags-bgcolor-hover-font:#333333;
+  --article-content-top:#336699;
+  --bgcolor-social-default:#354b5d;
+  --home-category-color:#f5f5f5;
+  --user-content-color:#dfe7f0;
+  --user-content-font:#333;
 }
 [data-theme='night'] {
   --color-default: #4b505c;
@@ -45,22 +57,23 @@ svg {
   --color-icon-default: #fcfcfc;
   --color-scroll-default: #8e9097;
   --color-error-default: #8e9097;
-  color: #ebebeb;
-}
-[data-theme='navy'] {
-  --color-default: #53637f;
-  --color-active-default: #424f66;
-  --color-canvas-default: #424f66;
-  --color-copy-default: #53637f;
-  --color-submit-default: #424f66;
-  --color-btn-default: #505a70;
-  --color-fd-default: #ebebeb;
-  --color-icon-default: #ebebeb;
-  --color-placeholder-default: #ebebeb;
-  --color-scroll-default: #305261;
-  --color-error-default: #8e9097;
-  --color-navbar-default:#ed974f;
-  color: #ebebeb;
+  --bgcolor-navbar-default:#4b505c;
+  --bgcolor-navbar-hover:#ffcc00;
+  --bgcolor-navbar-click:#ffaa00;
+  --color-font-color:#fcfcfc;
+  --border-modal-color:#ffcc00;
+  --border-search-color:#fcfcfc;
+  --article-content-default:#666666;
+  --article-content-tags-bgcolor:#dfe7f0;
+  --article-content-tags-bgcolor-hover:#ffcc00;
+  --article-content-tags-font:#333333;
+  --article-content-tags-bgcolor-hover-font:#333333;
+  --article-content-top:#ffaa00;
+  --bgcolor-social-default:#e6bd19;
+  --home-category-color:#f5f5f5;
+  --user-content-color:#ffaa00;
+  --user-content-font:#4b505c;
+  color: #fcfcfc;
 }
 body {
   background-color: var(--color-default);
@@ -79,7 +92,31 @@ body {
   background-color: var(--bgcolor-navbar-default);
   background-color: var(--bgcolor-navbar-click);
   background-color: var(--bgcolor-navbar-hover);
+  /* 导航颜色 */
   background-color: var(--color-font-color);
+  /* 社交链接颜色 */
+  background-color: var(--bgcolor-social-default);
+  /* 搜索模态框边框 */
+  background-color: var(--border-modal-color);
+  /* 搜索边框 */
+  background-color: var(--border-search-color);
+  /* 文章内容 */
+  background-color: var(--article-content-default);
+  /* 文章列表标签 */
+  background-color: var(--article-content-tags-bgcolor);
+  /* 文章列表标签文字 */
+  background-color: var(--article-content-tags-font);
+  /* 文章列表标签悬浮 */
+  background-color: var(--article-content-tags-bgcolor-hover);
+  /* 文章列表悬浮后文字 */
+  background-color: var(--article-content-tags-bgcolor-hover-font);
+  /* 置顶颜色 */
+  background-color: var(--article-content-top);
+  /* 首页-分类 */
+  background-color: var(--home-category-color);
+  /* 头像栏内容悬浮效果 */
+  background-color: var(--user-content-color);
+  background-color: var(--user-content-font);
 }
 
 /* 分页的效果 */
@@ -147,10 +184,11 @@ body {
 }
 .ant-modal-content {
   background-color: var(--color-default) !important;
+  border: 1px solid var(--border-modal-color) !important;
 }
 .ant-input-affix-wrapper {
   background-color: var(--color-default) !important;
-  border-color: var(--color-fd-default) !important;
+  border-color: var(--border-search-color) !important;
 }
 .ant-input-affix-wrapper-focused {
   box-shadow: none !important;

@@ -364,7 +364,7 @@ const Message = (props: any) => {
           </Form>
           <Row className="mt:h-4 w-full mx-auto lg:w-full sm:w-full">
             <Col span={24} className="sm:w-full lg:w-full">
-              <b style={{ marginBottom: '24px', color: 'var(--color-icon-default)' }}>
+              <b style={{ marginBottom: '24px', color: 'var(--color-icon-default)', userSelect: 'none' }}>
                 留言展示&nbsp;
                 <CommentOutlined />
               </b>

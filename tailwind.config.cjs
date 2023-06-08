@@ -82,28 +82,6 @@ module.exports = {
           "error": "#EA4D74",
         },
       },
-      {
-        navy: {
-
-          "primary": "#ba3dd3",
-
-          "secondary": "#40c486",
-
-          "accent": "#c808cc",
-
-          "neutral": "#192024",
-
-          "base-100": "#53637f",
-
-          "info": "#3F84F3",
-
-          "success": "#129160",
-
-          "warning": "#BA940D",
-
-          "error": "#EA4D74",
-        }
-      }
     ],
   },
 }

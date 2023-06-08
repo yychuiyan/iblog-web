@@ -1,6 +1,6 @@
 import { CategoryData } from '@/types/comm';
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useHistory } from 'react-router-dom';
 
 // 跳转到分类页
 const User = (props: any) => {
@@ -10,7 +10,8 @@ const User = (props: any) => {
   const [categoriesCount, setCategoriesCount] = useState<any>();
   // 标签数量
   const [tagsCount, setTagsCount] = useState<any>();
-
+  // 路由跳转
+  const history = useHistory()
   // 文章数量
   useEffect(() => {
     let articleCount = props.data.length;
@@ -73,6 +74,18 @@ const User = (props: any) => {
     let tagsCount = tags.length;
     setTagsCount(tagsCount);
   }, [props.data]);
+  // 跳转到文章页面
+  const handleJumpArticles = () => {
+    history.replace(`/rblog/timeline`)
+  }
+  // 分类
+  const handleJumpCategories = () => {
+    history.replace(`/rblog/category`)
+  }
+  // 详情
+  const handleJumpTags = () => {
+    history.replace(`/rblog/tags`)
+  }
   return (
     <div className="flex flex-col bg-base-100 rounded-2xl items-center mb-5 rounded-3xltransition duration-500 ease-in-out  transform  hover:scale-105 lg:hidden">
       <div className="flex flex-col items-center justify-center">
@@ -85,22 +98,23 @@ const User = (props: any) => {
           className="flex items-center justify-center w-64 h-5   pl-2 mt-3 overflow-clip"
           style={{ userSelect: 'none' }}
         >
-          三餐烟火暖，四季皆安然。
+          <span>会一点点前端。</span>
+
         </p>
       </div>
       <div
         className="flex justify-around w-64 h-20 pl-1 pt-2  rounded-xl overflow-clip"
         style={{ userSelect: 'none' }}
       >
-        <p className="flex flex-col items-center justify-center w-14 h-14 rounded-2xl">
+        <p className="flex flex-col items-center justify-center w-14 h-14 rounded-2xl cursor-pointer hover:bg-[var(--user-content-color)] hover:text-[var(--user-content-font)] transform duration-300 ease-in" onClick={handleJumpArticles}>
           <span>文章</span>
           <span className="text-sm">{articleCount}</span>
         </p>
-        <p className="flex flex-col items-center justify-center w-14 h-14 rounded-2xl">
+        <p className="flex flex-col items-center justify-center w-14 h-14 rounded-2xl cursor-pointer hover:bg-[var(--user-content-color)] hover:text-[var(--user-content-font)] transform duration-300 ease-in" onClick={handleJumpCategories}>
           <span>分类</span>
           <span className="text-sm">{categoriesCount}</span>
         </p>
-        <p className="flex flex-col items-center justify-center w-14 h-14 rounded-2xl">
+        <p className="flex flex-col items-center justify-center w-14 h-14 rounded-2xl cursor-pointer hover:bg-[var(--user-content-color)] hover:text-[var(--user-content-font)] transform duration-300 ease-in" onClick={handleJumpTags}>
           <span>标签</span>
           <span className="text-sm">{tagsCount}</span>
         </p>

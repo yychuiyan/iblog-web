@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import qs from 'qs';
 import { CategoryData } from '@/types/comm';
-const Category = (props: any) => {
+const Tags = (props: any) => {
+  // 列表
   const [list, setList] = useState<any>([]);
+  // 随机颜色
+  const [randomColor, setRandomColor] = useState("")
   const { t } = qs.parse(props.location.search.slice(1));
-
   // 获取路由
   useEffect(() => {
     let tagsArticle = props.data;
@@ -51,17 +53,17 @@ const Category = (props: any) => {
       <div className='max-h-[24.5rem] w-[calc(100%+10px)] overflow-auto'>
         {list.map((item: CategoryData) => {
           return (
-            <span
-              className={`inline-block my-2  px-2 text-ls  rounded-lg   cursor-pointer
+            <p
+              className={`inline-block my-2  pl-[0.6rem] text-lg   rounded-lg   cursor-pointer
             ${item.name === t
-                  ? 'inline-block my-1 px-2 mx-2 text-ls rounded-lg hover:bg-base-300 bg-base-300 cursor-pointer'
-                  : 'inline-block my-1 px-2 mx-2 text-ls rounded-lg bg-base-100 hover:bg-base-300  cursor-pointer'
+                ? 'my-1  text-lg rounded-lg  hover:bg-[var(--article-content-tags-bgcolor-hover)] bg-[var(--article-content-tags-bgcolor-hover)] cursor-pointer'
+                : 'my-1  text-lg rounded-lg bg-base-100 hover:bg-[var(--article-content-tags-bgcolor-hover)]  cursor-pointer'
                 }`}
               key={item.id}
               onClick={() => handleTags(item.name)}
             >
-              {item.name}
-            </span>
+              <span className={`inline-block w-auto h-7 rounded px-1 bg-green-600`}>{item.name}</span>
+            </p>
           );
         })}
       </div>
@@ -69,4 +71,4 @@ const Category = (props: any) => {
   );
 };
 
-export default withRouter(Category);
+export default withRouter(Tags);

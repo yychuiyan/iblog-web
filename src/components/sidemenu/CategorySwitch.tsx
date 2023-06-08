@@ -61,13 +61,13 @@ const CategorySwitch = (props: any) => {
       >
         分类信息
       </p>
-      <div className='w-[calc(100%+10px)] h-96 overflow-auto'>
+      <div className='w-[calc(100%+10px)] h-96 overflow-auto '>
         {categoryList.map((item: CategoryData, index: number) => {
           return (
             <p
-              className={`flex justify-between items-center${item.name === c
-                ? ' h-8  m-3 px-3 text-base bg-base-300 hover:bg-base-300 hover:transition hover:duration-500 rounded-lg cursor-pointer'
-                : ' h-8  m-3 px-3  text-base  rounded-lg bg-base-100 hover:bg-base-300 hover:transition hover:duration-500 cursor-pointer'
+              className={`flex justify-between  items-center${item.name === c
+                ? ' h-8  m-3 px-3 text-base text-[var(--article-content-tags-bgcolor-hover-font)] bg-[var(--article-content-tags-bgcolor-hover)] hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500 rounded-lg cursor-pointer'
+                : ' h-8  m-3 px-3  text-base  rounded-lg bg-base-100 hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500 cursor-pointer'
                 }`}
               key={index}
               onClick={() => handleCategory(item.name)}
