@@ -98,7 +98,7 @@ const User = (props: any) => {
           className="flex items-center justify-center w-64 h-5   pl-2 mt-3 overflow-clip"
           style={{ userSelect: 'none' }}
         >
-          <span>会一点点前端。</span>
+          <span>三餐烟火暖，四季皆安然。</span>
 
         </p>
       </div>

@@ -193,7 +193,7 @@ const Content = (props: any) => {
                           onClick={() => handleCategory(item.categories)}
                         >
                           分类:
-                          <span className="inline-block w-auto h-6 text-center leading-6 px-2 mx-1 text-base-100  rounded-md bg-[var(--article-content-tags-bgcolor)] hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500  cursor-pointer z-11">
+                          <span className="inline-block w-auto h-6 text-center  leading-6 px-2 mx-1 text-[var(--article-content-tags-font)] rounded-md bg-[var(--article-content-tags-bgcolor)] hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500  cursor-pointer z-11">
                             {item.categories}
                           </span>
                         </p>

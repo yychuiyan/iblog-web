@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import qs from 'qs';
 import { CategoryData } from '@/types/comm';
+import styled from 'styled-components';
+import { colors } from '@/utils/enum'
 const Tags = (props: any) => {
   // 列表
   const [list, setList] = useState<any>([]);
@@ -30,6 +32,7 @@ const Tags = (props: any) => {
         id: i++,
       };
     });
+    console.log("list", list);
 
     setList(tags);
   }, [props.data]);
@@ -37,6 +40,17 @@ const Tags = (props: any) => {
   const handleTags = (name: string) => {
     props.history.push(`/rblog/tags?t=${name}`);
   };
+  // 使用styled-components创建带有背景颜色的标签组件
+  const RandomColorTag = styled.span`
+    display:inline-block;
+    line-height: 30px;
+    border-radius: 8px;
+    padding-left:5px;
+    padding-right:5px;
+    color:#fff;
+    font-size:15px;
+    background-color: ${props => props.color};`
+
   return (
     <div
       className="overflow-y-auto overflow-x-hidden z-200 pb-3 mb-5 bg-base-100 rounded-2xl mx-auto text-lg  transition duration-500 ease-in-out  transform hover:translate-y-1 hover:scale-105
@@ -51,18 +65,21 @@ const Tags = (props: any) => {
         全部标签
       </p>
       <div className='max-h-[24.5rem] w-[calc(100%+10px)] overflow-auto'>
-        {list.map((item: CategoryData) => {
+        {list.map((item: CategoryData, index: number) => {
           return (
             <p
-              className={`inline-block my-2  pl-[0.6rem] text-lg   rounded-lg   cursor-pointer
+              className={`inline-block my-2 mx-1 text-lg rounded-lg  cursor-pointer
             ${item.name === t
-                ? 'my-1  text-lg rounded-lg  hover:bg-[var(--article-content-tags-bgcolor-hover)] bg-[var(--article-content-tags-bgcolor-hover)] cursor-pointer'
-                : 'my-1  text-lg rounded-lg bg-base-100 hover:bg-[var(--article-content-tags-bgcolor-hover)]  cursor-pointer'
+                ? 'my-1  text-lg rounded-lg ring-1 ring-current cursor-pointer'
+                : 'my-1  text-lg rounded-lg bg-base-100 hover:ring-1 hover:ring-current cursor-pointer'
                 }`}
               key={item.id}
               onClick={() => handleTags(item.name)}
             >
-              <span className={`inline-block w-auto h-7 rounded px-1 bg-green-600`}>{item.name}</span>
+              <RandomColorTag key={item.id} color={colors[index % colors.length]}>
+                <span>{item.name}</span>
+              </RandomColorTag>
+              {/* <span className={`inline-block w-auto h-7 rounded px-1 bg-green-600`}>{item.name}</span> */}
             </p>
           );
         })}
