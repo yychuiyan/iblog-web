@@ -279,7 +279,6 @@ const NavBar = (props: any) => {
   };
   // 背景图片显示
   const handleChangeImage = (i: number | string | any) => {
-    console.log("点击", !isChecked);
     setIsChecked(!isChecked)
     localStorage.setItem('localmode', i);
     props.BlogActions.asyncModeAction(Number(localStorage.getItem('localmode')));
