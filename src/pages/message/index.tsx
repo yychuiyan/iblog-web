@@ -362,7 +362,7 @@ const Message = (props: any) => {
               </Button>
             </Form.Item>
           </Form>
-          <Row className="mt:h-4 w-full mx-auto lg:w-full sm:w-full" style={{ userSelect: 'none' }}>
+          <Row className="mt:h-4 w-full mx-auto lg:w-full sm:w-full">
             <Col span={24} className="sm:w-full lg:w-full">
               <b style={{ marginBottom: '24px', color: 'var(--color-icon-default)' }}>
                 留言展示&nbsp;
@@ -377,12 +377,12 @@ const Message = (props: any) => {
                     <List.Item actions={[]} key={index}>
                       <List.Item.Meta
                         avatar={
-                          <Avatar style={{ backgroundColor: '#1890ff' }}>
+                          <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }} >
                             {item.nickName?.slice(0, 1)?.toUpperCase()}
                           </Avatar>
                         }
                         title={
-                          <b style={{ color: 'var(--color-icon-default)' }}>{item.nickName}</b>
+                          <b style={{ color: 'var(--color-icon-default)', userSelect: 'none' }}>{item.nickName}</b>
                         }
                         description={
                           <>
@@ -414,7 +414,7 @@ const Message = (props: any) => {
                                 justifyContent: 'space-between',
                               }}
                             >
-                              <span className="user_desc">
+                              <span className="user_desc" style={{ userSelect: 'none' }}>
                                 用户&nbsp;{item.nickName}&nbsp;&nbsp;发表于&nbsp;
                                 {item.messageTime}
                               </span>
@@ -445,7 +445,7 @@ const Message = (props: any) => {
                                     key={innerIndex}
                                     className="bg-base-100"
                                     author={
-                                      <span className="replay_title">
+                                      <span className="replay_title" style={{ userSelect: 'none' }}>
                                         {innerItem.targetReplayContent.substring(0, 40) + '···'}
                                       </span>
                                     }
@@ -453,7 +453,7 @@ const Message = (props: any) => {
                                       // https://img.paulzzh.tech/touhou/random
                                       // https://source.unsplash.com/random
                                       // <Avatar src="https://img.paulzzh.tech/touhou/random"></Avatar>
-                                      <Avatar style={{ backgroundColor: '#1890ff' }}>
+                                      <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }}>
                                         {innerItem.nickName?.slice(0, 1)?.toUpperCase()}
                                       </Avatar>
                                     }
@@ -480,7 +480,7 @@ const Message = (props: any) => {
                                     }
                                     datetime={
                                       <Tooltip title={innerItem.messageTime}>
-                                        <span>{dayjs(innerItem.messageTime).fromNow()}</span>
+                                        <span style={{ userSelect: 'none' }}>{dayjs(innerItem.messageTime).fromNow()}</span>
                                       </Tooltip>
                                     }
                                     actions={[

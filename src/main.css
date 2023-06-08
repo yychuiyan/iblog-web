@@ -250,6 +250,9 @@ input:-ms-input-placeholder {
 .ant-comment .ant-comment-content {
   color: var(--color-fd-default) !important;
 }
+.ant-comment-avatar{
+  cursor: default !important;
+}
 .replay_title {
   color: var(--color-icon-default) !important;
   font-size: 14px;
