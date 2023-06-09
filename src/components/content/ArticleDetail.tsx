@@ -126,7 +126,7 @@ const ArticleDetail = (props: any) => {
                       return (
                         <div className="flex items-center relative lg:top-5" key={item._id}>
                           <div
-                            className="flex items-center absolute h-16 -top-16  w-[calc(100%-0px)] text-lg
+                            className="flex items-center  absolute h-16 -top-16  w-[calc(100%-0px)] text-lg
                           lg:w-full lg:flex-col lg:items-start lg:-top-20  sm:w-full
                           "
                           >
@@ -174,13 +174,15 @@ const ArticleDetail = (props: any) => {
                   >
                     <p className="flex items-center h-10 text-xl  px-3">目录</p>
                   </div>
-                  <div className='max-h-[28.5rem] w-[320px] overflow-auto'>
+                  <div className='max-h-[28.5rem] w-[300px] overflow-auto'>
+                    <div className=''>
                     <MarkNav
                       className="article-menu"
                       source={content}
                       headingTopOffset={80}
                       ordered={true} //是否显示标题题号1,2等
                     />
+                  </div>
                   </div>
                 </div>
               </div>

@@ -57,11 +57,11 @@ svg {
   --bgcolor-navbar-default:#fcfcfc;
   --color-font-color:#000;
   --border-modal-color:#222f3e;
-  --border-search-color:#333;
-  --article-content-default:#666;
+  --border-search-color:#333333;
+  --article-content-default:#666666;
   --article-content-tags-bgcolor:#dfe7f0;
   --article-content-tags-bgcolor-hover:#667090;
-  --article-content-tags-font:#333;
+  --article-content-tags-font:#333333;
   --article-content-tags-bgcolor-hover-font:#fcfcfc;
   --article-content-top:#336699;
   --bgcolor-social-default:#354b5d;
@@ -69,6 +69,7 @@ svg {
   --user-content-color:#dfe7f0;
   --user-content-font:#333;
   --page-count-color:#fcfcfc;
+  --page-count-bgcolor:#dfe7f0;
 }
 [data-theme='night'] {
   --color-default: #4b505c;
@@ -98,6 +99,7 @@ svg {
   --user-content-color:#ff7440;
   --user-content-font:#4b505c;
   --page-count-color:#fcfcfc;
+  --page-count-bgcolor:#4b505c;
   color: #fcfcfc;
 }
 body {
@@ -145,20 +147,20 @@ body {
   /* 分页页码颜色 */
   background-color: var(--page-count-color);
   /* 分页选中颜色 */
-  background-color: var(--page-count-color);
+  /* background-color: var(--page-count-color); */
 }
 
 /* 分页的效果 */
 .ant-pagination-item-link {
   width: 45px !important;
   height: 45px !important;
-  background-color: var(--color-default) !important;
+  background-color: var(--page-count-bgcolor) !important;
 }
 
 .ant-pagination .ant-pagination-prev {
   width: 45px;
   height: 45px;
-  background-color: var(--color-default) !important;
+  background-color: var(--page-count-bgcolor) !important;
 }
 .ant-pagination .ant-pagination-prev :hover{
   color: var(--page-count-color);
@@ -185,7 +187,7 @@ body {
 .ant-pagination .ant-pagination-item {
   width: 45px;
   height: 45px;
-  background-color: var(--color-default);
+  background-color: var(--page-count-bgcolor);
 }
 .ant-pagination .ant-pagination-item a {
   line-height: 45px;
