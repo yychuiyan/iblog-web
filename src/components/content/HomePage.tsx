@@ -4,10 +4,6 @@ import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
 import MyPagination from '@/components/pagination';
 import { withRouter } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faArrowsUpToLine
-} from '@fortawesome/free-solid-svg-icons';
 import dayjs from 'dayjs';
 interface DataType {
   comment: string;

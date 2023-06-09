@@ -270,7 +270,7 @@ const Message = (props: any) => {
             }}
             className="lg:w-full sm:w-full"
           >
-            <p className="text-xl" style={{ userSelect: 'none' }}>欢迎留言~</p>
+            {/* <p className="text-xl" style={{ userSelect: 'none' }}>欢迎来到夜雨炊烟的小站</p> */}
             <div className="h-36 px-20 mt-5 font-normal lg:px-0">
               <div className="flex flex-col items-start w-[100%]  absolute">
                 <p className="flex absolute text-xl">本站信息:</p>

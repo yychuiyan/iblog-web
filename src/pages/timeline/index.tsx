@@ -12,7 +12,6 @@ const TimeLine = (props: any) => {
   const myRef = React.useRef();
   useEffect(() => {
     if (myRef.current) {
-      // window.scrollTo(0, myRef.current.offsetTop || 0);
       window.scroll({
         //@ts-ignore
         top: myRef.current.offsetTop - 80 || 0,
@@ -83,7 +82,7 @@ const TimeLine = (props: any) => {
                 return (
                   <div
                     key={it._id}
-                    className="flex items-center text-xl h-10 font-medium rounded-2xl my-1 cursor-pointer hover:bg-base-300 hover:transition hover:duration-500 lg:w-full sm:w-full"
+                    className="flex items-center text-xl h-10 font-medium rounded-xl my-1 cursor-pointer hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500 lg:w-full sm:w-full"
                     onClick={() => handleClickTime(it._id)}
                   >
                     <span className="text-sm pl-5">{it.createTime}</span>

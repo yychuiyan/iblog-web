@@ -167,7 +167,16 @@
   font-weight: var(--base-text-weight-semibold, 600);
   padding-bottom: 0.3em;
   font-size: 2em;
-  border-bottom: 1px solid var(--color-border-muted);
+  border-bottom: 1px dotted var(--color-border-muted);
+}
+.markdown-body h1::before {
+  content: "✏️ ";
+}
+.markdown-body h2::before {
+  content: "🌈 ";
+}
+.markdown-body h3::before {
+  content: "✒️ ";
 }
 
 .markdown-body mark {
@@ -373,7 +382,7 @@
   font-weight: var(--base-text-weight-semibold, 600);
   padding-bottom: 0.3em;
   font-size: 1.5em;
-  border-bottom: 1px solid var(--color-icon-default);
+  border-bottom: 1px dotted var(--color-icon-default);
 }
 
 .markdown-body h3 {
@@ -780,13 +789,13 @@
 
 .markdown-body code,
 .markdown-body tt {
-  padding: 0.1em 0.3em;
-  margin: 0;
+  padding: 2px 5px;
   font-size: 100%;
+  box-shadow:0px 0px 2px 0px rgba(0,0,0,0.1);
   white-space: break-spaces;
-  background-color:#f9f2f4;
+  background-color:#fff5f5;
   border-radius: 6px;
-  color: #c7254e;
+  color: #ff502c;
 }
 
 .markdown-body code br,

@@ -8,7 +8,7 @@ svg {
 }
 
 :root {
-  --color-default: #f5f5f5;
+  --color-default: #fcfcfc;
   --color-active-default: #e0e0e0;
   --color-canvas-default: #fcfcfc;
   --color-placeholder-default: #838383;
@@ -39,7 +39,7 @@ svg {
 }
 
 [data-theme='light'] {
-  --color-default: #f5f5f5;
+  --color-default: #fcfcfc;
   --color-active-default: #e0e0e0;
   --color-canvas-default: #fcfcfc;
   --color-placeholder-default: #838383;
@@ -57,12 +57,12 @@ svg {
   --bgcolor-navbar-default:#fcfcfc;
   --color-font-color:#000;
   --border-modal-color:#222f3e;
-  --border-search-color:#333333;
-  --article-content-default:#666666;
-  --article-content-tags-bgcolor:#f5f5f5;
-  --article-content-tags-bgcolor-hover:#dfe7f0;
-  --article-content-tags-font:#333333;
-  --article-content-tags-bgcolor-hover-font:#333333;
+  --border-search-color:#333;
+  --article-content-default:#666;
+  --article-content-tags-bgcolor:#dfe7f0;
+  --article-content-tags-bgcolor-hover:#667090;
+  --article-content-tags-font:#333;
+  --article-content-tags-bgcolor-hover-font:#fcfcfc;
   --article-content-top:#336699;
   --bgcolor-social-default:#354b5d;
   --home-category-color:#f5f5f5;
@@ -82,20 +82,20 @@ svg {
   --color-scroll-default: #8e9097;
   --color-error-default: #8e9097;
   --bgcolor-navbar-default:#4b505c;
-  --bgcolor-navbar-hover:#ffcc00;
-  --bgcolor-navbar-click:#ffaa00;
+  --bgcolor-navbar-hover:#ff7440;
+  --bgcolor-navbar-click:#FF4500;
   --color-font-color:#fcfcfc;
-  --border-modal-color:#ffcc00;
+  --border-modal-color:#ff7440;
   --border-search-color:#fcfcfc;
-  --article-content-default:#666666;
+  --article-content-default:#999;
   --article-content-tags-bgcolor:#dfe7f0;
-  --article-content-tags-bgcolor-hover:#ffcc00;
+  --article-content-tags-bgcolor-hover:#ff7440;
   --article-content-tags-font:#333333;
-  --article-content-tags-bgcolor-hover-font:#333333;
-  --article-content-top:#ffaa00;
-  --bgcolor-social-default:#e6bd19;
+  --article-content-tags-bgcolor-hover-font:#fcfcfc;
+  --article-content-top:#ff7440;
+  --bgcolor-social-default:#ff7440;
   --home-category-color:#f5f5f5;
-  --user-content-color:#ffaa00;
+  --user-content-color:#ff7440;
   --user-content-font:#4b505c;
   --page-count-color:#fcfcfc;
   color: #fcfcfc;

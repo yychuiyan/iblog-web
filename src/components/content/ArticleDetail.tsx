@@ -126,7 +126,7 @@ const ArticleDetail = (props: any) => {
                       return (
                         <div className="flex items-center relative lg:top-5" key={item._id}>
                           <div
-                            className="flex items-center  absolute h-16 -top-16  w-[calc(100%-0px)] text-lg
+                            className="flex items-center absolute h-16 -top-16  w-[calc(100%-0px)] text-lg
                           lg:w-full lg:flex-col lg:items-start lg:-top-20  sm:w-full
                           "
                           >
