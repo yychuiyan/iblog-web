@@ -1,5 +1,6 @@
 import api from '@/api';
 import {
+  USER_LOGIN,
   ARTICLE_LIST,
   ARTICLE_ALL_LIST,
   ARTICLE_SEARCH_LIST,
@@ -15,9 +16,34 @@ import {
   GET_VERSE,
   SEND_MAIL,
 } from '@/redux/constants';
-import { ArticleViews, CommentAdd, MessageAdd, SendMail } from '@/types/api';
-import { useState } from 'react';
+import { ArticleViews, CommentAdd, LoginParams, MessageAdd, SendMail } from '@/types/api';
+import { message } from 'antd';
+import jwtDecode from 'jwt-decode';
 import { Dispatch } from 'redux';
+// 登录
+export function asyncLoginAction(data: LoginParams) {
+  return async (dispatch: Dispatch) => {
+    const res = await api.Login(data);
+    if (res.code === 110404) {
+      message.error(res.msg);
+    } else if (res.code === 110405) {
+      message.error(res.msg);
+    }
+    if (res.code === 0) {
+      // 将token存储存到本地
+      localStorage.setItem('token', res.data.token);
+      // 解析token
+      let userToken = jwtDecode(res.data.token);
+      dispatch({
+        type: USER_LOGIN,
+        userToken: userToken,
+      });
+      return res;
+    } else if (res.code === 110401) {
+      message.error('请检查用户名或密码后重新登录');
+    }
+  };
+}
 // 文章列表
 export const asyncArticleListAction = (
   page: number,

@@ -1,3 +1,5 @@
+// 登录
+export const USER_LOGIN = 'USER_LOGIN';
 // 文章列表
 export const ARTICLE_LIST = 'ARTICLE_LIST';
 // 不含分页列表

@@ -12,6 +12,7 @@ export interface Action {
   verse?: string;
   mode?: number;
   isLoading?: boolean;
+  userToken?: string;
 }
 interface DataType {
   createYear: any;

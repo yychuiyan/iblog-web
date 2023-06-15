@@ -28,6 +28,7 @@
     "github-markdown-css": "^5.2.0",
     "highlight.js": "^11.7.0",
     "http-proxy-middleware": "^2.0.6",
+    "jwt-decode": "^3.1.2",
     "markdown-navbar": "^1.4.3",
     "marked": "^4.2.12",
     "nprogress": "^0.2.0",

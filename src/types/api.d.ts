@@ -13,6 +13,11 @@ export interface ApiResponse<T = any> {
   code: number;
   data: T;
 }
+// 登录
+interface LoginParams {
+  username: string;
+  password: string;
+}
 interface ArticleViews {
   views: number;
   id: string;
@@ -57,6 +62,7 @@ export interface Api {
     categories: string,
     tags: string[]
   ): Promise<ApiResponse>;
+  Login(params: LoginParams): Promise<ApiResponse>;
   getArticleAllList(status: number, publishStatus: number): Promise<ApiResponse>;
   getArticleSearchList(status: number, publishStatus: number, title: string): Promise<ApiResponse>;
   updateArticleViews(params: ArticleViews): Promise<ApiResponse>;

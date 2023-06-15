@@ -24,7 +24,7 @@ const LayoutIndex = (props: any) => {
   NProgress.done();
   const [clasess, setClasses] = useState<any>([])
   useEffect(() => {
-    const bgClasses = [s.bg0, s.bg1, s.bg2];
+    const bgClasses = [s.bg0, s.bg1];
     setClasses(bgClasses)
   }, [])
 

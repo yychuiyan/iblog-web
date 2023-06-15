@@ -2,6 +2,10 @@ import axios from '@/utils/http';
 import { Api, ArticleViews, CommentAdd, MessageAdd, SendMail } from '@/types/api';
 // 接口请求
 const api: Api = {
+  // 登录
+  Login(params) {
+    return axios.post(`/iblog/user/login`, params);
+  },
   // 文章列表分页
   getArticleList(
     page: number,
