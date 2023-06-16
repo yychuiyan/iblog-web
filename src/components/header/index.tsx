@@ -1,4 +1,4 @@
-import { Input, InputRef, Popconfirm, Modal, Spin, message, Form, Button, Row, Col, Image } from 'antd';
+import { Input, InputRef, Popconfirm, Modal, Spin, message, Form, Button, Row, Col, Image, Avatar } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
@@ -11,9 +11,7 @@ import { faMagnifyingGlass, faBars } from '@fortawesome/free-solid-svg-icons';
 import { LoginOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
 import jwtDecode from 'jwt-decode';
 import UploadImage from '@/components/upload'
-import axios from 'axios';
 import QQLoginButton from '@/components/qq/QQLoginButton'
-
 interface DataType {
   password: string,
   username: string;
@@ -92,6 +90,8 @@ const NavBar = (props: any) => {
   const [imageList, setImageList] = useState<any>();
   // 图片地址
   const [imgUrl, setImgUrl] = useState<any>([]);
+  // 头像信息
+  const [avatar, setAvatar] = useState('')
   // 登录数据
   const [loginInfo, setLoginInfo] = useState<any>()
   // 登录状态
@@ -100,11 +100,6 @@ const NavBar = (props: any) => {
   const [accessToken, setAccessToken] = useState()
   // 表单数据
   const [form] = Form.useForm();
-  // useEffect(() => {
-  //   QC.Login({
-  //     btnId: "qqLogin"	//插入按钮的节点id
-  //   });
-  // }, [])
   useEffect(() => {
     // 监听
     window.addEventListener('scroll', handleScroll);
@@ -182,8 +177,10 @@ const NavBar = (props: any) => {
   useEffect(() => {
     if (localStorage.getItem('token') !== null) {
       const token = jwtDecode(localStorage.getItem('token') as string) as object | any;
-      setLoginStatus(true)
       setLoginInfo(token._doc)
+      console.log("token._doc", token._doc);
+      setAvatar(token._doc.avatar)
+      setLoginStatus(true)
     }
   }, [])
   // QQ登录授权
@@ -388,7 +385,7 @@ const NavBar = (props: any) => {
         setLoginInfo(res.data)
       }
       console.log("code", res);
-
+      window.location.reload();
     });
     setIsLoginModalOpen(!isLoginModalOpen)
     form.resetFields();
@@ -406,14 +403,12 @@ const NavBar = (props: any) => {
   };
   // 退出登录
   const handleLoginOut = () => {
-    console.log("退出登录");
-    setLoginStatus(false)
-    localStorage.removeItem('token')
-  }
-  // QQ登录操作
-  const handleLoginQQ = () => {
-    console.log("登录");
-
+    props.BlogActions.asyncLoginOutAction().then(() => {
+      message.success("已退出登录~")
+      setLoginStatus(false)
+      localStorage.removeItem('token')
+      window.location.reload();
+    });
   }
   // 用户名校验
   const validateName = (_rule: any, value: string) => {
@@ -522,7 +517,7 @@ const NavBar = (props: any) => {
           {
             loginStatus === false ?
               <div className='cursor-pointer flex' onClick={handleLogin}>
-                <span>
+                {/* <span>
                   <svg
                     className="icon"
                     viewBox="0 0 1024 1024"
@@ -534,20 +529,21 @@ const NavBar = (props: any) => {
                       p-id="22560">
                     </path>
                   </svg>
-                </span>
-                <span className='text-[var(--bgcolor-navbar-click)] text-sm'>登录</span>
+                </span> */}
+                <LoginOutlined style={{ fontSize: '20px', marginRight: '3px', marginLeft: '3px', color: 'var(--bgcolor-navbar-click)' }} />
+                <span className='text-[var(--bgcolor-navbar-click)] text-base'>登录</span>
               </div> : <Popconfirm
                 placement="bottom"
                 title={<p>您是否选择退出登录？</p>}
                 description={<div></div>}
-                icon={<LoginOutlined spin />}
+                icon={<LoginOutlined />}
                 onConfirm={handleLoginOut}
                 okText="是"
                 cancelText="否"
               >
-                <div className='cursor-pointer flex'>
-                <span>
-                  <svg
+                <div className='cursor-pointer flex items-center'>
+                  {
+                    loginStatus ? <Avatar src={`${avatar}`}></Avatar> : <svg
                     className="icon"
                     viewBox="0 0 1024 1024"
                     version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -559,8 +555,10 @@ const NavBar = (props: any) => {
                       p-id="27609">
                     </path>
                   </svg>
+                  }
+                  <span>
                 </span>
-                <span className='text-[var(--bgcolor-navbar-click)] text-sm'>{loginInfo.username}</span>
+                  <span className='text-[var(--bgcolor-navbar-click)] text-base ml-1'>{loginInfo.username}</span>
               </div>
               </Popconfirm>
 

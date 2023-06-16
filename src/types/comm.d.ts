@@ -13,6 +13,8 @@ export interface Action {
   mode?: number;
   isLoading?: boolean;
   userToken?: string;
+  userinfo?: string;
+  like?: number;
 }
 interface DataType {
   createYear: any;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
@@ -9,9 +9,9 @@ import LastUpdate from '../sidemenu/LastUpdate';
 import MarkNav from 'markdown-navbar'; // markdown 目录
 import 'markdown-navbar/dist/navbar.css';
 import MarkDown from '../markdown/MarkDown';
-
-import { Affix, FloatButton } from 'antd';
-import './catalog.css';
+import { LikeFilled } from '@ant-design/icons';
+import jwtDecode from 'jwt-decode';
+import { Affix, FloatButton, message } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowDownShortWide,
@@ -23,6 +23,7 @@ import {
   faEye,
 } from '@fortawesome/free-solid-svg-icons';
 import CopyRight from '../copyright';
+import './index.css';
 interface DataType {
   updateTime: number;
   views: number;
@@ -56,7 +57,25 @@ const ArticleDetail = (props: any) => {
   const [dataFilter, setDataFilter] = useState<DataType[]>([]);
   // 内容
   const [content, setContent] = useState('');
-
+  // Like默认值
+  let [like, setLike] = useState(0)
+  // 登录数据
+  const [loginInfo, setLoginInfo] = useState<any>()
+  // 登录状态
+  const [loginStatus, setLoginStatus] = useState(false)
+  // 文章数据
+  const [articleList, setArticleList] = useState<DataType[]>([])
+  // 是否已点赞
+  const [likeShow, setLikeShow] = useState(false)
+  // 登录信息 解析token
+  useEffect(() => {
+    if (localStorage.getItem('token') !== null) {
+      const token = jwtDecode(localStorage.getItem('token') as string) as object | any;
+      setLoginInfo(token._doc)
+      console.log("token._doc", token._doc);
+      setLoginStatus(true)
+    }
+  }, [])
   // 获取文章列表数据
   useEffect(() => {
     let articleId = props.match.params.id;
@@ -80,7 +99,49 @@ const ArticleDetail = (props: any) => {
       setAllData(data);
     });
   }, [props.match.params.id]);
+  // 文章列表
+  useEffect(() => {
+    let articleId = props.match.params.id;
+    // 获取文章列表
+    props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
+      let { data } = res.data as unknown as ArticleList;
+      let currentData = data.filter((item: any) => item._id === articleId)
+      let likeData = Number(currentData.map((item: any) => item.like).join(''))
+      setLike(likeData)
+      setArticleList(data);
+    });
+  }, [props.BlogActions])
+  // todo 初始化时判断是否已存在
+  // 点赞
+  const handleLike = () => {
+    console.log("点赞");
+    let articleId = props.match.params.id;
+    const userId = loginInfo._id
+    const result = articleList.some(obj => loginInfo.likeArticleId.includes(obj._id));
+    console.log("result", result);
+    // 如果包含则已存在点赞
+    if (result === false) {
+      console.log("不存在");
+      setLikeShow(!likeShow)
+      setLike(like + 1)
+      // 更新数据
+      let newLikeArticleId = loginInfo.likeArticleId
+      newLikeArticleId.push(articleId)
+      props.BlogActions.asyncLikeUpdateAction({
+        likeArticleId: loginInfo.likeArticleId,
+        id: userId,
+      }).then((res: any) => {
+        message.success("谢谢支持~")
+      });
+    } else {
+      console.log("存在");
 
+    }
+  }
+  // 禁止点击
+  const handleCannot = () => {
+    message.warning('需要先登录哟~')
+  }
   return (
     <div
       className="flex flex-col items-center w-1200 mx-auto  mt-20  sm:w-full "
@@ -91,7 +152,9 @@ const ArticleDetail = (props: any) => {
           return (
             <div key={item._id} style={{ userSelect: 'none' }}>
               <div className="flex justify-center items-center flex-col h-72 sm:h-52 sm:mb-16 ">
-                <h2 className={`w-full text-center`}>{item.title}</h2>
+                <h2 className={`w-full text-center`}>
+                  <span>{item.title}</span>
+                </h2>
                 <div className="flex items-center justify-center mt-2">
                   {/* <span>发布时间:</span> */}
                   <FontAwesomeIcon icon={faClock} size="lg" />
@@ -146,6 +209,14 @@ const ArticleDetail = (props: any) => {
                                   {it}
                                 </span>
                               ))}
+                            </p>
+                            <p className='relative'>
+                              <span className='ml-3 text-[var(--bgcolor-navbar-click)]'>觉得文章还不错？给作者一个赞😉</span>
+                              {
+                                loginStatus === false ?
+                                  <span className='ml-2 cursor-pointer' onClick={handleCannot}><LikeFilled style={{ fontSize: '20px' }} />点赞({like})</span> :
+                                  <span className='ml-2 cursor-pointer' onClick={handleLike}><LikeFilled style={{ fontSize: '20px' }} />点赞({like})</span>
+                              }
                             </p>
                           </div>
                         </div>

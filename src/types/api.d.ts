@@ -53,6 +53,10 @@ interface SendMail {
   subject: string;
   html: string;
 }
+interface HandleLike {
+  id: string;
+  likeArticleId: Array;
+}
 export interface Api {
   getArticleList(
     page: number,
@@ -63,6 +67,8 @@ export interface Api {
     tags: string[]
   ): Promise<ApiResponse>;
   Login(params: LoginParams): Promise<ApiResponse>;
+  loginOut(): Promise<ApiResponse>;
+  isHandleLike(params: HandleLike): Promise<ApiResponse>;
   getArticleAllList(status: number, publishStatus: number): Promise<ApiResponse>;
   getArticleSearchList(status: number, publishStatus: number, title: string): Promise<ApiResponse>;
   updateArticleViews(params: ArticleViews): Promise<ApiResponse>;

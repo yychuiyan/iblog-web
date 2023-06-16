@@ -1,5 +1,9 @@
 // 登录
 export const USER_LOGIN = 'USER_LOGIN';
+// 退出登录
+export const LOGINOUT = 'LOGINOUT';
+// 点赞
+export const HANDLE_LIKE = 'HANDLE_LIKE';
 // 文章列表
 export const ARTICLE_LIST = 'ARTICLE_LIST';
 // 不含分页列表

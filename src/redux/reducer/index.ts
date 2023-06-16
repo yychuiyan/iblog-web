@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import { UserLoginReducer } from './user/login';
+import { LoginOutReducer } from './user/loginout';
+import { LikeUpdateReducer } from './articles/like';
 import { ArticleListReducer } from '@/redux/reducer/articles/list';
 import { ArticleAllListReducer } from '@/redux/reducer/articles/list_all';
 import { ArticleSearchListReducer } from '@/redux/reducer/articles/search';
@@ -17,6 +19,8 @@ import { VerseReducer } from './verse';
 import { SendMailReducer } from './mail';
 const RootReducer = combineReducers({
   UserLoginReducer,
+  LoginOutReducer,
+  LikeUpdateReducer,
   ArticleListReducer,
   ArticleAllListReducer,
   ArticleSearchListReducer,

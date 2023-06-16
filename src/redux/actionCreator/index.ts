@@ -1,6 +1,7 @@
 import api from '@/api';
 import {
   USER_LOGIN,
+  LOGINOUT,
   ARTICLE_LIST,
   ARTICLE_ALL_LIST,
   ARTICLE_SEARCH_LIST,
@@ -15,8 +16,16 @@ import {
   SET_MODE,
   GET_VERSE,
   SEND_MAIL,
+  HANDLE_LIKE,
 } from '@/redux/constants';
-import { ArticleViews, CommentAdd, LoginParams, MessageAdd, SendMail } from '@/types/api';
+import {
+  ArticleViews,
+  CommentAdd,
+  HandleLike,
+  LoginParams,
+  MessageAdd,
+  SendMail,
+} from '@/types/api';
 import { message } from 'antd';
 import jwtDecode from 'jwt-decode';
 import { Dispatch } from 'redux';
@@ -44,6 +53,27 @@ export function asyncLoginAction(data: LoginParams) {
     }
   };
 }
+// 登出
+export const asyncLoginOutAction = () => {
+  return async (dispatch: Dispatch) => {
+    const res = await api.loginOut();
+    dispatch({
+      type: LOGINOUT,
+      userinfo: res,
+    });
+  };
+};
+// 点赞
+export const asyncLikeUpdateAction = (params: HandleLike) => {
+  return async (dispatch: Dispatch) => {
+    const res = await api.isHandleLike(params);
+    dispatch({
+      type: HANDLE_LIKE,
+      like: res,
+    });
+    return res;
+  };
+};
 // 文章列表
 export const asyncArticleListAction = (
   page: number,

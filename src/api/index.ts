@@ -1,10 +1,18 @@
 import axios from '@/utils/http';
-import { Api, ArticleViews, CommentAdd, MessageAdd, SendMail } from '@/types/api';
+import { Api, ArticleViews, CommentAdd, HandleLike, MessageAdd, SendMail } from '@/types/api';
 // 接口请求
 const api: Api = {
   // 登录
   Login(params) {
     return axios.post(`/iblog/user/login`, params);
+  },
+  // 退出登录
+  loginOut() {
+    return axios.post(`/iblog/user/logout`);
+  },
+  // 点赞
+  isHandleLike(params: HandleLike) {
+    return axios.put(`/iblog/user/${params.id}`, params);
   },
   // 文章列表分页
   getArticleList(
