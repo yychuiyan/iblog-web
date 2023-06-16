@@ -203,23 +203,23 @@ const NavBar = (props: any) => {
       redirect_uri: redirectUri
     };
     // 获取token
-    axios.post(tokenUrl, null, { params }).then(response => {
-      // 从响应中提取访问令牌
-      const accessToken = new URLSearchParams(response.data).get('access_token') as any;
-      // setAccessToken(accessToken)
-      console.log("accessToken", accessToken);
+    // axios.post(tokenUrl, null, { params }).then(response => {
+    //   // 从响应中提取访问令牌
+    //   const accessToken = new URLSearchParams(response.data).get('access_token') as any;
+    //   // setAccessToken(accessToken)
+    //   console.log("accessToken", accessToken);
 
-    }).catch(error => {
-      // 处理错误
-      return error
-    });
+    // }).catch(error => {
+    //   // 处理错误
+    //   return error
+    // });
     // 获取openID
-    axios.post(`/oauth2.0/me`, { access_token: accessToken }).then((callback) => {
-      // 获取用户的OpenIDcallback( {"client_id":"YOUR_APPID","openid":"YOUR_OPENID"} );
-      // setOpenId()
-    }).catch((error) => {
-      return error
-    })
+    // axios.post(`/oauth2.0/me`, { access_token: accessToken }).then((callback) => {
+    //   // 获取用户的OpenIDcallback( {"client_id":"YOUR_APPID","openid":"YOUR_OPENID"} );
+    //   // setOpenId()
+    // }).catch((error) => {
+    //   return error
+    // })
     // 调用get_user_info接口，获取用户头像，昵称信息
 
   }, []);
