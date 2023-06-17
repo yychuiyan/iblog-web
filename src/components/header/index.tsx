@@ -192,32 +192,33 @@ const NavBar = (props: any) => {
     const encoded_redirect_uri = encodeURIComponent(redirectUri);
     const authorizationCode = new URLSearchParams(window.location.search).get('code');
     // 获取token
-    axios.get(
-      `/oauth2.0/token`, {
-      params: {
-        grant_type: "authorization_code",
-        client_id: clientId,
-        client_secret: clientSecret,
-        code: authorizationCode,
-        redirect_uri: encoded_redirect_uri,
-        fmt: "json"
-      },
-      headers: {
-        "Content-Type": "application/json; charset=utf-8"
-      }
-    }
-    ).then(response => {
-      console.log("response", response);
+    window.location.href = `/oauth2.0/token?grant_type=authorization_code&client_id=${clientId}&client_secret=${clientSecret}&code=${authorizationCode}&redirect_uri=${encoded_redirect_uri}&fmt=json`
+    // axios.get(
+    //   `/oauth2.0/token`, {
+    //   params: {
+    //     grant_type: "authorization_code",
+    //     client_id: clientId,
+    //     client_secret: clientSecret,
+    //     code: authorizationCode,
+    //     redirect_uri: encoded_redirect_uri,
+    //     fmt: "json"
+    //   },
+    //   headers: {
+    //     "Content-Type": "application/json; charset=utf-8"
+    //   }
+    // }
+    // ).then(response => {
+    //   console.log("response", response);
 
-      // 从响应中提取访问令牌
-      const accessToken = new URLSearchParams(response.data).get('access_token') as any;
-      setAccessToken(accessToken)
-      console.log("accessToken", accessToken);
+    //   // 从响应中提取访问令牌
+    //   const accessToken = new URLSearchParams(response.data).get('access_token') as any;
+    //   setAccessToken(accessToken)
+    //   console.log("accessToken", accessToken);
 
-    }).catch(error => {
-      // 处理错误
-      return error
-    });
+    // }).catch(error => {
+    //   // 处理错误
+    //   return error
+    // });
     // 获取openID
     // axios.post(`/oauth2.0/me`, { access_token: accessToken }).then((callback) => {
     //   // 获取用户的OpenIDcallback( {"client_id":"YOUR_APPID","openid":"YOUR_OPENID"} );
