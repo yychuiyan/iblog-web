@@ -186,46 +186,33 @@ const NavBar = (props: any) => {
   }, [])
   // QQ登录授权
   useEffect(() => {
-    // const clientId = '102055926';
-    // const clientSecret = 'gIivvkTzKSM3Wmpe';
-    // const redirectUri = 'https://yychuiyan.com/rblog/home';
-    // const encoded_redirect_uri = encodeURIComponent(redirectUri);
-    // const authUrl = '/oauth2.0/authorize'
-    // const tokenUrl = '/oauth2.0/token';
-    // const authorizationCode = new URLSearchParams(window.location.search).get('code');
+    const clientId = '102055926';
+    const clientSecret = 'gIivvkTzKSM3Wmpe';
+    const redirectUri = 'https://yychuiyan.com/rblog/home';
+    const encoded_redirect_uri = encodeURIComponent(redirectUri);
+    const tokenUrl = '/oauth2.0/token';
+    const authorizationCode = new URLSearchParams(window.location.search).get('code');
 
-    // const params = {
-    //   grant_type: 'authorization_code',
-    //   client_id: clientId,
-    //   client_secret: clientSecret,
-    //   code: authorizationCode,
-    //   redirect_uri: redirectUri
-    // };
-    // // 授权
-    // axios.get(`${authUrl}?response_type=${'code'}&redirect_uri=${encoded_redirect_uri}&client_id=${clientId}&state=test`).then(response => {
-    //   console.log("response", response);
-    //   // 从响应中提取访问令牌
-    //   const accessToken = new URLSearchParams(response.data).get('access_token') as any;
-    //   // setAccessToken(accessToken)
-    //   console.log("accessToken", accessToken);
-
-    // }).catch(error => {
-    //   // 处理错误
-    //   return error
-    // });
+    const params = {
+      grant_type: 'authorization_code',
+      client_id: clientId,
+      client_secret: clientSecret,
+      code: authorizationCode,
+      redirect_uri: redirectUri
+    };
     // 获取token
-    // axios.post(tokenUrl, null, { params }).then(response => {
-    //   console.log("response", response);
+    axios.post(tokenUrl, null, { params }).then(response => {
+      console.log("response", response);
 
-    //   // 从响应中提取访问令牌
-    //   const accessToken = new URLSearchParams(response.data).get('access_token') as any;
-    //   // setAccessToken(accessToken)
-    //   console.log("accessToken", accessToken);
+      // 从响应中提取访问令牌
+      const accessToken = new URLSearchParams(response.data).get('access_token') as any;
+      setAccessToken(accessToken)
+      console.log("accessToken", accessToken);
 
-    // }).catch(error => {
-    //   // 处理错误
-    //   return error
-    // });
+    }).catch(error => {
+      // 处理错误
+      return error
+    });
     // 获取openID
     // axios.post(`/oauth2.0/me`, { access_token: accessToken }).then((callback) => {
     //   // 获取用户的OpenIDcallback( {"client_id":"YOUR_APPID","openid":"YOUR_OPENID"} );
