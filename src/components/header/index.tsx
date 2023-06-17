@@ -192,7 +192,7 @@ const NavBar = (props: any) => {
     const encoded_redirect_uri = encodeURIComponent(redirectUri);
     const authorizationCode = new URLSearchParams(window.location.search).get('code');
     // 获取token
-    axios.get(`/oauth2.0/token?grant_type=authorization_code&client_id=${clientId}&client_secret=${clientSecret}&code=${authorizationCode}&redirect_uri=${encoded_redirect_uri}`).then(response => {
+    axios.get(`/oauth2.0/token?grant_type=authorization_code&client_id=${clientId}&client_secret=${clientSecret}&code=${authorizationCode}&redirect_uri=${encoded_redirect_uri}&fmt=json`).then(response => {
       console.log("response", response);
 
       // 从响应中提取访问令牌
