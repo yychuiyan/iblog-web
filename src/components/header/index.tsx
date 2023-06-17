@@ -186,6 +186,7 @@ const NavBar = (props: any) => {
   }, [])
   // QQ登录授权
   useEffect(() => {
+    const grant_type = "authorization_code";
     const clientId = '102055926';
     const clientSecret = 'gIivvkTzKSM3Wmpe';
     const redirectUri = 'https://yychuiyan.com/rblog/home';
@@ -193,34 +194,34 @@ const NavBar = (props: any) => {
     const authorizationCode = new URLSearchParams(window.location.search).get('code');
     console.log("authorizationCode", authorizationCode);
 
-    props.BlogActions.asyncQQLoginAction({
-      grant_type: "authorization_code",
-      client_id: clientId,
-      client_secret: clientSecret,
-      code: authorizationCode,
-      redirect_uri: encoded_redirect_uri,
-    }).then((res: any) => {
+    props.BlogActions.asyncQQLoginAction(
+      grant_type,
+      clientId,
+      clientSecret,
+      authorizationCode,
+      encoded_redirect_uri,
+    ).then((res: any) => {
       console.log("res", res);
 
     })
 
     // 获取token
-    // axios.get(
-    //   `/iblog/getQQLogin`, {
-    //   params: {
-    //       grant_type: "authorization_code",
-    //       client_id: clientId,
-    //       client_secret: clientSecret,
-    //       code: authorizationCode,
-    //       redirect_uri: encoded_redirect_uri,
-    //     },
-    //   }
-    // ).then(response => {
-    //   console.log("response", response);
-    // }).catch(error => {
-    //   // 处理错误
-    //   return error
-    // });
+    axios.get(
+      `/iblog/getQQLogin`, {
+      params: {
+        grant_type: "authorization_code",
+        client_id: clientId,
+        client_secret: clientSecret,
+        code: authorizationCode,
+        redirect_uri: encoded_redirect_uri,
+      },
+    }
+    ).then(response => {
+      console.log("response", response);
+    }).catch(error => {
+      // 处理错误
+      return error
+    });
   }, []);
   // 页面可视化宽度
   let setPageHeight = () => {

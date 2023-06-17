@@ -15,9 +15,15 @@ const api: Api = {
     return axios.post(`/iblog/user/login`, params);
   },
   // QQ登录
-  getQQLogin(params: QQLogin) {
+  getQQLogin(
+    grant_type: string,
+    client_id: string,
+    client_secret: string,
+    code: string,
+    redirect_uri: string
+  ) {
     return axios.get(
-      `/iblog/getQQLogin?grant_type=${params.grant_type}&client_id=${params.client_id}&client_secret=${params.client_secret}&code=${params.code}&redirect_uri=${params.redirect_uri}`
+      `/iblog/getQQLogin?grant_type=${grant_type}&client_id=${client_id}&client_secret=${client_secret}&code=${code}&redirect_uri=${redirect_uri}`
     );
   },
   // 退出登录

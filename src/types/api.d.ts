@@ -77,7 +77,13 @@ export interface Api {
   Login(params: LoginParams): Promise<ApiResponse>;
   loginOut(): Promise<ApiResponse>;
   isHandleLike(params: HandleLike): Promise<ApiResponse>;
-  getQQLogin(params: QQLogin): Promise<ApiResponse>;
+  getQQLogin(
+    grant_type: string,
+    client_id: string,
+    client_secret: string,
+    code: string,
+    redirect_uri: string
+  ): Promise<ApiResponse>;
   getArticleAllList(status: number, publishStatus: number): Promise<ApiResponse>;
   getArticleSearchList(status: number, publishStatus: number, title: string): Promise<ApiResponse>;
   updateArticleViews(params: ArticleViews): Promise<ApiResponse>;

@@ -54,9 +54,15 @@ export function asyncLoginAction(data: LoginParams) {
     }
   };
 }
-export function asyncQQLoginAction(data: QQLogin) {
+export function asyncQQLoginAction(
+  grant_type: string,
+  client_id: string,
+  client_secret: string,
+  code: string,
+  redirect_uri: string
+) {
   return async (dispatch: Dispatch) => {
-    const res = await api.getQQLogin(data);
+    const res = await api.getQQLogin(grant_type, client_id, client_secret, code, redirect_uri);
     if (res.code === 0) {
       // 将token存储存到本地
       localStorage.setItem('token', res.data.token);
