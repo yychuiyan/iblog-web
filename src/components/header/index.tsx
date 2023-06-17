@@ -205,23 +205,6 @@ const NavBar = (props: any) => {
 
     })
 
-    // 获取token
-    axios.get(
-      `/iblog/getQQLogin`, {
-      params: {
-        grant_type: "authorization_code",
-        client_id: clientId,
-        client_secret: clientSecret,
-        code: authorizationCode,
-        redirect_uri: encoded_redirect_uri,
-      },
-    }
-    ).then(response => {
-      console.log("response", response);
-    }).catch(error => {
-      // 处理错误
-      return error
-    });
   }, []);
   // 页面可视化宽度
   let setPageHeight = () => {

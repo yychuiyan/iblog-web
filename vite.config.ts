@@ -21,10 +21,6 @@ export default defineConfig({
         target: 'https://v1.jinrishici.com',
         changeOrigin: true,
       },
-      '/oauth2.0': {
-        target: 'https://graph.qq.com',
-        changeOrigin: true,
-      },
     },
   },
 });
