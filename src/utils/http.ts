@@ -22,7 +22,7 @@ axios.interceptors.request.use(
     let token: string | null = localStorage.getItem('token');
     // 如果headers不存在，则创建一个空对象
     config.headers = config.headers || {};
-    config.headers['Content-Type'] = 'application/json';
+    config.headers['Content-Type'] = 'application/json; charset=utf-8';
     // 写到请求头上
     token && (config.headers.Authorization = 'Bearer ' + token);
     // 发送dispatch请求修改loading状态

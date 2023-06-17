@@ -193,7 +193,19 @@ const NavBar = (props: any) => {
     const authorizationCode = new URLSearchParams(window.location.search).get('code');
     // 获取token
     axios.get(
-      `/oauth2.0/token?grant_type=authorization_code&client_id=${clientId}&client_secret=${clientSecret}&code=${authorizationCode}&redirect_uri=${encoded_redirect_uri}&fmt=json`
+      `/oauth2.0/token`, {
+      params: {
+        grant_type: "authorization_code",
+        client_id: clientId,
+        client_secret: clientSecret,
+        code: authorizationCode,
+        redirect_uri: encoded_redirect_uri,
+        fmt: "json"
+      },
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      }
+    }
     ).then(response => {
       console.log("response", response);
 
