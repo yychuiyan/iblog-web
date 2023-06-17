@@ -186,82 +186,42 @@ const NavBar = (props: any) => {
   }, [])
   // QQ登录授权
   useEffect(() => {
-    const getAccessToken = async () => {
-      const clientId = '102055926';
-      const clientSecret = 'gIivvkTzKSM3Wmpe';
-      const redirectUri = 'https://yychuiyan.com/rblog/home';
-      const encoded_redirect_uri = encodeURIComponent(redirectUri);
-      const authorizationCode = new URLSearchParams(window.location.search).get('code');
+    const clientId = '102055926';
+    const clientSecret = 'gIivvkTzKSM3Wmpe';
+    const redirectUri = 'https://yychuiyan.com/rblog/home';
+    const encoded_redirect_uri = encodeURIComponent(redirectUri);
+    const authorizationCode = new URLSearchParams(window.location.search).get('code');
+    console.log("authorizationCode", authorizationCode);
 
-      try {
-        const response = await axios.get('/oauth2.0/token', {
-          params: {
-            grant_type: authorizationCode,
-            client_id: clientId,
-            client_secret: clientSecret,
-            code: authorizationCode,
-            redirect_uri: encoded_redirect_uri,
-          },
-        });
-        console.log("response", response);
+    props.BlogActions.asyncQQLoginAction({
+      grant_type: "authorization_code",
+      client_id: clientId,
+      client_secret: clientSecret,
+      code: authorizationCode,
+      redirect_uri: encoded_redirect_uri,
+    }).then((res: any) => {
+      console.log("res", res);
 
-        const data = parseAccessTokenResponse(response.data);
-        console.log('Access Token:', data.access_token);
-      } catch (error: any) {
-        console.error('Request failed:', error.response.data);
-      }
-    };
-
-    getAccessToken();
+    })
 
     // 获取token
     // axios.get(
-    //   `/oauth2.0/token`, {
+    //   `/iblog/getQQLogin`, {
     //   params: {
-    //     grant_type: "authorization_code",
-    //     client_id: clientId,
-    //     client_secret: clientSecret,
-    //     code: authorizationCode,
-    //     redirect_uri: encoded_redirect_uri,
-    //     fmt: "json"
-    //   },
-    //   headers: {
-    //     "Content-Type": "application/json; charset=utf-8"
+    //       grant_type: "authorization_code",
+    //       client_id: clientId,
+    //       client_secret: clientSecret,
+    //       code: authorizationCode,
+    //       redirect_uri: encoded_redirect_uri,
+    //     },
     //   }
-    // }
     // ).then(response => {
     //   console.log("response", response);
-
-    //   // 从响应中提取访问令牌
-    //   const accessToken = new URLSearchParams(response.data).get('access_token') as any;
-    //   setAccessToken(accessToken)
-    //   console.log("accessToken", accessToken);
-
     // }).catch(error => {
     //   // 处理错误
     //   return error
     // });
-    // 获取openID
-    // axios.post(`/oauth2.0/me`, { access_token: accessToken }).then((callback) => {
-    //   // 获取用户的OpenIDcallback( {"client_id":"YOUR_APPID","openid":"YOUR_OPENID"} );
-    //   // setOpenId()
-    // }).catch((error) => {
-    //   return error
-    // })
-    // 调用get_user_info接口，获取用户头像，昵称信息
-
   }, []);
-  function parseAccessTokenResponse(response: string) {
-    const regex = /access_token=([^&]+)/;
-    const matches = response.match(regex);
-
-    if (matches && matches.length >= 2) {
-      const accessToken = matches[1];
-      return { access_token: accessToken };
-    } else {
-      throw new Error('Failed to parse access token response.');
-    }
-  }
   // 页面可视化宽度
   let setPageHeight = () => {
     setClientWidth(document.body.clientWidth);

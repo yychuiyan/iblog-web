@@ -1,5 +1,7 @@
 // 登录
 export const USER_LOGIN = 'USER_LOGIN';
+// qq登录
+export const QQ_LOGIN = 'QQ_LOGIN';
 // 退出登录
 export const LOGINOUT = 'LOGINOUT';
 // 点赞

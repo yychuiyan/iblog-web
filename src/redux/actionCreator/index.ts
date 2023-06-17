@@ -24,6 +24,7 @@ import {
   HandleLike,
   LoginParams,
   MessageAdd,
+  QQLogin,
   SendMail,
 } from '@/types/api';
 import { message } from 'antd';
@@ -50,6 +51,22 @@ export function asyncLoginAction(data: LoginParams) {
       return res;
     } else if (res.code === 110401) {
       message.error('请检查用户名或密码后重新登录');
+    }
+  };
+}
+export function asyncQQLoginAction(data: QQLogin) {
+  return async (dispatch: Dispatch) => {
+    const res = await api.getQQLogin(data);
+    if (res.code === 0) {
+      // 将token存储存到本地
+      localStorage.setItem('token', res.data.token);
+      // 解析token
+      let userToken = jwtDecode(res.data.token);
+      dispatch({
+        type: USER_LOGIN,
+        userToken: userToken,
+      });
+      return res;
     }
   };
 }

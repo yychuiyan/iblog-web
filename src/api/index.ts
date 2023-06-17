@@ -1,10 +1,24 @@
 import axios from '@/utils/http';
-import { Api, ArticleViews, CommentAdd, HandleLike, MessageAdd, SendMail } from '@/types/api';
+import {
+  Api,
+  ArticleViews,
+  CommentAdd,
+  HandleLike,
+  MessageAdd,
+  QQLogin,
+  SendMail,
+} from '@/types/api';
 // 接口请求
 const api: Api = {
   // 登录
   Login(params) {
     return axios.post(`/iblog/user/login`, params);
+  },
+  // QQ登录
+  getQQLogin(params: QQLogin) {
+    return axios.get(
+      `/iblog/getQQLogin/grant_type=${params.grant_type}&client_id=${params.client_id}&client_secret=${params.client_secret}&code=${params.code}&redirect_uri=${params.redirect_uri}`
+    );
   },
   // 退出登录
   loginOut() {
