@@ -190,18 +190,9 @@ const NavBar = (props: any) => {
     const clientSecret = 'gIivvkTzKSM3Wmpe';
     const redirectUri = 'https://yychuiyan.com/rblog/home';
     const encoded_redirect_uri = encodeURIComponent(redirectUri);
-    const tokenUrl = '/oauth2.0/token';
     const authorizationCode = new URLSearchParams(window.location.search).get('code');
-
-    const params = {
-      grant_type: 'authorization_code',
-      client_id: clientId,
-      client_secret: clientSecret,
-      code: authorizationCode,
-      redirect_uri: redirectUri
-    };
     // 获取token
-    axios.post(tokenUrl, null, { params }).then(response => {
+    axios.get(`/oauth2.0/token?grant_type=authorization_code&client_id=${clientId}&client_secret${clientSecret}&code=${authorizationCode}&redirect_uri=${encoded_redirect_uri}`).then(response => {
       console.log("response", response);
 
       // 从响应中提取访问令牌
