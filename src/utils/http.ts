@@ -22,6 +22,10 @@ axios.interceptors.request.use(
     let token: string | null = localStorage.getItem('token');
     // 如果headers不存在，则创建一个空对象
     config.headers = config.headers || {};
+    if (config.method === 'get') {
+      // 给data赋值以绕过if判断
+      config.data = true;
+    }
     config.headers['Content-Type'] = 'application/json; charset=utf-8';
     // 写到请求头上
     token && (config.headers.Authorization = 'Bearer ' + token);
