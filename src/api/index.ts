@@ -17,7 +17,7 @@ const api: Api = {
   // QQ登录
   getQQLogin(params: QQLogin) {
     return axios.get(
-      `/iblog/getQQLogin/grant_type=${params.grant_type}&client_id=${params.client_id}&client_secret=${params.client_secret}&code=${params.code}&redirect_uri=${params.redirect_uri}`
+      `/iblog/getQQLogin?grant_type=${params.grant_type}&client_id=${params.client_id}&client_secret=${params.client_secret}&code=${params.code}&redirect_uri=${params.redirect_uri}`
     );
   },
   // 退出登录
