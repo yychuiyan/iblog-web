@@ -12,7 +12,7 @@ import { LoginOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
 import jwtDecode from 'jwt-decode';
 import UploadImage from '@/components/upload'
 import QQLoginButton from '@/components/qq/QQLoginButton'
-import axios from 'axios';
+import axios from '@/utils/http';
 interface DataType {
   password: string,
   username: string;
@@ -192,7 +192,9 @@ const NavBar = (props: any) => {
     const encoded_redirect_uri = encodeURIComponent(redirectUri);
     const authorizationCode = new URLSearchParams(window.location.search).get('code');
     // 获取token
-    axios.get(`/oauth2.0/token?grant_type=authorization_code&client_id=${clientId}&client_secret=${clientSecret}&code=${authorizationCode}&redirect_uri=${encoded_redirect_uri}&fmt=json`).then(response => {
+    axios.get(
+      `/oauth2.0/token?grant_type=authorization_code&client_id=${clientId}&client_secret=${clientSecret}&code=${authorizationCode}&redirect_uri=${encoded_redirect_uri}&fmt=json`
+    ).then(response => {
       console.log("response", response);
 
       // 从响应中提取访问令牌
