@@ -187,7 +187,22 @@ const NavBar = (props: any) => {
     const authorizationCode: string | any = new URLSearchParams(window.location.search).get('code');
 
     console.log("authorizationCode", authorizationCode);
+    if (authorizationCode !== null) {
+      props.BlogActions.asyncQQLoginAction(
+        grant_type,
+        clientId,
+        clientSecret,
+        authorizationCode,
+        encoded_redirect_uri,
+      ).then((res: any) => {
+        console.log("res", res);
 
+        message.success('登录成功~')
+        setLoginInfo(res)
+        setAvatar(res.avatar)
+        setLoginStatus(true)
+      })
+    }
     console.log("localStorage.getItem('token')", localStorage.getItem('token'));
 
     if (localStorage.getItem('token') !== null) {
@@ -201,27 +216,12 @@ const NavBar = (props: any) => {
 
       // 如果没有code
       if (token.code === undefined) {
-        props.BlogActions.asyncQQLoginAction(
-          grant_type,
-          clientId,
-          clientSecret,
-          authorizationCode,
-          encoded_redirect_uri,
-        ).then((res: any) => {
-          console.log("res", res);
-
-          message.success('登录成功~')
-          setLoginInfo(res)
-          setAvatar(res.avatar)
-        })
-      } else {
         setLoginInfo(token)
         setAvatar(token.avatar)
         setLoginStatus(true)
       }
+
     }
-
-
   }, []);
   // 页面可视化宽度
   let setPageHeight = () => {
