@@ -195,7 +195,6 @@ const NavBar = (props: any) => {
         setLoginInfo(res)
         setAvatar(res.avatar)
         setLoginStatus(true)
-        localStorage.setItem('zhj', "success")
         window.location.href = `https://yychuiyan.com/rblog/home`
       })
     }

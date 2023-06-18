@@ -70,6 +70,7 @@ export function asyncQQLoginAction(
       message.success('恭喜你，登录成功~');
       // 将token存储存到本地
       localStorage.setItem('yychuiyan', res.data.token);
+      localStorage.setItem('zhj', 'success');
       // 解析token
       let userToken = jwtDecode(res.data.token);
       dispatch({
