@@ -178,12 +178,13 @@ const NavBar = (props: any) => {
   useEffect(() => {
     if (localStorage.getItem('token') !== null) {
       const token = jwtDecode(localStorage.getItem('token') as string) as object | any;
-      // console.log("token._doc", token._doc);
       if (token._doc !== undefined) {
         setLoginInfo(token._doc)
         console.log("token._doc", token._doc);
         setAvatar(token._doc.avatar)
         setLoginStatus(true)
+      } else {
+        console.log("token", token);
       }
     }
   }, [])
@@ -196,7 +197,6 @@ const NavBar = (props: any) => {
     const encoded_redirect_uri = encodeURIComponent(redirectUri);
     const authorizationCode = new URLSearchParams(window.location.search).get('code');
     console.log("authorizationCode", authorizationCode);
-
     props.BlogActions.asyncQQLoginAction(
       grant_type,
       clientId,
