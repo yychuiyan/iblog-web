@@ -176,17 +176,7 @@ const NavBar = (props: any) => {
   }, []);
   // 登录信息 解析token
   useEffect(() => {
-    if (localStorage.getItem('token') !== null) {
-      const token = jwtDecode(localStorage.getItem('token') as string) as object | any;
-      if (token._doc !== undefined) {
-        setLoginInfo(token._doc)
-        console.log("token._doc", token._doc);
-        setAvatar(token._doc.avatar)
-        setLoginStatus(true)
-      } else {
-        console.log("token", token);
-      }
-    }
+
   }, [])
   // QQ登录授权
   useEffect(() => {
@@ -195,18 +185,33 @@ const NavBar = (props: any) => {
     const clientSecret = 'gIivvkTzKSM3Wmpe';
     const redirectUri = 'https://yychuiyan.com/rblog/home';
     const encoded_redirect_uri = encodeURIComponent(redirectUri);
-    const authorizationCode = new URLSearchParams(window.location.search).get('code');
-    console.log("authorizationCode", authorizationCode);
-    props.BlogActions.asyncQQLoginAction(
-      grant_type,
-      clientId,
-      clientSecret,
-      authorizationCode,
-      encoded_redirect_uri,
-    ).then((res: any) => {
-      console.log("res", res);
+    const authorizationCode: string | any = new URLSearchParams(window.location.search).get('code');
+    if (localStorage.getItem('token') !== null) {
+      const token = jwtDecode(localStorage.getItem('token') as string) as object | any;
+      if (token._doc !== undefined) {
+        setLoginInfo(token._doc)
+        setAvatar(token._doc.avatar)
+        setLoginStatus(true)
+      }
+      // 如果没有code
+      if (token.code === undefined) {
+        props.BlogActions.asyncQQLoginAction(
+          grant_type,
+          clientId,
+          clientSecret,
+          authorizationCode,
+          encoded_redirect_uri,
+        ).then((res: any) => {
+          setLoginInfo(res)
+          setAvatar(res.avatar)
+        })
+      } else {
+        setLoginInfo(token)
+        setAvatar(token.avatar)
+        setLoginStatus(true)
+      }
+    }
 
-    })
 
   }, []);
   // 页面可视化宽度
@@ -357,8 +362,6 @@ const NavBar = (props: any) => {
 
   // 点击登录按钮
   const onFinish = async (values: DataType) => {
-    console.log("values", values);
-
     await form.validateFields();
     if (values.password !== values.verifyPassword) {
       return message.error('两次密码不相同，请检查后重新输入');
@@ -373,7 +376,6 @@ const NavBar = (props: any) => {
         setLoginStatus(true)
         setLoginInfo(res.data)
       }
-      console.log("code", res);
       window.location.reload();
     });
     setIsLoginModalOpen(!isLoginModalOpen)
