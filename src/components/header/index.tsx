@@ -12,7 +12,6 @@ import { LoginOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
 import jwtDecode from 'jwt-decode';
 import UploadImage from '@/components/upload'
 import QQLoginButton from '@/components/qq/QQLoginButton'
-import axios from '@/utils/http';
 interface DataType {
   password: string,
   username: string;
@@ -187,6 +186,7 @@ const NavBar = (props: any) => {
     const encoded_redirect_uri = encodeURIComponent(redirectUri);
     const authorizationCode: string | any = new URLSearchParams(window.location.search).get('code');
 
+    console.log("authorizationCode", authorizationCode);
 
     console.log("localStorage.getItem('token')", localStorage.getItem('token'));
 

@@ -17,6 +17,7 @@ import {
   GET_VERSE,
   SEND_MAIL,
   HANDLE_LIKE,
+  QQ_LOGIN,
 } from '@/redux/constants';
 import {
   ArticleViews,
@@ -71,7 +72,7 @@ export function asyncQQLoginAction(
       // 解析token
       let userToken = jwtDecode(res.data.token);
       dispatch({
-        type: USER_LOGIN,
+        type: QQ_LOGIN,
         userToken: userToken,
       });
       return res;
