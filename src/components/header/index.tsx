@@ -193,6 +193,8 @@ const NavBar = (props: any) => {
         setAvatar(token._doc.avatar)
         setLoginStatus(true)
       }
+      console.log("token", token);
+
       // 如果没有code
       if (token.code === undefined) {
         props.BlogActions.asyncQQLoginAction(
@@ -202,6 +204,9 @@ const NavBar = (props: any) => {
           authorizationCode,
           encoded_redirect_uri,
         ).then((res: any) => {
+          console.log("res", res);
+
+          message.success('登录成功~')
           setLoginInfo(res)
           setAvatar(res.avatar)
         })

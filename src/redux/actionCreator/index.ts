@@ -65,7 +65,6 @@ export function asyncQQLoginAction(
   return async (dispatch: Dispatch) => {
     const res = await api.getQQLogin(grant_type, client_id, client_secret, code, redirect_uri);
     console.log('res', res);
-
     if (res.code === 0) {
       // 将token存储存到本地
       localStorage.setItem('token', res.data.token);
