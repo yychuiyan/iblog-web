@@ -188,18 +188,18 @@ const NavBar = (props: any) => {
 
     // QQ是否则正常登录
     if (authorizationCode !== null) {
-      props.BlogActions.asyncQQLoginAction(
-        grant_type,
-        clientId,
-        clientSecret,
-        authorizationCode,
-        encoded_redirect_uri,
-      ).then((res: any) => {
-        setLoginInfo(res)
-        setAvatar(res.avatar)
-        setLoginStatus(true)
-        // window.location.href = `https://yychuiyan.com/rblog/home`
-      })
+      // props.BlogActions.asyncQQLoginAction(
+      //   grant_type,
+      //   clientId,
+      //   clientSecret,
+      //   authorizationCode,
+      //   encoded_redirect_uri,
+      // ).then((res: any) => {
+      //   setLoginInfo(res)
+      //   setAvatar(res.avatar)
+      //   setLoginStatus(true)
+      //   window.location.href = `https://yychuiyan.com/rblog/home`
+      // })
     }
     // 如果token不为null
     if (localStorage.getItem('token') !== null) {
