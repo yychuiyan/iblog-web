@@ -186,7 +186,7 @@ const NavBar = (props: any) => {
     const encoded_redirect_uri = encodeURIComponent(redirectUri);
     const authorizationCode: string | any = new URLSearchParams(window.location.search).get('code');
 
-    console.log("authorizationCode", authorizationCode);
+    // QQ是否则正常登录
     if (authorizationCode !== null) {
       props.BlogActions.asyncQQLoginAction(
         grant_type,
@@ -195,23 +195,25 @@ const NavBar = (props: any) => {
         authorizationCode,
         encoded_redirect_uri,
       ).then((res: any) => {
-        message.success('登录成功~')
         setLoginInfo(res)
         setAvatar(res.avatar)
         setLoginStatus(true)
-        // props.history(`https://yychuiyan.com/rblog/home`)
         window.location.href = `https://yychuiyan.com/rblog/home`
+        setTimeout(() => {
+          message.success('恭喜你，登录成功~')
+        }, 1000)
       })
     }
-    console.log("localStorage.getItem('token')", localStorage.getItem('token'));
-
+    // 如果token不为null
     if (localStorage.getItem('token') !== null) {
       const token = jwtDecode(localStorage.getItem('token') as string) as object | any;
+      // 判断是否为本地
       if (token._doc !== undefined) {
         setLoginInfo(token._doc)
         setAvatar(token._doc.avatar)
         setLoginStatus(true)
       }
+      // 判断是否为QQ登录
       // 如果没有code
       if (token.code !== undefined) {
         setLoginInfo(token)
@@ -379,7 +381,7 @@ const NavBar = (props: any) => {
       data: any; code: number, username: DataType
     }) => {
       if (res.code === 0) {
-        message.success('恭喜你,登录成功')
+        message.success('恭喜你，登录成功~')
         setLoginStatus(true)
         setLoginInfo(res.data)
       }
