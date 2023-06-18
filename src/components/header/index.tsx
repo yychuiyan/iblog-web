@@ -198,10 +198,7 @@ const NavBar = (props: any) => {
         setLoginInfo(res)
         setAvatar(res.avatar)
         setLoginStatus(true)
-        window.location.href = `https://yychuiyan.com/rblog/home`
-        setTimeout(() => {
-          message.success('恭喜你，登录成功~')
-        }, 1000)
+        // window.location.href = `https://yychuiyan.com/rblog/home`
       })
     }
     // 如果token不为null
@@ -381,7 +378,6 @@ const NavBar = (props: any) => {
       data: any; code: number, username: DataType
     }) => {
       if (res.code === 0) {
-        message.success('恭喜你，登录成功~')
         setLoginStatus(true)
         setLoginInfo(res.data)
       }

@@ -41,6 +41,7 @@ export function asyncLoginAction(data: LoginParams) {
       message.error(res.msg);
     }
     if (res.code === 0) {
+      message.success('恭喜你，登录成功~');
       // 将token存储存到本地
       localStorage.setItem('token', res.data.token);
       // 解析token
@@ -67,6 +68,7 @@ export function asyncQQLoginAction(
     const res = await api.getQQLogin(grant_type, client_id, client_secret, code, redirect_uri);
     console.log('res', res);
     if (res.code === 0) {
+      message.success('恭喜你，登录成功~');
       // 将token存储存到本地
       localStorage.setItem('token', res.data.token);
       // 解析token
