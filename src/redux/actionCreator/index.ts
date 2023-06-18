@@ -25,7 +25,6 @@ import {
   HandleLike,
   LoginParams,
   MessageAdd,
-  QQLogin,
   SendMail,
 } from '@/types/api';
 import { message } from 'antd';
@@ -43,7 +42,7 @@ export function asyncLoginAction(data: LoginParams) {
     if (res.code === 0) {
       message.success('恭喜你，登录成功~');
       // 将token存储存到本地
-      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('yychuiyan', res.data.token);
       // 解析token
       let userToken = jwtDecode(res.data.token);
       dispatch({
@@ -70,7 +69,7 @@ export function asyncQQLoginAction(
     if (res.code === 0) {
       message.success('恭喜你，登录成功~');
       // 将token存储存到本地
-      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('yychuiyan', res.data.token);
       // 解析token
       let userToken = jwtDecode(res.data.token);
       dispatch({
@@ -95,6 +94,10 @@ export const asyncLoginOutAction = () => {
 export const asyncLikeUpdateAction = (params: HandleLike) => {
   return async (dispatch: Dispatch) => {
     const res = await api.isHandleLike(params);
+    if (res.code === 100201) {
+      message.warning('已经点过了哟~😆');
+      return false;
+    }
     dispatch({
       type: HANDLE_LIKE,
       like: res,

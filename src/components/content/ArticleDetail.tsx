@@ -25,6 +25,7 @@ import {
 import CopyRight from '../copyright';
 import './index.css';
 interface DataType {
+  like: any;
   updateTime: number;
   views: number;
   content: string;
@@ -60,25 +61,17 @@ const ArticleDetail = (props: any) => {
   // Like默认值
   let [like, setLike] = useState(0)
   // 登录数据
-  const [loginInfo, setLoginInfo] = useState<any>()
+  let [loginInfo, setLoginInfo] = useState<any>()
   // 登录状态
   const [loginStatus, setLoginStatus] = useState(false)
-  // 文章数据
-  const [articleList, setArticleList] = useState<DataType[]>([])
   // 是否已点赞
   const [likeShow, setLikeShow] = useState(false)
-  // 登录信息 解析token
-  useEffect(() => {
-    if (localStorage.getItem('token') !== null) {
-      const token = jwtDecode(localStorage.getItem('token') as string) as object | any;
-      setLoginInfo(token._doc)
-      console.log("token._doc", token._doc);
-      setLoginStatus(true)
-    }
-  }, [])
+
+
   // 获取文章列表数据
   useEffect(() => {
     let articleId = props.match.params.id;
+
     props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
       // 获取文章
       let { data } = res.data as unknown as ArticleList;
@@ -95,46 +88,57 @@ const ArticleDetail = (props: any) => {
       }).then((res: any) => {
         return res;
       });
+      let like = parseInt(dataFilter.map((item) => item.like).join(''));
+      setLike(like)
       setList(dataFilter);
       setAllData(data);
     });
-  }, [props.match.params.id]);
-  // 文章列表
+  }, [props.match.params.id, props.BlogActions]);
+  // 登录信息 解析token
   useEffect(() => {
-    let articleId = props.match.params.id;
-    // 获取文章列表
-    props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
-      let { data } = res.data as unknown as ArticleList;
-      let currentData = data.filter((item: any) => item._id === articleId)
-      let likeData = Number(currentData.map((item: any) => item.like).join(''))
-      setLike(likeData)
-      setArticleList(data);
-    });
-  }, [props.BlogActions])
+    // 获取登录态
+    let isLoginInfo = localStorage.getItem('zhj')
+    if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
+      const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as object | any;
+      setLoginInfo(token)
+      setLoginStatus(true)
+      if (list.length > 0) {
+        const result = list.some(obj => token.likeArticleId.includes(obj._id));
+        if (result) {
+          setLikeShow(result)
+        }
+      }
+
+    }
+  }, [localStorage, setLikeShow, list])
   // todo 初始化时判断是否已存在
   // 点赞
   const handleLike = () => {
-    console.log("点赞");
     let articleId = props.match.params.id;
+    // 用户ID
     const userId = loginInfo._id
-    const result = articleList.some(obj => loginInfo.likeArticleId.includes(obj._id));
-    console.log("result", result);
+    // 检索文章是否存在
+    const result = dataFilter.some(obj => loginInfo.likeArticleId.includes(obj._id));
     // 如果包含则已存在点赞
-    if (result === false) {
-      console.log("不存在");
-      setLikeShow(!likeShow)
-      setLike(like + 1)
-      // 更新数据
-      let newLikeArticleId = loginInfo.likeArticleId
-      newLikeArticleId.push(articleId)
+    if (result) {
+      // localStorage.setItem('like', likeShow)
+      setLikeShow(result)
+      message.warning('已经点过了哟~😆')
+    } else {
       props.BlogActions.asyncLikeUpdateAction({
-        likeArticleId: loginInfo.likeArticleId,
+        likeArticleId: [articleId],
         id: userId,
       }).then((res: any) => {
+        if (res === false) {
+          return
+        }
+        localStorage.setItem('yychuiyan', res.data.token)
+        setLike(like + 1)
+        // 更新成功的token，重新更新到本地
+        setLikeShow(!result)
         message.success("谢谢支持~")
+
       });
-    } else {
-      console.log("存在");
 
     }
   }
@@ -215,7 +219,7 @@ const ArticleDetail = (props: any) => {
                               {
                                 loginStatus === false ?
                                   <span className='ml-2 cursor-pointer' onClick={handleCannot}><LikeFilled style={{ fontSize: '20px' }} />点赞({like})</span> :
-                                  <span className='ml-2 cursor-pointer' onClick={handleLike}><LikeFilled style={{ fontSize: '20px' }} />点赞({like})</span>
+                                  <span className='ml-2 cursor-pointer' onClick={handleLike}><LikeFilled style={{ fontSize: '20px' }} />{likeShow ? '已点赞' : '点赞'}({like})</span>
                               }
                             </p>
                           </div>

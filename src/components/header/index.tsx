@@ -173,10 +173,7 @@ const NavBar = (props: any) => {
     props.BlogActions.asyncModeAction(Number(localStorage.getItem('localmode')));
     setIsChecked(Boolean(Number(localStorage.getItem('localmode'))))
   }, []);
-  // 登录信息 解析token
-  useEffect(() => {
 
-  }, [])
   // QQ登录授权
   useEffect(() => {
     const grant_type = "authorization_code";
@@ -188,36 +185,26 @@ const NavBar = (props: any) => {
 
     // QQ是否则正常登录
     if (authorizationCode !== null) {
-      // props.BlogActions.asyncQQLoginAction(
-      //   grant_type,
-      //   clientId,
-      //   clientSecret,
-      //   authorizationCode,
-      //   encoded_redirect_uri,
-      // ).then((res: any) => {
-      //   setLoginInfo(res)
-      //   setAvatar(res.avatar)
-      //   setLoginStatus(true)
-      //   window.location.href = `https://yychuiyan.com/rblog/home`
-      // })
+      props.BlogActions.asyncQQLoginAction(
+        grant_type,
+        clientId,
+        clientSecret,
+        authorizationCode,
+        encoded_redirect_uri,
+      ).then((res: any) => {
+        setLoginInfo(res)
+        setAvatar(res.avatar)
+        setLoginStatus(true)
+        window.location.href = `https://yychuiyan.com/rblog/home`
+      })
     }
-    // 如果token不为null
-    if (localStorage.getItem('token') !== null) {
-      const token = jwtDecode(localStorage.getItem('token') as string) as object | any;
-      // 判断是否为本地
-      if (token._doc !== undefined) {
-        setLoginInfo(token._doc)
-        setAvatar(token._doc.avatar)
-        setLoginStatus(true)
-      }
-      // 判断是否为QQ登录
-      // 如果没有code
-      if (token.code !== undefined) {
-        setLoginInfo(token)
-        setAvatar(token.avatar)
-        setLoginStatus(true)
-      }
-
+    // 获取登录态
+    let isLoginInfo = localStorage.getItem('zhj')
+    if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
+      const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as object | any;
+      setLoginInfo(token)
+      setAvatar(token.avatar)
+      setLoginStatus(true)
     }
   }, []);
   // 页面可视化宽度
@@ -380,6 +367,7 @@ const NavBar = (props: any) => {
       if (res.code === 0) {
         setLoginStatus(true)
         setLoginInfo(res.data)
+        localStorage.setItem('zhj', "success")
       }
       window.location.reload();
     });
@@ -402,7 +390,8 @@ const NavBar = (props: any) => {
     props.BlogActions.asyncLoginOutAction().then(() => {
       message.success("已退出登录~")
       setLoginStatus(false)
-      localStorage.removeItem('token')
+      localStorage.removeItem('yychuiyan')
+      localStorage.removeItem('zhj')
       window.location.reload();
     });
   }
