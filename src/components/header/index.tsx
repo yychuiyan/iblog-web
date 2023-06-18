@@ -195,12 +195,11 @@ const NavBar = (props: any) => {
         authorizationCode,
         encoded_redirect_uri,
       ).then((res: any) => {
-        console.log("res", res);
-
         message.success('登录成功~')
         setLoginInfo(res)
         setAvatar(res.avatar)
         setLoginStatus(true)
+        props.history(`https://yychuiyan.com/rblog/home`)
       })
     }
     console.log("localStorage.getItem('token')", localStorage.getItem('token'));
@@ -212,8 +211,6 @@ const NavBar = (props: any) => {
         setAvatar(token._doc.avatar)
         setLoginStatus(true)
       }
-      console.log("token", token.code);
-
       // 如果没有code
       if (token.code !== undefined) {
         setLoginInfo(token)
