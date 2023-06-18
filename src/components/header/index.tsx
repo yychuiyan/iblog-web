@@ -186,6 +186,10 @@ const NavBar = (props: any) => {
     const redirectUri = 'https://yychuiyan.com/rblog/home';
     const encoded_redirect_uri = encodeURIComponent(redirectUri);
     const authorizationCode: string | any = new URLSearchParams(window.location.search).get('code');
+
+
+    console.log("localStorage.getItem('token')", localStorage.getItem('token'));
+
     if (localStorage.getItem('token') !== null) {
       const token = jwtDecode(localStorage.getItem('token') as string) as object | any;
       if (token._doc !== undefined) {
