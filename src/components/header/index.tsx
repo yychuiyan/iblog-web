@@ -212,10 +212,10 @@ const NavBar = (props: any) => {
         setAvatar(token._doc.avatar)
         setLoginStatus(true)
       }
-      console.log("token", token);
+      console.log("token", token.code);
 
       // 如果没有code
-      if (token.code === undefined) {
+      if (token.code !== undefined) {
         setLoginInfo(token)
         setAvatar(token.avatar)
         setLoginStatus(true)
