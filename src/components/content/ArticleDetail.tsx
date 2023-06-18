@@ -96,6 +96,9 @@ const ArticleDetail = (props: any) => {
   }, [props.match.params.id, props.BlogActions]);
   // 登录信息 解析token
   useEffect(() => {
+    const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as object | any;
+    console.log("token", token);
+
     // 获取登录态
     let isLoginInfo = localStorage.getItem('zhj')
     if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
