@@ -199,7 +199,8 @@ const NavBar = (props: any) => {
         setLoginInfo(res)
         setAvatar(res.avatar)
         setLoginStatus(true)
-        props.history(`https://yychuiyan.com/rblog/home`)
+        // props.history(`https://yychuiyan.com/rblog/home`)
+        window.location.href = `https://yychuiyan.com/rblog/home`
       })
     }
     console.log("localStorage.getItem('token')", localStorage.getItem('token'));
