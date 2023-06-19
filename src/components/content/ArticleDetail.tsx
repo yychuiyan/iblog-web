@@ -47,6 +47,12 @@ interface ArticleList {
   isTop: number;
   data: DataType[]
 }
+interface TreeNode {
+  title: string | any;
+  id: string | any;
+  [key: string]: TreeNode | string | any;
+}
+
 const ArticleDetail = (props: any) => {
   // 文章列表
   const [list, setList] = useState<DataType[]>([]);
@@ -66,7 +72,6 @@ const ArticleDetail = (props: any) => {
   const [loginStatus, setLoginStatus] = useState(false)
   // 是否已点赞
   const [likeShow, setLikeShow] = useState(false)
-
   // 获取文章列表数据
   useEffect(() => {
     let articleId = props.match.params.id;
@@ -103,9 +108,6 @@ const ArticleDetail = (props: any) => {
       setLoginStatus(true)
     }
   }, [localStorage, setLikeShow, list])
-
-
-
   // 获取点赞信息
   props.BlogActions.asyncLikeListAction().then((res: any) => {
     const articleId = props.match.params.id;
@@ -135,9 +137,7 @@ const ArticleDetail = (props: any) => {
           setLike(like + 1)
           setLikeShow(true)
         }
-      });
-
-    // }
+    });
   }
   // 禁止点击
   const handleCannot = () => {
@@ -191,37 +191,37 @@ const ArticleDetail = (props: any) => {
                         <div className="relative lg:top-5" key={item._id}>
                           <div
                             className="absolute h-16 -top-16  w-[calc(100%-0px)] text-lg
-                          lg:w-full lg:flex-col lg:items-start lg:-top-20  sm:w-full
-                          "
+                            lg:w-full lg:flex-col lg:items-start lg:-top-20  sm:w-full
+                            "
                           >
                             <div className='flex'>
-                            <p className="pl-5 lg:h-4">
-                              <FontAwesomeIcon icon={faFolder} />
-                              <span className="inline-block w-auto h-6  text-center  text-md leading-6 mx-2 px-2  rounded-lg bg-base-200 cursor-pointer  hover:bg-base-300 hover:transition hover:duration-500">
-                                {item.categories}
-                              </span>
-                            </p>
-                            <p className="lg:pl-5">
-                              <FontAwesomeIcon icon={faTags} />
-                              {item.tags.map((it, index) => (
-                                <span
-                                  className="inline-block w-auto h-6 text-center text-md leading-6 ml-2 px-2  rounded-lg bg-base-200 cursor-pointer  hover:bg-base-300 hover:transition hover:duration-500"
-                                  key={index}
-                                >
-                                  {it}
+                              <p className="pl-5 lg:h-4">
+                                <FontAwesomeIcon icon={faFolder} />
+                                <span className="inline-block w-auto h-6  text-center  text-md leading-6 mx-2 px-2  rounded-lg bg-base-200 cursor-pointer  hover:bg-base-300 hover:transition hover:duration-500">
+                                  {item.categories}
                                 </span>
-                              ))}
-                            </p>
+                              </p>
+                              <p className="lg:pl-5">
+                                <FontAwesomeIcon icon={faTags} />
+                                {item.tags.map((it, index) => (
+                                  <span
+                                    className="inline-block w-auto h-6 text-center text-md leading-6 ml-2 px-2  rounded-lg bg-base-200 cursor-pointer  hover:bg-base-300 hover:transition hover:duration-500"
+                                    key={index}
+                                  >
+                                    {it}
+                                  </span>
+                                ))}
+                              </p>
                             </div>
                             <div>
                               <p className='h-10 absolute right-0'>
                                 <span className='ml-3 text-[var(--bgcolor-navbar-click)] text-base'>觉得文章还不错？给作者一个赞😉</span>
-                              {
-                                loginStatus === false ?
+                                {
+                                  loginStatus === false ?
                                     <span className='ml-2 cursor-pointer text-[var(--bgcolor-navbar-click)] text-base' onClick={handleCannot}><LikeFilled style={{ fontSize: '20px' }} />点赞({like})</span> :
                                     <span className='ml-2 cursor-pointer text-[var(--bgcolor-navbar-click)] text-base' onClick={handleLike}><LikeFilled style={{ fontSize: '20px' }} />{likeShow ? '已点赞' : '点赞'}({like})</span>
-                              }
-                            </p>
+                                }
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -241,7 +241,7 @@ const ArticleDetail = (props: any) => {
           <LastUpdate data={allData} />
           <div>
             {/* PC目录 */}
-            <Affix offsetTop={70}>
+            <Affix offsetTop={70} >
               <div className="flex flex-col   top-0 rounded-2xl bg-base-100 lg:hidden">
                 <span></span>
                 <div className="w-auto  bg-base-100 rounded-3xl">
