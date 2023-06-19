@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useId } from 'react';
+import React, { useState, useEffect, useId, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
@@ -67,7 +67,6 @@ const ArticleDetail = (props: any) => {
   // 是否已点赞
   const [likeShow, setLikeShow] = useState(false)
 
-
   // 获取文章列表数据
   useEffect(() => {
     let articleId = props.match.params.id;
@@ -100,17 +99,18 @@ const ArticleDetail = (props: any) => {
     let isLoginInfo = localStorage.getItem('zhj')
     if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
       const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as object | any;
-      console.log("token", token);
       setLoginInfo(token)
       setLoginStatus(true)
     }
   }, [localStorage, setLikeShow, list])
+
+
+
   // 获取点赞信息
   props.BlogActions.asyncLikeListAction().then((res: any) => {
     const articleId = props.match.params.id;
     let { data } = res
     let filterLike = data.filter((item: any) => item.userId === loginInfo?._id && item.articleId === articleId)
-    console.log("filterLike", filterLike);
     if (filterLike.length > 0) {
       // 存在点赞
       setLikeShow(true)
@@ -129,8 +129,7 @@ const ArticleDetail = (props: any) => {
       userAvatar: loginInfo.avatar,
       likeNumber: 1,
       id: loginInfo._id,
-      }).then((res: any) => {
-        console.log("res", res);
+    }).then((res: any) => {
         if (res.code === 0) {
           message.success("谢谢支持~")
           setLike(like + 1)
@@ -182,19 +181,20 @@ const ArticleDetail = (props: any) => {
           {list.map((item, index) => {
             return (
               <div key={item._id}>
-                <div className="flex flex-row ">
+                <div className="flex flex-row">
                   {/* 渲染 */}
                   <div className="markdown-body  content lg:w-[calc(100%-38px)] lg:mx-auto">
                     <MarkDown content={item.content} />
 
                     {dataFilter.map((item) => {
                       return (
-                        <div className="flex items-center relative lg:top-5" key={item._id}>
+                        <div className="relative lg:top-5" key={item._id}>
                           <div
-                            className="flex items-center  absolute h-16 -top-16  w-[calc(100%-0px)] text-lg
+                            className="absolute h-16 -top-16  w-[calc(100%-0px)] text-lg
                           lg:w-full lg:flex-col lg:items-start lg:-top-20  sm:w-full
                           "
                           >
+                            <div className='flex'>
                             <p className="pl-5 lg:h-4">
                               <FontAwesomeIcon icon={faFolder} />
                               <span className="inline-block w-auto h-6  text-center  text-md leading-6 mx-2 px-2  rounded-lg bg-base-200 cursor-pointer  hover:bg-base-300 hover:transition hover:duration-500">
@@ -212,14 +212,17 @@ const ArticleDetail = (props: any) => {
                                 </span>
                               ))}
                             </p>
-                            <p className='relative'>
-                              <span className='ml-3 text-[var(--bgcolor-navbar-click)]'>觉得文章还不错？给作者一个赞😉</span>
+                            </div>
+                            <div>
+                              <p className='h-10 absolute right-0'>
+                                <span className='ml-3 text-[var(--bgcolor-navbar-click)] text-base'>觉得文章还不错？给作者一个赞😉</span>
                               {
                                 loginStatus === false ?
-                                  <span className='ml-2 cursor-pointer' onClick={handleCannot}><LikeFilled style={{ fontSize: '20px' }} />点赞({like})</span> :
-                                  <span className='ml-2 cursor-pointer' onClick={handleLike}><LikeFilled style={{ fontSize: '20px' }} />{likeShow ? '已点赞' : '点赞'}({like})</span>
+                                    <span className='ml-2 cursor-pointer text-[var(--bgcolor-navbar-click)] text-base' onClick={handleCannot}><LikeFilled style={{ fontSize: '20px' }} />点赞({like})</span> :
+                                    <span className='ml-2 cursor-pointer text-[var(--bgcolor-navbar-click)] text-base' onClick={handleLike}><LikeFilled style={{ fontSize: '20px' }} />{likeShow ? '已点赞' : '点赞'}({like})</span>
                               }
                             </p>
+                            </div>
                           </div>
                         </div>
                       );
@@ -232,30 +235,30 @@ const ArticleDetail = (props: any) => {
             );
           })}
         </article>
-        {/* PC目录 */}
+
         <aside className="w-300 lg:fixed lg:top-36 lg:right-0 lg:w-0">
           <User data={allData} />
           <LastUpdate data={allData} />
           <div>
+            {/* PC目录 */}
             <Affix offsetTop={70}>
-              <div className="flex flex-col top-0 rounded-2xl bg-base-100 lg:hidden">
+              <div className="flex flex-col   top-0 rounded-2xl bg-base-100 lg:hidden">
                 <span></span>
-                <div className="w-auto overflow-hidden bg-base-100 rounded-3xl">
+                <div className="w-auto  bg-base-100 rounded-3xl">
                   <div
-                    className="w-full border border-solid border-b-none border-t-0 border-l-0 border-r-0"
+                    className="w-full  border border-solid border-b-none border-t-0 border-l-0 border-r-0"
                     style={{ color: 'var(--color-icon-default)' }}
                   >
                     <p className="flex items-center h-10 text-xl  px-3">目录</p>
                   </div>
                   <div className='max-h-[28.5rem] w-[300px] overflow-auto'>
-                    <div className=''>
                     <MarkNav
                       className="article-menu"
                       source={content}
                       headingTopOffset={80}
                       ordered={true} //是否显示标题题号1,2等
                     />
-                  </div>
+
                   </div>
                 </div>
               </div>
@@ -304,7 +307,6 @@ const ArticleDetail = (props: any) => {
               </div>
             </Affix>
           </div>
-
           <FloatButton.BackTop shape="square" />
         </aside>
       </div>

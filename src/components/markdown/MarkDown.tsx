@@ -36,9 +36,7 @@ const MarkDown = (props: any) => {
               {...props}
               />
               : <code>{children}</code>
-
           }
-
         }}
       />
     </div>
