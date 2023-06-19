@@ -18,6 +18,7 @@ import {
   SEND_MAIL,
   HANDLE_LIKE,
   QQ_LOGIN,
+  LIKE_LIST,
 } from '@/redux/constants';
 import {
   ArticleViews,
@@ -92,7 +93,7 @@ export const asyncLoginOutAction = () => {
   };
 };
 // 点赞
-export const asyncLikeUpdateAction = (params: HandleLike) => {
+export const asyncLikeCreateAction = (params: HandleLike) => {
   return async (dispatch: Dispatch) => {
     const res = await api.isHandleLike(params);
     if (res.code === 100201) {
@@ -101,6 +102,17 @@ export const asyncLikeUpdateAction = (params: HandleLike) => {
     }
     dispatch({
       type: HANDLE_LIKE,
+      like: res,
+    });
+    return res;
+  };
+};
+// 点赞列表
+export const asyncLikeListAction = () => {
+  return async (dispatch: Dispatch) => {
+    const res = await api.getLikeList();
+    dispatch({
+      type: LIKE_LIST,
       like: res,
     });
     return res;

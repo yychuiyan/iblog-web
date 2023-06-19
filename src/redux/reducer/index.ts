@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import { UserLoginReducer } from './user/login';
 import { QQLoginReducer } from './user/qqLogin';
 import { LoginOutReducer } from './user/loginout';
-import { LikeUpdateReducer } from './articles/like';
+import { LikeCreateReducer } from '../like/add';
+import { LikeListReducer } from '../like/list';
 import { ArticleListReducer } from '@/redux/reducer/articles/list';
 import { ArticleAllListReducer } from '@/redux/reducer/articles/list_all';
 import { ArticleSearchListReducer } from '@/redux/reducer/articles/search';
@@ -22,7 +23,8 @@ const RootReducer = combineReducers({
   UserLoginReducer,
   QQLoginReducer,
   LoginOutReducer,
-  LikeUpdateReducer,
+  LikeCreateReducer,
+  LikeListReducer,
   ArticleListReducer,
   ArticleAllListReducer,
   ArticleSearchListReducer,

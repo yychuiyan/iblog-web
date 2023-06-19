@@ -56,7 +56,11 @@ interface SendMail {
 }
 interface HandleLike {
   id: string;
-  likeArticleId: Array;
+  articleId: string;
+  articleName: string;
+  userId: string;
+  userName: string;
+  userAvatar: string;
 }
 interface QQLogin {
   grant_type: string;
@@ -77,6 +81,7 @@ export interface Api {
   Login(params: LoginParams): Promise<ApiResponse>;
   loginOut(): Promise<ApiResponse>;
   isHandleLike(params: HandleLike): Promise<ApiResponse>;
+  getLikeList(): Promise<ApiResponse>;
   getQQLogin(
     grant_type: string,
     client_id: string,

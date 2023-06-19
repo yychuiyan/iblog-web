@@ -101,48 +101,44 @@ const ArticleDetail = (props: any) => {
     if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
       const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as object | any;
       console.log("token", token);
-
       setLoginInfo(token)
       setLoginStatus(true)
-      if (list.length > 0) {
-        const result = list.some(obj => token.likeArticleId.includes(obj._id));
-        if (result) {
-          setLikeShow(result)
-        }
-      }
-
     }
   }, [localStorage, setLikeShow, list])
+  // 获取点赞信息
+  props.BlogActions.asyncLikeListAction().then((res: any) => {
+    const articleId = props.match.params.id;
+    let { data } = res
+    let filterLike = data.filter((item: any) => item.userId === loginInfo?._id && item.articleId === articleId)
+    console.log("filterLike", filterLike);
+    if (filterLike.length > 0) {
+      // 存在点赞
+      setLikeShow(true)
+    }
+  })
   // todo 初始化时判断是否已存在
   // 点赞
   const handleLike = () => {
-    let articleId = props.match.params.id;
-    // 用户ID
-    const userId = loginInfo._id
-    // 检索文章是否存在
-    const result = dataFilter.some(obj => loginInfo.likeArticleId.includes(obj._id));
-    // 如果包含则已存在点赞
-    if (result) {
-      // localStorage.setItem('like', likeShow)
-      setLikeShow(result)
-      message.warning('已经点过了哟~😆')
-    } else {
-      props.BlogActions.asyncLikeUpdateAction({
-        likeArticleId: [articleId],
-        id: userId,
+    const articleId = props.match.params.id;
+    const articleName = list.map(item => item.title).join('')
+    props.BlogActions.asyncLikeCreateAction({
+      articleId: articleId,
+      articleName: articleName,
+      userId: loginInfo._id,
+      userName: loginInfo.username,
+      userAvatar: loginInfo.avatar,
+      likeNumber: 1,
+      id: loginInfo._id,
       }).then((res: any) => {
-        if (res === false) {
-          return
+        console.log("res", res);
+        if (res.code === 0) {
+          message.success("谢谢支持~")
+          setLike(like + 1)
+          setLikeShow(true)
         }
-        localStorage.setItem('yychuiyan', res.data.token)
-        setLike(like + 1)
-        // 更新成功的token，重新更新到本地
-        setLikeShow(!result)
-        message.success("谢谢支持~")
-
       });
 
-    }
+    // }
   }
   // 禁止点击
   const handleCannot = () => {

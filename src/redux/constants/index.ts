@@ -6,6 +6,8 @@ export const QQ_LOGIN = 'QQ_LOGIN';
 export const LOGINOUT = 'LOGINOUT';
 // 点赞
 export const HANDLE_LIKE = 'HANDLE_LIKE';
+// 点赞列表
+export const LIKE_LIST = 'LIKE_LIST';
 // 文章列表
 export const ARTICLE_LIST = 'ARTICLE_LIST';
 // 不含分页列表

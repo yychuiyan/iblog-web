@@ -32,7 +32,11 @@ const api: Api = {
   },
   // 点赞
   isHandleLike(params: HandleLike) {
-    return axios.put(`/iblog/user/${params.id}`, params);
+    return axios.post(`/iblog/like`, params);
+  },
+  // 点赞列表
+  getLikeList() {
+    return axios.get(`/iblog/like`)
   },
   // 文章列表分页
   getArticleList(
