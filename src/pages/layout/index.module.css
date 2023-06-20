@@ -1,11 +1,4 @@
 .bg0 {
-  background-image: url(../../assets/images/bg01.webp);
-
-}
-.bg1 {
-  background-image: url(../../assets/images/bg02.webp);
-}
-.bg0 .bg0::before{
   content:' ';
   position:fixed;
   z-index:-1;
@@ -14,6 +7,17 @@
   bottom:0;
   left:0;
   background-image: url(../../assets/images/bg01.webp) center 0 no-repeat;
+  background-size:cover;
+}
+.bg1 {
+  content:' ';
+  position:fixed;
+  z-index:-1;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  background-image: url(../../assets/images/bg02.webp) center 0 no-repeat;
   background-size:cover;
 }
 
