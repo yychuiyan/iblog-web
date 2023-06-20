@@ -515,7 +515,7 @@ const NavBar = (props: any) => {
                 okText="是"
                 cancelText="否"
               >
-                <div className='cursor-pointer flex items-center'>
+                <div className='cursor-pointer flex items-center lg:mt-5 lg:ml-10'>
                   {
                     loginStatus ? <Avatar src={`${avatar}`}></Avatar> : <svg
                     className="icon"
