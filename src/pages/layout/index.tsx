@@ -27,24 +27,11 @@ const LayoutIndex = (props: any) => {
     const bgClasses = [s.bg0, s.bg1];
     setClasses(bgClasses)
   }, [])
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollPosition(window.pageYOffset);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
 
   return (
-    <div className={classnames(s.img_style, clasess[props.mode], { [s.fixed_bg]: scrollPosition > 0 })}>
+    <div className={classnames(s.img_style, clasess[props.mode])}>
       <NavBar></NavBar>
-      <main className="flex justify-betwee  w-full min-h-screen mx-auto lg:w-full">
+      <main className={classnames("flex justify-betwee w-full min-h-screen mx-auto lg:w-full", s.content)}>
         <Suspense fallback={<></>}>
           <Switch>
             <Route path="/rblog/home" component={Home}></Route>
