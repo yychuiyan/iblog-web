@@ -31,7 +31,7 @@ const LayoutIndex = (props: any) => {
   return (
     <div className={classnames(s.img_style, clasess[props.mode])}>
       <NavBar></NavBar>
-      <main className="flex justify-betwee  w-full min-h-screen mx-auto lg:w-full" style={{ width: '100%', height: '100%', overflow: 'auto' }}>
+      <main className="flex justify-betwee  w-full min-h-screen mx-auto lg:w-full">
         <Suspense fallback={<></>}>
           <Switch>
             <Route path="/rblog/home" component={Home}></Route>
