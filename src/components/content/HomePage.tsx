@@ -113,9 +113,9 @@ const Content = (props: any) => {
             key={item._id}
           >
             <div>
-              <div className="flex items-center h-44 px-2 sm:h-28">
+              <div className="flex items-center relative h-44 px-2 sm:h-28">
                 <span
-                  className={` absolute top-0 left-0 h-au.toExponential(fractionDigits)  text-center rounded-md ${item.isTop === 1 ? 'block' : 'hidden'}`}
+                  className={`absolute top-0 left-0 h-au.toExponential(fractionDigits)  text-center rounded-md ${item.isTop === 1 ? 'block' : 'hidden'}`}
                   style={{ userSelect: 'none' }}
                 >
                   {/* 置顶 */}
