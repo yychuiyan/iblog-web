@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
 import MyPagination from '@/components/pagination';
-import { withRouter, useLocation } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import dayjs from 'dayjs';
+import './index.css'
 import qs from 'qs';
 interface DataType {
   comment: string;
@@ -104,8 +105,7 @@ const Content = (props: any) => {
       {list.map((item) => {
         return (
           <div
-            className="
-            mb-5 rounded-2xl bg-base-100 transition duration-500 ease-in-out transform hover:scale-x-[102%] hover:scale-y-[102%]
+            className="home_page rounded-2xl bg-base-100
             lg:transition-none lg:hover:-translate-x-0 lg:hover:scale-100 lg:hover:ring-1 lg:mx-5
             "
             key={item._id}

@@ -350,7 +350,9 @@ const Message = (props: any) => {
                   maxRows: 12,
                 }}
               />
+              <div>表情</div>
             </Form.Item>
+
             <Form.Item className="">
               <Button
                 type="primary"

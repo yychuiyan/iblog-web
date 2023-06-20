@@ -80,4 +80,10 @@
   width: 3px;
   display: none;
 }
-
+.home_page{
+  margin-bottom: 20px;
+  transition: all .3s;
+}
+.home_page:hover{
+  transform: scale(1.02);
+}
