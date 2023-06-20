@@ -26,7 +26,18 @@ const LayoutIndex = (props: any) => {
   useEffect(() => {
     const bgClasses = [s.bg0, s.bg1];
     setClasses(bgClasses)
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (isIOS) {
+      document.body.classList.add('ios-fixed-bg');
+    }
+
+    return () => {
+      if (isIOS) {
+        document.body.classList.remove('ios-fixed-bg');
+      }
+    };
   }, [])
+
 
   return (
     <div className={classnames(s.img_style, clasess[props.mode])}>
