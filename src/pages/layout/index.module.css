@@ -17,8 +17,8 @@
   -webkit-background-attachment: fixed;
 }
 
-.img_style::before {
-  position: absolute;
+.img_style:before {
+  position: fixed;
   z-index: -1;
   top: 0;
   right: 0;
@@ -27,5 +27,4 @@
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
 }
