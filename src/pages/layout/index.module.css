@@ -18,7 +18,7 @@
 }
 
 .img_style::before {
-  position: fixed;
+  position: absolute;
   z-index: -1;
   top: 0;
   right: 0;
