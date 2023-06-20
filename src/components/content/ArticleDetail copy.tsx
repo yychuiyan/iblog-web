@@ -72,8 +72,6 @@ const ArticleDetail = (props: any) => {
   const [loginStatus, setLoginStatus] = useState(false)
   // 是否已点赞
   const [likeShow, setLikeShow] = useState(false)
-  const markNavRef = useRef(null);
-
   // 获取文章列表数据
   useEffect(() => {
     let articleId = props.match.params.id;
@@ -145,25 +143,6 @@ const ArticleDetail = (props: any) => {
   const handleCannot = () => {
     message.warning('需要先登录哟~')
   }
-
-  useEffect(() => {
-    const handleScroll = () => {
-      //@ts-ignore
-      const activeItem = document.querySelector('.markdown-navigation .title-anchor.active');
-      if (activeItem) {
-        activeItem.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-        });
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   return (
     <div
       className="flex flex-col items-center w-1200 mx-auto  mt-20  sm:w-full "
@@ -274,12 +253,10 @@ const ArticleDetail = (props: any) => {
                   </div>
                   <div className='max-h-[28.5rem] w-[300px] overflow-auto'>
                     <MarkNav
-                      className="markdown-nav"
+                      className="article-menu"
                       source={content}
                       headingTopOffset={80}
                       ordered={true} //是否显示标题题号1,2等
-                      // @ts-ignore
-                      ref={markNavRef}
                     />
 
                   </div>
@@ -323,8 +300,6 @@ const ArticleDetail = (props: any) => {
                         source={content}
                         headingTopOffset={80}
                         ordered={false} //是否显示标题题号1,2等
-                        // @ts-ignore
-                        ref={markNavRef}
                       />
                     </div>
                   </div>
