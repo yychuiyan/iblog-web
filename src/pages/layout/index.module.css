@@ -17,7 +17,7 @@
   -webkit-background-attachment: fixed;
 }
 
-.img_style::before {
+.img_style::after {
   width: 100%;
   height: 100vh; /* 将高度设置为视口高度 */
   background-color: var(--color-default);
