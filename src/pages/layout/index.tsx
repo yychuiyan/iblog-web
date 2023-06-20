@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 const Home = lazy(() => import('@/pages/home'));
 const Category = lazy(() => import('@/pages/category'));
@@ -26,21 +26,23 @@ const LayoutIndex = (props: any) => {
   useEffect(() => {
     const bgClasses = [s.bg0, s.bg1];
     setClasses(bgClasses)
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    if (isIOS) {
-      document.body.classList.add('ios-fixed-bg');
-    }
-
-    return () => {
-      if (isIOS) {
-        document.body.classList.remove('ios-fixed-bg');
-      }
-    };
   }, [])
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.pageYOffset);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
 
   return (
-    <div className={classnames(s.img_style, clasess[props.mode])}>
+    <div className={classnames(s.img_style, clasess[props.mode], { [s.fixed_bg]: scrollPosition > 0 })}>
       <NavBar></NavBar>
       <main className="flex justify-betwee  w-full min-h-screen mx-auto lg:w-full">
         <Suspense fallback={<></>}>
