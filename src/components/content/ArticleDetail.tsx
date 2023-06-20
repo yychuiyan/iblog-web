@@ -269,7 +269,7 @@ const ArticleDetail = (props: any) => {
                   >
                     <p className="flex items-center h-10 text-xl  px-3">目录</p>
                   </div>
-                  <div className='max-h-[28.5rem] w-[300px]'>
+                  <div className='w-[300px]'>
                     <MarkNav
                       className="markdown-nav"
                       source={content}
@@ -318,7 +318,7 @@ const ArticleDetail = (props: any) => {
                     >
                       <p className="flex items-center h-10 text-xl  px-3">目录</p>
                     </div>
-                    <div className='max-h-[28.5rem] w-[320px] overflow-y-auto'>
+                    <div className='w-[320px]'>
                       <MarkNav
                         className="article-menu"
                         source={content}
