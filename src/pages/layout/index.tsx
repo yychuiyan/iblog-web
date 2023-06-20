@@ -26,26 +26,27 @@ const LayoutIndex = (props: any) => {
   useEffect(() => {
     const bgClasses = [s.bg0, s.bg1];
     setClasses(bgClasses)
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-      const elements = document.getElementsByClassName(s.img_style);
-      for (let i = 0; i < elements.length; i++) {
-        const element = elements[i];
-        // @ts-ignore
-        element.style.backgroundPosition = `center ${scrollTop}px`;
-      }
-    };
-
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      window.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-        window.removeEventListener('scroll', handleScroll);
-      }
-    };
   }, [setClasses])
+  // 在组件渲染完成后添加滚动事件监听
+  useEffect(() => {
+    const handleScroll = () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    const backgroundElements = document.querySelectorAll('.img_style');
+
+    // 调整背景图像的位置，根据需要进行调整
+    backgroundElements.forEach(element => {
+      // @ts-ignore
+      element.style.backgroundPositionY = `${-scrollTop}px`;
+    });
+  };
+
+    window.addEventListener('scroll', handleScroll);
+
+  // 清除滚动事件监听
+    return () => {
+    window.removeEventListener('scroll', handleScroll);
+  };
+  }, []);
 
   return (
     <div className={classnames(s.img_style, clasess[props.mode])}>
