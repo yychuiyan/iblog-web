@@ -468,7 +468,7 @@ const NavBar = (props: any) => {
           </div>
           {/* 移动 */}
           <div
-            className="absolute right-24 top-5 w-9 h-9  cursor-pointer hidden lg:block
+            className="absolute right-24 top-5 w-9 h-9  cursor-pointer hidden lg:block lg:top-6 lg:right-20
             "
             onClick={showModal}
           >
@@ -490,6 +490,7 @@ const NavBar = (props: any) => {
                 className={`lg:absolute lg:top-0 lg:-translate-x-full lg:bg-black  lg:w-[115vw] sm:w-[100vh]  lg:min-h-screen  lg:opacity-0 lg:transform lg:ease-in sm:opacity-0 sm:transform sm:ease-in`}
               ></div>
             )}
+            {/* 移动端 */}
             <span
               className="hidden lg:block lg:absolute lg:top-5 lg:text-xl lg:ml-2 lg:z-50  lg:cursor-pointer sm:text-xl"
               onClick={handleHomeRouter}
@@ -498,23 +499,9 @@ const NavBar = (props: any) => {
             </span>
             {/* 导航栏 */}
             {window.innerWidth > 970 ? renderMenu(items) : renderMobileMenu(mobileList)}
-          </div>
-          {
+            {
             loginStatus === false ?
-              <div className='cursor-pointer flex' onClick={handleLogin}>
-                {/* <span>
-                  <svg
-                    className="icon"
-                    viewBox="0 0 1024 1024"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    p-id="22559" width="20" height="20">
-                    <path d="M347.562667 560.938667a21.333333 21.333333 0 0 0 30.165333 30.165333l128-128a21.290667 21.290667 0 0 0 4.608-6.954667c0.597333-1.493333 0.682667-3.029333 0.938667-4.608 0.213333-1.194667 0.725333-2.304 0.725333-3.541333 0-1.621333-0.597333-3.072-0.938667-4.565333-0.256-1.152-0.256-2.389333-0.725333-3.498667a22.357333 22.357333 0 0 0-4.736-7.125333L377.728 304.938667a21.333333 21.333333 0 0 0-30.165333 30.165333L439.082667 426.666667H64a21.333333 21.333333 0 0 0 0 42.666666h375.168l-91.605333 91.605334zM889.216 0c-3.285333 0-6.485333 0.64-9.685333 0.981333C877.909333 0.597333 876.373333 0 874.666667 0h-512A106.794667 106.794667 0 0 0 256 106.666667v213.333333a21.333333 21.333333 0 0 0 42.666667 0v-213.333333C298.666667 71.381333 327.381333 42.666667 362.666667 42.666667h408.064l-160.213334 68.650666A92.074667 92.074667 0 0 0 554.666667 196.010667V853.333333H362.666667c-30.677333 0-56.746667-21.333333-63.104-30.165333L298.666667 575.914667A21.333333 21.333333 0 0 0 277.333333 554.666667h-0.085333a21.333333 21.333333 0 0 0-21.248 21.418666l0.981333 248.618667c-0.853333 9.344 3.541333 19.114667 13.354667 29.866667 17.450667 19.114667 52.096 41.429333 92.330667 41.429333H554.666667v35.882667a92.245333 92.245333 0 0 0 128.384 84.693333l242.432-103.893333A92.074667 92.074667 0 0 0 981.333333 827.989333V92.117333C981.333333 41.344 939.989333 0 889.216 0zM938.666667 827.989333c0 19.797333-11.776 37.674667-29.994667 45.44l-242.432 103.893334A49.493333 49.493333 0 0 1 597.333333 931.882667V196.010667c0-19.797333 11.776-37.674667 29.994667-45.44l242.432-103.893334A49.493333 49.493333 0 0 1 938.666667 92.117333v735.872zM661.333333 469.333333a21.333333 21.333333 0 0 0-21.333333 21.333334v85.333333a21.333333 21.333333 0 0 0 42.666667 0v-85.333333a21.333333 21.333333 0 0 0-21.333334-21.333334z"
-                      fill='var(--bgcolor-navbar-click)'
-                      p-id="22560">
-                    </path>
-                  </svg>
-                </span> */}
+                <div className='cursor-pointer flex' onClick={handleLogin}>
                 <LoginOutlined style={{ fontSize: '20px', marginRight: '3px', marginLeft: '3px', color: 'var(--bgcolor-navbar-click)' }} />
                 <span className='text-[var(--bgcolor-navbar-click)] text-base'>登录</span>
               </div> : <Popconfirm
@@ -526,7 +513,7 @@ const NavBar = (props: any) => {
                 okText="是"
                 cancelText="否"
               >
-                <div className='cursor-pointer flex items-center'>
+                  <div className='cursor-pointer flex items-center lg:mt-5'>
                   {
                     loginStatus ? <Avatar src={`${avatar}`}></Avatar> : <svg
                     className="icon"
@@ -545,9 +532,10 @@ const NavBar = (props: any) => {
                 </span>
                   <span className='text-[var(--bgcolor-navbar-click)] text-base ml-1'>{loginInfo.username}</span>
               </div>
-              </Popconfirm>
-
+                </Popconfirm>
           }
+          </div>
+
         </div>
         {/* 切换主题 */}
         <div className="h-8 w-16  rounded-3xl bg-base-200 border border-solid border-1 border-[var(--bgcolor-navbar-hover)] relative top-4 right-3" tabIndex={0}>

@@ -254,7 +254,7 @@ const ArticleComment = (props: any) => {
   };
   return (
     <div className="w-full mx-auto lg:w-full  sm:w-full">
-      <Card bordered={true} className=" bg-base-100 rounded-b-2xl mt-6 lg:mt-8 lg:mx-0">
+      <Card bordered={true} className=" bg-base-100 rounded-b-2xl mt-6 lg:mt-20 lg:mx-0">
         <div
           style={{
             textAlign: 'center',
@@ -336,7 +336,7 @@ const ArticleComment = (props: any) => {
         <Row style={{ marginTop: '36px' }} >
           <Col span={24}>
             <b style={{ marginBottom: '24px', color: 'var(--color-icon-default)', userSelect: 'none' }}>
-              评论展示&nbsp;
+              评论列表&nbsp;
               <CommentOutlined />
             </b>
             {commentList.length > 0 ? (

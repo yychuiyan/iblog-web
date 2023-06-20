@@ -72,7 +72,12 @@
     background-position: right;
   }
 }
-.markdown-nav {
+.markdown-nav{
   height: 400px;
-  overflow-y: auto;
+  overflow: auto;
 }
+.markdown-nav::-webkit-scrollbar {
+  width: 3px;
+  display: none;
+}
+

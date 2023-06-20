@@ -12,6 +12,7 @@ import MarkDown from '../markdown/MarkDown';
 import { LikeFilled } from '@ant-design/icons';
 import jwtDecode from 'jwt-decode';
 import { Affix, FloatButton, message } from 'antd';
+import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowDownShortWide,
@@ -47,11 +48,6 @@ interface ArticleList {
   isTop: number;
   data: DataType[]
 }
-interface TreeNode {
-  title: string | any;
-  id: string | any;
-  [key: string]: TreeNode | string | any;
-}
 
 const ArticleDetail = (props: any) => {
   // 文章列表
@@ -73,11 +69,9 @@ const ArticleDetail = (props: any) => {
   // 是否已点赞
   const [likeShow, setLikeShow] = useState(false)
   const markNavRef = useRef(null);
-
   // 获取文章列表数据
   useEffect(() => {
     let articleId = props.match.params.id;
-
     props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
       // 获取文章
       let { data } = res.data as unknown as ArticleList;
@@ -148,13 +142,16 @@ const ArticleDetail = (props: any) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      //@ts-ignore
+      var scrollTopValue = document.documentElement.scrollTop
+      if (scrollTopValue > 900) {
+        //@ts-ignore
       const activeItem = document.querySelector('.markdown-navigation .title-anchor.active');
-      if (activeItem) {
+        if (activeItem) {
         activeItem.scrollIntoView({
           behavior: 'smooth',
           block: 'center',
         });
+        }
       }
     };
 
@@ -215,7 +212,7 @@ const ArticleDetail = (props: any) => {
                             lg:w-full lg:flex-col lg:items-start lg:-top-20  sm:w-full
                             "
                           >
-                            <div className='flex'>
+                            <div className='flex lg:flex-wrap'>
                               <p className="pl-5 lg:h-4">
                                 <FontAwesomeIcon icon={faFolder} />
                                 <span className="inline-block w-auto h-6  text-center  text-md leading-6 mx-2 px-2  rounded-lg bg-base-200 cursor-pointer  hover:bg-base-300 hover:transition hover:duration-500">
@@ -272,7 +269,7 @@ const ArticleDetail = (props: any) => {
                   >
                     <p className="flex items-center h-10 text-xl  px-3">目录</p>
                   </div>
-                  <div className='max-h-[28.5rem] w-[300px] overflow-auto'>
+                  <div className='max-h-[28.5rem] w-[300px]'>
                     <MarkNav
                       className="markdown-nav"
                       source={content}
@@ -280,6 +277,10 @@ const ArticleDetail = (props: any) => {
                       ordered={true} //是否显示标题题号1,2等
                       // @ts-ignore
                       ref={markNavRef}
+                      getHash={(node: any) => {
+                        // 隐藏锚点后缀，只返回标题的 ID 部分
+                        return node.getAttribute('id');
+                      }}
                     />
 
                   </div>
@@ -317,7 +318,7 @@ const ArticleDetail = (props: any) => {
                     >
                       <p className="flex items-center h-10 text-xl  px-3">目录</p>
                     </div>
-                    <div className='max-h-[28.5rem] w-[320px] overflow-auto'>
+                    <div className='max-h-[28.5rem] w-[320px] overflow-y-auto'>
                       <MarkNav
                         className="article-menu"
                         source={content}
