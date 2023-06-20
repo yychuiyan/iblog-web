@@ -499,9 +499,11 @@ const NavBar = (props: any) => {
             </span>
             {/* 导航栏 */}
             {window.innerWidth > 970 ? renderMenu(items) : renderMobileMenu(mobileList)}
-            {
+
+          </div>
+          {
             loginStatus === false ?
-                <div className='cursor-pointer flex' onClick={handleLogin}>
+              <div className='cursor-pointer flex ml-10' onClick={handleLogin}>
                 <LoginOutlined style={{ fontSize: '20px', marginRight: '3px', marginLeft: '3px', color: 'var(--bgcolor-navbar-click)' }} />
                 <span className='text-[var(--bgcolor-navbar-click)] text-base'>登录</span>
               </div> : <Popconfirm
@@ -534,8 +536,6 @@ const NavBar = (props: any) => {
               </div>
                 </Popconfirm>
           }
-          </div>
-
         </div>
         {/* 切换主题 */}
         <div className="h-8 w-16  rounded-3xl bg-base-200 border border-solid border-1 border-[var(--bgcolor-navbar-hover)] relative top-4 right-3" tabIndex={0}>
