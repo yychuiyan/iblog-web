@@ -18,9 +18,9 @@
   z-index: -1;
 }
 
-.bg0 .bg1::before {
+.bg0 .bg1 .img_style::before {
   width: 100%;
-  height: 100vh; /* 将高度设置为视口高度 */
+  height: 100%; /* 将高度设置为视口高度 */
   background-color: var(--color-default);
   background-position: center center;
   background-size: cover;
