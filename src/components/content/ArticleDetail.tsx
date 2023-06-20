@@ -325,13 +325,7 @@ const ArticleDetail = (props: any) => {
                         className="markdown-nav"
                         source={content}
                         headingTopOffset={80}
-                        ordered={true} //是否显示标题题号1,2等
-                        // @ts-ignore
-                        ref={markNavRef}
-                        getHash={(node: any) => {
-                          // 隐藏锚点后缀，只返回标题的 ID 部分
-                          return node.getAttribute('id');
-                        }}
+                        ordered={false} //是否显示标题题号1,2等
                       />
                     </div>
                   </div>
