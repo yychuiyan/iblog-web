@@ -23,13 +23,11 @@ import './index.css'
 const LayoutIndex = (props: any) => {
   NProgress.start();
   NProgress.done();
-  const [clasess, setClasses] = useState<any>([])
+  // const [clasess, setClasses] = useState<any>([])
   // useEffect(() => {
   //   const bgClasses = [s.bg0, s.bg1];
   //   setClasses(bgClasses)
   // }, [setClasses])
-  console.log(Boolean(props.mode));
-
   return (
     <div className='relative'>
       {/* <div className={classnames(s.img_style, clasess[props.mode])} > */}
