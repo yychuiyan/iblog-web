@@ -29,9 +29,8 @@ const LayoutIndex = (props: any) => {
   }, [setClasses])
 
   return (
-
-    <div className={classnames(s.img_style, clasess[props.mode])} >
-      <div className={s.bg_wrap}></div>
+    <div className='relative w-full h-full'>
+      <div className={classnames(s.img_style, clasess[props.mode])} >
       <NavBar></NavBar>
       <main className="flex justify-between  w-full min-h-screen mx-auto lg:w-full" >
         <Suspense fallback={<></>}>
@@ -51,6 +50,7 @@ const LayoutIndex = (props: any) => {
         </Suspense>
       </main>
       <Footer></Footer>
+      </div>
     </div>
   );
 };
