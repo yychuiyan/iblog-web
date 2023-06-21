@@ -72,7 +72,6 @@ const Home = (props: any) => {
     }
   };
   return (
-    // @ts-ignore
     <div className="w-full">
       <div
         className="flex justify-center items-center flex-col h-screen relative bottom-10 lg:h-36"

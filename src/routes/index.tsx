@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LayoutIndex from '@/pages/layout';
 const Routes = () => {
