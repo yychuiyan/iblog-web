@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Card, Form, Input, Button, message, List, Avatar, Row, Col, Modal, Tooltip } from 'antd';
+import { Card, Form, Input, Button, message, List, Avatar, Row, Col, Modal, Tooltip, Popover } from 'antd';
 import { Comment } from '@ant-design/compatible';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { withRouter } from 'react-router-dom';
 import PageDesc from '@/components/sidemenu/PageDesc';
+import { emojiList } from '@/utils/emoji'
 interface DataType {
   _id: string;
   nickname: any;
@@ -48,8 +49,7 @@ const Message = (props: any) => {
   const [type, setType] = useState(1);
   // 功能名称
   const [text, setText] = useState('cm');
-  // 回复框显示隐藏
-  // const [isModalVisible, setIsModalVisible] = useState(false);
+  // 回复的表单
   const [replyForm] = Form.useForm();
   const [form] = Form.useForm();
   // 页面效果
@@ -57,6 +57,10 @@ const Message = (props: any) => {
   dayjs.extend(relativeTime);
   // 滚动位置
   const myRef = React.useRef();
+
+  // 表情内容
+  const [emoji, setEmoji] = useState('')
+  const [emojiReply, setEmojiReply] = useState('')
   useEffect(() => {
     if (myRef.current) {
       // window.scrollTo(0, myRef.current.offsetTop || 0);
@@ -254,6 +258,26 @@ const Message = (props: any) => {
       setPageSize(pageSize);
     });
   };
+  // 点击表情
+  const handleAddEmoji = (item: any) => {
+    form.setFieldsValue({
+      content: emoji.concat(item)
+    })
+    setEmoji(emoji.concat(item))
+  }
+  const onChangeVal = (e: any) => {
+    setEmoji(e.target.value)
+  }
+  // 回复表情
+  const handleReplyEmoji = (item: any) => {
+    replyForm.setFieldsValue({
+      content: emojiReply.concat(item)
+    })
+    setEmojiReply(emojiReply.concat(item))
+  }
+  const onChangeReplyVal = (e: any) => {
+    setEmojiReply(e.target.value)
+  }
   return (
     // @ts-ignore
     <div className="w-1200 mx-auto pb-5 lg:w-full lg:mx-5 sm:w-full" ref={myRef}>
@@ -345,14 +369,42 @@ const Message = (props: any) => {
             >
               <Input.TextArea
                 placeholder="请输入留言内容"
+                onChange={onChangeVal}
+                value={emoji}
                 autoSize={{
                   minRows: 6,
                   maxRows: 12,
                 }}
               />
-              <div>表情</div>
             </Form.Item>
-
+            <Popover
+              overlayStyle={{ width: '260px' }}
+              placement="top"
+              content={emojiList.map((item) => {
+                return (
+                  <span
+                    className=' inline-block cursor-pointer px-2 text-[20px] hover:bg-blue-400 w-5 h-8 rounded-md'
+                    key={item.id}
+                    onClick={() => handleAddEmoji(item.emoji)}>
+                    {item.emoji}
+                  </span>
+                )
+              })
+              }
+            >
+              <div className='-mb-4 relative bottom-5 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
+                <span>
+                  <svg
+                    className="icon w-6 h-6 pt-1"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="2554" >
+                    <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" fill="#333333" p-id="2555"></path><path d="M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zM288 421a48.01 48.01 0 0 1 96 0 48.01 48.01 0 0 1-96 0z m224 272c-85.5 0-155.6-67.3-160-151.6a8 8 0 0 1 8-8.4h48.1c4.2 0 7.8 3.2 8.1 7.4C420 589.9 461.5 629 512 629s92.1-39.1 95.8-88.6c0.3-4.2 3.9-7.4 8.1-7.4H664a8 8 0 0 1 8 8.4C667.6 625.7 597.5 693 512 693z m176-224a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96z" fill="#E6E6E6" p-id="2556"></path><path d="M288 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0z m376 112h-48.1c-4.2 0-7.8 3.2-8.1 7.4-3.7 49.5-45.3 88.6-95.8 88.6s-92-39.1-95.8-88.6c-0.3-4.2-3.9-7.4-8.1-7.4H360a8 8 0 0 0-8 8.4c4.4 84.3 74.5 151.6 160 151.6s155.6-67.3 160-151.6a8 8 0 0 0-8-8.4z m-24-112a48 48 0 1 0 96 0 48 48 0 1 0-96 0z" fill="#333333" p-id="2557"></path></svg>
+                </span>
+                <span className='text-base text-[var(--bgcolor-navbar-click)]'>表情</span>
+              </div>
+            </Popover>
             <Form.Item className="">
               <Button
                 type="primary"
@@ -364,6 +416,7 @@ const Message = (props: any) => {
               </Button>
             </Form.Item>
           </Form>
+
           <Row className="mt:h-4 w-full mx-auto lg:w-full sm:w-full">
             <Col span={24} className="sm:w-full lg:w-full">
               <b style={{ marginBottom: '24px', color: 'var(--color-icon-default)', userSelect: 'none' }}>
@@ -564,7 +617,9 @@ const Message = (props: any) => {
                                     ]}
                                   >
                                     <Input.TextArea
-                                      placeholder="请输入留言内容"
+                                      placeholder="请输入回复内容"
+                                      onChange={onChangeReplyVal}
+                                      value={emojiReply}
                                       autoSize={{
                                         minRows: 6,
                                         maxRows: 12,
@@ -573,6 +628,34 @@ const Message = (props: any) => {
                                     // maxLength={300}
                                     />
                                   </Form.Item>
+                                  <Popover
+                                    overlayStyle={{ width: '260px' }}
+                                    placement="top"
+                                    content={emojiList.map((item) => {
+                                      return (
+                                        <span
+                                          className=' inline-block cursor-pointer px-2 text-[20px] hover:bg-blue-400 w-5 h-8 rounded-md'
+                                          key={item.id}
+                                          onClick={() => handleReplyEmoji(item.emoji)}>
+                                          {item.emoji}
+                                        </span>
+                                      )
+                                    })
+                                    }
+                                  >
+                                    <div className='-mb-4 relative bottom-5 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
+                                      <span>
+                                        <svg
+                                          className="icon w-6 h-6 pt-1"
+                                          viewBox="0 0 1024 1024"
+                                          version="1.1"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          p-id="2554" >
+                                          <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" fill="#333333" p-id="2555"></path><path d="M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zM288 421a48.01 48.01 0 0 1 96 0 48.01 48.01 0 0 1-96 0z m224 272c-85.5 0-155.6-67.3-160-151.6a8 8 0 0 1 8-8.4h48.1c4.2 0 7.8 3.2 8.1 7.4C420 589.9 461.5 629 512 629s92.1-39.1 95.8-88.6c0.3-4.2 3.9-7.4 8.1-7.4H664a8 8 0 0 1 8 8.4C667.6 625.7 597.5 693 512 693z m176-224a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96z" fill="#E6E6E6" p-id="2556"></path><path d="M288 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0z m376 112h-48.1c-4.2 0-7.8 3.2-8.1 7.4-3.7 49.5-45.3 88.6-95.8 88.6s-92-39.1-95.8-88.6c-0.3-4.2-3.9-7.4-8.1-7.4H360a8 8 0 0 0-8 8.4c4.4 84.3 74.5 151.6 160 151.6s155.6-67.3 160-151.6a8 8 0 0 0-8-8.4z m-24-112a48 48 0 1 0 96 0 48 48 0 1 0-96 0z" fill="#333333" p-id="2557"></path></svg>
+                                      </span>
+                                      <span className='text-base text-[var(--bgcolor-navbar-click)]'>表情</span>
+                                    </div>
+                                  </Popover>
                                   <Form.Item>
                                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                                       <Button

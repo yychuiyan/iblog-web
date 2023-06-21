@@ -47,3 +47,11 @@ html,body{
   background-size: 200% 100%;
   animation: rainbow 8s infinite linear;
 }
+/* 表情弹窗 */
+.tooltip{
+  width: 260px;
+  font-size: 20px;
+}
+.ant-popover-content p {
+  margin: 0;
+}
