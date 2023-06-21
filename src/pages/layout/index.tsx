@@ -30,9 +30,9 @@ const LayoutIndex = (props: any) => {
 
   return (
     <div className='relative'>
-      <div className={classnames(s.img_style, clasess[props.mode])} ></div>
+      <div className={classnames(s.img_style, clasess[props.mode])} >
       <NavBar></NavBar>
-      <main className="flex justify-between w-full mx-auto lg:w-full" >
+        <main className="flex justify-between  w-full min-h-screen mx-auto lg:w-full" >
         <Suspense fallback={<></>}>
           <Switch>
             <Route path="/rblog/home" component={Home}></Route>
@@ -50,6 +50,7 @@ const LayoutIndex = (props: any) => {
         </Suspense>
       </main>
       <Footer></Footer>
+    </div>
     </div>
   );
 };
