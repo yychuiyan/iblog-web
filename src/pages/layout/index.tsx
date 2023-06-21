@@ -27,31 +27,13 @@ const LayoutIndex = (props: any) => {
     const bgClasses = [s.bg0, s.bg1];
     setClasses(bgClasses)
   }, [setClasses])
-  // 在组件渲染完成后添加滚动事件监听
-  useEffect(() => {
-    const handleScroll = () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    const backgroundElements = document.querySelectorAll('.img_style');
-
-    // 调整背景图像的位置，根据需要进行调整
-    backgroundElements.forEach(element => {
-      // @ts-ignore
-      element.style.backgroundPositionY = `${-scrollTop}px`;
-    });
-  };
-
-    window.addEventListener('scroll', handleScroll);
-
-  // 清除滚动事件监听
-    return () => {
-    window.removeEventListener('scroll', handleScroll);
-  };
-  }, []);
 
   return (
-    <div className={classnames(s.img_style, clasess[props.mode])}>
+
+    <div className={classnames(s.img_style, clasess[props.mode])} >
+      <div className={s.bg_wrap}></div>
       <NavBar></NavBar>
-      <main className="flex justify-betwee  w-full min-h-screen mx-auto lg:w-full">
+      <main className="flex justify-between  w-full min-h-screen mx-auto lg:w-full" >
         <Suspense fallback={<></>}>
           <Switch>
             <Route path="/rblog/home" component={Home}></Route>

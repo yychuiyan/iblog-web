@@ -270,7 +270,7 @@ const ArticleDetail = (props: any) => {
                     <p className="flex items-center h-10 text-xl  px-3">目录</p>
                   </div>
                   {/* 目录信息 */}
-                  <div className='w-[300px]'>
+                  <div className='w-[300px] '>
                     <MarkNav
                       className="markdown-nav"
                       source={content}
