@@ -29,7 +29,7 @@ const LayoutIndex = (props: any) => {
   //   setClasses(bgClasses)
   // }, [setClasses])
   return (
-    <div className='relative'>
+    <div className=''>
       {/* <div className={classnames(s.img_style, clasess[props.mode])} > */}
       <div className={`${Boolean(props.mode) ? 'bg1' : 'bg0'}`}>
       <NavBar></NavBar>
