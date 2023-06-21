@@ -368,7 +368,7 @@ const ArticleComment = (props: any) => {
             })
             }
           >
-            <div className='-mb-4 relative bottom-5 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
+            <div className='-mb-1 relative bottom-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
               <span>
                 <svg
                   className="icon w-6 h-6 pt-1"
@@ -591,7 +591,7 @@ const ArticleComment = (props: any) => {
                                   })
                                   }
                                 >
-                                  <div className='-mb-4 relative bottom-5 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
+                                  <div className='-mb-1 relative bottom-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
                                     <span>
                                       <svg
                                         className="icon w-6 h-6 pt-1"
