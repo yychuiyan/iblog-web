@@ -289,7 +289,7 @@ const ArticleDetail = (props: any) => {
               </div>
             </Affix>
             {/* 移动端目录 */}
-            {/* <Affix offsetTop={100}>
+            <Affix offsetTop={100}>
               <div
                 className={` rounded-2xl bg-base-100 hidden lg:block lg:z-20 ${navVisible
                   ? 'lg:translate-x-full lg:transform lg:delay-200 lg:duration-200 lg:w-56 sm:w-52 lg:ease-in sm:translate-x-24'
@@ -335,7 +335,7 @@ const ArticleDetail = (props: any) => {
                   </div>
                 </div>
               </div>
-            </Affix> */}
+            </Affix>
           </div>
           <FloatButton.BackTop shape="square" />
         </aside>
