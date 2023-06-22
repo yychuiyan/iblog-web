@@ -289,7 +289,7 @@ const ArticleDetail = (props: any) => {
               </div>
             </Affix>
             {/* 移动端目录 */}
-            <Affix offsetTop={100}>
+            {/* <Affix offsetTop={100}>
               <div
                 className={` rounded-2xl bg-base-100 hidden lg:block lg:z-20 ${navVisible
                   ? 'lg:translate-x-full lg:transform lg:delay-200 lg:duration-200 lg:w-56 sm:w-52 lg:ease-in sm:translate-x-24'
@@ -319,17 +319,15 @@ const ArticleDetail = (props: any) => {
                     >
                       <p className="flex items-center h-10 text-xl  px-3">目录</p>
                     </div>
-                    {/* 目录信息 */}
                     <div className='w-[320px]'>
                       <MarkNav
                         className="markdown-nav"
                         source={content}
                         headingTopOffset={80}
-                        ordered={false} //是否显示标题题号1,2等
+                        ordered={false}
                         // @ts-ignore
                         ref={markNavRef}
                         getHash={(node: any) => {
-                          // 隐藏锚点后缀，只返回标题的 ID 部分
                           return node.getAttribute('id');
                         }}
                       />
@@ -337,7 +335,7 @@ const ArticleDetail = (props: any) => {
                   </div>
                 </div>
               </div>
-            </Affix>
+            </Affix> */}
           </div>
           <FloatButton.BackTop shape="square" />
         </aside>
