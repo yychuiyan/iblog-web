@@ -11,7 +11,7 @@
 @media screen and (max-width: 768px){
   .bg0 {
     background-image: url(../../assets/images/bg01.webp);
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 100vh;
     overflow: auto;
@@ -46,7 +46,7 @@
 @media screen and (max-width: 768px){
   .bg1{
     background-image: url(../../assets/images/bg02.webp);
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 100vh;
     overflow: auto;
