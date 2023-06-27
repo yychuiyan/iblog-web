@@ -57,6 +57,8 @@ const ArticleComment = (props: any) => {
   const [articleId, setArticleId] = useState()
   // 页面效果
   const replyArea = useRef(null);
+  // 表情显示隐藏
+  const [open, setOpen] = useState(false)
   dayjs.extend(relativeTime);
 
   // 表情内容
@@ -88,6 +90,9 @@ const ArticleComment = (props: any) => {
 
   // 提交评论数据
   const onFinish = (values: DataType) => {
+    if (values.content === undefined || values.content === '') {
+      return message.warning('评论内容不能为空😯')
+    }
     props.BlogActions.asyncArticleCommentInsertAction({
       pid: replyObj.pid,
       targetReplayId: replyObj._id || '-1',
@@ -156,6 +161,9 @@ const ArticleComment = (props: any) => {
   };
   // 提交回复
   const onFinishReply = (values: DataType) => {
+    if (values.content === undefined || values.content === '') {
+      return message.warning('回复内容不能为空😯')
+    }
     setType(2);
     props.BlogActions.asyncArticleCommentInsertAction({
       pid: replyObj.pid === '-1' ? replyObj._id : replyObj.pid,
@@ -263,6 +271,7 @@ const ArticleComment = (props: any) => {
       content: emoji.concat(item)
     })
     setEmoji(emoji.concat(item))
+    setOpen(!open)
   }
   const onChangeVal = (e: any) => {
     setEmoji(e.target.value)
@@ -273,6 +282,7 @@ const ArticleComment = (props: any) => {
       content: emojiReply.concat(item)
     })
     setEmojiReply(emojiReply.concat(item))
+    setOpen(!open)
   }
   const onChangeReplyVal = (e: any) => {
     setEmojiReply(e.target.value)
@@ -338,10 +348,10 @@ const ArticleComment = (props: any) => {
           <Form.Item
             label=""
             name="content"
-            rules={[
-              { required: true, message: '请输入你的内容' },
-              { whitespace: true, message: '内容不能为空' },
-            ]}
+            // rules={[
+            //   { required: true, message: '请输入你的内容' },
+            //   { whitespace: true, message: '内容不能为空' },
+            // ]}
           >
             <Input.TextArea
               placeholder="请输入评论内容"
@@ -356,6 +366,8 @@ const ArticleComment = (props: any) => {
           <Popover
             overlayStyle={{ width: '260px' }}
             placement="top"
+            open={open}
+            onOpenChange={() => setOpen(!open)}
             content={emojiList.map((item) => {
               return (
                 <span
@@ -368,7 +380,7 @@ const ArticleComment = (props: any) => {
             })
             }
           >
-            <div className='-mb-1 relative bottom-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
+            <div className='-mt-5 mb-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
               <span>
                 <svg
                   className="icon w-6 h-6 pt-1"
@@ -559,10 +571,10 @@ const ArticleComment = (props: any) => {
                                 <Form.Item
                                   label=""
                                   name="content"
-                                  rules={[
-                                    { required: true, message: '请输入你的内容' },
-                                    { whitespace: true, message: '内容不能为空' },
-                                  ]}
+                                  // rules={[
+                                  //   { required: true, message: '请输入你的内容' },
+                                  //   { whitespace: true, message: '内容不能为空' },
+                                  // ]}
                                 >
                                   <Input.TextArea
                                     placeholder="请输入评论内容"
@@ -579,6 +591,8 @@ const ArticleComment = (props: any) => {
                                 <Popover
                                   overlayStyle={{ width: '260px' }}
                                   placement="top"
+                                  open={open}
+                                  onOpenChange={() => setOpen(!open)}
                                   content={emojiList.map((item) => {
                                     return (
                                       <span
@@ -591,7 +605,7 @@ const ArticleComment = (props: any) => {
                                   })
                                   }
                                 >
-                                  <div className='-mb-1 relative bottom-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
+                                  <div className='-mt-5 mb-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
                                     <span>
                                       <svg
                                         className="icon w-6 h-6 pt-1"

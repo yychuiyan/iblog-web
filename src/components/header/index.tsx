@@ -491,12 +491,11 @@ const NavBar = (props: any) => {
               ></div>
             )}
             {/* 移动端 */}
-            <span
-              className="hidden lg:block lg:absolute lg:top-5 lg:text-xl lg:ml-2 lg:z-50  lg:cursor-pointer sm:text-xl"
-              onClick={handleHomeRouter}
-            >
-              夜雨炊烟
+            <div className="rainbow-text" onClick={handleHomeRouter}>
+              <span className="text hidden lg:block lg:absolute lg:top-5 lg:left-9 lg:text-xl lg:z-50  lg:cursor-pointer sm:text-xl">
+                夜雨炊烟
             </span>
+            </div>
             {/* 导航栏 */}
             {window.innerWidth > 970 ? renderMenu(items) : renderMobileMenu(mobileList)}
 

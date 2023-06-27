@@ -54,6 +54,8 @@ const Message = (props: any) => {
   const [form] = Form.useForm();
   // 页面效果
   const replyArea = useRef(null);
+  // 表情显示隐藏
+  const [open, setOpen] = useState(false)
   dayjs.extend(relativeTime);
   // 滚动位置
   const myRef = React.useRef();
@@ -91,6 +93,9 @@ const Message = (props: any) => {
   }, [currentPage, pageSize, props.BlogActions]);
   // 提交留言数据
   const onFinish = (values: DataType) => {
+    if (values.content === undefined || values.content === '') {
+      return message.warning('留言内容不能为空😯')
+    }
     props.BlogActions.asyncMessageInsertAction({
       pid: replyObj.pid,
       targetReplayId: replyObj._id || '-1',
@@ -158,6 +163,9 @@ const Message = (props: any) => {
   };
   // 提交回复
   const onFinishReply = (values: DataType) => {
+    if (values.content === undefined || values.content === '') {
+      return message.warning('回复内容不能为空😯')
+    }
     setType(2);
     props.BlogActions.asyncMessageInsertAction({
       pid: replyObj.pid === '-1' ? replyObj._id : replyObj.pid,
@@ -264,6 +272,7 @@ const Message = (props: any) => {
       content: emoji.concat(item)
     })
     setEmoji(emoji.concat(item))
+    setOpen(!open)
   }
   const onChangeVal = (e: any) => {
     setEmoji(e.target.value)
@@ -274,6 +283,7 @@ const Message = (props: any) => {
       content: emojiReply.concat(item)
     })
     setEmojiReply(emojiReply.concat(item))
+    setOpen(!open)
   }
   const onChangeReplyVal = (e: any) => {
     setEmojiReply(e.target.value)
@@ -361,11 +371,11 @@ const Message = (props: any) => {
             <Form.Item
               label=""
               name="content"
-              rules={[
-                { required: true, message: '请输入你的内容' },
-                { whitespace: true, message: '留言不能为空' },
+              // rules={[
+              //   { required: true, message: '请输入你的内容' },
+              //   { whitespace: true, message: '留言不能为空' },
                 // { min: 6, message: '内容不能小于6个字符' },
-              ]}
+              // ]}
             >
               <Input.TextArea
                 placeholder="请输入留言内容"
@@ -380,6 +390,8 @@ const Message = (props: any) => {
             <Popover
               overlayStyle={{ width: '260px' }}
               placement="top"
+              open={open}
+              onOpenChange={() => setOpen(!open)}
               content={emojiList.map((item) => {
                 return (
                   <span
@@ -392,7 +404,7 @@ const Message = (props: any) => {
               })
               }
             >
-              <div className='mb-1 relative bottom-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
+              <div className='-mt-5 mb-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
                 <span>
                   <svg
                     className="icon w-6 h-6 pt-1"
@@ -611,10 +623,10 @@ const Message = (props: any) => {
                                   <Form.Item
                                     label=""
                                     name="content"
-                                    rules={[
-                                      { required: true, message: '请输入你的内容' },
-                                      { whitespace: true, message: '输入不能为空' },
-                                    ]}
+                                    // rules={[
+                                    //   { required: true, message: '请输入你的内容' },
+                                    //   { whitespace: true, message: '输入不能为空' },
+                                    // ]}
                                   >
                                     <Input.TextArea
                                       placeholder="请输入回复内容"
@@ -631,6 +643,8 @@ const Message = (props: any) => {
                                   <Popover
                                     overlayStyle={{ width: '260px' }}
                                     placement="top"
+                                    open={open}
+                                    onOpenChange={() => setOpen(!open)}
                                     content={emojiList.map((item) => {
                                       return (
                                         <span
@@ -643,7 +657,7 @@ const Message = (props: any) => {
                                     })
                                     }
                                   >
-                                    <div className='-mb-1 relative bottom-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
+                                    <div className='-mt-5 mb-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
                                       <span>
                                         <svg
                                           className="icon w-6 h-6 pt-1"
