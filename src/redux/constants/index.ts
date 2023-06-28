@@ -42,3 +42,5 @@ export const SET_MODE = 'SET_MODE';
 export const GET_VERSE = 'GET_VERSE';
 // 邮件提醒
 export const SEND_MAIL = 'SEND_MAIL';
+// 公告列表
+export const AFFICHE_LIST = 'AFFICHE_LIST';

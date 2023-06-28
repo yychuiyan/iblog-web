@@ -115,4 +115,5 @@ export interface Api {
   getAboutList(checked: boolean): Promise<ApiResponse>;
   getVerse(): Promise<ApiResponse>;
   sendMail(params: SendMail): Promise<ApiResponse>;
+  getAfficheList(): Promise<ApiResponse>;
 }

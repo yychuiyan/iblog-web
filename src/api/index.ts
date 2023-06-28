@@ -114,5 +114,9 @@ const api: Api = {
   sendMail(params: SendMail) {
     return axios.post(`/iblog/sendmail`, params);
   },
+  // 公告列表
+  getAfficheList() {
+    return axios.get(`/iblog/affiche/list`);
+  },
 };
 export default api;

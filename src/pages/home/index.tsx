@@ -11,6 +11,7 @@ import { Affix, FloatButton } from 'antd';
 import WebSite from '@/components/sidemenu/WebSite';
 import useTypewriter from 'react-typewriter-hook';
 import { ArticleList, DataType } from '@/types/comm'
+import Affiche from '@/components/sidemenu/Affiche';
 const Home = (props: any) => {
   // 文章列表
   const [list, setList] = useState<DataType[]>([]);
@@ -116,6 +117,7 @@ const Home = (props: any) => {
         <aside className="w-300 lg:hidden">
           <User data={list} />
           <Social />
+          <Affiche />
           <Category data={list} />
           <Affix offsetTop={70}>
             <div>

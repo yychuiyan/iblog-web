@@ -20,6 +20,7 @@ import { LoadingReducer } from './loading';
 import { ModeReducer } from './mode';
 import { VerseReducer } from './verse';
 import { SendMailReducer } from './mail';
+import { AfficheListReducer } from './affiche/list';
 const RootReducer = combineReducers({
   UserLoginReducer,
   UserRegisterReducer,
@@ -42,5 +43,6 @@ const RootReducer = combineReducers({
   ModeReducer,
   VerseReducer,
   SendMailReducer,
+  AfficheListReducer,
 });
 export default RootReducer;

@@ -21,6 +21,7 @@ import {
   LIKE_LIST,
   USER_REGISTER,
   USER_UPDATE,
+  AFFICHE_LIST,
 } from '@/redux/constants';
 import {
   ArticleViews,
@@ -305,6 +306,17 @@ export const asyncSendMailAction = (parmas: SendMail) => {
     dispatch({
       type: SEND_MAIL,
       mail: res,
+    });
+    return res;
+  };
+};
+// 公告列表
+export const asyncAfficheListAction = () => {
+  return async (dispatch: Dispatch) => {
+    const res = await api.getAfficheList();
+    dispatch({
+      type: AFFICHE_LIST,
+      affiche: res,
     });
     return res;
   };
