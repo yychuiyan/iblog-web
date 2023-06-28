@@ -586,7 +586,7 @@ const NavBar = (props: any) => {
           </div>
           {
             loginStatus === false ?
-              <div className='cursor-pointer flex lg:ml-10 lg:mt-1' onClick={handleLogin}>
+              <div className='cursor-pointer ml-5 flex lg:ml-10 lg:mt-1' onClick={handleLogin}>
                 <LoginOutlined style={{ fontSize: '20px', marginRight: '3px', marginLeft: '3px', color: 'var(--bgcolor-navbar-click)' }} />
                 <span className='text-[var(--bgcolor-navbar-click)] text-base'>登录</span>
               </div> : <Popconfirm
@@ -598,7 +598,7 @@ const NavBar = (props: any) => {
                 okText="是"
                 cancelText="否"
               >
-                <div className='cursor-pointer flex items-center lg:ml-10'>
+                <div className='cursor-pointer flex items-center ml-5 lg:ml-10'>
                   {
                     loginStatus ? <Avatar src={`${avatar}`}></Avatar> : <svg
                     className="icon"
@@ -783,6 +783,7 @@ const NavBar = (props: any) => {
                 </Form.Item>
               </Col>
               </Row> : <div>
+                  <p className='text-[#fb7877] mb-2 font-medium'>📢公告：昵称、头像、邮箱暂无修改入口，如需修改请留言联系博主~</p>
                 <Form.Item
                   name="username"
                   rules={[{ validator: validateName }]}

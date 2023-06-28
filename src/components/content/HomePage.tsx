@@ -183,12 +183,13 @@ const Content = (props: any) => {
                             );
                           })}
                         </p>
+                        {/* 分类 */}
                         <p
-                          className="ml-1 flex sm:hidden"
+                          className="flex items-center ml-1 sm:hidden"
                           onClick={() => handleCategory(item.categories)}
                         >
                           <svg className="icon w-7 h-7" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="89866"><path d="M992 512c0-12-6-24-18-30l-108-60 108-60c12 0 18-12 18-30 0-12-6-24-18-30L530 68c-12-6-24-6-30 0L50 302c-12 6-18 18-18 30s6 24 18 30l108 60-108 60c-12 6-18 18-18 30s6 24 18 30l108 60-108 60c-12 0-18 12-18 30 0 12 6 24 18 30l444 234c6 0 12 6 18 6 6 0 12 0 18-6l444-234c12-6 18-18 18-30s-6-24-18-30l-108-60 108-60c12-6 18-18 18-30zM140 332L512 140 884 332 512 530 140 332z m744 360L512 884 140 692l90-48 264 138c6 0 12 6 18 6 6 0 12 0 18-6l264-138 90 48z m-372 18L140 512l90-48 264 138c6 0 12 6 18 6 6 0 12 0 18-6l264-138 90 48L512 710z" fill='var(--bgcolor-social-default)' p-id="89867"></path></svg>
-                          <span className="inline-block w-auto h-6 text-center  leading-6 px-2 mx-1 text-[var(--article-content-tags-font)] rounded-md bg-[var(--article-content-tags-bgcolor)] hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500  cursor-pointer z-11">
+                          <span className="inline-block w-auto h-6 text-center leading-6 px-2 mx-1 text-[var(--article-content-tags-font)] rounded-md bg-[var(--article-content-tags-bgcolor)] hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500  cursor-pointer z-11">
                             {item.categories}
                           </span>
                         </p>
@@ -203,7 +204,7 @@ const Content = (props: any) => {
                         <p className="mx-1 flex items-center" style={{ userSelect: 'none' }}>
                           <span className="pr-1">
                             <svg
-                              className="icon w-6 h-6 mt-1"
+                              className="icon w-6 h-6 pt-1"
                               viewBox="0 0 1024 1024"
                               version="1.1"
                               xmlns="http://www.w3.org/2000/svg"
