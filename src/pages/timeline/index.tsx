@@ -85,9 +85,8 @@ const TimeLine = (props: any) => {
                     className="flex items-center text-xl h-10 font-medium rounded-xl my-1 cursor-pointer hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500 lg:w-full sm:w-full"
                     onClick={() => handleClickTime(it._id)}
                   >
-                    <span className="text-sm px-2 lg:w-16">{it.createTime}</span>
-                    <span className="inline-block"></span>
-                    <span className="text-sm">{it.title}</span>
+                    <p className="text-sm pl-2 lg:w-12 lg:h-5 lg:pl-1 lg:pr-0">{it.createTime}</p>
+                    <p className="text-sm pl-2">{it.title}</p>
                   </div>
                 );
               })}
