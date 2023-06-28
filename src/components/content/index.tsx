@@ -36,7 +36,7 @@ const Content = (props: any) => {
   // 当前第几页
   const [currentPage, setCurrentPage] = useState(1);
   // 每页显示条数
-  const [pageSize, setPageSize] = useState(8);
+  const [pageSize, setPageSize] = useState(10);
   // 滚动位置
   const myRef = React.useRef();
   const { c } = qs.parse(props.location.search.slice(1));

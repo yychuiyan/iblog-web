@@ -10,10 +10,6 @@ const CategorySwitch = (props: any) => {
   const { c } = qs.parse(props.location.search.slice(1));
   // 列表
   const [categoryList, setCategoryList] = useState<any>([]);
-  // 当前第几页
-  const [currentPage, setCurrentPage] = useState(1);
-  // 每页显示条数
-  const [pageSize, setPageSize] = useState(8);
   useEffect(() => {
     // 获取文章
     let data = props.data;
