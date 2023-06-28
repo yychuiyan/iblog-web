@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { UserLoginReducer } from './user/login';
+import { UserRegisterReducer } from './user/register';
 import { QQLoginReducer } from './user/qqLogin';
 import { LoginOutReducer } from './user/loginout';
 import { LikeCreateReducer } from '../like/add';
@@ -21,6 +22,7 @@ import { VerseReducer } from './verse';
 import { SendMailReducer } from './mail';
 const RootReducer = combineReducers({
   UserLoginReducer,
+  UserRegisterReducer,
   QQLoginReducer,
   LoginOutReducer,
   LikeCreateReducer,

@@ -5,14 +5,23 @@ import {
   CommentAdd,
   HandleLike,
   MessageAdd,
-  QQLogin,
   SendMail,
+  UserRegister,
+  UserUpdate,
 } from '@/types/api';
 // 接口请求
 const api: Api = {
   // 登录
   Login(params) {
     return axios.post(`/iblog/user/login`, params);
+  },
+  // 用户注册
+  userRegister(params: UserRegister) {
+    return axios.post(`/iblog/user/register`, params);
+  },
+  // 修改用户密码
+  userUpdate(params: UserUpdate) {
+    return axios.post(`/iblog/user/update/password`, params);
   },
   // QQ登录
   getQQLogin(
@@ -36,7 +45,7 @@ const api: Api = {
   },
   // 点赞列表
   getLikeList() {
-    return axios.get(`/iblog/like`)
+    return axios.get(`/iblog/like`);
   },
   // 文章列表分页
   getArticleList(

@@ -15,6 +15,7 @@ export interface Action {
   userToken?: string;
   userinfo?: string;
   like?: number;
+  user?: object;
 }
 interface DataType {
   createYear: any;

@@ -19,6 +19,18 @@ interface LoginParams {
   username: string;
   password: string;
 }
+// 注册
+interface UserRegister {
+  username: string;
+  password: string;
+  email: string;
+  avatar: string;
+}
+// 修改用户密码
+interface UserUpdate{
+  username: string,
+  password: string
+}
 interface ArticleViews {
   views: number;
   id: string;
@@ -79,6 +91,8 @@ export interface Api {
     tags: string[]
   ): Promise<ApiResponse>;
   Login(params: LoginParams): Promise<ApiResponse>;
+  userRegister(params: UserRegister): Promise<ApiResponse>;
+  userUpdate(params: UserUpdate): Promise<ApiResponse>;
   loginOut(): Promise<ApiResponse>;
   isHandleLike(params: HandleLike): Promise<ApiResponse>;
   getLikeList(): Promise<ApiResponse>;

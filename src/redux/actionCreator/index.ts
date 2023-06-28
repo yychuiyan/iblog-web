@@ -19,6 +19,8 @@ import {
   HANDLE_LIKE,
   QQ_LOGIN,
   LIKE_LIST,
+  USER_REGISTER,
+  USER_UPDATE,
 } from '@/redux/constants';
 import {
   ArticleViews,
@@ -27,6 +29,8 @@ import {
   LoginParams,
   MessageAdd,
   SendMail,
+  UserRegister,
+  UserUpdate,
 } from '@/types/api';
 import { message } from 'antd';
 import jwtDecode from 'jwt-decode';
@@ -56,6 +60,28 @@ export function asyncLoginAction(data: LoginParams) {
     }
   };
 }
+// 注册
+export const asyncUserRegisterAction = (parmas: UserRegister) => {
+  return async (dispatch: Dispatch) => {
+    const res = await api.userRegister(parmas);
+    dispatch({
+      type: USER_REGISTER,
+      userinfo: {},
+    });
+    return res;
+  };
+};
+// 修改用户密码
+export const asyncUserUpdateAction = (params: UserUpdate) => {
+  return async (dispatch: Dispatch) => {
+    const res = await api.userUpdate(params);
+    dispatch({
+      type: USER_UPDATE,
+      user: res,
+    });
+    return res;
+  };
+};
 // QQ登录
 export function asyncQQLoginAction(
   grant_type: string,

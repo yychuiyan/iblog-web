@@ -84,8 +84,8 @@ const NavBar = (props: any) => {
   const [isShow, setIsShow] = useState(true);
   // 选中状态
   const [isChecked, setIsChecked] = useState(false);
-  // 是否为登录
-  const [isLogin, setIsLogin] = useState(true)
+  // 登录时执行操作
+  const [isLogin, setIsLogin] = useState<any>(0)
   // 图片列表
   const [imageList, setImageList] = useState<any>();
   // 图片地址
@@ -96,10 +96,14 @@ const NavBar = (props: any) => {
   const [loginInfo, setLoginInfo] = useState<any>()
   // 登录状态
   const [loginStatus, setLoginStatus] = useState(false)
-  // 获取QQ登录token
-  const [accessToken, setAccessToken] = useState()
   // 表单数据
   const [form] = Form.useForm();
+
+  let objLogin = {
+    0: '登录',
+    1: '注册',
+    2: '找回'
+  }
   useEffect(() => {
     // 监听
     window.addEventListener('scroll', handleScroll);
@@ -349,18 +353,22 @@ const NavBar = (props: any) => {
   const handleLogin = () => {
     setIsLoginModalOpen(!isLoginModalOpen)
   };
+  // 关闭模态框
   const handleLoginCancel = () => {
     setIsLoginModalOpen(!isLoginModalOpen)
+    form.resetFields();
   };
-
-  // 点击登录按钮
-  const onFinish = async (values: DataType) => {
-    await form.validateFields();
-    if (values.password !== values.verifyPassword) {
-      return message.error('两次密码不相同，请检查后重新输入');
+  // 登录
+  const handleLoginSuccess = async () => {
+    await form.validateFields()
+    let formData = form.getFieldsValue()
+    if (formData) {
+      if (formData.password !== formData.verifyPassword) {
+        return message.warning('两次密码不相同，请检查后重新输入');
+      }
     }
     props.BlogActions.asyncLoginAction({
-      ...values,
+      ...formData,
     }).then((res: {
       data: any; code: number, username: DataType
     }) => {
@@ -368,18 +376,94 @@ const NavBar = (props: any) => {
         setLoginStatus(true)
         setLoginInfo(res.data)
         localStorage.setItem('zhj', "success")
+        message.success('登录成功，即将返回到博客页面~')
+      } else {
+        message.error('出现未知错误，请联系管理员解决！')
       }
       window.location.reload();
     });
     setIsLoginModalOpen(!isLoginModalOpen)
     form.resetFields();
-  };
+  }
+  // 注册
+  const handleRegisterSuccess = async () => {
+    await form.validateFields()
+    let formData = form.getFieldsValue()
+    if (formData) {
+      if (formData.password !== formData.verifyPassword) {
+        return message.warning('两次密码不相同，请检查后重新输入');
+      }
+    }
+    // 获取表单值
+    if (typeof imageList === 'object') {
+      formData.cover = imageList.url;
+    }
+    formData.avatar = imageList;
+    if (formData.avatar === undefined) {
+      return message.warning('头像不能为空哦~');
+    }
+    props.BlogActions.asyncUserRegisterAction({
+      username: formData.username,
+      password: formData.password,
+      email: formData.email,
+      avatar: formData.avatar
+    }).then((res: {
+      data: any; code: number, username: DataType
+    }) => {
+
+      if (res.code === 0) {
+        message.success('注册成功~即将跳转到登录页面')
+        setTimeout(() => {
+          setIsLogin(0)
+          form.resetFields();
+        }, 1000)
+      } else {
+        message.error('出现未知错误，请联系管理员解决！')
+      }
+    });
+  }
+  // 找回密码
+  const handleFindPassword = async () => {
+    await form.validateFields()
+    let formData = form.getFieldsValue()
+    if (formData) {
+      if (formData.password !== formData.verifyPassword) {
+        return message.warning('两次密码不相同，请检查后重新输入');
+      }
+    }
+    props.BlogActions.asyncUserUpdateAction({
+      username: formData.username,
+      password: formData.password,
+    }).then((res: {
+      data: any; code: number, username: DataType
+    }) => {
+      if (res.code === 110201) {
+        message.warning('新密码与旧密码相同！')
+      } else if (res.code === 0) {
+        message.success('用户密码修改成功~即将跳转到登录页面')
+        setTimeout(() => {
+          setIsLogin(0)
+          form.resetFields();
+        }, 1000)
+      } else {
+        message.error('出现未知错误，请联系管理员解决！')
+      }
+    });
+  }
   // 切换注册页面
   const handleChangeRegister = () => {
-    setIsLogin(!isLogin)
+    setIsLogin(1)
+    form.resetFields();
   }
+  // 回到登录页面
+  const handleBakLogin = () => {
+    setIsLogin(0)
+    form.resetFields();
+  }
+   // 修改密码
   const handleForgetLogin = () => {
-    setIsLogin(!isLogin)
+    setIsLogin(2)
+    form.resetFields();
   }
   // 获取图片信息
   const handleChange = (data: string) => {
@@ -607,6 +691,7 @@ const NavBar = (props: any) => {
             </Spin>
           </div>
         </Modal>
+        {/* 登录注册 */}
         <Modal
           open={isLoginModalOpen}
           closable={false}
@@ -620,9 +705,9 @@ const NavBar = (props: any) => {
             layout="horizontal"
             name="basic"
             className="userAddFrom"
-            onFinish={onFinish}
+            // onFinish={onFinish}
           >
-            {isLogin ? <div>
+            {objLogin[isLogin] === '登录' ? <div>
               <Form.Item
                 name="username"
                 rules={[{ validator: validateName }]}
@@ -647,12 +732,11 @@ const NavBar = (props: any) => {
                   placeholder="再次确认密码"
                 />
               </Form.Item>
-            </div> : <Row gutter={24}>
+            </div> : objLogin[isLogin] === '注册' ? <Row gutter={24}>
               <Col span={12}>
                 <Form.Item
                   name="avatar"
-                  label="头像上传"
-                  rules={[{ required: true, message: '头像不能为空' }]}
+                    label="头像上传"
                 >
                   {/* @ts-ignore */}
                   <UploadImage handleChange={handleChange} imgUrlArr={imgUrl} />
@@ -698,32 +782,55 @@ const NavBar = (props: any) => {
                   />
                 </Form.Item>
               </Col>
-            </Row>}
-            <Row gutter={24}>
-              <Col span={12}>
+              </Row> : <div>
+                <Form.Item
+                  name="username"
+                  rules={[{ validator: validateName }]}
+                >
+                  <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="请输入昵称" />
+                </Form.Item>
+                <Form.Item
+                  name="password"
+                  rules={[{ validator: validatePassword }]}
+                >
+                  <Input
+                    prefix={<LockOutlined className="site-form-item-icon" />}
+                    type="password"
+                    placeholder="请输入新密码"
+                  />
+                </Form.Item>
 
-              </Col>
-              <Col span={12}>
-
-              </Col>
-            </Row>
-
+              <Form.Item name="verifyPassword" rules={[{ validator: validatePassword }]}>
+                <Input
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="确认新密码"
+                />
+              </Form.Item>
+            </div>}
             <Form.Item>
               {
-                isLogin ?
-                  <Button type="primary" htmlType="submit" className="w-[calc(100%-0px)]">
+                objLogin[isLogin] === '登录' ?
+                  <Button type="primary" htmlType="submit" className="w-[calc(100%-0px)]" onClick={handleLoginSuccess}>
                     登录
-                  </Button> :
-                  <Button type="primary" htmlType="submit" className="w-[calc(100%-0px)]">
+                  </Button> : objLogin[isLogin] === '注册' ?
+                    <Button type="primary" htmlType="submit" className="w-[calc(100%-0px)]" onClick={handleRegisterSuccess}>
                     注册
-                  </Button>
+                    </Button> : <Button type="primary" htmlType="submit" className="w-[calc(100%-0px)]" onClick={handleFindPassword}>
+                      确认修改密码
+                    </Button>
               }
               <div className=' relative top-3'>
-                <div className='absolute right-0'>{isLogin ?
+                <div className='absolute right-0'>
+                  {
+                    objLogin[isLogin] === '登录' ?
                   <p>
-                    没有账号？点我<span className='cursor-pointer ml-1 text-blue-500' onClick={handleChangeRegister}>注册</span><br />
-                    忘记密码？点我<span className='cursor-pointer ml-1 text-blue-500' onClick={handleChangeRegister}>找回</span></p> :
-                  <span className='cursor-pointer ml-1 text-blue-500' onClick={handleForgetLogin}>返回登录页面</span>}
+                        没有账号？点我<span className='cursor-pointer ml-1 text-blue-500' onClick={handleChangeRegister}>注册</span><br />
+                        忘记密码？点我<span className='cursor-pointer ml-1 text-blue-500' onClick={handleForgetLogin}>找回</span>
+                      </p> :
+                      objLogin[isLogin] === '注册' ?
+                        <span className='cursor-pointer ml-1 text-blue-500' onClick={handleBakLogin}>返回登录页面</span> : <span className='cursor-pointer ml-1 text-blue-500' onClick={handleBakLogin}>返回登录页面</span>
+                  }
                 </div>
                 <div className='flex'>推荐登录：
                   <QQLoginButton />
@@ -732,7 +839,6 @@ const NavBar = (props: any) => {
             </Form.Item>
           </Form>
         </Modal>
-
       </div>
     </nav>
   );

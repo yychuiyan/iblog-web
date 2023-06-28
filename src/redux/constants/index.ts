@@ -1,5 +1,9 @@
 // 登录
 export const USER_LOGIN = 'USER_LOGIN';
+// 注册
+export const USER_REGISTER = 'USER_REGISTER';
+// 修改用户密码
+export const USER_UPDATE = 'USER_UPDATE';
 // qq登录
 export const QQ_LOGIN = 'QQ_LOGIN';
 // 退出登录
