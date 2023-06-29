@@ -125,7 +125,7 @@ const Essay = (props: any) => {
   return (
     // @ts-ignore
     <div className="w-1200 mx-auto  lg:mx-5 lg:w-full sm:w-full" ref={myRef}>
-      <PageDesc title="星河滚烫" />
+      <PageDesc title="随笔" />
       <div className="w-1000  mt-10 pt-5 pb-10 mx-auto bg-base-100 rounded-2xl  lg:w-full sm:w-full">
         {/* 无限滚动，实现上拉加载数据【注意：防止失效，一定要记得加高度。这儿的高度是我随便写的，实际高度是去css里改的】 */}
         <InfiniteScroll

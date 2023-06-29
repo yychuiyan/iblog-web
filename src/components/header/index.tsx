@@ -43,7 +43,7 @@ const NavBar = (props: any) => {
     },
     {
       path: '/rblog/essay',
-      title: '星河滚烫',
+      title: '随笔',
     },
     {
       path: '/rblog/message',
