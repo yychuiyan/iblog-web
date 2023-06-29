@@ -17,7 +17,7 @@ import 'nprogress/nprogress.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 // import s from './index.module.css';
 import './index.css'
 const LayoutIndex = (props: any) => {
@@ -29,7 +29,7 @@ const LayoutIndex = (props: any) => {
   //   setClasses(bgClasses)
   // }, [setClasses])
   return (
-    <div className=''>
+    <div className='parent'>
       {/* <div className={classnames(s.img_style, clasess[props.mode])} > */}
       <div className={`${Boolean(props.mode) ? 'bg1' : 'bg0'}`}>
       <NavBar></NavBar>

@@ -16,7 +16,11 @@
     -webkit-overflow-scrolling:touch;
   }
 } */
-.bg0:before {
+.parent{
+  position: relative;
+  overflow: hidden;
+}
+.parent::before {
   content: ' ';
   position: fixed;
   z-index: -1;
@@ -24,7 +28,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-image: url(../../assets/images/bg01.webp);
+  /* background-image: url(../../assets/images/bg01.webp); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -49,7 +53,7 @@
     -webkit-overflow-scrolling:touch;
   }
 } */
-.bg1:before {
+/* .parent .bg1 {
   content:' ';
   position: fixed;
   z-index: -1;
@@ -61,5 +65,5 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-}
+} */
 
