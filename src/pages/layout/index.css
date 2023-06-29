@@ -8,7 +8,7 @@
   background-attachment: fixed;
   z-index: -1;
 }
-/* @media screen and (max-width: 768px){
+@media screen and (max-width: 768px){
   .bg0 {
     background-image: url(../../assets/images/bg01.webp);
     position: fixed;
@@ -17,20 +17,20 @@
     overflow: auto;
     z-index: 3;
   }
-} */
+}
 .bg0::before {
   content: "";
-  position: absolute;
+  position: fixed;
   z-index: -1;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background-image: url(../../assets/images/bg01.webp);
-  /* background-image: inherit; */
+  background-image: inherit;
   -webkit-background-size: cover !important;
   -o-background-size: cover;
   background-size: cover !important;
+  -webkit-overflow-scrolling:touch;
 }
 
 .bg1 {
@@ -44,7 +44,7 @@
   z-index: -1;
 }
 
-/* @media screen and (max-width: 768px){
+@media screen and (max-width: 768px){
   .bg1{
     background-image: url(../../assets/images/bg02.webp);
     position: fixed;
@@ -53,19 +53,19 @@
     overflow: auto;
     z-index: 3;
   }
-} */
+}
 .bg1:before {
   content: "";
-  position: absolute;
+  position: fixed;
   z-index: -1;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  /* background-image: inherit; */
-  background-image: url(../../assets/images/bg02.webp);
+  background-image: inherit;
   -webkit-background-size: cover !important;
   -o-background-size: cover;
   background-size: cover !important;
+  -webkit-overflow-scrolling:touch;
 }
 
