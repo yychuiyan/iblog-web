@@ -157,7 +157,7 @@ const Content = (props: any) => {
                         {item.introduction}
                       </p>
                     </div>
-                    <div className="flex items-center justify-between h-9 px-2">
+                    <div className="flex items-center justify-between h-9 px-2 lg:pt-1">
                       <div className="flex">
 
                         <span
