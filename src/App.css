@@ -55,3 +55,11 @@ html,body{
 .ant-popover-content p {
   margin: 0;
 }
+
+/* 预览图片 */
+.ant-image-preview-operations{
+  display: none;
+}
+.ant-image .ant-image-mask:hover{
+  opacity: 0 !important;
+}
