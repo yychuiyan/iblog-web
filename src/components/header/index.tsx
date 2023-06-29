@@ -652,7 +652,7 @@ const NavBar = (props: any) => {
           }
           </div>
           {/* 后台 */}
-          <div className='w-16 flex items-center cursor-pointer' onClick={handleBackLogin}>
+          <div className='w-16 flex items-center cursor-pointer lg:hidden' onClick={handleBackLogin}>
             <span><svg className="icon w-7 h-7 pt-1" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4252" width="20" height="20"><path d="M737.477981 1024L8.949126 954.206816v-884.913583L737.477981 0.09999v393.061615L686.682941 382.962601V55.694561l-626.938775 59.994141V907.911337l626.938775 60.494092V641.137389l50.79504-10.099014z" fill="var(--bgcolor-social-default)" p-id="4253"></path><path d="M282.222439 547.746509v-71.393028l-33.89669 1.899815V545.946685zM383.712528 553.445953v-82.791915l-67.693389 3.799629v75.192657zM1015.250854 512.049995L823.769554 308.969827v137.286593l-406.160336 22.597793v86.491554l406.160336 22.497803v137.386583z" fill="var(--bgcolor-social-default)" p-id="4254"></path></svg></span>
             <span>后台</span>
           </div>

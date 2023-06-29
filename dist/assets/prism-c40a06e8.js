@@ -1,4 +1,4 @@
-import{az as i0,R as Pe,aA as X,g as o0,d as PE,k as s0,v as l0,au as Nr}from"./index-94db1437.js";const nc=["http","https","mailto","tel"];function u0(e){const t=(e||"").trim(),n=t.charAt(0);if(n==="#"||n==="/")return t;const r=t.indexOf(":");if(r===-1)return t;let a=-1;for(;++a<nc.length;){const i=nc[a];if(r===i.length&&t.slice(0,i.length).toLowerCase()===i)return t}return a=t.indexOf("?"),a!==-1&&r>a||(a=t.indexOf("#"),a!==-1&&r>a)?t:"javascript:void(0)"}/*!
+import{az as i0,R as Pe,aA as X,g as o0,d as PE,k as s0,v as l0,au as Nr}from"./index-78455b8a.js";const nc=["http","https","mailto","tel"];function u0(e){const t=(e||"").trim(),n=t.charAt(0);if(n==="#"||n==="/")return t;const r=t.indexOf(":");if(r===-1)return t;let a=-1;for(;++a<nc.length;){const i=nc[a];if(r===i.length&&t.slice(0,i.length).toLowerCase()===i)return t}return a=t.indexOf("?"),a!==-1&&r>a||(a=t.indexOf("#"),a!==-1&&r>a)?t:"javascript:void(0)"}/*!
  * Determine if an object is a Buffer
  *
  * @author   Feross Aboukhadijeh <https://feross.org>
