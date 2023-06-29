@@ -1,14 +1,11 @@
 import React from 'react';
 
 const Footer = () => {
-  const handleJump = () => {
-    window.open('https://beian.miit.gov.cn/');
-  };
   return (
     <div className="flex justify-center items-center flex-col relative top-10 h-20 w-full bg-base-100">
       <div className="mb-2 flex items-center justify-center" style={{ userSelect: 'none' }}>
         <p>
-          <span>©2023 - 2023</span>
+          <span>©2023</span>
           <span className="px-2">By</span>
         </p>
 
