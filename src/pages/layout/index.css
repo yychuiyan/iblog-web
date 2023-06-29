@@ -2,11 +2,8 @@
   background-image: url(../../assets/images/bg01.webp);
   background-repeat: no-repeat;
   background-size:cover;
-  -webkit-background-size: cover !important;
-  -moz-background-size: cover !important;
-  -o-background-size: cover;
+  background-position: center;
   background-attachment:fixed;
-  z-index: -1;
 }
 /* @media screen and (max-width: 768px){
   .bg0 {
@@ -27,22 +24,18 @@
   right: 0;
   bottom: 0;
   left: 0;
-  /* background-image: inherit; */
-  background: url(../../assets/images/bg01.webp) center 0 no-repeat;
-  -webkit-background-size: cover!important;
-  -o-background-size: cover;
-  background-size: cover!important;
+  background-image: url(../../assets/images/bg01.webp);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .bg1 {
   background-image: url(../../assets/images/bg02.webp);
   background-repeat: no-repeat;
-  background-size: cover;
-  -webkit-background-size: cover !important;
-  -moz-background-size: cover !important;
-  -o-background-size: cover;
-  background-attachment: fixed;
-  z-index: -1;
+  background-size:cover;
+  background-position: center;
+  background-attachment:fixed;
 }
 
 /* @media screen and (max-width: 768px){
@@ -57,17 +50,16 @@
   }
 } */
 .bg1:before {
-  content: ' ';
+  content:' ';
   position: fixed;
   z-index: -1;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  /* background-image: inherit; */
-  background: url(../../assets/images/bg02.webp)  center 0 no-repeat;
-  -webkit-background-size: cover !important;
-  -o-background-size: cover;
-  background-size: cover !important;
+  background-image: url(../../assets/images/bg02.webp);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
