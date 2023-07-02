@@ -201,7 +201,7 @@ const ArticleDetail = (props: any) => {
               <div key={item._id}>
                 <div className="flex flex-row">
                   {/* 渲染 */}
-                  <div className="markdown-body  content lg:w-[calc(100%-38px)] lg:mx-auto">
+                  <div className="markdown-body   content lg:w-[calc(100%-38px)] lg:mx-auto">
                     <MarkDown content={item.content} />
 
                     {dataFilter.map((item) => {

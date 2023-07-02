@@ -17,9 +17,11 @@
 /* 图片 */
 .markdown-body img {
   display: block;
-  max-width: 100%;
-  /* margin: 14px auto; */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+  margin: 0;
+  max-width: 100% !important;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 /* 复制代码块 */
 .code-copy-btn {
@@ -47,4 +49,10 @@
   border-top: none;
   border-bottom: none;
   border-right: none;
+}
+
+/* 预览图片 */
+.ant-modal .ant-modal-close{
+  top: 5px !important;
+  inset-inline-end: 3px !important;
 }
