@@ -17,9 +17,22 @@ const MarkDown = (props: any) => {
   </pre>
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState('');
+  // 平台类型
+  const [isMobile, setIsMobile] = useState(false)
+  // 监听移动端PC端
+  useEffect(() => {
+    var system = {} as any;
+    system.pingtai = /(Win32|Win16|WinCE|Mac68K|MacIntel|MacIntel|MacPPC|Linux mips64)/i.test(navigator.platform);
+    if (system.pingtai) {
+      //电脑
+      setIsMobile(isMobile)
+    } else {
+      //手机
+      setIsMobile(!isMobile)
+    }
 
+  }, [])
   // @ts-ignore
-
   const imgWithPreview = ({ node, ...props }: { node: any;[key: string]: any }) => {
     // 检查节点是否为 <img> 元素
     if (node.type === 'element' && node.tagName === 'img') {
@@ -38,9 +51,14 @@ const MarkDown = (props: any) => {
       return (
         <div className='image_priview'>
           <img {...props} src={imageUrl} alt="Markdown 图片" onClick={handleImageClick} />
-          <Modal open={previewVisible} onCancel={handleModalCancel} footer={null} width="calc(100% - 25%)">
-            <img alt="预览" style={{ width: '100%' }} src={previewImageUrl} />
+          {
+            isMobile ? <Modal open={previewVisible} onCancel={handleModalCancel} footer={null} width="auto">
+              <img alt="预览" style={{ width: '100%', height: '100%', padding: '0', margin: '0' }} src={previewImageUrl} />
+            </Modal> : <Modal open={previewVisible} onCancel={handleModalCancel} footer={null} width="calc(100% - 25%)">
+              <img alt="预览" style={{ width: '100%', height: '100%', padding: '0', margin: '0' }} src={previewImageUrl} />
           </Modal>
+          }
+
         </div>
       );
     }
