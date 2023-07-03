@@ -38,7 +38,7 @@ const MarkDown = (props: any) => {
       return (
         <div className='image_priview'>
           <img {...props} src={imageUrl} alt="Markdown 图片" onClick={handleImageClick} />
-          <Modal open={previewVisible} onCancel={handleModalCancel} footer={null} width={1200}>
+          <Modal open={previewVisible} onCancel={handleModalCancel} footer={null} width="calc(100% - 400px)">
             <img alt="预览" style={{ width: '100%' }} src={previewImageUrl} />
           </Modal>
         </div>
