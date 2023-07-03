@@ -10,6 +10,8 @@ const User = (props: any) => {
   const [categoriesCount, setCategoriesCount] = useState<any>();
   // 标签数量
   const [tagsCount, setTagsCount] = useState<any>();
+  // 头像显示隐藏
+  const [avatarShow, setAvatarShow] = useState(false)
   // 路由跳转
   const history = useHistory()
   // 文章数量
@@ -86,14 +88,25 @@ const User = (props: any) => {
   const handleJumpTags = () => {
     history.replace(`/rblog/tags`)
   }
+  // 鼠标移动事件
+  const handleMouseEnter = () => {
+    setAvatarShow(!avatarShow)
+  }
+  const handleMouseLeave = () => {
+    setAvatarShow(avatarShow)
+  }
   return (
     <div className="flex flex-col bg-base-100 rounded-2xl items-center mb-5 rounded-3xltransition duration-500 ease-in-out  transform  hover:scale-105 lg:hidden">
       <div className="flex flex-col items-center justify-center">
-        <img
-          src="https://cos.yychuiyan.com/iblogs/avatar.webp"
-          alt=""
-          className="w-24 h-24 mt-3 rounded-full"
-        />
+        {
+          <img
+            src={`${avatarShow ? 'https://op.yychuiyan.com/we.webp' : 'https://op.yychuiyan.com/avatar.webp'}`}
+            alt=""
+            className={`image-container w-24 h-24 mt-3 rounded-full ${avatarShow ? 'rotate' : ''}`}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          />
+        }
         <p
           className="flex items-center justify-center w-64 h-5   pl-2 mt-3 overflow-clip"
           style={{ userSelect: 'none' }}

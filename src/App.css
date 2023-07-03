@@ -63,3 +63,22 @@ html,body{
 .ant-image .ant-image-mask:hover{
   opacity: 0 !important;
 }
+/* 头像旋转 */
+.image-container {
+  position: relative;
+  display: inline-block;
+  animation: rotateAnimation 2s linear both infinite;
+  transition: all .2s;
+}
+@keyframes rotateAnimation {
+  0% {
+    box-shadow: 0 0 5px #bfd1c0;
+  }
+
+  100% {
+    box-shadow: 0 0 5px #bfd1c0;
+  }
+}
+.rotate {
+  transform: rotate(360deg);
+}

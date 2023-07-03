@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useId, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
@@ -9,14 +9,10 @@ import LastUpdate from '../sidemenu/LastUpdate';
 import MarkNav from 'markdown-navbar'; // markdown 目录
 import 'markdown-navbar/dist/navbar.css';
 import MarkDown from '../markdown/MarkDown';
-import { LikeFilled } from '@ant-design/icons';
 import jwtDecode from 'jwt-decode';
 import { Affix, FloatButton, message } from 'antd';
-import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faArrowDownShortWide,
-  faArrowUpShortWide,
   faTags,
   faFolder,
   faClock,
