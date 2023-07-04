@@ -63,7 +63,6 @@ const Essay = (props: any) => {
   }, []);
   // 登录信息 解析token
   useEffect(() => {
-    fetchMoreData
     // 获取登录态
     let isLoginInfo = localStorage.getItem('zhj')
     if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
