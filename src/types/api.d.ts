@@ -74,6 +74,13 @@ interface HandleLike {
   userName: string;
   userAvatar: string;
 }
+interface EssayHandleLike {
+  id: string;
+  essayId: string;
+  userId: string;
+  userName: string;
+  userAvatar: string;
+}
 interface QQLogin {
   grant_type: string;
   client_id: string;
@@ -116,4 +123,6 @@ export interface Api {
   getVerse(): Promise<ApiResponse>;
   sendMail(params: SendMail): Promise<ApiResponse>;
   getAfficheList(): Promise<ApiResponse>;
+  essayHandleLike(params: EssayHandleLike): Promise<ApiResponse>;
+  getEassayLike(): Promise<ApiResponse>;
 }

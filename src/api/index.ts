@@ -3,6 +3,7 @@ import {
   Api,
   ArticleViews,
   CommentAdd,
+  EssayHandleLike,
   HandleLike,
   MessageAdd,
   SendMail,
@@ -97,6 +98,14 @@ const api: Api = {
   // 随笔列表
   getEssayList(page: number, pageSize: number, content: string) {
     return axios.get(`/iblog/essay/list?page=${page}&&pageSize=${pageSize}&&content=${content}`);
+  },
+  // 点赞
+  essayHandleLike(params: EssayHandleLike) {
+    return axios.post(`/iblog/essay/like`, params);
+  },
+  // 点赞列表
+  getEassayLike() {
+    return axios.get(`/iblog/essay/like`);
   },
   // 友链列表
   getFriendlyList() {

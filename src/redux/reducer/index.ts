@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import { UserLoginReducer } from './user/login';
-import { UserRegisterReducer } from './user/register';
-import { QQLoginReducer } from './user/qqLogin';
-import { LoginOutReducer } from './user/loginout';
-import { LikeCreateReducer } from '../like/add';
-import { LikeListReducer } from '../like/list';
+import { UserLoginReducer } from '@/redux/reducer/user/login';
+import { UserRegisterReducer } from '@/redux/reducer/user/register';
+import { QQLoginReducer } from '@/redux/reducer/user/qqLogin';
+import { LoginOutReducer } from '@/redux/reducer/user/loginout';
+import { LikeCreateReducer } from '@/redux/reducer/like/add';
+import { LikeListReducer } from '@/redux/reducer/like/list';
+import { EssayLikeCreateReducer } from '@/redux/reducer/essayLike/add';
+import { EssayLikeListReducer } from '@/redux/reducer/essayLike/list';
 import { ArticleListReducer } from '@/redux/reducer/articles/list';
 import { ArticleAllListReducer } from '@/redux/reducer/articles/list_all';
 import { ArticleSearchListReducer } from '@/redux/reducer/articles/search';
@@ -16,11 +18,11 @@ import { MessageInsertReducer } from '@/redux/reducer/messages/insert';
 import { EssayListReducer } from '@/redux/reducer/essay/list';
 import { FriendlyListReducer } from '@/redux/reducer/friendly/list';
 import { AboutListReducer } from '@/redux/reducer/about/list';
-import { LoadingReducer } from './loading';
-import { ModeReducer } from './mode';
-import { VerseReducer } from './verse';
-import { SendMailReducer } from './mail';
-import { AfficheListReducer } from './affiche/list';
+import { LoadingReducer } from '@/redux/reducer/loading';
+import { ModeReducer } from '@/redux/reducer/mode';
+import { VerseReducer } from '@/redux/reducer/verse';
+import { SendMailReducer } from '@/redux/reducer/mail';
+import { AfficheListReducer } from '@/redux/reducer/affiche/list';
 const RootReducer = combineReducers({
   UserLoginReducer,
   UserRegisterReducer,
@@ -37,6 +39,8 @@ const RootReducer = combineReducers({
   MessageListReducer,
   MessageInsertReducer,
   EssayListReducer,
+  EssayLikeListReducer,
+  EssayLikeCreateReducer,
   FriendlyListReducer,
   AboutListReducer,
   LoadingReducer,

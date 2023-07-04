@@ -289,7 +289,7 @@ const ArticleComment = (props: any) => {
   }
   return (
     <div className="w-full mx-auto lg:w-full  sm:w-full">
-      <Card bordered={true} className=" bg-base-100 rounded-b-2xl mt-6 lg:mt-20 lg:mx-0">
+      <Card bordered={true} className=" bg-base-100 rounded-b-2xl mt-10 lg:mt-20 lg:mx-0">
         <div
           style={{
             textAlign: 'center',

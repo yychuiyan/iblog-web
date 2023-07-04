@@ -228,10 +228,10 @@
   overflow: hidden;
   background: transparent;
   border-bottom: 1px solid var(--color-border-muted);
-  height: 0.25em;
+  height: 0.15em;
   padding: 0;
   margin: 24px 0;
-  background-color: var(--color-border-default);
+  background-color: var(--bgcolor-navbar-hover);
   border: 0;
 }
 
@@ -412,10 +412,10 @@
 }
 
 .markdown-body blockquote {
-  margin: 0;
-  padding: 0 1em;
-  color: var(--color-fg-muted);
-  border-left: 0.25em solid #717882;
+  padding: 10px;
+  min-height: 100px;
+  border: 2px dashed var(--bgcolor-navbar-hover);
+  border-radius: 7px;
 }
 
 .markdown-body ul,

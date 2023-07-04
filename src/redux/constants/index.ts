@@ -30,6 +30,10 @@ export const MESSAGE_LIST = 'MESSAGE_LIST';
 export const MESSAGE_INSERT = 'MESSAGE_INSERT';
 // 随笔列表
 export const ESSAY_LIST = 'ESSAY_LIST';
+// 点赞
+export const ESSAY_HANDLE_LIKE = 'ESSAY_HANDLE_LIKE';
+// 点赞列表
+export const ESSAY_LIKE_LIST = 'ESSAY_LIKE_LIST';
 // 友链列表
 export const FRIENDLY_LIST = 'FRIENDLY_LIST';
 // 关于管理

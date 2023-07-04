@@ -197,15 +197,14 @@ const ArticleDetail = (props: any) => {
               <div key={item._id}>
                 <div className="flex flex-row">
                   {/* 渲染 */}
-                  <div className="markdown-body   content lg:w-[calc(100%-38px)] lg:mx-auto">
+                  <div className="markdown-body content lg:w-[calc(100%-38px)] lg:mx-auto">
                     <MarkDown content={item.content} />
-
                     {dataFilter.map((item) => {
                       return (
-                        <div className="relative lg:top-5" key={item._id}>
+                        <div className="relative" key={item._id}>
                           <div
-                            className="absolute h-16 -top-16  w-[calc(100%-0px)] text-lg
-                            lg:w-full lg:flex-col lg:items-start lg:-top-20  sm:w-full
+                            className="h-16  w-[calc(100%-0px)] text-lg
+                            lg:w-full lg:flex-col lg:items-start  sm:w-full
                             "
                           >
                             <div className='flex lg:flex-wrap'>

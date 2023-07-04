@@ -22,10 +22,13 @@ import {
   USER_REGISTER,
   USER_UPDATE,
   AFFICHE_LIST,
+  ESSAY_HANDLE_LIKE,
+  ESSAY_LIKE_LIST,
 } from '@/redux/constants';
 import {
   ArticleViews,
   CommentAdd,
+  EssayHandleLike,
   HandleLike,
   LoginParams,
   MessageAdd,
@@ -252,6 +255,32 @@ export const asyncEssayListAction = (page: number, pageSize: number, content: st
     dispatch({
       type: ESSAY_LIST,
       essay: res,
+    });
+    return res;
+  };
+};
+// 点赞
+export const asyncEssayLikeCreateAction = (params: EssayHandleLike) => {
+  return async (dispatch: Dispatch) => {
+    const res = await api.essayHandleLike(params);
+    if (res.code === 100201) {
+      message.warning('已经点过了哟~😆');
+      return false;
+    }
+    dispatch({
+      type: ESSAY_HANDLE_LIKE,
+      like: res,
+    });
+    return res;
+  };
+};
+// 点赞列表
+export const asyncEssayLikeListAction = () => {
+  return async (dispatch: Dispatch) => {
+    const res = await api.getEassayLike();
+    dispatch({
+      type: ESSAY_LIKE_LIST,
+      like: res,
     });
     return res;
   };

@@ -1,7 +1,8 @@
 import { CategoryData } from '@/types/comm';
 import React, { useEffect, useState } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
-
+import osun from '../../assets/images/osun.webp'
+import avatar from '../../assets/images/avatar.webp'
 // 跳转到分类页
 const User = (props: any) => {
   // 文章数量
@@ -100,7 +101,7 @@ const User = (props: any) => {
       <div className="flex flex-col items-center justify-center">
         {
           <img
-            src={`${avatarShow ? 'https://op.yychuiyan.com/osun.webp' : 'https://op.yychuiyan.com/avatar.webp'}`}
+            src={`${avatarShow ? osun : avatar}`}
             alt=""
             className={`image-container w-24 h-24 mt-3 rounded-full ${avatarShow ? 'rotate' : ''}`}
             onMouseEnter={handleMouseEnter}
