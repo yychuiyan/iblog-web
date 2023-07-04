@@ -127,7 +127,7 @@ export const asyncLikeCreateAction = (params: HandleLike) => {
   return async (dispatch: Dispatch) => {
     const res = await api.isHandleLike(params);
     if (res.code === 100201) {
-      message.warning('已经点过了哟~😆');
+      // message.warning('已经点过了哟~😆');
       return false;
     }
     dispatch({
@@ -264,7 +264,7 @@ export const asyncEssayLikeCreateAction = (params: EssayHandleLike) => {
   return async (dispatch: Dispatch) => {
     const res = await api.essayHandleLike(params);
     if (res.code === 100201) {
-      message.warning('已经点过了哟~😆');
+      // message.warning('已经点过了哟~😆');
       return false;
     }
     dispatch({
