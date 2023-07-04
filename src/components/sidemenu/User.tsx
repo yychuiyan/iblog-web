@@ -100,7 +100,7 @@ const User = (props: any) => {
       <div className="flex flex-col items-center justify-center">
         {
           <img
-            src={`${avatarShow ? 'https://op.yychuiyan.com/we.webp' : 'https://op.yychuiyan.com/avatar.webp'}`}
+            src={`${avatarShow ? 'https://op.yychuiyan.com/osun.webp' : 'https://op.yychuiyan.com/avatar.webp'}`}
             alt=""
             className={`image-container w-24 h-24 mt-3 rounded-full ${avatarShow ? 'rotate' : ''}`}
             onMouseEnter={handleMouseEnter}
