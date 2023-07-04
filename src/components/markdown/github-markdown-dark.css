@@ -413,7 +413,7 @@
 
 .markdown-body blockquote {
   padding: 10px;
-  min-height: 100px;
+  min-height: 20px;
   border: 2px dashed var(--bgcolor-navbar-hover);
   border-radius: 7px;
 }

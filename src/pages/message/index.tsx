@@ -315,7 +315,7 @@ const Message = (props: any) => {
                   </p>
                   <p className="pl-2 pb-1">
                     <span>link: </span>
-                    <span>https://yychuiyan.com/</span>
+                    <span>https://yychuiyan.com</span>
                   </p>
                   <p className="pl-2 pb-1 lg:flex lg:flex-col lg:items-start">
                     <span>avatar: </span>
