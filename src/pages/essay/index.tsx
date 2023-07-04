@@ -22,7 +22,9 @@ interface DataType {
 }
 interface EssayData {
   data: DataType[];
-  totalCount: number; page: number; pageSize: number;
+  totalCount: number;
+  page: number;
+  pageSize: number;
 }
 const Essay = (props: any) => {
   // 随笔列表
@@ -32,13 +34,13 @@ const Essay = (props: any) => {
   // 分页总数
   const [total, setTotal] = useState(0);
   // 当前第几页
-  let [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   // 每页显示条数
   const [pageSize, setPageSize] = useState(10);
   // 滚动位置
   const myRef = React.useRef();
   // 设置是否可上拉
-  const [hasMore, setHashMore] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
   // 登录状态
   const [loginStatus, setLoginStatus] = useState(false)
   // 是否已点赞
@@ -49,6 +51,8 @@ const Essay = (props: any) => {
   let [loginInfo, setLoginInfo] = useState<any>()
   // 随笔ID存储的数组
   const [essayId, setEssayId] = useState<any>([])
+  // 变量来控制滚动加载的节流
+  const [isLoading, setIsLoading] = useState(false);
   // 回到顶部
   useEffect(() => {
     if (myRef.current) {
@@ -73,9 +77,8 @@ const Essay = (props: any) => {
   }, [localStorage])
   // 获取随笔列表数据
   useEffect(() => {
-    setHashMore(true);
-    setCurrentPage(1);
-    props.BlogActions.asyncEssayListAction(currentPage, pageSize, '').then((res: EssayData) => {
+    setHasMore(true);
+    props.BlogActions.asyncEssayListAction(currentPage > 1 ? 1 : currentPage, pageSize, '').then((res: EssayData) => {
       // 获取随笔
       let { data, totalCount, page, pageSize } = res.data as unknown as EssayData;
       let newData = data.map((item) => {
@@ -140,8 +143,8 @@ const Essay = (props: any) => {
       id: loginInfo._id,
     }).then((res: any) => {
       if (res.code === 0) {
-        message.success("谢谢支持~")
-        props.BlogActions.asyncEssayListAction(currentPage, pageSize, '').then((res: EssayData) => {
+        // 获取点赞信息
+        props.BlogActions.asyncEssayListAction('', '', '').then((res: EssayData) => {
           // 获取随笔
           let { data, totalCount, page, pageSize } = res.data as unknown as EssayData;
           let newData = data.map((item) => {
@@ -163,7 +166,8 @@ const Essay = (props: any) => {
                 _id: item._id,
               };
             }
-          });
+          })
+          setList(newData)
           // 获取点赞信息
           props.BlogActions.asyncEssayLikeListAction().then((res: any) => {
             let { data } = res
@@ -185,35 +189,27 @@ const Essay = (props: any) => {
               setEssayId(essayArr)
             }
           })
-          setList(newData);
-          setEssayList(res.data);
-          setTotal(totalCount);
-          setCurrentPage(page);
-          setPageSize(pageSize);
-        });
+        })
       }
-    });
+    })
   }
 
   // 禁止点击
   const handleCannot = () => {
     message.warning('需要先登录~')
   }
+  useEffect(() => {
+    fetchMoreData
+  }, [currentPage])
   // 加载更多
   const fetchMoreData = () => {
-    let data = essayList.data
-    if (data === undefined) {
-      if (data.length < essayList.pageSize) {
-        setHashMore(false);
-      }
+    if (!hasMore || isLoading) {
+      return;
     }
-    setHashMore(false);
+    setIsLoading(true);
     setTimeout(() => {
-      if (hasMore) {
-        let i = 1;
-        setCurrentPage((currentPage += i));
-        props.BlogActions.asyncEssayListAction(currentPage, pageSize, '').then((res: EssayData) => {
-          // 获取随笔
+      props.BlogActions.asyncEssayListAction(currentPage + 1, pageSize, '').then((res: EssayData) => {
+            // 获取随笔
           let { data } = res.data as unknown as EssayData;
           let newData = data.map((item) => {
             // return {
@@ -223,6 +219,7 @@ const Essay = (props: any) => {
                 updateTime: item.updateTime,
                 content: item.content,
                 cover: item.cover,
+                like: item.like,
                 _id: item._id,
               };
             } else {
@@ -230,15 +227,66 @@ const Essay = (props: any) => {
                 createTime: item.createTime,
                 updateTime: item.updateTime,
                 content: item.content,
+                like: item.like,
                 _id: item._id,
               };
             }
           });
-          setList(list.concat(newData));
-          setEssayList(res.data);
-        });
-      }
-    }, 500);
+        // 获取点赞信息
+        props.BlogActions.asyncEssayListAction('', '', '').then((res: EssayData) => {
+          // 获取随笔
+          let { data, totalCount, page, pageSize } = res.data as unknown as EssayData;
+          let newData = data.map((item) => {
+            if (Boolean(item.cover)) {
+              return {
+                createTime: item.createTime,
+                updateTime: item.updateTime,
+                content: item.content,
+                cover: item.cover,
+                like: item.like,
+                _id: item._id,
+              };
+            } else {
+              return {
+                createTime: item.createTime,
+                updateTime: item.updateTime,
+                content: item.content,
+                like: item.like,
+                _id: item._id,
+              };
+            }
+          })
+          setList(newData)
+          // 获取点赞信息
+          props.BlogActions.asyncEssayLikeListAction().then((res: any) => {
+            let { data } = res
+            // 获取登录态
+            let isLoginInfo = localStorage.getItem('zhj')
+            if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
+              const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as object | any;
+              setLoginInfo(token)
+              setLoginStatus(true)
+              const matchedObjects = [];
+              for (const obj of data) {
+                const essayId = obj.essayId;
+                const matchedObj = newData.find((item: any) => obj.userId === token?._id && item._id === essayId)
+                if (matchedObj) {
+                  matchedObjects.push(matchedObj)
+                }
+              }
+              let essayArr = matchedObjects.map((item: any) => item._id)
+              setEssayId(essayArr)
+            }
+          })
+        })
+        setIsLoading(false);
+        if (newData.length < pageSize) {
+          setHasMore(false);
+        }
+        setList((prevList: any[]) => prevList.concat(newData));
+        setCurrentPage(currentPage);
+      });
+    }, 1500);
   };
 
   return (
@@ -292,7 +340,7 @@ const Essay = (props: any) => {
                     {item.cover !== undefined ? (
                       <div className="ml-2 flex flex-row flex-wrap">
                         {
-                          item.cover.map((cover: CoverData) => <Image src={cover.thumbUrl} width={190} height={180} style={{ marginRight: '5px' }} />)
+                          item.cover.map((cover: CoverData, index: number) => <Image src={cover.thumbUrl} key={index} width={190} height={180} style={{ marginRight: '5px' }} />)
                         }
                       </div>
                     ) : (
