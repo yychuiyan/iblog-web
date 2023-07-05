@@ -209,7 +209,7 @@ const Content = (props: any) => {
   };
   return (
     // @ts-ignore
-    <div ref={myRef} style={{ userSelect: "none" }} className='lg:mt-3'>
+    <div ref={myRef} style={{ userSelect: "none" }}>
       {list.slice(minVal, maxVal).map((item: DataType) => {
         return (
           <div className="home_page rounded-2xl bg-base-100
