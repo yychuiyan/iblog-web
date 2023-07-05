@@ -78,8 +78,10 @@ const Home = (props: any) => {
         className="flex justify-center items-center flex-col h-screen relative bottom-10 lg:h-36"
         style={{ userSelect: 'none' }}
       >
-        <p className="h-12 text-5xl  lg:hidden">夜雨炊烟</p>
-        <p className="h-12  mt-3 text-3xl lg:mt-48 lg:text-lg">{name}</p>
+        <p className="h-12 text-5xl lg:hidden">夜雨炊烟</p>
+        {/* 古诗词 */}
+        <p className="h-12  mt-3 text-3xl lg:mt-48 lg:text-lg lg:hidden">{name}</p>
+        <p className='hidden lg:block lg:mt-48 lg:w-full'><Affiche /></p>
         {/* 动画图标显示 */}
         <div className="flex justify-center items-center w-full h-20 absolute bottom-0 lg:hidden">
           <div className="animate-bounce">
