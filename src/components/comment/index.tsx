@@ -380,7 +380,7 @@ const ArticleComment = (props: any) => {
             })
             }
           >
-            <div className='-mt-5 mb-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
+            <div className='-mt-5 mb-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200' style={{ userSelect: "none" }}>
               <span>
                 <svg
                   className="icon w-6 h-6 pt-1"
@@ -453,7 +453,7 @@ const ArticleComment = (props: any) => {
                               用户&nbsp;{item.nickName}&nbsp;&nbsp;发表于&nbsp;
                               {item.commentTime}
                             </span>
-                            <span>
+                            <span style={{ userSelect: "none" }}>
                               <a
                                 style={{ fontSize: '12px', marginRight: '12px', color: '#276ff5' }}
                                 onClick={() => replyMsg(item)}
@@ -515,6 +515,7 @@ const ArticleComment = (props: any) => {
                                         fontSize: '12px',
                                         marginRight: '12px',
                                         color: '#276ff5',
+                                        userSelect: "none"
                                       }}
                                       onClick={() => replyMsg(innerItem)}
                                     >
@@ -605,7 +606,7 @@ const ArticleComment = (props: any) => {
                                   })
                                   }
                                 >
-                                  <div className='-mt-5 mb-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200'>
+                                  <div className='-mt-5 mb-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200' style={{ userSelect: "none" }}>
                                     <span>
                                       <svg
                                         className="icon w-6 h-6 pt-1"

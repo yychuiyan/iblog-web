@@ -39,7 +39,7 @@ const Category = (props: any) => {
     props.history.push(`/rblog/category?c=${name}`);
   };
   return (
-    <div className="h-auto mb-5 pb-2 bg-base-100 rounded-2xl mx-auto text-lg transition duration-500 ease-in-out  transform  hover:scale-x-[104%] hover:scale-y-[102%]">
+    <div className="h-auto mb-5 pb-2 bg-base-100 rounded-2xl mx-auto text-lg transition duration-500 ease-in-out  transform  hover:scale-x-[104%] hover:scale-y-[102%]" style={{ userSelect: "none" }}>
       <p
         className="flex py-2 pl-2 border border-solid border-gray-300 border-t-0 border-l-0 border-r-0 border-b-1"
         style={{ userSelect: 'none' }}

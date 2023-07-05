@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useHistory } from 'react-router-dom';
 import qs from 'qs';
 import { CategoryData } from '@/types/comm';
 import styled from 'styled-components';
 import { colors } from '@/utils/enum'
+import { connect } from 'react-redux';
+import { Dispatch, bindActionCreators } from 'redux';
+import * as BlogActions from '@/redux/actionCreator';
 const Tags = (props: any) => {
   // 列表
   const [list, setList] = useState<any>([]);
-  // 随机颜色
-  const [randomColor, setRandomColor] = useState("")
   const { t } = qs.parse(props.location.search.slice(1));
+  const history = useHistory()
+  // 分页总数
+  const [total, setTotal] = useState(0);
+  // 当前第几页
+  const [currentPage, setCurrentPage] = useState(1);
+  // 每页显示条数
+  const [pageSize, setPageSize] = useState(10);
   // 获取路由
   useEffect(() => {
     let tagsArticle = props.data;
@@ -32,13 +40,11 @@ const Tags = (props: any) => {
         id: i++,
       };
     });
-    console.log("list", list);
-
     setList(tags);
   }, [props.data]);
-
-  const handleTags = (name: string) => {
-    props.history.push(`/rblog/tags?t=${name}`);
+  const handleTags = (name: string, event: React.MouseEvent) => {
+    event.preventDefault();
+    history.push(`/rblog/tags?t=${name}`);
   };
   // 使用styled-components创建带有背景颜色的标签组件
   const RandomColorTag = styled.span`
@@ -56,6 +62,7 @@ const Tags = (props: any) => {
       className="overflow-y-auto overflow-x-hidden z-200 pb-3 mb-5 bg-base-100 rounded-2xl mx-auto text-lg  transition duration-500 ease-in-out  transform hover:translate-y-1 hover:scale-105
       lg:transition-none lg:hover:-translate-y-0 lg:hover:scale-100 lg:hover:ring-1 lg:mx-5
     "
+      style={{ userSelect: "none" }}
     >
 
       <p
@@ -75,7 +82,7 @@ const Tags = (props: any) => {
                 : 'my-1  text-lg rounded-lg bg-base-100 hover:ring-1 hover:ring-current cursor-pointer'
                 }`}
               key={item.id}
-              onClick={() => handleTags(item.name)}
+              onClick={(e) => handleTags(item.name, e)}
             >
               <RandomColorTag key={item.id} color={colors[index % colors.length]}>
                 <span>{item.name}</span>
@@ -88,5 +95,10 @@ const Tags = (props: any) => {
     </div>
   );
 };
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    BlogActions: bindActionCreators(BlogActions, dispatch),
+  };
+};
+export default connect(null, mapDispatchToProps)(withRouter(Tags));
 
-export default withRouter(Tags);

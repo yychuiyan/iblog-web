@@ -97,7 +97,7 @@ const User = (props: any) => {
     setAvatarShow(avatarShow)
   }
   return (
-    <div className="flex flex-col bg-base-100 rounded-2xl items-center mb-5 rounded-3xltransition duration-500 ease-in-out  transform  hover:scale-105 lg:hidden">
+    <div className="flex flex-col bg-base-100 rounded-2xl items-center mb-5 rounded-3xltransition duration-500 ease-in-out  transform  hover:scale-105 lg:hidden" style={{ userSelect: "none" }}>
       <div className="flex flex-col items-center justify-center">
         {
           <img
@@ -110,7 +110,6 @@ const User = (props: any) => {
         }
         <p
           className="flex items-center justify-center w-64 h-5   pl-2 mt-3 overflow-clip"
-          style={{ userSelect: 'none' }}
         >
           <span>三餐烟火暖，四季皆安然。</span>
 
@@ -118,7 +117,6 @@ const User = (props: any) => {
       </div>
       <div
         className="flex justify-around w-64 h-20 pl-1 pt-2  rounded-xl overflow-clip"
-        style={{ userSelect: 'none' }}
       >
         <p className="flex flex-col items-center justify-center w-14 h-14 rounded-2xl cursor-pointer hover:bg-[var(--user-content-color)] hover:text-[var(--user-content-font)] transform duration-300 ease-in" onClick={handleJumpArticles}>
           <span>文章</span>

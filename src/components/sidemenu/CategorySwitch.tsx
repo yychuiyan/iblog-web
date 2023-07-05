@@ -50,6 +50,7 @@ const CategorySwitch = (props: any) => {
       className="h-auto mb-5 overflow-hidden pb-3 bg-base-100 rounded-2xl mx-auto text-lg transition duration-500 ease-in-out  transform hover:translate-y-1 hover:scale-105
       lg:transition-none lg:hover:-translate-y-0 lg:hover:scale-100 lg:hover:ring-1 lg:mx-5
     "
+      style={{ userSelect: "none" }}
     >
       <p
         className="flex py-2 pl-2 border border-solid border-gray-300 border-t-0 border-l-0 border-r-0 border-b-1"

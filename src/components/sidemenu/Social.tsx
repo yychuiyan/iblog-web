@@ -69,7 +69,7 @@ const Social = () => {
             : 'hidden transition delay-200 duration-500 ease-in'
             }`}
         >
-          <p className="flex flex-col items-center">
+          <p className="flex flex-col items-center" >
             {/* <img src="https://cos.yychuiyan.com/iblogs/wx1360.webp" alt="微信公众号" /> */}
             <img
               src="https://cos.yychuiyan.com/iblogs/wx.webp"

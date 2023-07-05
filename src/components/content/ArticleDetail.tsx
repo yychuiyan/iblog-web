@@ -13,14 +13,13 @@ import jwtDecode from 'jwt-decode';
 import { Affix, FloatButton, message } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faTags,
-  faFolder,
   faClock,
   faComments,
   faEye,
 } from '@fortawesome/free-solid-svg-icons';
 import CopyRight from '../copyright';
 import './index.css';
+import { SoundOutlined } from '@ant-design/icons';
 interface DataType {
   like: any;
   updateTime: number;
@@ -133,7 +132,11 @@ const ArticleDetail = (props: any) => {
   }
   // 禁止点击
   const handleCannot = () => {
-    message.warning('需要先登录哟~')
+    message.info({
+      content: '温馨提示：当前用户未登录',
+      icon: <SoundOutlined style={{ color: 'var(--bgcolor-social-default)' }} />,
+      className: 'text-[var(--bgcolor-social-default)]'
+    })
   }
 
   useEffect(() => {
@@ -208,18 +211,18 @@ const ArticleDetail = (props: any) => {
                             "
                           >
                             <div className='flex lg:flex-wrap'>
-                              <p className="pl-5 lg:h-4">
-                                <FontAwesomeIcon icon={faFolder} />
-                                <span className="inline-block w-auto h-6  text-center  text-md leading-6 mx-2 px-2  rounded-lg bg-base-200 cursor-pointer  hover:bg-base-300 hover:transition hover:duration-500">
+                              <p className="flex pl-5 lg:h-4">
+                                <svg className="icon w-6 h-6" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17664" ><path d="M79.857 379.52433333l419.967 230.272a26.925 26.925 0 0 0 12.972 3.324c4.409 0 8.809-1.076 12.814-3.237l415.892-224.366a26.984 26.984 0 0 0 14.167-23.653 26.973 26.973 0 0 0-14.009-23.749L521.694 107.84533333a26.967 26.967 0 0 0-25.787-0.088L80.015 332.12233333a26.984 26.984 0 0 0-14.167 23.653 26.973 26.973 0 0 0 14.009 23.749z m428.759-217.308l363.598 199.365-359.312 193.844-363.598-199.365 359.312-193.844z" fill='var(--bgcolor-social-default)' p-id="17665"></path><path d="M81.139 561.57833333l419.976 230.272a26.925 26.925 0 0 0 12.972 3.324c4.409 0 8.809-1.076 12.814-3.237l415.892-224.366c13.113-7.075 18.005-23.442 10.935-36.555-7.079-13.113-23.442-18.023-36.564-10.935L514.193 737.47933333 107.084 514.26433333c-13.087-7.171-29.467-2.376-36.634 10.685-7.158 13.064-2.38 29.466 10.689 36.629z" fill='var(--bgcolor-social-default)' p-id="17666"></path><path d="M954.914 698.24533333c-7.079-13.117-23.442-18.027-36.564-10.935L515.379 904.70733333 108.27 681.49233333c-13.087-7.162-29.467-2.376-36.634 10.685-7.158 13.065-2.38 29.467 10.689 36.629l419.976 230.272a26.925 26.925 0 0 0 12.972 3.324c4.409 0 8.809-1.076 12.814-3.237l415.892-224.366c13.113-7.074 18.005-23.441 10.935-36.554z" fill='var(--bgcolor-social-default)' p-id="17667"></path></svg>
+                                <span className="inline-block w-auto h-6 text-center leading-6 px-2 mx-1 text-[var(--article-content-tags-font)] rounded-md bg-[var(--article-content-tags-bgcolor)] hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500  cursor-pointer z-11">
                                   {item.categories}
                                 </span>
                               </p>
-                              <p className="lg:pl-5">
-                                <FontAwesomeIcon icon={faTags} />
+                              <p className="flex lg:pl-5">
+                                <svg className="icon w-6 h-6" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="101585"><path d="M110.933333 708.266667c-12.8 12.8-12.8 34.133333 0 46.933333 81.066667 93.866667 204.8 149.333333 337.066667 149.333333 132.266667 0 251.733333-55.466667 341.333333-157.866666 55.466667-64 85.333333-149.333333 85.333334-238.933334 0-89.6-29.866667-174.933333-81.066667-238.933333 0-4.266667-4.266667-4.266667-4.266667-8.533333-4.266667-4.266667-4.266667-12.8 0-17.066667l55.466667-59.733333c4.266667-4.266667 4.266667-12.8 0-17.066667l-17.066667-21.333333c-4.266667-4.266667-17.066667-4.266667-21.333333 0L746.666667 213.333333c-4.266667 4.266667-12.8 4.266667-21.333334 0-42.666667-29.866667-93.866667-42.666667-145.066666-42.666666-76.8 0-149.333333 34.133333-204.8 98.133333-55.466667 64-89.6 136.533333-128 209.066667-34.133333 76.8-72.533333 153.6-136.533334 230.4z m469.333334-499.2c42.666667 0 85.333333 12.8 119.466666 34.133333 8.533333 4.266667 8.533333 12.8 4.266667 17.066667L605.866667 384c-8.533333 12.8 8.533333 29.866667 21.333333 17.066667l106.666667-115.2c4.266667-4.266667 12.8-4.266667 17.066666 0l4.266667 4.266666c46.933333 55.466667 72.533333 132.266667 72.533333 209.066667 0 81.066667-25.6 153.6-72.533333 209.066667-81.066667 93.866667-192 145.066667-315.733333 145.066666-115.2 0-221.866667-46.933333-298.666667-123.733333-4.266667-4.266667-4.266667-12.8 0-17.066667 59.733333-76.8 98.133333-149.333333 136.533333-226.133333 38.4-59.733333 72.533333-128 123.733334-187.733333 46.933333-55.466667 110.933333-89.6 179.2-89.6z" fill="var(--bgcolor-social-default)" p-id="101586"></path></svg>
                                 {item.tags.map((it, index) => (
                                   <span
-                                    className="inline-block w-auto h-6 text-center text-md leading-6 ml-2 px-2  rounded-lg bg-base-200 cursor-pointer  hover:bg-base-300 hover:transition hover:duration-500"
-                                    key={index}
+                                    className="inline-block w-auto px-2 h-6 text-center text-[var(--article-content-tags-font)] leading-6 ml-1 rounded-md bg-[var(--article-content-tags-bgcolor)] cursor-pointer hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500"
+                                    key={it}
                                   >
                                     {it}
                                   </span>
@@ -265,7 +268,7 @@ const ArticleDetail = (props: any) => {
         <aside className="w-300 lg:fixed lg:top-36 lg:right-0 lg:w-0">
           <User data={allData} />
           <LastUpdate data={allData} />
-          <div>
+          <div style={{ userSelect: "none" }}>
             {/* PC目录 */}
             <Affix offsetTop={70} >
               <div className="flex flex-col   top-0 rounded-2xl bg-base-100 lg:hidden">
@@ -275,7 +278,10 @@ const ArticleDetail = (props: any) => {
                     className="w-full  border border-solid border-b-none border-t-0 border-l-0 border-r-0"
                     style={{ color: 'var(--color-icon-default)' }}
                   >
-                    <p className="flex items-center h-10 text-xl  px-3">目录</p>
+                    <p className="flex items-center h-10 text-xl  px-3">
+                      <svg className="icon w-7 h-7 pr-1" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="67666"><path d="M655.36 678.4m-288 0a288 288 0 1 0 576 0 288 288 0 1 0-576 0Z" fill="#FFD84A" p-id="67667"></path><path d="M631.04 915.2h-358.4c-120.32 0-217.6-97.28-217.6-217.6v-448c0-120.32 97.28-217.6 217.6-217.6h358.4c120.32 0 217.6 97.28 217.6 217.6v448c0 120.32-98.56 217.6-217.6 217.6z m-358.4-832c-92.16 0-166.4 74.24-166.4 166.4v448c0 92.16 74.24 166.4 166.4 166.4h358.4c92.16 0 166.4-74.24 166.4-166.4v-448c0-92.16-74.24-166.4-166.4-166.4h-358.4z" fill='var(--bgcolor-social-default)' p-id="67668"></path><path d="M547.84 348.16h-192c-14.08 0-25.6-11.52-25.6-25.6s11.52-25.6 25.6-25.6h192c14.08 0 25.6 11.52 25.6 25.6s-11.52 25.6-25.6 25.6zM547.84 499.2h-192c-14.08 0-25.6-11.52-25.6-25.6s11.52-25.6 25.6-25.6h192c14.08 0 25.6 11.52 25.6 25.6s-11.52 25.6-25.6 25.6z" fill='var(--bgcolor-social-default)' p-id="67669"></path></svg>
+                      目录
+                    </p>
                   </div>
                   {/* 目录信息 */}
                   <div className='w-[300px] '>

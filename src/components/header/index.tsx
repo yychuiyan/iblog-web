@@ -239,7 +239,7 @@ const NavBar = (props: any) => {
             tabIndex={0}
             className="dropdown dropdown-end text-xl font-medium flex cursor-pointer ml-4"
           >
-            <span className="text-[var(--color-font-color)]">{item.title}</span>
+            <span className="text-[var(--color-font-color)]" style={{ userSelect: "none" }}>{item.title}</span>
             <div>
               <svg
                 className="fill-current text-[var(--color-font-color)]"
@@ -256,6 +256,7 @@ const NavBar = (props: any) => {
                 <li
                   key={item.children.path}
                   className="flex flex-col items-center justify-center cursor-pointer rounded-xl text-base font-medium"
+                  style={{ userSelect: "none" }}
                 >
                   {renderMenu(item.children)}
                 </li>
@@ -277,6 +278,7 @@ const NavBar = (props: any) => {
                 : 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl hover:bg-[var(--bgcolor-navbar-hover)] hover:text-[var(--bgcolor-navbar-default)] hover:transition hover:duration-300 ring-current '
                 }`}
               onClick={() => handleRouter(item.path)}
+              style={{ userSelect: "none" }}
             >
               {item.title}
             </li>
@@ -536,7 +538,7 @@ const NavBar = (props: any) => {
             </div>
           </div>
           <div className="rainbow-text flex items-center cursor-pointer" onClick={handleHomeRouter}>
-            <span className="text text-xl ml-2 lg:hidden lg:text-base lg:ml-2 lg:z-50">
+            <span className="text text-xl ml-2 lg:hidden lg:text-base lg:ml-2 lg:z-50" style={{ userSelect: "none" }}>
               夜雨炊烟
             </span>
           </div>
@@ -549,6 +551,7 @@ const NavBar = (props: any) => {
             lg:hidden
             "
             onClick={showModal}
+            style={{ userSelect: "none" }}
           >
             <span className="flex items-center bg-base-100 text-[var(--border-search-color)] h-full w-full rounded-xl text-xs px-3 ">
               搜索想要查看的文章
@@ -580,7 +583,7 @@ const NavBar = (props: any) => {
             )}
             {/* 移动端 */}
             <div className="rainbow-text" onClick={handleHomeRouter}>
-              <span className="text hidden lg:block lg:absolute lg:top-5 lg:left-9 lg:text-xl lg:z-50  lg:cursor-pointer sm:text-xl">
+              <span className="text hidden lg:block lg:absolute lg:top-5 lg:left-9 lg:text-xl lg:z-50  lg:cursor-pointer sm:text-xl" style={{ userSelect: "none" }}>
                 夜雨炊烟
             </span>
             </div>
@@ -595,14 +598,14 @@ const NavBar = (props: any) => {
                 <span className='text-[var(--bgcolor-navbar-click)] text-base'>登录</span>
               </div> : <Popconfirm
                 placement="bottom"
-                title={<p>您是否选择退出登录？</p>}
+                title={<p style={{ userSelect: "none" }}>您是否选择退出登录？</p>}
                 description={<div></div>}
                 icon={<LoginOutlined />}
                 onConfirm={handleLoginOut}
                 okText="是"
                 cancelText="否"
               >
-                <div className='cursor-pointer flex items-center ml-5 lg:ml-10'>
+                <div className='cursor-pointer flex items-center ml-5 lg:ml-10' style={{ userSelect: "none" }}>
                   {
                     loginStatus ? <Avatar src={`${avatar}`}></Avatar> : <svg
                     className="icon"
@@ -619,7 +622,7 @@ const NavBar = (props: any) => {
                   }
                   <span>
                 </span>
-                  <span className='text-[var(--bgcolor-navbar-click)] text-base ml-1'>{loginInfo.username}</span>
+                  <span className='text-[var(--bgcolor-navbar-click)] text-base ml-1' style={{ userSelect: 'none' }}>{loginInfo.username}</span>
               </div>
                 </Popconfirm>
           }
@@ -654,7 +657,7 @@ const NavBar = (props: any) => {
           {/* 后台 */}
           <div className='w-16 flex items-center cursor-pointer lg:hidden' onClick={handleBackLogin}>
             <span><svg className="icon w-7 h-7 pt-1" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4252" width="20" height="20"><path d="M737.477981 1024L8.949126 954.206816v-884.913583L737.477981 0.09999v393.061615L686.682941 382.962601V55.694561l-626.938775 59.994141V907.911337l626.938775 60.494092V641.137389l50.79504-10.099014z" fill="var(--bgcolor-social-default)" p-id="4253"></path><path d="M282.222439 547.746509v-71.393028l-33.89669 1.899815V545.946685zM383.712528 553.445953v-82.791915l-67.693389 3.799629v75.192657zM1015.250854 512.049995L823.769554 308.969827v137.286593l-406.160336 22.597793v86.491554l406.160336 22.497803v137.386583z" fill="var(--bgcolor-social-default)" p-id="4254"></path></svg></span>
-            <span>后台</span>
+            <span style={{ userSelect: 'none' }}>后台</span>
           </div>
         </div>
 

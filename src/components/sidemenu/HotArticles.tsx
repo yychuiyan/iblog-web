@@ -33,11 +33,12 @@ const HotArticles = (props: any) => {
     font-size:15px;
     background-color: ${props => props.color};`;
   return (
-    <div className="mb-5 rounded-2xl bg-base-100 pb-2 mx-auto text-lg  transition duration-500 ease-in-out  transform hover:-translate-y-0 hover:scale-105">
+    <div className="mb-5 rounded-2xl bg-base-100 pb-2 mx-auto text-lg  transition duration-500 ease-in-out  transform hover:-translate-y-0 hover:scale-105" style={{ userSelect: "none" }}>
       <p
         className="flex items-center py-2  pl-2 border border-solid border-gray-300 border-t-0 border-l-0 border-r-0 border-b-1 "
         style={{ userSelect: 'none' }}
       >
+        <svg className="icon w-7 h-7 pr-1" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="56377"><path d="M124.928 660.48h104.96v238.08h-104.96zM347.136 535.552h104.96v363.52h-104.96zM548.864 644.608h104.96v254.464h-104.96zM766.976 422.4h104.96v476.672h-104.96z" fill='var(--bgcolor-social-default)' p-id="56378"></path><path d="M666.112 124.928l110.592 118.784L535.04 473.6 351.744 307.2v-0.512l-0.512-0.512-1.536 2.048L61.44 536.576l32.768 41.472 254.976-202.752 186.368 169.472 1.024-1.024 0.512 0.512 275.456-262.144 100.864 108.544 12.8-260.096z" fill='var(--bgcolor-social-default)' p-id="56379"></path></svg>
         <span>热门文章</span>
       </p>
       {list.slice(0, 3).map((item: CategoryData, index: number) => {

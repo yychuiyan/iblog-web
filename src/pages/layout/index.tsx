@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 const Home = lazy(() => import('@/pages/home'));
 const Category = lazy(() => import('@/pages/category'));
@@ -10,7 +10,7 @@ const Friendly = lazy(() => import('@/pages/friendly'));
 const Essay = lazy(() => import('@/pages/essay'));
 const ArticleDetail = lazy(() => import('@/components/content/ArticleDetail'));
 import NavBar from '@/components/header';
-import NotFound from '../404';
+import NotFound from '@/pages/404';
 import Footer from '@/components/footer';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -34,7 +34,7 @@ const LayoutIndex = (props: any) => {
       <div className={`${Boolean(props.mode) ? 'bg1' : 'bg0'}`}>
       <NavBar></NavBar>
         <main className="flex justify-between  w-full min-h-screen mx-auto lg:w-full" >
-        <Suspense fallback={<></>}>
+          <Suspense fallback={<></>}>
           <Switch>
             <Route path="/rblog/home" component={Home}></Route>
             <Route path="/" render={() => <Redirect to="/rblog/home"></Redirect>} exact></Route>
@@ -46,7 +46,7 @@ const LayoutIndex = (props: any) => {
             <Route path="/rblog/message" component={Message}></Route>
             <Route path="/rblog/friendly" component={Friendly}></Route>
             <Route path="/rblog/about" component={About}></Route>
-            <Route path="*" component={NotFound}></Route>
+              <Route component={NotFound}></Route>
           </Switch>
         </Suspense>
       </main>

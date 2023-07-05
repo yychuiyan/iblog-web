@@ -11,7 +11,7 @@ const Footer = () => {
 
         <p className="">夜雨炊烟</p>
       </div>
-      <div className="flex bg-base-100 cursor-pointer">
+      <div className="flex bg-base-100 cursor-pointer" style={{ userSelect: "none" }}>
         <span className="mr-1">
           <img src="https://cos.yychuiyan.com/iblogs/icp.webp" alt="" />
         </span>

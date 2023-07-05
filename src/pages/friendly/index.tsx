@@ -46,7 +46,7 @@ const Friendly = (props: any) => {
   };
   return (
     // @ts-ignore
-    <div className="w-1200  mx-auto pb-5 lg:w-full lg:mx-5" ref={myRef}>
+    <div className="w-1200  mx-auto pb-5 lg:w-full lg:mx-5" ref={myRef} style={{ userSelect: "none" }}>
       <PageDesc title="友链" />
       <div className="w-1000 min-h-screen bg-base-100 mt-10 mx-auto my-10  rounded-2xl lg:h-[calc(100%-160px)]  lg:w-full sm:w-full">
         {list.map((item) => {
