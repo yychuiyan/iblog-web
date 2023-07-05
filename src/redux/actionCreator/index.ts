@@ -61,6 +61,13 @@ export function asyncLoginAction(data: LoginParams) {
       return res;
     } else if (res.code === 110401) {
       message.error('请检查用户名或密码后重新登录');
+    } else if (res.code === 110601) {
+      message.error({
+        content: res.msg,
+        duration:6
+      })
+    } else {
+      message.error('请联系管理员解决该问题！')
     }
   };
 }
