@@ -112,7 +112,7 @@
     <script type="text/javascript">
       (function($){
         $.fn.snow = function(options){
-        var $flake = $('<div id="snowbox" />').css({'position': 'fixed','z-index':'9999', 'top': '-50px'}).html('❄'),
+        var $flake = $('<div id="snowbox" lg:hidden />').css({'position': 'fixed','z-index':'9999', 'top': '-50px'}).html('❄'),
         documentHeight 	= $(document).height(),
         documentWidth	= $(document).width(),
         defaults = {
@@ -127,7 +127,7 @@
         startOpacity = 0.5 + Math.random(),
         sizeFlake = options.minSize + Math.random() * options.maxSize,
         endPositionTop = documentHeight - 200,
-        endPositionLeft = startPositionLeft - 500 + Math.random() * 500,
+        endPositionLeft = startPositionLeft - 400 + Math.random() * 500,
         durationFall = documentHeight * 10 + Math.random() * 5000;
         $flake.clone().appendTo('body').css({
           left: startPositionLeft,
