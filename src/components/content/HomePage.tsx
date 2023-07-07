@@ -9,6 +9,8 @@ import jwtDecode from 'jwt-decode';
 import './index.css'
 import { message } from 'antd';
 import { SoundOutlined } from '@ant-design/icons';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 interface DataType {
   like: number;
   comment: string;
@@ -236,11 +238,7 @@ const Content = (props: any) => {
                   onClick={() => handleArticle(item._id)}
                 >
                   {
-                    item.cover === undefined || item.cover === "" ? "" : <img
-                    src={item.cover}
-                    alt="文章图片"
-                      className="image_page absolute"
-                  />
+                      item.cover === undefined || item.cover === "" ? "" : <LazyLoadImage src={item.cover} alt="Image" loading='lazy' effect="blur" className="image_page absolute" />
                   }
                 </div>
                 }
