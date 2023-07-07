@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
 import PageDesc from '@/components/sidemenu/PageDesc';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 interface DataType {
   avatar: string;
   createTime: string;
@@ -58,7 +60,7 @@ const Friendly = (props: any) => {
             >
               {/* 头像 */}
               <div>
-                <img src={item.avatar} alt="" className="w-20 h-20 rounded-xl" />
+                <LazyLoadImage src={item.avatar} alt="Image" loading='lazy' effect="blur" className="w-20 h-20 rounded-xl" />
               </div>
               <div className="ml-2 w-48">
                 <p className="flex justify-start text-xl">{item.name}</p>

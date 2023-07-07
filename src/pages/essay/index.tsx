@@ -9,6 +9,8 @@ import { Image, message } from 'antd';
 import jwtDecode from 'jwt-decode';
 import MarkDown from '@/components/markdown/MarkDownEssay';
 import { SoundOutlined } from '@ant-design/icons';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 interface CoverData {
   thumbUrl: string | undefined;
 }
@@ -322,11 +324,7 @@ const Essay = (props: any) => {
                 key={index}
               >
                 <div className="float-left w-16 h-16 mr-3 mt-2 lg:float-left">
-                  <img
-                    src="https://cos.yychuiyan.com/iblogs/avatar.webp"
-                    alt=""
-                    className="w-16 h-16 rounded-xl"
-                  />
+                  <LazyLoadImage key={index} src="https://cos.yychuiyan.com/iblogs/avatar.webp" alt="Image" loading='lazy' effect="blur" className="w-16 h-16 rounded-xl" />
                 </div>
                 <div
                   className="flex flex-col mt-2 w-[790px] px-2 pt-2 shadow-sm bg-base-200 rounded-xl hover:bg-base-300 hover:transition hover:duration-500 cursor-pointer
@@ -338,10 +336,12 @@ const Essay = (props: any) => {
                       <MarkDown content={item.content} />
                       {/* {item.content} */}
                     </div>
+                    {/* <Image src={cover.thumbUrl} key={index} width={190} height={180} style={{ marginRight: '5px' }} /> */}
                     {item.cover !== undefined ? (
                       <div className="ml-2 flex flex-row flex-wrap">
                         {
-                          item.cover.map((cover: CoverData, index: number) => <Image src={cover.thumbUrl} key={index} width={190} height={180} style={{ marginRight: '5px' }} />)
+                          item.cover.map((cover: CoverData, index: number) => <Image src={cover.thumbUrl} key={index} width={190} height={180} style={{ marginRight: '5px' }} />
+                          )
                         }
                       </div>
                     ) : (

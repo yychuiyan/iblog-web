@@ -56,7 +56,7 @@ const NavBar = (props: any) => {
     {
       path: '/rblog/about',
       title: '关于',
-    },
+    }
   ];
   // 移动端侧边栏显示
   const [navbar, setNavbar] = useState(false);
