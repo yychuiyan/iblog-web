@@ -13,157 +13,147 @@
   <meta name="360-site-verification" content="dd6eef97e565f38e24591edc9c8711e8" />
   <meta name="msvalidate.01" content="BDDB45A28CD51E2999FD2C8CD63618E2" />
   <meta name="sogou_site_verification" content="LMR7jBrios" />
-
-  <!-- 百度统计 -->
-  <script>
-    var _hmt = _hmt || [];
-    (function () {
-      var hm = document.createElement('script');
-      hm.src = 'https://hm.baidu.com/hm.js?9cfd7e771428829b8176f9bc9c17e6c0';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-  <!-- 控制台 -->
-  <script>
-    console.log(
-      '%c人间烟火气,最抚凡人心。\n%c三餐烟火暖,四季皆安然。\n\n%c夜雨炊烟的小站' +
-      '%c当前版本v1.0.0',
-      'color: #3eaf7c;font-size:16px',
-      'color: #3eaf7c;font-size:16px',
-      'background: #1475B2; color: #fff; border-radius: 0 3px 3px 0;padding:2px 5px',
-      'background: #00cc00; color: #fff; border-radius: 3px 0 0 3px;padding:2px 5px'
-    );
-  </script>
+  <script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script>
+  <script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
   <title>夜雨炊烟</title>
-  <!-- 鼠标光标效果 -->
-<style>
-  body{
-		cursor:url(''),auto;
-		padding:0px;margin:0px;
-	}
-</style>
-  <script type="module" crossorigin src="/assets/index-7d39780c.js"></script>
+  <script type="module" crossorigin src="/assets/index-27f07f48.js"></script>
   <link rel="stylesheet" href="/assets/index-7a7dfb0c.css">
 </head>
 
 <body>
   <div id="root"></div>
-  <script>
-    document.addEventListener('visibilitychange', function () {
-      // 页面变为不可见时触发
-      if (document.visibilityState == 'hidden') {
-        document.title = '夜雨炊烟';
-      }
-      // 页面变为可见时触发
-      if (document.visibilityState == 'visible') {
-        document.title = '夜雨炊烟';
-      }
-    });
-  </script>
-<!-- 网页鼠标点击特效（爱心） -->
-<script type="text/javascript">
-  ! function (e, t, a) {
-     function r() {
-         for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[
-                 e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x +
-             "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e]
-             .scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
-         requestAnimationFrame(r)
-     }
-
-     function n() {
-         var t = "function" == typeof e.onclick && e.onclick;
-         e.onclick = function (e) {
-             t && t(), o(e)
-         }
-     }
-
-     function o(e) {
-         var a = t.createElement("div");
-         a.className = "heart", s.push({
-             el: a,
-             x: e.clientX - 5,
-             y: e.clientY - 5,
-             scale: 1,
-             alpha: 1,
-             color: c()
-         }), t.body.appendChild(a)
-     }
-
-     function i(e) {
-         var a = t.createElement("style");
-         a.type = "text/css";
-         try {
-             a.appendChild(t.createTextNode(e))
-         } catch (t) {
-             a.styleSheet.cssText = e
-         }
-         t.getElementsByTagName("head")[0].appendChild(a)
-     }
-
-     function c() {
-         return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math
-             .random()) + ")"
-     }
-     var s = [];
-     e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e
-         .mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
-             setTimeout(e, 1e3 / 60)
-         }, i(
-             ".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"
-         ), n(), r()
- }(window, document);
-</script>
-  <!-- 鼠标点击显示文字 -->
-  <!-- <script>
-    (function () {
-        var a_idx = 0;
-        window.onclick = function (event) {
-            var a = new Array("❤富强❤", "❤民主❤", "❤文明❤", "❤和谐❤", "❤自由❤", "❤平等❤", "❤公正❤", "❤法治❤", "❤爱国❤",
-                "❤敬业❤", "❤诚信❤", "❤友善❤");
-
-            var heart = document.createElement("b"); //创建b元素
-            heart.onselectstart = new Function('event.returnValue=false'); //防止拖动
-
-            document.body.appendChild(heart).innerHTML = a[a_idx]; //将b元素添加到页面上
-            a_idx = (a_idx + 1) % a.length;
-            heart.style.cssText = "position: fixed;left:-100%;"; //给p元素设置样式
-
-            var f = 16, // 字体大小
-                x = event.clientX - f / 2, // 横坐标
-                y = event.clientY - f, // 纵坐标
-                c = randomColor(), // 随机颜色
-                a = 1, // 透明度
-                s = 1.2; // 放大缩小
-
-            var timer = setInterval(function () { //添加定时器
-                if (a <= 0) {
-                    document.body.removeChild(heart);
-                    clearInterval(timer);
-                } else {
-                    heart.style.cssText = "font-size:16px;cursor: default;position: fixed;color:" +
-                        c + ";left:" + x + "px;top:" + y + "px;opacity:" + a + ";transform:scale(" +
-                        s + ");";
-
-                    y--;
-                    a -= 0.016;
-                    s += 0.002;
-                }
-            }, 15)
-
+    <!-- 百度统计 -->
+    <script>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement('script');
+        hm.src = 'https://hm.baidu.com/hm.js?9cfd7e771428829b8176f9bc9c17e6c0';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+    <!-- 控制台 -->
+    <script>
+      console.log(
+        '%c人间烟火气,最抚凡人心。\n%c三餐烟火暖,四季皆安然。\n\n%c夜雨炊烟的小站' +
+        '%c当前版本v1.0.0',
+        'color: #3eaf7c;font-size:16px',
+        'color: #3eaf7c;font-size:16px',
+        'background: #1475B2; color: #fff; border-radius: 0 3px 3px 0;padding:2px 5px',
+        'background: #00cc00; color: #fff; border-radius: 3px 0 0 3px;padding:2px 5px'
+      );
+    </script>
+    <!-- 标签名称 -->
+    <script>
+      document.addEventListener('visibilitychange', function () {
+        // 页面变为不可见时触发
+        if (document.visibilityState == 'hidden') {
+          document.title = '夜雨炊烟';
         }
-        // 随机颜色
-        function randomColor() {
-
-            return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math
-            .random() * 255)) + ")";
-
+        // 页面变为可见时触发
+        if (document.visibilityState == 'visible') {
+          document.title = '夜雨炊烟';
         }
-    }());
-</script> -->
+      });
+    </script>
+    <!-- 网页鼠标点击特效（爱心） -->
+    <script type="text/javascript">
+      ! function (e, t, a) {
+        function r() {
+            for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[
+                    e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x +
+                "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e]
+                .scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+            requestAnimationFrame(r)
+        }
 
+        function n() {
+            var t = "function" == typeof e.onclick && e.onclick;
+            e.onclick = function (e) {
+                t && t(), o(e)
+            }
+        }
 
+        function o(e) {
+            var a = t.createElement("div");
+            a.className = "heart", s.push({
+                el: a,
+                x: e.clientX - 5,
+                y: e.clientY - 5,
+                scale: 1,
+                alpha: 1,
+                color: c()
+            }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+            var a = t.createElement("style");
+            a.type = "text/css";
+            try {
+                a.appendChild(t.createTextNode(e))
+            } catch (t) {
+                a.styleSheet.cssText = e
+            }
+            t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math
+                .random()) + ")"
+        }
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e
+            .mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+                setTimeout(e, 1e3 / 60)
+            }, i(
+                ".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"
+            ), n(), r()
+    }(window, document);
+    </script>
+    <!-- 雪花效果 -->
+    <script type="text/javascript">
+      (function($){
+        $.fn.snow = function(options){
+        var $flake = $('<div id="snowbox" />').css({'position': 'fixed','z-index':'9999', 'top': '-50px'}).html('❄'),
+        documentHeight 	= $(document).height(),
+        documentWidth	= $(document).width(),
+        defaults = {
+          minSize		: 10,
+          maxSize		: 20,
+          newOn		: 1000,
+          flakeColor	: "#AFDAEF" /* 此处可以定义雪花颜色，若要白色可以改为#FFFFFF */
+        },
+        options	= $.extend({}, defaults, options);
+        var interval= setInterval( function(){
+        var startPositionLeft = Math.random() * documentWidth - 100,
+        startOpacity = 0.5 + Math.random(),
+        sizeFlake = options.minSize + Math.random() * options.maxSize,
+        endPositionTop = documentHeight - 200,
+        endPositionLeft = startPositionLeft - 500 + Math.random() * 500,
+        durationFall = documentHeight * 10 + Math.random() * 5000;
+        $flake.clone().appendTo('body').css({
+          left: startPositionLeft,
+          opacity: startOpacity,
+          'font-size': sizeFlake,
+          color: options.flakeColor
+        }).animate({
+          top: endPositionTop,
+          left: endPositionLeft,
+          opacity: 0.2
+        },durationFall,'linear',function(){
+          $(this).remove()
+        });
+        }, options.newOn);
+          };
+      })(jQuery);
+      $(function(){
+          $.fn.snow({
+            minSize: 20, /* 定义雪花最小尺寸 */
+            maxSize: 40,/* 定义雪花最大尺寸 */
+            newOn: 500  /* 定义密集程度，数字越小越密集 */
+          });
+      });
+    </script>
   
 </body>
 
