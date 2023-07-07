@@ -127,5 +127,13 @@ const api: Api = {
   getAfficheList() {
     return axios.get(`/iblog/affiche/list`);
   },
+  // 网站访问量
+  getVisit(visitNumber: number) {
+    return axios.post(`/iblog/websit/visit`, visitNumber);
+  },
+  // 获取访问量
+  getVisitNumber() {
+    return axios.get(`/iblog/websit/visit`);
+  },
 };
 export default api;

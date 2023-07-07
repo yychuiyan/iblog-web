@@ -104,6 +104,12 @@ const NavBar = (props: any) => {
     1: '注册',
     2: '找回'
   }
+  // 网站访问量
+  useEffect(() => {
+    props.BlogActions.asyncWebsitVisitAction({
+      visitNumber: 0
+    })
+  }, [props.BlogActions])
   useEffect(() => {
     // 监听
     window.addEventListener('scroll', handleScroll);
@@ -318,6 +324,8 @@ const NavBar = (props: any) => {
     setIsModalOpen(!isModalOpen);
   };
   const showModal = () => {
+    onChangeSearch()
+
     setIsModalOpen(!isModalOpen);
   };
   const onChangeSearch = () => {
@@ -684,8 +692,8 @@ const NavBar = (props: any) => {
             onChange={() => onChangeSearch()}
           />
           <div
-            className={`${searchVal !== '' ? 'block' : 'hidden'
-              } mt-2 py-2 rounded-lg px-4 font-medium border border-solid max-h-96 overflow-auto`}
+            className={`${Boolean(searchVal) === true ? 'block mt-2 py-2 rounded-lg px-4 font-medium border border-solid max-h-96 overflow-auto' : 'hidden'
+              }`}
           >
             <Spin size="large" spinning={props.isLoading}>
               {list.length > 0 ? (
@@ -701,7 +709,7 @@ const NavBar = (props: any) => {
                   );
                 })
               ) : (
-                <div>No recent searches</div>
+                  Boolean(searchVal) === false ? "" : <div>未查询到相关文章内容!</div>
               )}
             </Spin>
           </div>

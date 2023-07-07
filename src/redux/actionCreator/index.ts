@@ -24,6 +24,8 @@ import {
   AFFICHE_LIST,
   ESSAY_HANDLE_LIKE,
   ESSAY_LIKE_LIST,
+  WEBSIT_VISIT,
+  WEBSIT_VISIT_NUMBER,
 } from '@/redux/constants';
 import {
   ArticleViews,
@@ -64,10 +66,10 @@ export function asyncLoginAction(data: LoginParams) {
     } else if (res.code === 110601) {
       message.error({
         content: res.msg,
-        duration:6
-      })
+        duration: 6,
+      });
     } else {
-      message.error('请联系管理员解决该问题！')
+      message.error('请联系管理员解决该问题！');
     }
   };
 }
@@ -353,6 +355,27 @@ export const asyncAfficheListAction = () => {
     dispatch({
       type: AFFICHE_LIST,
       affiche: res,
+    });
+    return res;
+  };
+};
+// 网站访问量
+export const asyncWebsitVisitAction = (visitNumber: number) => {
+  return async (dispatch: Dispatch) => {
+    const res = await api.getVisit(visitNumber);
+    dispatch({
+      type: WEBSIT_VISIT,
+      visist: res,
+    });
+    return res;
+  };
+};
+export const asyncWebsitVisitNumberAction = () => {
+  return async (dispatch: Dispatch) => {
+    const res = await api.getVisitNumber();
+    dispatch({
+      type: WEBSIT_VISIT_NUMBER,
+      visit: res,
     });
     return res;
   };

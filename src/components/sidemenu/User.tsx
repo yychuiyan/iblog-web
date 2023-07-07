@@ -15,6 +15,8 @@ const User = (props: any) => {
   const [avatarShow, setAvatarShow] = useState(false)
   // 路由跳转
   const history = useHistory()
+  // 时间问候
+  const [welcome, setWelcome] = useState("")
   // 文章数量
   useEffect(() => {
     let articleCount = props.data.length;
@@ -77,6 +79,22 @@ const User = (props: any) => {
     let tagsCount = tags.length;
     setTagsCount(tagsCount);
   }, [props.data]);
+  // 获取当前时间
+  useEffect(() => {
+    let timer = new Date();                       //创建日期对象
+    let hour = timer.getHours()                   // 获取当前时间的 时针 时间
+    if (hour >= 0 && hour < 9) {
+      setWelcome('早上好')
+    } else if (hour >= 9 && hour < 12) {
+      setWelcome('上午好')
+    } else if (hour >= 12 && hour <= 13) {
+      setWelcome('中午好')
+    } else if (hour >= 14 && hour <= 18) {
+      setWelcome('下午好')
+    } else {
+      setWelcome('晚上好')
+    }
+  }, [])
   // 跳转到文章页面
   const handleJumpArticles = () => {
     history.replace(`/rblog/timeline`)
@@ -96,6 +114,7 @@ const User = (props: any) => {
   const handleMouseLeave = () => {
     setAvatarShow(avatarShow)
   }
+
   return (
     <div className="flex flex-col bg-base-100 rounded-2xl items-center mb-5 rounded-3xltransition duration-500 ease-in-out  transform  hover:scale-105 lg:hidden" style={{ userSelect: "none" }}>
       <div className="flex flex-col items-center justify-center">
@@ -111,8 +130,8 @@ const User = (props: any) => {
         <p
           className="flex items-center justify-center w-64 h-5   pl-2 mt-3 overflow-clip"
         >
-          <span>三餐烟火暖，四季皆安然。</span>
-
+          <span className='text-[var(--bgcolor-social-default)] font-medium'>{welcome}</span>
+          <span>，欢迎来到炊烟的小站。</span>
         </p>
       </div>
       <div

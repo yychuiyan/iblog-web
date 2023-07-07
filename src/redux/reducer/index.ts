@@ -23,6 +23,8 @@ import { ModeReducer } from '@/redux/reducer/mode';
 import { VerseReducer } from '@/redux/reducer/verse';
 import { SendMailReducer } from '@/redux/reducer/mail';
 import { AfficheListReducer } from '@/redux/reducer/affiche/list';
+import { WebsitVisitReducer } from '@/redux/reducer/visit';
+import { WebsitVisitNumberReducer } from '@/redux/reducer/visit/list';
 const RootReducer = combineReducers({
   UserLoginReducer,
   UserRegisterReducer,
@@ -48,5 +50,7 @@ const RootReducer = combineReducers({
   VerseReducer,
   SendMailReducer,
   AfficheListReducer,
+  WebsitVisitReducer,
+  WebsitVisitNumberReducer,
 });
 export default RootReducer;

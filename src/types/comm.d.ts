@@ -17,6 +17,7 @@ export interface Action {
   like?: number;
   user?: object;
   affiche?: string[];
+  visit?: number;
 }
 interface DataType {
   createYear: any;

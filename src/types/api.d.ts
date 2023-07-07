@@ -125,4 +125,6 @@ export interface Api {
   getAfficheList(): Promise<ApiResponse>;
   essayHandleLike(params: EssayHandleLike): Promise<ApiResponse>;
   getEassayLike(): Promise<ApiResponse>;
+  getVisit(visitNumber: number): Promise<ApiResponse>;
+  getVisitNumber(): Promise<ApiResponse>;
 }
