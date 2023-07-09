@@ -101,49 +101,16 @@ const User = (props: any) => {
     setTagsCount(tagsCount);
   }, [props.data]);
 
-  // const name = useTypewriter(apoText);
   // 获取名言警句
   useEffect(() => {
     props.BlogActions.asyncApothegmListAction().then((res: ApothegmData) => {
       let { data } = res.data as unknown as ApothegmData;
       // 筛选已上线数据
       let filterData = data.filter((item: DataType) => item.checked === true)
-      console.log("data", filterData);
-      // let apoContent = filterData.map((item: ApothegmData) => item.content).join('')
-      // console.log("apoContent", apoContent);
       setApoList(filterData);
     });
   }, [props.BlogActions]);
-  // 打字机效果
-  // useEffect(() => {
-  //   if (apoList.length > 0) {
-  //     const currentData = apoList[currentIndex];
-  //     const content = currentData.content;
-  //     let currentText = '';
-  //     let index = 0;
-  //     const interval = setInterval(() => {
-  //       currentText += content[index];
-  //       setCurrentContent(currentText);
-  //       index++;
 
-  //       if (index >= content.length) {
-  //         clearInterval(interval);
-  //         // 在此处设置延迟，然后继续到下一条数据
-  //         setTimeout(() => {
-  //           setCurrentContent('');
-  //           if (currentIndex + 1 < apoList.length) {
-  //             setCurrentIndex(currentIndex + 1);
-  //           } else {
-  //             // 如果已经到达最后一条数据，可以选择重置索引或者停止播放
-  //             setCurrentIndex(0);
-  //           }
-  //         }, 3000); // 延迟时间（毫秒）
-  //       }
-  //     }, 150); // 打字速度（毫秒）
-
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [apoList, currentIndex]);
   // 打字机效果
   useEffect(() => {
     if (apoList.length > 0) {
