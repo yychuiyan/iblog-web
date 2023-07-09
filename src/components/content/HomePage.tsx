@@ -234,11 +234,11 @@ const Content = (props: any) => {
                 </span>
                 {
                   item.cover === undefined || item.cover === "" ? "" : <div
-                  className="image_page_box flex items-center relative ml-2 w-64 h-32 rounded-md cursor-pointer sm:hidden"
+                    className="image_page_box flex items-center relative ml-2 w-72 h-32 rounded-md cursor-pointer sm:hidden"
                   onClick={() => handleArticle(item._id)}
                 >
                   {
-                      item.cover === undefined || item.cover === "" ? "" : <LazyLoadImage src={item.cover} alt="Image" loading='lazy' effect="blur" className="image_page" />
+                      item.cover === undefined || item.cover === "" ? "" : <LazyLoadImage src={item.cover} alt="Image" loading='lazy' effect="blur" className="image_page h-32" />
                   }
                 </div>
                 }

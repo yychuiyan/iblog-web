@@ -26,6 +26,7 @@ import {
   ESSAY_LIKE_LIST,
   WEBSIT_VISIT,
   WEBSIT_VISIT_NUMBER,
+  APOTHEGM_LIST,
 } from '@/redux/constants';
 import {
   ArticleViews,
@@ -355,6 +356,17 @@ export const asyncAfficheListAction = () => {
     dispatch({
       type: AFFICHE_LIST,
       affiche: res,
+    });
+    return res;
+  };
+};
+// 名言警句
+export const asyncApothegmListAction = () => {
+  return async (dispatch: Dispatch) => {
+    const res = await api.getApothegmList();
+    dispatch({
+      type: APOTHEGM_LIST,
+      apothegm: res,
     });
     return res;
   };

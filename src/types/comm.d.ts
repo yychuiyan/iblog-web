@@ -18,6 +18,7 @@ export interface Action {
   user?: object;
   affiche?: string[];
   visit?: number;
+  apothegm?: string[];
 }
 interface DataType {
   createYear: any;

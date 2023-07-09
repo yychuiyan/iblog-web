@@ -25,21 +25,8 @@ const Home = (props: any) => {
       setVerse(res.content);
     });
   }, [props.BlogActions]);
-  // 座右铭
-  // const intervalRef = useRef({});
+// 打字机效果
   const name = useTypewriter(verse);
-  // 打字机效果
-  // useEffect(() => {
-  //   intervalRef.current = setInterval(() => {
-  //     props.BlogActions.asyncVerseAction().then((res: any) => {
-  //       setVerse(res.content);
-  //     });
-  //   }, 10000);
-  //   return function clear() {
-  //     // @ts-ignore
-  //     clearInterval(intervalRef.current);
-  //   };
-  // }, []);
   // 获取文章列表数据
   useEffect(() => {
     props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
@@ -81,6 +68,7 @@ const Home = (props: any) => {
         <p className="h-12 text-5xl lg:hidden">夜雨炊烟</p>
         {/* 古诗词 */}
         <p className="h-12  mt-3 text-3xl lg:mt-48 lg:text-lg lg:hidden">{name}</p>
+
         <p className='hidden lg:block lg:mt-48 lg:w-full'><Affiche /></p>
         {/* 动画图标显示 */}
         <div className="flex justify-center items-center w-full h-20 absolute bottom-0 lg:hidden">

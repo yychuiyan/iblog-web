@@ -127,4 +127,5 @@ export interface Api {
   getEassayLike(): Promise<ApiResponse>;
   getVisit(visitNumber: number): Promise<ApiResponse>;
   getVisitNumber(): Promise<ApiResponse>;
+  getApothegmList(): Promise<ApiResponse>;
 }

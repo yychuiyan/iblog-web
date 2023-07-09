@@ -127,6 +127,10 @@ const api: Api = {
   getAfficheList() {
     return axios.get(`/iblog/affiche/list`);
   },
+  // 名言警句
+  getApothegmList() {
+    return axios.get(`/iblog/apothegm/list`);
+  },
   // 网站访问量
   getVisit(visitNumber: number) {
     return axios.post(`/iblog/websit/visit`, visitNumber);

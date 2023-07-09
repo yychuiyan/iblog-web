@@ -48,6 +48,8 @@ export const GET_VERSE = 'GET_VERSE';
 export const SEND_MAIL = 'SEND_MAIL';
 // 公告列表
 export const AFFICHE_LIST = 'AFFICHE_LIST';
+// 名言警句
+export const APOTHEGM_LIST = 'APOTHEGM_LIST';
 // 网站访问量
-export const WEBSIT_VISIT='WEBSIT_VISIT'
+export const WEBSIT_VISIT = 'WEBSIT_VISIT';
 export const WEBSIT_VISIT_NUMBER='WEBSIT_VISIT_NUMBER'

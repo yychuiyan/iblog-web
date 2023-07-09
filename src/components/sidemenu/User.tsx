@@ -1,8 +1,23 @@
 import { CategoryData } from '@/types/comm';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Dispatch, bindActionCreators } from 'redux';
+import * as BlogActions from '@/redux/actionCreator';
 import osun from '../../assets/images/osun.webp'
 import avatar from '../../assets/images/avatar.webp'
+interface DataType {
+  checked: boolean;
+  author: string;
+  content: string;
+  createTime: string;
+  updateTime: string;
+  _id: string;
+}
+interface ApothegmData {
+  content: any;
+  data: []
+}
 // 跳转到分类页
 const User = (props: any) => {
   // 文章数量
@@ -17,6 +32,12 @@ const User = (props: any) => {
   const history = useHistory()
   // 时间问候
   const [welcome, setWelcome] = useState("")
+  // 名言警句
+  const [apoList, setApoList] = useState<DataType[]>([])
+  // 索引
+  const [currentIndex, setCurrentIndex] = useState(0);
+  // 警句
+  const [currentContent, setCurrentContent] = useState('');
   // 文章数量
   useEffect(() => {
     let articleCount = props.data.length;
@@ -79,22 +100,93 @@ const User = (props: any) => {
     let tagsCount = tags.length;
     setTagsCount(tagsCount);
   }, [props.data]);
-  // 获取当前时间
+
+  // const name = useTypewriter(apoText);
+  // 获取名言警句
   useEffect(() => {
-    let timer = new Date();                       //创建日期对象
-    let hour = timer.getHours()                   // 获取当前时间的 时针 时间
-    if (hour >= 0 && hour < 9) {
-      setWelcome('早上好')
-    } else if (hour >= 9 && hour < 12) {
-      setWelcome('上午好')
-    } else if (hour >= 12 && hour <= 13) {
-      setWelcome('中午好')
-    } else if (hour >= 14 && hour <= 18) {
-      setWelcome('下午好')
-    } else {
-      setWelcome('晚上好')
+    props.BlogActions.asyncApothegmListAction().then((res: ApothegmData) => {
+      let { data } = res.data as unknown as ApothegmData;
+      // 筛选已上线数据
+      let filterData = data.filter((item: DataType) => item.checked === true)
+      console.log("data", filterData);
+      // let apoContent = filterData.map((item: ApothegmData) => item.content).join('')
+      // console.log("apoContent", apoContent);
+      setApoList(filterData);
+    });
+  }, [props.BlogActions]);
+  // 打字机效果
+  // useEffect(() => {
+  //   if (apoList.length > 0) {
+  //     const currentData = apoList[currentIndex];
+  //     const content = currentData.content;
+  //     let currentText = '';
+  //     let index = 0;
+  //     const interval = setInterval(() => {
+  //       currentText += content[index];
+  //       setCurrentContent(currentText);
+  //       index++;
+
+  //       if (index >= content.length) {
+  //         clearInterval(interval);
+  //         // 在此处设置延迟，然后继续到下一条数据
+  //         setTimeout(() => {
+  //           setCurrentContent('');
+  //           if (currentIndex + 1 < apoList.length) {
+  //             setCurrentIndex(currentIndex + 1);
+  //           } else {
+  //             // 如果已经到达最后一条数据，可以选择重置索引或者停止播放
+  //             setCurrentIndex(0);
+  //           }
+  //         }, 3000); // 延迟时间（毫秒）
+  //       }
+  //     }, 150); // 打字速度（毫秒）
+
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [apoList, currentIndex]);
+  // 打字机效果
+  useEffect(() => {
+    if (apoList.length > 0) {
+      const currentData = apoList[currentIndex];
+      const content = currentData.content;
+      let currentText = '';
+      let index = 0;
+      let isReversing = false; // 标记是否正在回退
+      const interval = setInterval(() => {
+        if (!isReversing) {
+          currentText += content[index];
+          setCurrentContent(currentText);
+          index++;
+
+          if (index >= content.length) {
+            clearInterval(interval);
+            // 在此处设置延迟，然后继续到下一条数据
+            setTimeout(() => {
+              isReversing = true; // 开始回退
+              const reverseInterval = setInterval(() => {
+                currentText = currentText.slice(0, -1);
+                setCurrentContent(currentText);
+
+                if (currentText.length === 0) {
+                  clearInterval(reverseInterval);
+                  isReversing = false; // 回退结束
+                  if (currentIndex + 1 < apoList.length) {
+                    setCurrentIndex(currentIndex + 1);
+                  } else {
+                    // 如果已经到达最后一条数据，继续循环
+                    setCurrentIndex(0);
+                  }
+                }
+              }, 150); // 回退速度（毫秒）
+            }, 5000); // 延迟时间（毫秒）
+          }
+        }
+      }, 150); // 打字速度（毫秒）
+
+      return () => clearInterval(interval);
     }
-  }, [])
+  }, [apoList, currentIndex]);
+
   // 跳转到文章页面
   const handleJumpArticles = () => {
     history.replace(`/rblog/timeline`)
@@ -130,8 +222,9 @@ const User = (props: any) => {
         <p
           className="flex items-center justify-center w-64 h-5   pl-2 mt-3 overflow-clip"
         >
-          <span className='text-[var(--bgcolor-social-default)] font-medium'>{welcome}</span>
-          <span>，欢迎来到炊烟的小站。</span>
+          <span className='text-[var(--bgcolor-social-default)]'>
+            {currentContent}
+          </span>
         </p>
       </div>
       <div
@@ -154,4 +247,10 @@ const User = (props: any) => {
   );
 };
 
-export default withRouter(User);
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    BlogActions: bindActionCreators(BlogActions, dispatch),
+  };
+};
+export default connect(null, mapDispatchToProps)(withRouter(User));

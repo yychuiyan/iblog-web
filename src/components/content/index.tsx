@@ -231,14 +231,16 @@ const Content = (props: any) => {
           >
             <div className="">
               <div className="flex items-center h-44 px-2 sm:h-28">
-                <div
-                  className="flex items-center ml-2 cursor-pointer sm:hidden"
+                {
+                  item.cover === undefined || item.cover === "" ? "" : <div
+                    className="image_page_box flex items-center relative ml-2 w-72 h-32 rounded-md cursor-pointer sm:hidden"
                   onClick={() => handleArticle(item._id)}
                 >
                   {
-                    item.cover === undefined || item.cover === "" ? "" : <LazyLoadImage src={item.cover} alt="Image" loading='lazy' effect="blur" className="image_page" />
+                      item.cover === undefined || item.cover === "" ? "" : <LazyLoadImage src={item.cover} alt="Image" loading='lazy' effect="blur" className="image_page h-32" />
                   }
                 </div>
+                }
                 <div className="flex flex-col h-32 w-full lg:w-full lg:h-24">
                   <div
                     className={`${item.cover === undefined || item.cover === "" ? 'flex flex-col items-center px-2 text-xl cursor-pointer' : 'flex flex-col px-2 text-xl cursor-pointer'}`}
