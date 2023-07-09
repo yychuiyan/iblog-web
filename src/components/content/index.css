@@ -87,10 +87,7 @@
 .home_page:hover{
   transform: scale(1.02);
 }
-.image_page_box{
-  position: relative;
-  overflow: hidden;
-}
+
 .image_page{
   width: 100%;
   top: 0;
@@ -100,7 +97,7 @@
   -webkit-transition: all .6s,filter 375ms ease-in .2s !important;
 }
 .home_page:hover .image_page{
-  transform: scale(1.06);
+  transform: scale(1.1);
   -webkit-transition: all .6s,filter 375ms ease-in .2s !important;
   transition: all .6s,filter 375ms ease-in .2s !important;
 }

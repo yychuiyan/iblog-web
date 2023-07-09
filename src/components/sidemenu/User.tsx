@@ -222,7 +222,7 @@ const User = (props: any) => {
         <p
           className="flex items-center justify-center w-64 h-5   pl-2 mt-3 overflow-clip"
         >
-          <span className='text-[var(--bgcolor-social-default)]'>
+          <span className=''>
             {currentContent}
           </span>
         </p>

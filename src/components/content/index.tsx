@@ -233,7 +233,7 @@ const Content = (props: any) => {
               <div className="flex items-center h-44 px-2 sm:h-28">
                 {
                   item.cover === undefined || item.cover === "" ? "" : <div
-                    className="image_page_box flex items-center relative ml-2 w-72 h-32 rounded-md cursor-pointer sm:hidden"
+                    className="flex items-center relative overflow-hidden ml-2 w-64 h-32 rounded-md cursor-pointer sm:hidden"
                   onClick={() => handleArticle(item._id)}
                 >
                   {

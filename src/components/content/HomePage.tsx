@@ -220,9 +220,9 @@ const Content = (props: any) => {
             key={item._id}
           >
             <div>
-              <div className="flex items-center relative h-44 px-2 sm:h-28">
+              <div className="flex items-center relative h-44  px-2 sm:h-28">
                 <span
-                  className={`absolute top-0 left-0 h-au.toExponential(fractionDigits)  text-center rounded-md ${item.isTop === 1 ? 'block' : 'hidden'}`}
+                  className={`absolute top-0 left-0 h-auto  text-center rounded-md ${item.isTop === 1 ? 'block' : 'hidden'}`}
                   style={{ userSelect: 'none' }}
                 >
                   {/* 置顶 */}
@@ -234,7 +234,7 @@ const Content = (props: any) => {
                 </span>
                 {
                   item.cover === undefined || item.cover === "" ? "" : <div
-                    className="image_page_box flex items-center relative ml-2 w-72 h-32 rounded-md cursor-pointer sm:hidden"
+                    className="flex items-center relative overflow-hidden ml-2 w-64 h-32 rounded-md cursor-pointer sm:hidden"
                   onClick={() => handleArticle(item._id)}
                 >
                   {
