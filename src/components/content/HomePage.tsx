@@ -65,14 +65,14 @@ const Content = (props: any) => {
   useEffect(() => {
     // 滚动到顶部
     if (myRef.current) {
-      window.scroll({
+      window.scrollTo({
         //@ts-ignore
-        top: myRef.current.offsetTop - 80 || 0,
+        top: 0,
         left: 0,
         behavior: 'smooth',
       });
     }
-  }, [myRef.current, window.scroll])
+  }, [myRef.current, window.scrollTo])
   // 获取全部数据
   useEffect(() => {
     props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
