@@ -43,7 +43,7 @@ const Home = (props: any) => {
   // 默认顶部
   useEffect(() => {
     if (navRef.current) {
-      window.scroll({
+      window.scrollTo({
         //@ts-ignore
         top: 0,
         left: 0,
@@ -55,7 +55,7 @@ const Home = (props: any) => {
   const handleScroll = () => {
     if (myRef.current) {
       // window.scrollTo(0, myRef.current.offsetTop || 0);
-      window.scroll({
+      window.scrollTo({
         //@ts-ignore
         top: myRef.current.offsetTop - 80 || 0,
         left: 0,
