@@ -50,7 +50,7 @@ const ArticleDetail = (props: any) => {
   // 全部文章信息
   const [allData, setAllData] = useState<DataType[]>([]);
   // 目录展示隐藏
-  const [navVisible, setNavVisible] = useState(false);
+  // const [navVisible, setNavVisible] = useState(false);
   // 当前展示的文章数据
   const [dataFilter, setDataFilter] = useState<DataType[]>([]);
   // 内容
@@ -66,6 +66,19 @@ const ArticleDetail = (props: any) => {
   // 点赞时的单个id
   const [isLikeId, setIsLikeId] = useState("")
   const markNavRef = useRef(null);
+  // 滚动位置
+  const myRef = React.useRef();
+  useEffect(() => {
+    // 滚动到顶部
+    if (myRef.current) {
+      window.scrollTo({
+        //@ts-ignore
+        top: myRef.current.offsetTop - 80 || 0,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
+  }, [myRef.current, window.scrollTo])
   // 获取文章列表数据
   useEffect(() => {
     let articleId = props.match.params.id;
@@ -169,9 +182,8 @@ const ArticleDetail = (props: any) => {
   }, []);
 
   return (
-    <div
-      className="flex flex-col items-center w-1200 mx-auto  mt-20  sm:w-full "
-      style={{ scrollBehavior: 'smooth' }}
+    //@ts-ignore
+    <div className="flex flex-col items-center w-1200 mx-auto  mt-20  sm:w-full " style={{ scrollBehavior: 'smooth' }} ref={myRef}
     >
       <div className="w-full h-80 lg:h-60 lg:w-full">
         {list.map((item, index) => {

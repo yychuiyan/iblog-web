@@ -54,6 +54,17 @@ const Content = (props: any) => {
   const myRef = React.useRef();
   const { c } = qs.parse(props.location.search.slice(1));
   const { t } = qs.parse(props.location.search.slice(1));
+  useEffect(() => {
+    // 滚动到顶部
+    if (myRef.current) {
+      window.scrollTo({
+        //@ts-ignore
+        top: myRef.current.offsetTop - 312 || 0,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
+  }, [myRef.current, window.scrollTo])
   // 获取文章列表数据
   useEffect(() => {
     let category, tag;
@@ -91,20 +102,23 @@ const Content = (props: any) => {
             setArticleIds(essayArr)
           }
         })
+        // 滚动到顶部
+        if (myRef.current) {
+          window.scrollTo({
+            //@ts-ignore
+            top: myRef.current.offsetTop - 312 || 0,
+            left: 0,
+            behavior: 'smooth',
+          });
+        }
       }
     );
-    window.scroll({
-      //@ts-ignore
-      top: myRef.current.offsetTop - 80 || 0,
-      left: 0,
-      behavior: 'smooth',
-    });
   }, [props.BlogActions, props.location.search]);
   // 跳转页数
   const onChangePage = (page: number, pageSize: number) => {
     // 滚动到顶部
     if (myRef.current) {
-      // window.scrollTo(0, myRef.current.offsetTop || 0);
+
       window.scroll({
         //@ts-ignore
         top: myRef.current.offsetTop - 80 || 0,

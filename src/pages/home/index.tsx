@@ -3,6 +3,7 @@ import Category from '@/components/sidemenu/Category';
 import Social from '@/components/sidemenu/Social';
 import User from '@/components/sidemenu/User';
 import Content from '@/components/content/HomePage';
+import ContentCT from '@/components/content';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
@@ -12,6 +13,7 @@ import WebSite from '@/components/sidemenu/WebSite';
 import useTypewriter from 'react-typewriter-hook';
 import { ArticleList, DataType } from '@/types/comm'
 import Affiche from '@/components/sidemenu/Affiche';
+import qs from 'qs';
 const Home = (props: any) => {
   // 文章列表
   const [list, setList] = useState<DataType[]>([]);
@@ -19,6 +21,8 @@ const Home = (props: any) => {
   const [verse, setVerse] = useState<any>();
   // 滚动位置
   const myRef = React.useRef();
+  const { c } = qs.parse(props.location.search.slice(1));
+  const { t } = qs.parse(props.location.search.slice(1));
   // 获取诗词
   useEffect(() => {
     props.BlogActions.asyncVerseAction().then((res: { content: string }) => {
@@ -38,7 +42,6 @@ const Home = (props: any) => {
   // 默认顶部
   useEffect(() => {
     if (myRef.current) {
-      // window.scrollTo(0, myRef.current.offsetTop || 0);
       window.scroll({
         //@ts-ignore
         top: 0,
@@ -46,7 +49,7 @@ const Home = (props: any) => {
         behavior: 'smooth',
       });
     }
-  }, [scrollTo]);
+  }, [myRef.current, window.scroll]);
   // 点击滑动到数据页面
   const handleScroll = () => {
     if (myRef.current) {
@@ -102,7 +105,10 @@ const Home = (props: any) => {
       {/* @ts-ignore */}
       <div className="flex justify-between w-1200 mx-auto mt-10 lg:w-full sm:w-full" ref={myRef}>
         <article className="w-[calc(100%-320px)] lg:w-full sm:w-full">
-          <Content />
+          {
+            Boolean(c) === false || Boolean(t) === false ? <Content /> : <ContentCT />
+          }
+
         </article>
         <aside className="w-300 lg:hidden">
           <User data={list} />

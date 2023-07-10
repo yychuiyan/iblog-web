@@ -1,5 +1,3 @@
-import React from 'react';
-
 const PageDesc = (props: any) => {
   return (
     // @ts-ignore

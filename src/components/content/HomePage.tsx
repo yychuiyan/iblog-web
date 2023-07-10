@@ -62,6 +62,17 @@ const Content = (props: any) => {
       setLoginStatus(true)
     }
   }, [localStorage])
+  useEffect(() => {
+    // 滚动到顶部
+    if (myRef.current) {
+      window.scroll({
+        //@ts-ignore
+        top: myRef.current.offsetTop - 80 || 0,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
+  }, [myRef, window.scroll])
   // 获取全部数据
   useEffect(() => {
     props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
@@ -189,7 +200,7 @@ const Content = (props: any) => {
       setCurrentPage(page)
       window.scroll({
         //@ts-ignore
-        top: myRef.current.offsetTop - 90 || 0,
+        top: myRef.current.offsetTop - 80 || 0,
         left: 0,
         behavior: 'smooth',
       });
