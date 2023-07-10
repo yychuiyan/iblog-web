@@ -83,3 +83,46 @@ html,body{
   transform: rotate(360deg);
 }
 
+/* 点赞动画 */
+.emoji-container {
+  display: inline-block;
+  position: absolute;
+  width: 5px;
+  height: 40px;
+  background-size: 100% 100%;
+  cursor: pointer;
+  animation: emoji 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+.emoji_detail_container {
+  display: inline-block;
+  position: absolute;
+  width: 5px;
+  height: 33px;
+  background-size: 100% 100%;
+  cursor: pointer;
+  animation: emoji 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes emoji {
+  0% {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  75% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

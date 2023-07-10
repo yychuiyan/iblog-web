@@ -16,6 +16,7 @@
   background-color: rgb(255, 115, 0);
   color: #fff;
 }
+
 /* 点赞效果 */
 #btn {
   position: absolute;
@@ -37,6 +38,7 @@
   width: 100%;
   cursor: pointer;
 }
+
 .btn-love:after {
   content: "";
   position: absolute;
@@ -50,15 +52,16 @@
   width: 100px;
 }
 
-#btn:checked + .btn-love:after {
+#btn:checked+.btn-love:after {
   -webkit-animation: heart-burst steps(28) 0.8s 1 both;
-          animation: heart-burst steps(28) 0.8s 1 both;
+  animation: heart-burst steps(28) 0.8s 1 both;
 }
 
 @-webkit-keyframes heart-burst {
   0% {
     background-position: left;
   }
+
   100% {
     background-position: right;
   }
@@ -68,35 +71,41 @@
   0% {
     background-position: left;
   }
+
   100% {
     background-position: right;
   }
 }
-.markdown-nav{
+
+.markdown-nav {
   max-height: 400px;
   overflow: auto;
 }
+
 .markdown-nav::-webkit-scrollbar {
   width: 3px;
   display: none;
 }
-.home_page{
+
+.home_page {
   margin-bottom: 20px;
   transition: all .3s;
 }
-.home_page:hover{
+
+.home_page:hover {
   transform: scale(1.02);
 }
 
-.image_page{
+.image_page {
   top: 0;
   left: 0;
   object-fit: cover;
-  transition: all .6s,filter 375ms ease-in .2s !important;
-  -webkit-transition: all .6s,filter 375ms ease-in .2s !important;
+  transition: all .6s, filter 375ms ease-in .2s !important;
+  -webkit-transition: all .6s, filter 375ms ease-in .2s !important;
 }
-.home_page:hover .image_page{
+
+.home_page:hover .image_page {
   transform: scale(1.1);
-  -webkit-transition: all .6s,filter 375ms ease-in .2s !important;
-  transition: all .6s,filter 375ms ease-in .2s !important;
+  -webkit-transition: all .6s, filter 375ms ease-in .2s !important;
+  transition: all .6s, filter 375ms ease-in .2s !important;
 }
