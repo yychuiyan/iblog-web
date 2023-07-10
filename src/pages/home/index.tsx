@@ -21,6 +21,7 @@ const Home = (props: any) => {
   const [verse, setVerse] = useState<any>();
   // 滚动位置
   const myRef = React.useRef();
+  const navRef = React.useRef();
   const { c } = qs.parse(props.location.search.slice(1));
   const { t } = qs.parse(props.location.search.slice(1));
   // 获取诗词
@@ -41,7 +42,7 @@ const Home = (props: any) => {
   }, [props.BlogActions]);
   // 默认顶部
   useEffect(() => {
-    if (myRef.current) {
+    if (navRef.current) {
       window.scroll({
         //@ts-ignore
         top: 0,
@@ -49,7 +50,7 @@ const Home = (props: any) => {
         behavior: 'smooth',
       });
     }
-  }, [myRef.current, window.scroll]);
+  }, [navRef.current]);
   // 点击滑动到数据页面
   const handleScroll = () => {
     if (myRef.current) {
@@ -63,7 +64,8 @@ const Home = (props: any) => {
     }
   };
   return (
-    <div className="w-full">
+    // @ts-ignore
+    <div className="w-full" ref={navRef}>
       <div
         className="flex justify-center items-center flex-col h-screen relative bottom-10 lg:h-36"
         style={{ userSelect: 'none' }}
