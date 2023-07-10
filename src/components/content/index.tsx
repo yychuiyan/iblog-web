@@ -237,7 +237,7 @@ const Content = (props: any) => {
                   onClick={() => handleArticle(item._id)}
                 >
                   {
-                      item.cover === undefined || item.cover === "" ? "" : <LazyLoadImage src={item.cover} alt="Image" loading='lazy' effect="blur" className="image_page h-32" />
+                      item.cover === undefined || item.cover === "" ? "" : <LazyLoadImage src={item.cover} alt="Image" loading='lazy' effect="blur" className="image_page h-32 w-64" />
                   }
                 </div>
                 }
