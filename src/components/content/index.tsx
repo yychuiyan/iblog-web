@@ -118,7 +118,6 @@ const Content = (props: any) => {
   const onChangePage = (page: number, pageSize: number) => {
     // 滚动到顶部
     if (myRef.current) {
-
       window.scroll({
         //@ts-ignore
         top: myRef.current.offsetTop - 80 || 0,
@@ -126,6 +125,7 @@ const Content = (props: any) => {
         behavior: 'smooth',
       });
     }
+
     let category, tag;
     Boolean(c) === false ? (category = '') : (category = c);
     Boolean(t) === false ? (tag = '') : (tag = t);

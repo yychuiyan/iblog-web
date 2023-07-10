@@ -169,6 +169,15 @@ const Content = (props: any) => {
               setArticleIds(essayArr)
             }
           })
+          // 滚动到顶部
+          if (myRef.current) {
+            window.scrollTo({
+              //@ts-ignore
+              top: 0,
+              left: 0,
+              behavior: 'smooth',
+            });
+          }
         });
       }
     });
