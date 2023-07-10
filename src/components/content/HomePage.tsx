@@ -67,7 +67,7 @@ const Content = (props: any) => {
     if (myRef.current) {
       window.scroll({
         //@ts-ignore
-        top: myRef.current.offsetTop - 80 || 0,
+        top: myRef.current.offsetTop - 300 || 0,
         left: 0,
         behavior: 'smooth',
       });
