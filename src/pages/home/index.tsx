@@ -50,11 +50,10 @@ const Home = (props: any) => {
         behavior: 'smooth',
       });
     }
-  }, [navRef.current]);
+  }, [navRef.current, window.scrollTo]);
   // 点击滑动到数据页面
   const handleScroll = () => {
     if (myRef.current) {
-      // window.scrollTo(0, myRef.current.offsetTop || 0);
       window.scrollTo({
         //@ts-ignore
         top: myRef.current.offsetTop - 80 || 0,

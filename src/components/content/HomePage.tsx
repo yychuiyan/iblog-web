@@ -67,12 +67,12 @@ const Content = (props: any) => {
     if (myRef.current) {
       window.scroll({
         //@ts-ignore
-        top: myRef.current.offsetTop - 80 || 0,
+        top: 0,
         left: 0,
         behavior: 'smooth',
       });
     }
-  }, [myRef, window.scroll])
+  }, [myRef.current, window.scroll])
   // 获取全部数据
   useEffect(() => {
     props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
