@@ -54,13 +54,13 @@ const Friendly = (props: any) => {
         {list.map((item) => {
           return (
             <div
-              className="flex float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-4"
+              className="home_friendly_page  flex float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-4"
               key={item._id}
               onClick={() => handleJump(item.link)}
             >
               {/* 头像 */}
-              <div>
-                <LazyLoadImage src={item.avatar} alt="Image" loading='lazy' effect="blur" className="w-20 h-20 rounded-xl" />
+              <div className='relative overflow-hidden rounded-xl'>
+                <LazyLoadImage src={item.avatar} alt="Image" loading='lazy' effect="blur" className="image_friendly_page w-20 h-20 rounded-xl" />
               </div>
               <div className="ml-2 w-48">
                 <p className="flex justify-start text-xl">{item.name}</p>

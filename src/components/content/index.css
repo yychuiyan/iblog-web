@@ -86,26 +86,3 @@
   width: 3px;
   display: none;
 }
-
-.home_page {
-  margin-bottom: 20px;
-  transition: all .3s;
-}
-
-.home_page:hover {
-  transform: scale(1.02);
-}
-
-.image_page {
-  top: 0;
-  left: 0;
-  object-fit: cover;
-  transition: all .6s, filter 375ms ease-in .2s !important;
-  -webkit-transition: all .6s, filter 375ms ease-in .2s !important;
-}
-
-.home_page:hover .image_page {
-  transform: scale(1.1);
-  -webkit-transition: all .6s, filter 375ms ease-in .2s !important;
-  transition: all .6s, filter 375ms ease-in .2s !important;
-}

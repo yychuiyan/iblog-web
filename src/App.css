@@ -126,3 +126,48 @@ html,body{
     transform: scale(1);
   }
 }
+/* 图片动态显示 */
+.home_page {
+  margin-bottom: 20px;
+  transition: all .3s;
+}
+
+.home_page:hover {
+  transform: scale(1.02);
+}
+
+.image_page {
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  transition: all .6s, filter 375ms ease-in .2s !important;
+  -webkit-transition: all .6s, filter 375ms ease-in .2s !important;
+}
+
+.home_page:hover .image_page {
+  transform: scale(1.1);
+  -webkit-transition: all .6s, filter 375ms ease-in .2s !important;
+  transition: all .6s, filter 375ms ease-in .2s !important;
+}
+/* 友链 */
+.home_friendly_page {
+  transition: all .3s;
+}
+
+.home_friendly_page:hover {
+  transform: scale(1.02);
+}
+
+.image_friendly_page {
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  transition: all .6s, filter 375ms ease-in .2s !important;
+  -webkit-transition: all .6s, filter 375ms ease-in .2s !important;
+}
+
+.home_friendly_page:hover .image_friendly_page {
+  transform: scale(1.05);
+  -webkit-transition: all .6s, filter 375ms ease-in .2s !important;
+  transition: all .6s, filter 375ms ease-in .2s !important;
+}
