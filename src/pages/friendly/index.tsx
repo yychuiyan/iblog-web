@@ -48,13 +48,13 @@ const Friendly = (props: any) => {
   };
   return (
     // @ts-ignore
-    <div className="w-1200  mx-auto pb-5 lg:w-full lg:mx-5" ref={myRef} style={{ userSelect: "none" }}>
+    <div className="w-1200  mx-auto lg:w-full lg:mx-5" ref={myRef} style={{ userSelect: "none" }}>
       <PageDesc title="友链" />
-      <div className="w-1000 min-h-screen bg-base-100 mt-10 mx-auto my-10  rounded-2xl lg:h-[calc(100%-160px)]  lg:w-full sm:w-full">
+      <div className="w-1000 min-h-screen  bg-base-100 mt-10 pb-6 pt-2 mx-auto  rounded-2xl lg:min-h-[90%] lg:pb-6 lg:w-full sm:w-full">
         {list.map((item) => {
           return (
             <div
-              className="flex float-left w-280 h-20 p-2 ml-6 mt-6 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer"
+              className="flex float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-4"
               key={item._id}
               onClick={() => handleJump(item.link)}
             >
