@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClone, faCopyright } from '@fortawesome/free-solid-svg-icons';
+import { faClone } from '@fortawesome/free-solid-svg-icons';
+import { message } from 'antd';
+import { SoundOutlined } from '@ant-design/icons';
 const CopyRight = (props: any) => {
   const [link, setLink] = useState('');
   useEffect(() => {
@@ -10,6 +12,11 @@ const CopyRight = (props: any) => {
   // 点击复制
   const handleCopy = () => {
     navigator.clipboard.writeText(link);
+    message.info({
+      content: '复制成功!',
+      icon: <SoundOutlined style={{ color: 'var(--bgcolor-social-default)' }} />,
+      className: 'text-[var(--bgcolor-social-default)]'
+    })
   };
   // 跳转到协议
   const handleJump = () => {
@@ -20,7 +27,7 @@ const CopyRight = (props: any) => {
   }
   return (
     <div className="flex items-center relative top-8 h-28 w-full shadow-md overflow-hidden rounded-xl bg-base-200 lg:w-full lg:top-16 lg:h-28">
-      <div className="flex flex-col h-20 px-5 w-full z-10 lg:z-0 lg:h-24 lg:overflow-hidden">
+      <div className="flex flex-col h-20 px-5 w-full z-10 lg:z-0 lg:h-24 lg:overflow-hidden" style={{ userSelect: 'none' }}>
         <span className='text-xl lg:hidden'>{props.content}</span>
         <p className='flex h-3'>
           <span className='lg:break-normal lg:underline block lg:hidden'>{link}</span>

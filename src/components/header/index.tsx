@@ -39,6 +39,10 @@ const NavBar = (props: any) => {
           path: '/rblog/timeline',
           title: '时间线',
         },
+        {
+          path: '/rblog/resource',
+          title: '资源库',
+        },
       ],
     },
     {
@@ -88,8 +92,6 @@ const NavBar = (props: any) => {
   const [isLogin, setIsLogin] = useState<any>(0)
   // 图片列表
   const [imageList, setImageList] = useState<any>();
-  // 图片地址
-  const [imgUrl, setImgUrl] = useState<any>([]);
   // 头像信息
   const [avatar, setAvatar] = useState('')
   // 登录数据
@@ -257,11 +259,11 @@ const NavBar = (props: any) => {
               </svg>
             </div>
             {/* 下拉显示 */}
-            <div className="dropdown-content bg-base-100 shadow-2xl  rounded-t-box rounded-b-box top-px w-28 overflow-y-auto mt-12">
+            <div className="dropdown-content bg-base-100 shadow-2xl  rounded-t-box rounded-b-box top-0 w-32 overflow-y-auto mt-12">
               <div tabIndex={0} className="bg-base-100 -ml-2">
                 <li
                   key={item.children.path}
-                  className="flex flex-col items-center justify-center cursor-pointer rounded-xl text-base font-medium"
+                  className="flex flex-col items-center  cursor-pointer rounded-xl text-base font-medium"
                   style={{ userSelect: "none" }}
                 >
                   {renderMenu(item.children)}

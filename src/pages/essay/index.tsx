@@ -318,7 +318,7 @@ const Essay = (props: any) => {
             </div>
           }
           // 加载结束提示信息
-          endMessage={<div className="divider text-xl mt-10">我也是有底线的~</div>}
+          endMessage={<div className="divider text-xl mt-10" style={{ userSelect: 'none' }}>我也是有底线的~</div>}
         >
           {list.map((item: {
             _id: string;

@@ -50,7 +50,9 @@
   border-bottom: none;
   border-right: none;
 }
-
+.markdown-navigation .title-level3{
+  font-size: 15px !important;
+}
 /* 预览图片 */
 .ant-modal .ant-modal-close{
   top: 5px !important;

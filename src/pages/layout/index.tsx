@@ -8,6 +8,7 @@ const About = lazy(() => import('@/pages/about'));
 const Message = lazy(() => import('@/pages/message'));
 const Friendly = lazy(() => import('@/pages/friendly'));
 const Essay = lazy(() => import('@/pages/essay'));
+const Resource = lazy(() => import('@/pages/resource'));
 const ArticleDetail = lazy(() => import('@/components/content/ArticleDetail'));
 import NavBar from '@/components/header';
 import NotFound from '@/pages/404';
@@ -42,6 +43,7 @@ const LayoutIndex = (props: any) => {
             <Route path="/rblog/category" component={Category}></Route>
             <Route path="/rblog/tags" component={Tags}></Route>
             <Route path="/rblog/timeline" component={TimeLine}></Route>
+              <Route path="/rblog/resource" component={Resource}></Route>
             <Route path="/rblog/essay" component={Essay}></Route>
             <Route path="/rblog/message" component={Message}></Route>
             <Route path="/rblog/friendly" component={Friendly}></Route>

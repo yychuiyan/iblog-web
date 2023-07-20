@@ -644,7 +644,7 @@ const ArticleComment = (props: any) => {
                 )}
               />
             ) : (
-              <div className="flex justify-center">暂无评论~</div>
+                <div className="flex justify-center" style={{ userSelect: 'none' }}>暂无评论~</div>
             )}
             <MyPagination
               text={text}
