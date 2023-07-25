@@ -11,6 +11,9 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { withRouter } from 'react-router-dom';
 import PageDesc from '@/components/sidemenu/PageDesc';
 import { emojiList } from '@/utils/emoji'
+import { SoundOutlined } from '@ant-design/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClone } from '@fortawesome/free-solid-svg-icons';
 interface DataType {
   _id: string;
   nickname: any;
@@ -288,6 +291,16 @@ const Message = (props: any) => {
   const onChangeReplyVal = (e: any) => {
     setEmojiReply(e.target.value)
   }
+  const msgContent = `name: 夜雨炊烟\nlink: https://yychuiyan.com\navatar: https://op.yychuiyan.com/avatar.webp\ndesc: 三餐烟火暖，四季皆安然。`
+  // 点击复制
+  const handleCopy = () => {
+    navigator.clipboard.writeText(msgContent);
+    message.info({
+      content: '复制成功!',
+      icon: <SoundOutlined style={{ color: 'var(--bgcolor-social-default)' }} />,
+      className: 'text-[var(--bgcolor-social-default)]'
+    })
+  };
   return (
     // @ts-ignore
     <div className="w-1200 mx-auto pb-5 lg:w-full lg:mx-5 sm:w-full" ref={myRef}>
@@ -308,7 +321,10 @@ const Message = (props: any) => {
             <div className="h-36 px-20 mt-5 font-normal lg:px-0">
               <div className="flex flex-col items-start w-[100%]  absolute">
                 <p className="flex absolute text-xl" style={{ userSelect: "none" }}>本站信息:</p>
-                <div className="flex items-start justify-center flex-col w-800 mt-8 bg-base-200  rounded-xl hover:transition hover:duration-500 hover:shadow cursor-pointer lg:w-full">
+                <div className="flex items-start relative justify-center flex-col w-800 mt-8 bg-base-200  rounded-xl hover:transition hover:duration-500 hover:shadow cursor-pointer lg:w-full" style={{ userSelect: 'none' }}>
+                  <p className='absolute right-2 top-2' onClick={handleCopy}>
+                    <FontAwesomeIcon icon={faClone} size='xl' />
+                  </p>
                   <p className="pl-2 py-1">
                     <span>name: </span>
                     <span>夜雨炊烟</span>

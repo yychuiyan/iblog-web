@@ -92,6 +92,8 @@ const NavBar = (props: any) => {
   const [isLogin, setIsLogin] = useState<any>(0)
   // 图片列表
   const [imageList, setImageList] = useState<any>();
+  // 图片地址
+  const [imgUrl, setImgUrl] = useState<any>([]);
   // 头像信息
   const [avatar, setAvatar] = useState('')
   // 登录数据
@@ -409,8 +411,9 @@ const NavBar = (props: any) => {
     // 获取表单值
     if (typeof imageList === 'object') {
       formData.cover = imageList.url;
+    } else {
+      formData.avatar = imageList;
     }
-    formData.avatar = imageList;
     if (formData.avatar === undefined) {
       return message.warning('头像不能为空哦~');
     }
@@ -605,7 +608,7 @@ const NavBar = (props: any) => {
             loginStatus === false ?
               <div className='cursor-pointer ml-5 flex lg:ml-10 lg:mt-1' onClick={handleLogin}>
                 <LoginOutlined style={{ fontSize: '20px', marginRight: '3px', marginLeft: '3px', color: 'var(--bgcolor-navbar-click)' }} />
-                <span className='text-[var(--bgcolor-navbar-click)] text-base'>登录</span>
+                <span className='text-[var(--bgcolor-navbar-click)] text-base' style={{ userSelect: 'none' }}>登录</span>
               </div> : <Popconfirm
                 placement="bottom"
                 title={<p style={{ userSelect: "none" }}>您是否选择退出登录？</p>}
@@ -703,7 +706,7 @@ const NavBar = (props: any) => {
                   return (
                     <div
                       key={item._id}
-                      className="hover:bg-base-300 hover:transition hover:duration-500 rounded-lg p-2 cursor-pointer "
+                      className="rounded-lg p-2 hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500 cursor-pointer "
                       onClick={() => handleSearchData(item._id)}
                     >
                       {item.title}
@@ -722,7 +725,7 @@ const NavBar = (props: any) => {
           closable={false}
           centered
           footer={null}
-          title={<div style={{ textAlign: 'center', marginBottom: "20px" }}>欢迎登录本网站</div>}
+          title={<div style={{ textAlign: 'center', marginBottom: "20px", userSelect: 'none' }}>欢迎登录本网站</div>}
           onCancel={handleLoginCancel}
         >
           <Form
@@ -807,7 +810,7 @@ const NavBar = (props: any) => {
                   />
                 </Form.Item>
               </Col>
-              </Row> : <div>
+              </Row> : <div style={{ userSelect: 'none' }}>
                   <p className='text-[#fb7877] mb-2 font-medium'>📢公告：昵称、头像、邮箱暂无修改入口，如需修改请留言联系博主~</p>
                 <Form.Item
                   name="username"
@@ -846,7 +849,7 @@ const NavBar = (props: any) => {
                       确认修改密码
                     </Button>
               }
-              <div className=' relative top-3'>
+              <div className=' relative top-3' style={{ userSelect: 'none' }}>
                 <div className='absolute right-0'>
                   {
                     objLogin[isLogin] === '登录' ?
