@@ -107,6 +107,7 @@ const User = (props: any) => {
       let { data } = res.data as unknown as ApothegmData;
       // 筛选已上线数据
       let filterData = data.filter((item: DataType) => item.checked === true)
+      filterData.sort(() => Math.random() - 0.5)
       setApoList(filterData);
     });
   }, [props.BlogActions]);
