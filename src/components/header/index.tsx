@@ -528,7 +528,7 @@ const NavBar = (props: any) => {
   };
   // 跳转到后台管理页面
   const handleBackLogin = () => {
-    window.open(`https://iblog.yychuiyan.com/admin/login`)
+    window.open(`https://iblog.yychuiyan.com/admin/home`)
   }
   return (
     <nav
