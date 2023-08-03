@@ -12,6 +12,7 @@ import MarkDown from '../markdown/MarkDown';
 import jwtDecode from 'jwt-decode';
 import { Affix, FloatButton, message } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { VerticalAlignTopOutlined } from '@ant-design/icons';
 import {
   faClock,
   faComments,
@@ -378,7 +379,7 @@ const ArticleDetail = (props: any) => {
               </div>
             </Affix> */}
           </div>
-          <FloatButton.BackTop shape="square" />
+          <FloatButton.BackTop shape="square" icon={<VerticalAlignTopOutlined />} />
         </aside>
       </div>
     </div>

@@ -5,6 +5,8 @@ import * as BlogActions from '@/redux/actionCreator';
 import dayjs from 'dayjs';
 import PageDesc from '@/components/sidemenu/PageDesc';
 import { ArticleList } from '@/types/comm'
+import { FloatButton } from 'antd';
+import { VerticalAlignTopOutlined } from '@ant-design/icons';
 const TimeLine = (props: any) => {
   // 文章列表
   const [list, setList] = useState<any>([]);
@@ -95,6 +97,7 @@ const TimeLine = (props: any) => {
           );
         })}
       </div>
+      <FloatButton.BackTop shape="square" icon={<VerticalAlignTopOutlined />} />
     </div>
   );
 };

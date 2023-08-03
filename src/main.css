@@ -214,15 +214,37 @@ body {
 }
 /* 回到顶部颜色 */
 .ant-float-btn-default {
+  margin-right: 2%;
+  margin-bottom: 0%;
+  height: 45px;
+  width: 45px;
   background-color: var(--color-default) !important;
 }
-.ant-float-btn-body {
+.ant-float-btn-default .ant-float-btn-body{
+  height: 45px;
+  width: 45px;
   background-color: var(--color-default) !important;
 }
-.ant-float-btn-default .ant-float-btn-body .ant-float-btn-content .ant-float-btn-icon {
-  color: var(--color-fd-default) !important;
+.ant-float-btn-default .ant-float-btn-body .ant-float-btn-content .ant-float-btn-icon{
+  margin: 0 !important;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--page-count-color);
 }
-
+.ant-float-btn-default .ant-float-btn-body .ant-float-btn-content .ant-float-btn-icon:hover{
+  color: var(--article-content-tags-bgcolor-hover-font) !important;
+}
+.ant-float-btn .ant-float-btn-body .ant-float-btn-content{
+  height: 45px;
+  width: 45px;
+}
+.ant-float-btn-default :hover{
+  transition: background-color 0.3s ease;
+  background-color: var(--article-content-tags-bgcolor-hover) !important;
+}
 /* 搜索页 */
 .ant-modal {
   color: var(--color-fd-default) !important;

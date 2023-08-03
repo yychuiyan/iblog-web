@@ -13,6 +13,7 @@ import WebSite from '@/components/sidemenu/WebSite';
 import useTypewriter from 'react-typewriter-hook';
 import { ArticleList, DataType } from '@/types/comm'
 import Affiche from '@/components/sidemenu/Affiche';
+import { VerticalAlignTopOutlined } from '@ant-design/icons';
 import qs from 'qs';
 const Home = (props: any) => {
   // 文章列表
@@ -122,7 +123,7 @@ const Home = (props: any) => {
               <WebSite data={list} />
             </div>
           </Affix>
-          <FloatButton.BackTop shape="square" />
+          <FloatButton.BackTop shape="square" icon={<VerticalAlignTopOutlined />} />
         </aside>
       </div>
     </div>

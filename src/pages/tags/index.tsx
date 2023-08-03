@@ -9,6 +9,7 @@ import { Affix, FloatButton } from 'antd';
 import User from '@/components/sidemenu/User';
 import PageDesc from '@/components/sidemenu/PageDesc';
 import { ArticleList, DataType } from '@/types/comm'
+import { VerticalAlignTopOutlined } from '@ant-design/icons';
 const Tags = (props: any) => {
   // 文章列表
   const [list, setList] = useState<DataType[]>([]);
@@ -57,14 +58,14 @@ const Tags = (props: any) => {
         <aside className="w-300 lg:order-1 lg:w-full hidden lg:block sm:w-full">
           <User data={list} />
           <TagsDetail data={list} />
-          <FloatButton.BackTop shape="square" />
+          <FloatButton.BackTop shape="square" icon={<VerticalAlignTopOutlined />} />
         </aside>
         <aside className="w-300 lg:hidden">
           <User data={list} />
           <Affix offsetTop={70}>
             <TagsDetail data={list} />
           </Affix>
-          <FloatButton.BackTop shape="square" />
+          <FloatButton.BackTop shape="square" icon={<VerticalAlignTopOutlined />} />
         </aside>
       </div>
     </div>

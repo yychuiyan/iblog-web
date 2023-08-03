@@ -11,6 +11,8 @@ import MarkDown from '@/components/markdown/MarkDownEssay';
 import { SoundOutlined } from '@ant-design/icons';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { FloatButton } from 'antd';
+import { VerticalAlignTopOutlined } from '@ant-design/icons';
 interface CoverData {
   thumbUrl: string | undefined;
 }
@@ -392,6 +394,7 @@ const Essay = (props: any) => {
           })}
         </InfiniteScroll>
       </div>
+      <FloatButton.BackTop shape="square" icon={<VerticalAlignTopOutlined />} />
     </div>
   );
 };

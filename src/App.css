@@ -7,13 +7,6 @@ html,body{
   height: 100%;
   height: 100%;
 }
-/* 回到顶部显示 */
-.ant-float-btn-default {
-  margin-right: 2%;
-  margin-bottom: 3%;
-  height: 45px;
-  width: 45px;
-}
 /* 滚动条样式 */
 ::-webkit-scrollbar {
   width: 6px;
