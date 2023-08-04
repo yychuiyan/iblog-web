@@ -430,7 +430,7 @@ const ArticleComment = (props: any) => {
                   <List.Item actions={[]} key={index}>
                     <List.Item.Meta
                       avatar={
-                        Boolean(item.avatar) ? <Avatar style={{ userSelect: 'none' }} src={item.avatar} /> :
+                        item.nickName.trim() === "夜雨炊烟" ? <Avatar style={{ userSelect: 'none' }} src={avatar} /> : Boolean(item.avatar) ? <Avatar style={{ userSelect: 'none' }} src={item.avatar} /> :
                           <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }} >
                             {item.nickName?.slice(0, 1)?.toUpperCase()}
                           </Avatar>
@@ -496,7 +496,7 @@ const ArticleComment = (props: any) => {
                                     // https://img.paulzzh.tech/touhou/random
                                     // https://source.unsplash.com/random
                                     // <Avatar src="https://img.paulzzh.tech/touhou/random"></Avatar>
-                                    Boolean(innerItem.avatar) ? <Avatar style={{ userSelect: 'none' }} src={innerItem.avatar} /> :
+                                    innerItem.nickName.trim() === "夜雨炊烟" ? <Avatar style={{ userSelect: 'none' }} src={avatar} /> : Boolean(innerItem.avatar) ? <Avatar style={{ userSelect: 'none' }} src={innerItem.avatar} /> :
                                       <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }}>
                                         {innerItem.nickName?.slice(0, 1)?.toUpperCase()}
                                       </Avatar>
