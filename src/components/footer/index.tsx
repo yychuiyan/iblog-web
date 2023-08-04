@@ -23,7 +23,7 @@ const Footer = () => {
           豫ICP备2022022169号-1
         </a>
       </div>
-      <div className='pb-2 pt-3' style={{ userSelect: 'none' }}>
+      <div className='pb-2 pt-3 lg:hidden' style={{ userSelect: 'none' }}>
         <span className="inline-block w-auto h-7 text-center leading-7 px-1 mx-1 text-[var(--article-content-tags-font)] rounded-md bg-[var(--article-content-tags-bgcolor)] hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500  cursor-pointer z-11">
           React
         </span>

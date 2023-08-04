@@ -14,6 +14,8 @@ import { emojiList } from '@/utils/emoji'
 import { SoundOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClone } from '@fortawesome/free-solid-svg-icons';
+import jwtDecode from 'jwt-decode';
+import avatar from '../../assets/images/avatar.webp'
 interface DataType {
   _id: string;
   nickname: any;
@@ -57,6 +59,8 @@ const Message = (props: any) => {
   const [form] = Form.useForm();
   // 页面效果
   const replyArea = useRef(null);
+  // 登录数据
+  let [loginInfo, setLoginInfo] = useState<any>()
   // 表情显示隐藏
   const [open, setOpen] = useState(false)
   dayjs.extend(relativeTime);
@@ -77,6 +81,18 @@ const Message = (props: any) => {
       });
     }
   }, []);
+  // 登录信息 解析token
+  useEffect(() => {
+    // 获取登录态
+    let isLoginInfo = localStorage.getItem('zhj')
+    if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
+      const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as object | any;
+      setLoginInfo(token)
+    } else {
+      setLoginInfo(null)
+    }
+  }, [localStorage])
+  // 获取列表
   useEffect(() => {
     props.BlogActions.asyncMessageListAction(currentPage, pageSize, 1).then((res: MessageData) => {
       // 获取留言数据
@@ -106,7 +122,7 @@ const Message = (props: any) => {
       currentReplayContent: values.content,
       auditTime: 0,
       auditStatus: '1',
-      avatar: 'http://dummyimage.com/100x100',
+      avatar: Boolean(loginInfo) ? loginInfo.avatar : loginInfo,
       email: values.email,
       nickName: values.nickname,
     }).then(() => {
@@ -178,7 +194,7 @@ const Message = (props: any) => {
       currentReplayContent: values.content,
       auditTime: 0,
       auditStatus: '1',
-      avatar: 'http://dummyimage.com/100x100',
+      avatar: Boolean(loginInfo) ? loginInfo.avatar : loginInfo,
       email: values.email,
       nickName: values.nickname,
     }).then(() => {
@@ -460,6 +476,7 @@ const Message = (props: any) => {
                     <List.Item actions={[]} key={index}>
                       <List.Item.Meta
                         avatar={
+                          Boolean(item.avatar) ? <Avatar style={{ userSelect: 'none' }} src={item.avatar} /> :
                           <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }} >
                             {item.nickName?.slice(0, 1)?.toUpperCase()}
                           </Avatar>
@@ -533,12 +550,10 @@ const Message = (props: any) => {
                                       </span>
                                     }
                                     avatar={
-                                      // https://img.paulzzh.tech/touhou/random
-                                      // https://source.unsplash.com/random
-                                      // <Avatar src="https://img.paulzzh.tech/touhou/random"></Avatar>
-                                      <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }}>
-                                        {innerItem.nickName?.slice(0, 1)?.toUpperCase()}
-                                      </Avatar>
+                                      Boolean(innerItem.avatar) ? <Avatar style={{ userSelect: 'none' }} src={innerItem.avatar} /> :
+                                        <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }}>
+                                          {innerItem.nickName?.slice(0, 1)?.toUpperCase()}
+                                        </Avatar>
                                     }
                                     content={
                                       <span className="user_content font-normal">

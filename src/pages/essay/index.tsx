@@ -336,7 +336,7 @@ const Essay = (props: any) => {
                   <LazyLoadImage key={index} src="https://cos.yychuiyan.com/iblogs/avatar.webp" alt="Image" loading='lazy' effect="blur" className="w-16 h-16 rounded-xl" />
                 </div>
                 <div
-                  className="flex flex-col mt-2 w-[790px] px-2 pt-2 shadow-sm bg-base-200 rounded-xl hover:bg-base-300 hover:transition hover:duration-500 cursor-pointer
+                  className="flex flex-col mt-2 w-[790px] px-2 py-2 shadow-sm bg-base-200 rounded-xl hover:bg-base-300 hover:transition hover:duration-500 cursor-pointer
                lg:float-left lg:flex lg:w-4/5 sm:w-3/5
               "
                 >
@@ -357,9 +357,12 @@ const Essay = (props: any) => {
                       <div className={`w-36`}></div>
                     )}
                   </div>
-                  <div className='flex justify-between' style={{ userSelect: "none" }}>
-                    <p className="text-base flex justify-end mt-1 pl-2">
+                  <div className='flex justify-between items-center' style={{ userSelect: "none" }}>
+                    <p className="text-base flex justify-end mt-1 pl-2  lg:hidden">
                       {dayjs(item.createTime * 1000).format('YYYY-MM-DD HH:mm:ss')}
+                    </p>
+                    <p className="text-base flex justify-end mt-1 pl-2 hidden lg:block">
+                      {dayjs(item.createTime * 1000).format('YYYY-MM-DD')}
                     </p>
                     <div className="text-base flex justify-end mt-1 pr-2">
 

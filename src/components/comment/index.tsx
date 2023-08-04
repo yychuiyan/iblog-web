@@ -10,6 +10,8 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { withRouter } from 'react-router-dom';
 import { emojiList } from '@/utils/emoji';
+import jwtDecode from 'jwt-decode';
+import avatar from '../../assets/images/avatar.webp'
 interface DataType {
   _id: string;
   nickName: string;
@@ -59,6 +61,8 @@ const ArticleComment = (props: any) => {
   const replyArea = useRef(null);
   // 表情显示隐藏
   const [open, setOpen] = useState(false)
+  // 登录数据
+  let [loginInfo, setLoginInfo] = useState<any>()
   dayjs.extend(relativeTime);
 
   // 表情内容
@@ -66,6 +70,18 @@ const ArticleComment = (props: any) => {
   const [emojiReply, setEmojiReply] = useState('')
   // 获取文章标题
   let articleTitle = props.title.join('');
+  // 登录信息 解析token
+  useEffect(() => {
+    // 获取登录态
+    let isLoginInfo = localStorage.getItem('zhj')
+    if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
+      const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as object | any;
+      setLoginInfo(token)
+    } else {
+      setLoginInfo(null)
+    }
+  }, [localStorage])
+  // 获取列表
   useEffect(() => {
     let articleId = props.match.params.id;
     setArticleId(articleId)
@@ -98,7 +114,7 @@ const ArticleComment = (props: any) => {
       targetReplayId: replyObj._id || '-1',
       targetReplayContent: '',
       currentReplayContent: values.content,
-      avatar: 'http://dummyimage.com/100x100',
+      avatar: Boolean(loginInfo) ? loginInfo.avatar : loginInfo,
       email: values.email,
       nickName: values.nickname,
       articleId: articleId,
@@ -171,7 +187,7 @@ const ArticleComment = (props: any) => {
       //@ts-ignore
       targetReplayContent: `${values?.nickname}@${replyObj?.nickName} ${replyObj?.currentReplayContent}`,
       currentReplayContent: values.content,
-      avatar: 'http://dummyimage.com/100x100',
+      avatar: Boolean(loginInfo) ? loginInfo.avatar : loginInfo,
       email: values.email,
       nickName: values.nickname,
       articleId: articleId,
@@ -414,9 +430,10 @@ const ArticleComment = (props: any) => {
                   <List.Item actions={[]} key={index}>
                     <List.Item.Meta
                       avatar={
-                        <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }}>
-                          {item.nickName?.slice(0, 1)?.toUpperCase()}
-                        </Avatar>
+                        Boolean(item.avatar) ? <Avatar style={{ userSelect: 'none' }} src={item.avatar} /> :
+                          <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }} >
+                            {item.nickName?.slice(0, 1)?.toUpperCase()}
+                          </Avatar>
                       }
                       title={<b style={{ color: 'var(--color-icon-default)', userSelect: 'none' }}>{item.nickName}</b>}
                       description={
@@ -479,9 +496,10 @@ const ArticleComment = (props: any) => {
                                     // https://img.paulzzh.tech/touhou/random
                                     // https://source.unsplash.com/random
                                     // <Avatar src="https://img.paulzzh.tech/touhou/random"></Avatar>
-                                    <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }}>
-                                      {innerItem.nickName?.slice(0, 1)?.toUpperCase()}
-                                    </Avatar>
+                                    Boolean(innerItem.avatar) ? <Avatar style={{ userSelect: 'none' }} src={innerItem.avatar} /> :
+                                      <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }}>
+                                        {innerItem.nickName?.slice(0, 1)?.toUpperCase()}
+                                      </Avatar>
                                   }
                                   content={
                                     <div className="user_content font-normal">
