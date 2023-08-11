@@ -15,6 +15,7 @@ interface DataType {
   _id: string;
 }
 interface FriendlyData{
+  status: boolean;
   data:[]
 }
 const Friendly = (props: any) => {
@@ -39,7 +40,9 @@ const Friendly = (props: any) => {
       // 获取友链
       let { data } = res.data as unknown as FriendlyData;
       let shuffle = data.sort(() => Math.random() - 0.5);
-      setList(shuffle);
+      console.log("shuffle", shuffle)
+      let friendlyData = shuffle.filter((item: FriendlyData) => item.status === true)
+      setList(friendlyData);
     });
   }, [props.BlogActions]);
   // 跳转页面
@@ -50,7 +53,7 @@ const Friendly = (props: any) => {
     // @ts-ignore
     <div className="w-1200  mx-auto lg:w-full lg:mx-5" ref={myRef} style={{ userSelect: "none" }}>
       <PageDesc title="友链" />
-      <div className="w-1000 min-h-screen  bg-base-100 mt-10 pb-6 pt-2 mx-auto  rounded-2xl lg:min-h-[90%] lg:pb-6 lg:w-full sm:w-full">
+      <div className="w-1000 min-h-screen bg-base-100 mt-10 pb-6 pt-2 mx-auto  rounded-2xl lg:min-h-[90%] lg:pb-6 lg:w-full sm:w-full">
         {list.map((item) => {
           return (
             <div
