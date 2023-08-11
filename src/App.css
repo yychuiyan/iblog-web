@@ -26,10 +26,9 @@ html, body {
 }
 
 @media screen and (max-width: 768px) {
-
   /* 滚动条样式 */
   ::-webkit-scrollbar {
-    width: 0px;
+    width: 6px;
     height: 6px;
     background-color: var(--color-default);
   }

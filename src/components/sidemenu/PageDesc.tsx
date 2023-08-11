@@ -1,10 +1,11 @@
 const PageDesc = (props: any) => {
   return (
     // @ts-ignore
-    <div className="flex justify-center items-center w-full h-48 mt-20 sm:h-20">
-      <span className="text-3xl font-medium " style={{ userSelect: 'none' }}>
+    <div className="flex justify-center items-center flex-col w-full h-32 mt-20 sm:h-20">
+      <p className="text-3xl font-medium " style={{ userSelect: 'none' }}>
         {props.title}
-      </span>
+      </p>
+      {/* <p className="mt-2 text-[var(--article-content-default)]">{props.desc}</p> */}
     </div>
   );
 };

@@ -12,6 +12,7 @@ import { LoginOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
 import jwtDecode from 'jwt-decode';
 import UploadImage from '@/components/upload'
 import QQLoginButton from '@/components/qq/QQLoginButton'
+import IconFont from '../iconfont';
 interface DataType {
   password: string,
   username: string;
@@ -557,9 +558,10 @@ const NavBar = (props: any) => {
           </div>
         </div>
         {/* 中间导航栏 */}
-        <div className="flex items-center">
+        <div className="flex items-center justify-center">
           {/* pc */}
-          <div
+          <div className='w-32 lg:hidden'></div>
+          {/* <div
             className="flex items-center w-48 h-8 rounded-xl border-[1px] border-solid border-[var(--bgcolor-navbar-hover)] bg-base-100  cursor-pointer
             lg:hidden
             "
@@ -569,7 +571,8 @@ const NavBar = (props: any) => {
             <span className="flex items-center bg-base-100 text-[var(--border-search-color)] h-full w-full rounded-xl text-xs px-3 ">
               搜索想要查看的文章
             </span>
-          </div>
+            <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" />
+          </div> */}
           {/* 移动 */}
           <div
             className="absolute right-24 top-5 w-9 h-9  cursor-pointer hidden lg:block lg:top-6 lg:right-20
@@ -640,7 +643,12 @@ const NavBar = (props: any) => {
                 </Popconfirm>
           }
         </div>
+
         <div className='flex'>
+          <div className='w-24  flex items-center justify-center lg:hidden' onClick={showModal}>
+            {/* <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" color='var(--bgcolor-navbar-click)' className='cursor-pointer' /> */}
+            <IconFont iconName='icon-sousuo' className='text-[var(--bgcolor-navbar-click)] text-[20px]'></IconFont>
+          </div>
         {/* 切换主题 */}
         <div className="h-8 w-16  rounded-3xl bg-base-200 border border-solid border-1 border-[var(--bgcolor-navbar-hover)] relative top-4 right-3" tabIndex={0}>
           {

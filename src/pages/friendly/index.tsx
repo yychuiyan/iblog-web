@@ -21,6 +21,8 @@ interface FriendlyData{
 const Friendly = (props: any) => {
   // 友链列表
   const [list, setList] = useState<DataType[]>([]);
+  // 失效友链
+  const [invalidLink, setInvalidLink] = useState<DataType[]>([]);
   // 滚动位置
   const myRef = React.useRef();
   useEffect(() => {
@@ -40,9 +42,10 @@ const Friendly = (props: any) => {
       // 获取友链
       let { data } = res.data as unknown as FriendlyData;
       let shuffle = data.sort(() => Math.random() - 0.5);
-      console.log("shuffle", shuffle)
       let friendlyData = shuffle.filter((item: FriendlyData) => item.status === true)
+      let invalidLink = shuffle.filter((item: FriendlyData) => item.status === false)
       setList(friendlyData);
+      setInvalidLink(invalidLink)
     });
   }, [props.BlogActions]);
   // 跳转页面
@@ -52,28 +55,63 @@ const Friendly = (props: any) => {
   return (
     // @ts-ignore
     <div className="w-1200  mx-auto lg:w-full lg:mx-5" ref={myRef} style={{ userSelect: "none" }}>
-      <PageDesc title="友链" />
-      <div className="w-1000 min-h-screen bg-base-100 mt-10 pb-6 pt-2 mx-auto  rounded-2xl lg:min-h-[90%] lg:pb-6 lg:w-full sm:w-full">
-        {list.map((item) => {
-          return (
-            <div
-              className="home_friendly_page  flex float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-4"
-              key={item._id}
-              onClick={() => handleJump(item.link)}
-            >
-              {/* 头像 */}
-              <div className='relative overflow-hidden rounded-xl'>
-                <LazyLoadImage src={item.avatar} alt="Image" loading='lazy' effect="blur" className="image_friendly_page w-20 h-20 rounded-xl" />
-              </div>
-              <div className="ml-2 w-48">
-                <p className="flex justify-start text-xl">{item.name}</p>
-                <div className="flex items-center h-12">
-                  <p className="line-clamp-2 overflow-hidden">{item.desc}</p>
+      <PageDesc title="友链" desc="" />
+      <div className="flex flex-col w-1000 min-h-screen bg-base-100 mt-10 pb-6 pt-2 mx-auto  rounded-2xl lg:min-h-[90%] lg:pb-6 lg:w-full sm:w-full">
+        <div className='mt-2'>
+          <div className='mx-5'>
+            <p className='text-2xl'>优秀博主</p>
+            <p className="w-full border border-t-0 border-l-0 border-r-0 border-b-1 border-solid mt-2 lg:w-full"></p>
+          </div>
+          {list.map((item) => {
+            return (
+              <div
+                className="home_friendly_page  flex float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-4"
+                key={item._id}
+                onClick={() => handleJump(item.link)}
+              >
+                {/* 头像 */}
+                <div className='relative overflow-hidden rounded-xl'>
+                  <LazyLoadImage src={item.avatar} alt="Image" loading='lazy' effect="blur" className="image_friendly_page w-20 h-20 rounded-xl" />
+                </div>
+                <div className="ml-2 w-48">
+                  <p className="flex justify-start text-xl">{item.name}</p>
+                  <div className="flex items-center h-12">
+                    <p className="line-clamp-2 overflow-hidden">{item.desc}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        <div className='mt-5'>
+          <div className='mx-5'>
+            <p className=''>
+              <span className='text-2xl'>失联博主</span>
+              <span className='text-[13px] text-[var(--article-content-default)]'>(网站正常后可联系博主恢复友链信息，长时间未更新将取消贵站链接。)</span>
+            </p>
+            <p className="w-full border border-t-0 border-l-0 border-r-0 border-b-1 border-solid mt-2 lg:w-full"></p>
+          </div>
+          {invalidLink.map((item) => {
+            return (
+              <div
+                className="home_friendly_page  flex float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-4"
+                key={item._id}
+                onClick={() => handleJump(item.link)}
+              >
+                {/* 头像 */}
+                <div className='relative overflow-hidden rounded-xl'>
+                  <LazyLoadImage src={item.avatar} alt="Image" loading='lazy' effect="blur" className="image_friendly_page w-20 h-20 rounded-xl" />
+                </div>
+                <div className="ml-2 w-48">
+                  <p className="flex justify-start text-xl">{item.name}</p>
+                  <div className="flex items-center h-12">
+                    <p className="line-clamp-2 overflow-hidden">{item.desc}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
