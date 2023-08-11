@@ -8,7 +8,7 @@
   background-attachment: fixed;
   z-index: -1;
 }
-@media screen and (max-width: 768px){
+/* @media screen and (max-width: 768px){
   .bg0 {
     background-image: url(../../assets/images/bg01.webp);
     position: fixed;
@@ -17,7 +17,7 @@
     overflow: auto;
     z-index: 3;
   }
-}
+} */
 .bg0:before {
   content: "";
   position: fixed;
@@ -43,7 +43,7 @@
   z-index: -1;
 }
 
-@media screen and (max-width: 768px){
+/* @media screen and (max-width: 768px){
   .bg1{
     background-image: url(../../assets/images/bg02.webp);
     position: fixed;
@@ -52,7 +52,7 @@
     overflow: auto;
     z-index: 3;
   }
-}
+} */
 .bg1:before {
   content: "";
   position: fixed;

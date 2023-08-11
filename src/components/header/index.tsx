@@ -645,9 +645,9 @@ const NavBar = (props: any) => {
         </div>
 
         <div className='flex'>
-          <div className='w-24  flex items-center justify-center lg:hidden' onClick={showModal}>
+          <div className='w-24  flex items-center justify-center lg:hidden'>
             {/* <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" color='var(--bgcolor-navbar-click)' className='cursor-pointer' /> */}
-            <IconFont iconName='icon-sousuo' className='text-[var(--bgcolor-navbar-click)] text-[20px]'></IconFont>
+            <IconFont iconName='icon-sousuo' className='text-[var(--bgcolor-navbar-click)] text-[20px]' onIconClick={showModal}></IconFont>
           </div>
         {/* 切换主题 */}
         <div className="h-8 w-16  rounded-3xl bg-base-200 border border-solid border-1 border-[var(--bgcolor-navbar-hover)] relative top-4 right-3" tabIndex={0}>
