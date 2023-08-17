@@ -339,14 +339,9 @@ export const asyncVerseAction = () => {
   };
 };
 // 获取天气
-export const asyncWeatherAction = (
-  key: string,
-  location: string,
-  language: string,
-  unit: string
-) => {
+export const asyncWeatherAction = (key: string, city: string) => {
   return async (dispatch: Dispatch) => {
-    const res = await api.getWeather(key, location, language, unit);
+    const res = await api.getWeather(key, city);
     dispatch({
       type: GET_WEATHER,
       weather: res,

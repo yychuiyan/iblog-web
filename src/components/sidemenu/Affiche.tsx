@@ -30,7 +30,7 @@ const Affiche = (props: any) => {
   // 公告列表
   const [list, setList] = useState<DataType[]>([])
   // 天气
-  const [weather, setWeather] = useState<any>({})
+  const [weather, setWeather] = useState<any>([])
   useEffect(() => {
     props.BlogActions.asyncAfficheListAction().then((res: AfficheData) => {
       // 获取公告
@@ -41,14 +41,12 @@ const Affiche = (props: any) => {
     });
   }, [props.BlogActions]);
   useEffect(() => {
-    props.BlogActions.asyncWeatherAction("S9-DW0MuEOY_vZLcz", "shanghai", "zh-Hans", "c").then((res: any) => {
-      console.log("res2", res);
-
+    props.BlogActions.asyncWeatherAction("321dbda429c2ef9aa348854c2f582ce1", "310000").then((res: any) => {
+      let { lives } = res
       // 获取天气
-      let weatherData = res.results
-      console.log("weatherData", weatherData[0]);
+      console.log("lives", lives);
 
-      setWeather(weatherData[0])
+      setWeather(lives)
     });
   }, [props.BlogActions]);
   return (
@@ -61,11 +59,18 @@ const Affiche = (props: any) => {
           <div className='flex items-center'>
             <svg className="icon w-7 h-7 pr-1" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14134"><path d="M588.7744 133.12c4.608 0 8.192 2.22208 9.18528 3.33824v751.08352c-0.99328 1.11616-4.57216 3.33824-9.18528 3.33824-3.7376 0-5.8368-1.49504-7.2448-2.79552l-235.60192-217.728-20.59776-19.03616H164.1984V372.67968h161.13152l20.59776-19.03616 235.60192-217.728c1.408-1.30048 3.5072-2.79552 7.2448-2.79552m0-71.68c-19.59424 0-39.57248 6.75328-55.89504 21.83168L297.27744 300.99968h-144.5376c-33.25952 0-60.22144 25.1904-60.22144 56.2688v309.46304c0 31.07328 26.96192 56.2688 60.22144 56.2688h144.5376l235.60192 217.728c16.31744 15.0784 36.30592 21.83168 55.89504 21.83168 41.2928 0 80.86528-29.9776 80.86528-75.17184V136.61184C669.6448 91.4176 630.0672 61.44 588.7744 61.44zM895.6416 537.6h-133.12a35.84 35.84 0 1 1 0-71.68h133.12a35.84 35.84 0 1 1 0 71.68zM906.28096 263.99744l-115.28704 66.56a35.84 35.84 0 1 1-35.84-62.07488l115.28704-66.56a35.84 35.84 0 1 1 35.84 62.07488zM870.44096 796.47744l-115.28704-66.56a35.84 35.84 0 1 1 35.84-62.07488l115.28704 66.56a35.84 35.84 0 1 1-35.84 62.07488z" fill="var(--bgcolor-social-default)" p-id="14135"></path></svg>
             <span>叭叭两句</span>
+            <div className='flex items-center'>
+              {weather.map((item: any) => (
+                <div className='flex'>
+                  <IconFont iconName='icon-weizhi-xianxing' className='text-[var(--bgcolor-navbar-click)] text-[20px] ml-5'></IconFont>
+                  <span>&nbsp;{item.city} {item.weather} {item.temperature}°C</span>
+                </div>
+              ))
+              }
+            </div>
+
           </div>
-          <div className='flex mr-[10%]'>
-            <IconFont iconName='icon-weizhi-xianxing' className='text-[var(--bgcolor-navbar-click)] text-[20px] ml-5'></IconFont>
-            <div>&nbsp;{weather.location?.name} {weather.now?.text} {weather.now?.temperature}°C</div>
-          </div>
+
         </div>
         <Carousel autoplay autoplaySpeed={5000} dotPosition="left" dots={false} className='px-3 h-20 lg:h-10'>
           {
