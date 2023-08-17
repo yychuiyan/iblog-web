@@ -49,6 +49,8 @@ const Affiche = (props: any) => {
     }).then((res: WeatherData) => {
       // 获取天气
       let { results } = res as unknown as WeatherData;
+      console.log("results", results);
+
       setWeather(results)
     });
   }, [props.BlogActions]);
