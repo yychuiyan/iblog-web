@@ -18,7 +18,13 @@ export default defineConfig({
         changeOrigin: true,
       },
       '/all.json': {
+        // 诗词
         target: 'https://v1.jinrishici.com',
+        changeOrigin: true,
+      },
+      '/now.json': {
+        // 天气
+        target: 'https://api.seniverse.com/v3/weather',
         changeOrigin: true,
       },
     },
