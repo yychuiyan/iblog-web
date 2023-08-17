@@ -115,7 +115,7 @@ const Home = (props: any) => {
         <aside className="w-300 lg:hidden">
           <User data={list} />
           <Social />
-          {/* <Affiche /> */}
+          <Affiche />
           <Category data={list} />
           <Affix offsetTop={70}>
             <div>
