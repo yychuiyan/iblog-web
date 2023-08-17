@@ -22,9 +22,9 @@ export default defineConfig({
         target: 'https://v1.jinrishici.com',
         changeOrigin: true,
       },
-      '/now.json': {
+      '/v3/weather/now.json': {
         // 天气
-        target: 'https://api.seniverse.com/v3/weather',
+        target: 'https://api.seniverse.com',
         changeOrigin: true,
       },
     },

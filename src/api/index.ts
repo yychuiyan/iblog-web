@@ -123,7 +123,7 @@ const api: Api = {
   // 获取天气
   getWeather(params: Weather) {
     return axios.get(
-      `/now.json?key=${params.key}&&location=${params.location}&&language=${params.language}&&unit=${params.unit}`
+      `/v3/weather/now.json?key=${params.key}&&location=${params.location}&&language=${params.language}&&unit=${params.unit}`
     );
   },
   // 发送邮件
