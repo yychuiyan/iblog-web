@@ -39,7 +39,6 @@ import {
   SendMail,
   UserRegister,
   UserUpdate,
-  Weather,
 } from '@/types/api';
 import { message } from 'antd';
 import jwtDecode from 'jwt-decode';
@@ -340,9 +339,14 @@ export const asyncVerseAction = () => {
   };
 };
 // 获取天气
-export const asyncWeatherAction = (params: Weather) => {
+export const asyncWeatherAction = (
+  key: string,
+  location: string,
+  language: string,
+  unit: string
+) => {
   return async (dispatch: Dispatch) => {
-    const res = await api.getWeather(params);
+    const res = await api.getWeather(key, location, language, unit);
     dispatch({
       type: GET_WEATHER,
       weather: res,

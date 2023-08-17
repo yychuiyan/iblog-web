@@ -9,7 +9,6 @@ import {
   SendMail,
   UserRegister,
   UserUpdate,
-  Weather,
 } from '@/types/api';
 // 接口请求
 const api: Api = {
@@ -121,9 +120,9 @@ const api: Api = {
     return axios.get(`/all.json`);
   },
   // 获取天气
-  getWeather(params: Weather) {
+  getWeather(key: string, location: string, language: string, unit: string) {
     return axios.get(
-      `/v3/weather/now.json?key=${params.key}&&location=${params.location}&&language=${params.language}&&unit=${params.unit}`
+      `/v3/weather/now.json?key=${key}&&location=${location}&&language=${language}&&unit=${unit}`
     );
   },
   // 发送邮件
