@@ -42,7 +42,7 @@ const LastUpdate = (props: any) => {
         return (
           <div key={item._id} className=''>
             <div className='flex items-center justify-between hover:text-[#ff6347] hover:transition hover:duration-500'>
-              <p
+              <div
                 className="mt-2 pl-1  mx-1 text-base  cursor-pointer line-clamp-1 overflow-hidden"
               onClick={() => handleLastUpdate(item._id)}
               >
@@ -50,7 +50,7 @@ const LastUpdate = (props: any) => {
                   <span>{index + 1}</span>
                 </RandomColorTag>
                 <span>{item.title}</span>
-              </p>
+              </div>
             </div>
           </div>
         );

@@ -74,7 +74,7 @@ const Home = (props: any) => {
         {/* 古诗词 */}
         <p className="h-12  mt-3 text-3xl lg:mt-48 lg:text-lg lg:hidden">{name}</p>
 
-        <p className='hidden lg:block lg:mt-48 lg:w-full'><Affiche /></p>
+        <div className='hidden lg:block lg:mt-48 lg:w-full'><Affiche /></div>
         {/* 动画图标显示 */}
         <div className="flex justify-center items-center w-full h-20 absolute bottom-0 lg:hidden">
           <div className="animate-bounce">
@@ -115,7 +115,7 @@ const Home = (props: any) => {
         <aside className="w-300 lg:hidden">
           <User data={list} />
           <Social />
-          <Affiche />
+          {/* <Affiche /> */}
           <Category data={list} />
           <Affix offsetTop={70}>
             <div>
