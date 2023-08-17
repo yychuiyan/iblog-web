@@ -19,6 +19,7 @@ export interface Action {
   affiche?: string[];
   visit?: number;
   apothegm?: string[];
+  weather?: string[];
 }
 interface DataType {
   createYear: any;

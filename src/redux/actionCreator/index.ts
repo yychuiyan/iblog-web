@@ -27,6 +27,7 @@ import {
   WEBSIT_VISIT,
   WEBSIT_VISIT_NUMBER,
   APOTHEGM_LIST,
+  GET_WEATHER,
 } from '@/redux/constants';
 import {
   ArticleViews,
@@ -38,6 +39,7 @@ import {
   SendMail,
   UserRegister,
   UserUpdate,
+  Weather,
 } from '@/types/api';
 import { message } from 'antd';
 import jwtDecode from 'jwt-decode';
@@ -333,6 +335,17 @@ export const asyncVerseAction = () => {
     dispatch({
       type: GET_VERSE,
       verse: res,
+    });
+    return res;
+  };
+};
+// 天气
+export const asyncWeatherAction = (params: Weather) => {
+  return async (dispatch: Dispatch) => {
+    const res = await api.getWeather(params);
+    dispatch({
+      type: GET_WEATHER,
+      weather: res,
     });
     return res;
   };

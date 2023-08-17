@@ -44,6 +44,8 @@ export const CHANGE_LOADING = 'CHANGE_LOADING';
 export const SET_MODE = 'SET_MODE';
 // 诗词
 export const GET_VERSE = 'GET_VERSE';
+// 天气
+export const GET_WEATHER = 'GET_WEATHER';
 // 邮件提醒
 export const SEND_MAIL = 'SEND_MAIL';
 // 公告列表

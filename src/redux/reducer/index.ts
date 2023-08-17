@@ -21,6 +21,7 @@ import { AboutListReducer } from '@/redux/reducer/about/list';
 import { LoadingReducer } from '@/redux/reducer/loading';
 import { ModeReducer } from '@/redux/reducer/mode';
 import { VerseReducer } from '@/redux/reducer/verse';
+import { WeatherReducer } from '@/redux/reducer/weather';
 import { SendMailReducer } from '@/redux/reducer/mail';
 import { AfficheListReducer } from '@/redux/reducer/affiche/list';
 import { ApothegmListReducer } from '@/redux/reducer/apothegm/list';
@@ -49,6 +50,7 @@ const RootReducer = combineReducers({
   LoadingReducer,
   ModeReducer,
   VerseReducer,
+  WeatherReducer,
   SendMailReducer,
   AfficheListReducer,
   WebsitVisitReducer,

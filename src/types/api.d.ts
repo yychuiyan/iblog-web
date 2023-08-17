@@ -88,6 +88,12 @@ interface QQLogin {
   code: string;
   redirect_uri: string;
 }
+interface Weather {
+  key: string;
+  location: string;
+  language: string;
+  unit: string;
+}
 export interface Api {
   getArticleList(
     page: number,
@@ -121,6 +127,7 @@ export interface Api {
   getFriendlyList(): Promise<ApiResponse>;
   getAboutList(checked: boolean): Promise<ApiResponse>;
   getVerse(): Promise<ApiResponse>;
+  getWeather(params: Weather): Promise<ApiResponse>;
   sendMail(params: SendMail): Promise<ApiResponse>;
   getAfficheList(): Promise<ApiResponse>;
   essayHandleLike(params: EssayHandleLike): Promise<ApiResponse>;

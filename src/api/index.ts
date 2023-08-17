@@ -9,6 +9,7 @@ import {
   SendMail,
   UserRegister,
   UserUpdate,
+  Weather,
 } from '@/types/api';
 // 接口请求
 const api: Api = {
@@ -118,6 +119,12 @@ const api: Api = {
   // 诗词列表
   getVerse() {
     return axios.get(`/all.json`);
+  },
+  // 获取天气
+  getWeather(params: Weather) {
+    return axios.get(
+      `/now.json?key=${params.key}&&location=${params.location}&&language=${params.language}&&unit=${params.unit}`
+    );
   },
   // 发送邮件
   sendMail(params: SendMail) {
