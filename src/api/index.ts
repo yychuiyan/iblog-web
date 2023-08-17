@@ -120,8 +120,10 @@ const api: Api = {
     return axios.get(`/all.json`);
   },
   // 获取天气
-  getWeather(key: string, city: string) {
-    return axios.get(`/v3/weather/weatherInfo?key=${key}&&city=${city}`);
+  getWeather(key: string, location: string, language: string, unit: string) {
+    return axios.get(
+      `/v3/weather/now.json?key=${key}&&location=${location}&&language=${language}&&unit=${unit}`
+    );
   },
   // 发送邮件
   sendMail(params: SendMail) {

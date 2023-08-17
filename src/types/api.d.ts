@@ -122,7 +122,7 @@ export interface Api {
   getFriendlyList(): Promise<ApiResponse>;
   getAboutList(checked: boolean): Promise<ApiResponse>;
   getVerse(): Promise<ApiResponse>;
-  getWeather(key: string, city: string): Promise<ApiResponse>;
+  getWeather(key: string, city: string, language: string, unit: string): Promise<ApiResponse>;
   sendMail(params: SendMail): Promise<ApiResponse>;
   getAfficheList(): Promise<ApiResponse>;
   essayHandleLike(params: EssayHandleLike): Promise<ApiResponse>;
