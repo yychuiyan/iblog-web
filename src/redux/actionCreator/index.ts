@@ -339,7 +339,7 @@ export const asyncVerseAction = () => {
     return res;
   };
 };
-// 天气
+// 获取天气
 export const asyncWeatherAction = (params: Weather) => {
   return async (dispatch: Dispatch) => {
     const res = await api.getWeather(params);
