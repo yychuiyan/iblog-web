@@ -24,7 +24,7 @@ export default defineConfig({
       },
       '/v3/weather/weatherInfo': {
         // 天气
-        target: 'https://restapi.amap.com',
+        target: 'https://restapi.amap.com/v3/weather/weatherInfo',
         changeOrigin: true,
       },
     },

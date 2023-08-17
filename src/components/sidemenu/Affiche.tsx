@@ -48,7 +48,7 @@ const Affiche = (props: any) => {
 
       setWeather(lives)
     });
-  }, [props.BlogActions]);
+  }, [props.BlogActions.asyncWeatherAction]);
   return (
     <div>
       {/* PC */}
