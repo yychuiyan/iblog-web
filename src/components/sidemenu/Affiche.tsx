@@ -42,6 +42,8 @@ const Affiche = (props: any) => {
   }, [props.BlogActions]);
   useEffect(() => {
     props.BlogActions.asyncWeatherAction("S9-DW0MuEOY_vZLcz", "shanghai", "zh-Hans", "c").then((res: any) => {
+      console.log("res", res);
+
       // 获取天气
       let weatherData = res.results
       console.log("weatherData", weatherData[0].location);
