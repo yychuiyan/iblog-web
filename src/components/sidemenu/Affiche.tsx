@@ -42,11 +42,11 @@ const Affiche = (props: any) => {
   }, [props.BlogActions]);
   useEffect(() => {
     props.BlogActions.asyncWeatherAction("S9-DW0MuEOY_vZLcz", "shanghai", "zh-Hans", "c").then((res: any) => {
-      console.log("res", res);
+      console.log("res2", res);
 
       // 获取天气
       let weatherData = res.results
-      console.log("weatherData", weatherData[0].location);
+      console.log("weatherData", weatherData[0]);
 
       setWeather(weatherData[0])
     });
@@ -64,7 +64,7 @@ const Affiche = (props: any) => {
           </div>
           <div className='flex mr-[10%]'>
             <IconFont iconName='icon-weizhi-xianxing' className='text-[var(--bgcolor-navbar-click)] text-[20px] ml-5'></IconFont>
-            <div>&nbsp;{weather.location.name} {weather.now.text} {weather.now.temperature}°C</div>
+            <div>&nbsp;{weather.location?.name} {weather.now?.text} {weather.now?.temperature}°C</div>
           </div>
         </div>
         <Carousel autoplay autoplaySpeed={5000} dotPosition="left" dots={false} className='px-3 h-20 lg:h-10'>
