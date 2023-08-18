@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '@/utils/enum'
+import IconFont from '../iconfont';
 const HotArticles = (props: any) => {
   // 文章列表
   const [list, setList] = useState<any>([]);
@@ -38,7 +39,7 @@ const HotArticles = (props: any) => {
         className="flex items-center py-2  pl-2 border border-solid border-gray-300 border-t-0 border-l-0 border-r-0 border-b-1 "
         style={{ userSelect: 'none' }}
       >
-        <svg className="icon w-7 h-7 pr-1" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="56377"><path d="M124.928 660.48h104.96v238.08h-104.96zM347.136 535.552h104.96v363.52h-104.96zM548.864 644.608h104.96v254.464h-104.96zM766.976 422.4h104.96v476.672h-104.96z" fill='var(--bgcolor-social-default)' p-id="56378"></path><path d="M666.112 124.928l110.592 118.784L535.04 473.6 351.744 307.2v-0.512l-0.512-0.512-1.536 2.048L61.44 536.576l32.768 41.472 254.976-202.752 186.368 169.472 1.024-1.024 0.512 0.512 275.456-262.144 100.864 108.544 12.8-260.096z" fill='var(--bgcolor-social-default)' p-id="56379"></path></svg>
+        <IconFont iconName='icon-qushi' className=' text-[28px] pr-1'></IconFont>
         <span>热门文章</span>
       </p>
       {list.map((item: CategoryData, index: number) => {
@@ -52,7 +53,7 @@ const HotArticles = (props: any) => {
                 <span>{item.title}</span>
               </p>
               <p className='flex items-start justify-center mt-2 pt-1 pr-2'>
-                <svg className="icon w-6 h-6" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13108" width="20" height="20"><path d="M511.837 704c-184.451 0-288.003-191.997-288.003-191.997S329.357 320 511.837 320c182.474 0 287.997 192.003 287.997 192.003S696.285 704 511.837 704zM511.833 384c-131.99 0-208.32 128.003-208.32 128.003S378.416 640 511.833 640s208.32-127.997 208.32-127.997S643.824 384 511.833 384zM511.833 576c-35.347 0-64-28.656-64-64.003 0-35.344 28.653-64 64-64s64 28.656 64 64C575.833 547.344 547.181 576 511.833 576z" fill='var(--bgcolor-social-default)' p-id="13109"></path></svg>
+                <IconFont iconName='icon-chakan' className='text-[18px] text-[var(--color-icon-default)] pr-1'></IconFont>
                 <span>
                   {item.views}
                 </span>

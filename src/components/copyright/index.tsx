@@ -27,16 +27,16 @@ const CopyRight = (props: any) => {
   }
   return (
     <div className="flex items-center relative top-8 h-28 w-full shadow-md overflow-hidden rounded-xl bg-base-200 lg:w-full lg:top-16 lg:h-28">
-      <div className="flex flex-col h-20 px-5 w-full z-10 lg:z-0 lg:h-24 lg:overflow-hidden" style={{ userSelect: 'none' }}>
+      <div className="flex flex-col h-20 px-5 w-full z-10 lg:z-0 lg:h-24 lg:overflow-hidden">
         <span className='text-xl lg:hidden'>{props.content}</span>
-        <div className='flex h-3'>
+        <div className='flex h-7' style={{ userSelect: 'none' }}>
           <span className='lg:break-normal lg:underline block lg:hidden'>{link}</span>
           <span className='lg:break-normal lg:underline hidden lg:block' onClick={() => handleJumpDetail(link)}>{link.substring(0, 40) + '···'}</span>
           <span className="cursor-pointer pl-2" onClick={handleCopy}>
             <FontAwesomeIcon icon={faClone} size='xl' />
           </span>
         </div>
-        <span>
+        <span style={{ userSelect: 'none' }}>
           本博客所有文章除特别声明外，均采用<span className='downline mx-1 cursor-pointer lg:underline' onClick={handleJump}>CC BY-NC-SA 4.0</span>许可协议。转载请注明来自
           <span className="downline  cursor-pointer font-medium lg:underline">夜雨炊烟</span>
         </span>

@@ -9,7 +9,7 @@ const Footer = () => {
           <span className="px-2">By</span>
         </p>
 
-        <p className="text-[var(--bgcolor-social-default)]">夜雨炊烟</p>
+        <p className="downline text-[var(--color-icon-default)]">夜雨炊烟</p>
       </div>
       <div className="flex cursor-pointer">
         <span className="mr-1">

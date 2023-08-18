@@ -198,15 +198,15 @@ const User = (props: any) => {
       <div
         className="flex justify-around w-64 h-20 pl-1 pt-2  rounded-xl overflow-clip"
       >
-        <p className="flex flex-col items-center justify-center w-14 h-14 rounded-2xl cursor-pointer hover:bg-[var(--user-content-color)] hover:text-[var(--user-content-font)] transform duration-300 ease-in" onClick={handleJumpArticles}>
+        <p className="flex flex-col items-center justify-center w-14 h-14 rounded-2xl cursor-pointer text-[var(--color-icon-default)] hover:bg-[var(--user-content-color)] hover:text-[var(--color-icon-default)] transform duration-300 ease-in" onClick={handleJumpArticles}>
           <span>文章</span>
           <span className="text-sm">{articleCount}</span>
         </p>
-        <p className="flex flex-col items-center justify-center w-14 h-14 rounded-2xl cursor-pointer hover:bg-[var(--user-content-color)] hover:text-[var(--user-content-font)] transform duration-300 ease-in" onClick={handleJumpCategories}>
+        <p className="flex flex-col items-center justify-center w-14 h-14 rounded-2xl cursor-pointer text-[var(--color-icon-default)] hover:bg-[var(--user-content-color)] hover:text-[var(--color-icon-default)] transform duration-300 ease-in" onClick={handleJumpCategories}>
           <span>分类</span>
           <span className="text-sm">{categoriesCount}</span>
         </p>
-        <p className="flex flex-col items-center justify-center w-14 h-14 rounded-2xl cursor-pointer hover:bg-[var(--user-content-color)] hover:text-[var(--user-content-font)] transform duration-300 ease-in" onClick={handleJumpTags}>
+        <p className="flex flex-col items-center justify-center w-14 h-14 rounded-2xl cursor-pointer text-[var(--color-icon-default)] hover:bg-[var(--user-content-color)] hover:text-[var(--color-icon-default)] transform duration-300 ease-in" onClick={handleJumpTags}>
           <span>标签</span>
           <span className="text-sm">{tagsCount}</span>
         </p>

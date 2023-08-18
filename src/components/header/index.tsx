@@ -610,8 +610,8 @@ const NavBar = (props: any) => {
           {
             loginStatus === false ?
               <div className='cursor-pointer ml-5 flex lg:ml-10 lg:mt-1' onClick={handleLogin}>
-                <LoginOutlined style={{ fontSize: '20px', marginRight: '3px', marginLeft: '3px', color: 'var(--bgcolor-navbar-click)' }} />
-                <span className='text-[var(--bgcolor-navbar-click)] text-base' style={{ userSelect: 'none' }}>登录</span>
+                <LoginOutlined style={{ fontSize: '20px', marginRight: '3px', marginLeft: '3px' }} />
+                <span className='text-base' style={{ userSelect: 'none' }}>登录</span>
               </div> : <Popconfirm
                 placement="bottom"
                 title={<p style={{ userSelect: "none" }}>您是否选择退出登录？</p>}
@@ -638,7 +638,7 @@ const NavBar = (props: any) => {
                   }
                   <span>
                 </span>
-                  <span className='text-[var(--bgcolor-navbar-click)] text-base ml-1' style={{ userSelect: 'none' }}>{loginInfo.username}</span>
+                  <span className='text-base ml-1' style={{ userSelect: 'none' }}>{loginInfo.username}</span>
               </div>
                 </Popconfirm>
           }
@@ -646,8 +646,7 @@ const NavBar = (props: any) => {
 
         <div className='flex'>
           <div className='w-24  flex items-center justify-center lg:hidden'>
-            {/* <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" color='var(--bgcolor-navbar-click)' className='cursor-pointer' /> */}
-            <IconFont iconName='icon-sousuo' className='text-[var(--bgcolor-navbar-click)] text-[20px]' onIconClick={showModal}></IconFont>
+            <IconFont iconName='icon-sousuo' className='text-[20px]' onIconClick={showModal}></IconFont>
           </div>
         {/* 切换主题 */}
         <div className="h-8 w-16  rounded-3xl bg-base-200 border border-solid border-1 border-[var(--bgcolor-navbar-hover)] relative top-4 right-3" tabIndex={0}>
@@ -657,8 +656,7 @@ const NavBar = (props: any) => {
               data-set-theme="light"
               onClick={() => handleChangeImage(0)}
             >
-
-              <svg className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="27119" width="30" height="30"><path d="M565 200.4c25.6 44.6 40.4 96.2 40.4 151.3 0 167.9-136.1 304-304 304-22.9 0-45.2-2.6-66.7-7.4C284.5 760.7 397 839.2 527.8 839.2c177 0 320.5-143.5 320.5-320.5 0-164.4-123.8-299.8-283.3-318.3zM312.9 243.6h-39.2v-39.2c0-10.8-8.8-19.6-19.6-19.6s-19.6 8.8-19.6 19.6v39.2h-39.2c-10.8 0-19.6 8.8-19.6 19.6s8.8 19.6 19.6 19.6h39.2V322c0 10.8 8.8 19.6 19.6 19.6s19.6-8.8 19.6-19.6v-39.2h39.2c10.8 0 19.6-8.8 19.6-19.6s-8.8-19.6-19.6-19.6z" fill="#FFF0C2" p-id="27120"></path><path d="M306.9 245.6h-35.2v-35.2c0-9.7-7.9-17.6-17.6-17.6-9.7 0-17.6 7.9-17.6 17.6v35.2h-35.2c-9.7 0-17.6 7.9-17.6 17.6 0 9.7 7.9 17.6 17.6 17.6h35.2V316c0 9.7 7.9 17.6 17.6 17.6 9.7 0 17.6-7.9 17.6-17.6v-35.2h35.2c9.7 0 17.6-7.9 17.6-17.6 0-9.7-7.9-17.6-17.6-17.6z" fill="#FFC445" p-id="27121"></path><path d="M427.8 475.3h-27.5v-27.5c0-7.6-6.2-13.8-13.8-13.8-7.6 0-13.8 6.2-13.8 13.8v27.5h-27.5c-7.6 0-13.8 6.2-13.8 13.8 0 7.6 6.2 13.8 13.8 13.8h27.5v27.5c0 7.6 6.2 13.8 13.8 13.8 7.6 0 13.8-6.2 13.8-13.8v-27.5h27.5c7.6 0 13.8-6.2 13.8-13.8 0-7.6-6.2-13.8-13.8-13.8z" fill="#FFF0C2" p-id="27122"></path><path d="M423.6 476.7h-24.7V452c0-6.8-5.5-12.4-12.4-12.4-6.8 0-12.4 5.5-12.4 12.4v24.7h-24.7c-6.8 0-12.4 5.5-12.4 12.4 0 6.8 5.5 12.4 12.4 12.4h24.7v24.7c0 6.8 5.5 12.4 12.4 12.4 6.8 0 12.4-5.5 12.4-12.4v-24.7h24.7c6.8 0 12.4-5.5 12.4-12.4 0-6.8-5.5-12.4-12.4-12.4z" fill="#FFC445" p-id="27123"></path><path d="M563.4 223c23.8 41.4 37.5 89.4 37.5 140.6 0 156-126.5 282.5-282.5 282.5-21.3 0-42-2.4-62-6.9 46.3 104.5 150.8 177.4 272.4 177.4 164.5 0 297.9-133.4 297.9-297.9 0-152.7-115.1-278.6-263.3-295.7z" fill="#FFB948" p-id="27124"></path></svg>
+                <IconFont iconName='icon-yueliang' className='text-[30px] text-[#FFB948]'></IconFont>
               <div data-theme="light" className="">
                 <div className="flex-grow text-sm font-bold"></div>
               </div>
@@ -668,7 +666,7 @@ const NavBar = (props: any) => {
                 data-set-theme="night"
                 onClick={() => handleChangeImage(1)}
               >
-                <svg className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="24606" width="20" height="20"><path d="M512 0a58.514286 58.514286 0 0 1 58.514286 58.514286v73.142857a58.514286 58.514286 0 1 1-117.028572 0V58.514286a58.514286 58.514286 0 0 1 58.514286-58.514286z m0 833.828571a58.514286 58.514286 0 0 1 58.514286 58.514286v73.142857a58.514286 58.514286 0 1 1-117.028572 0v-73.142857a58.514286 58.514286 0 0 1 58.514286-58.514286z m512-321.828571a58.514286 58.514286 0 0 1-58.514286 58.514286h-73.142857a58.514286 58.514286 0 1 1 0-117.028572h73.142857a58.514286 58.514286 0 0 1 58.514286 58.514286z m-833.828571 0a58.514286 58.514286 0 0 1-58.514286 58.514286H58.514286a58.514286 58.514286 0 1 1 0-117.028572h73.142857a58.514286 58.514286 0 0 1 58.514286 58.514286z m683.871085-362.042514a58.514286 58.514286 0 0 1 0 82.753828l-51.726628 51.726629a58.514286 58.514286 0 1 1-82.753829-82.753829l51.726629-51.726628a58.514286 58.514286 0 0 1 82.753828 0zM284.437943 739.562057a58.514286 58.514286 0 0 1 0 82.753829l-51.726629 51.726628a58.514286 58.514286 0 1 1-82.753828-82.753828l51.726628-51.726629a58.514286 58.514286 0 0 1 82.753829 0z m589.604571 134.480457a58.514286 58.514286 0 0 1-82.753828 0l-51.726629-51.726628a58.514286 58.514286 0 0 1 82.753829-82.753829l51.726628 51.726629a58.514286 58.514286 0 0 1 0 82.753828zM284.437943 284.437943a58.514286 58.514286 0 0 1-82.753829 0l-51.726628-51.726629a58.514286 58.514286 0 1 1 82.753828-82.753828l51.726629 51.726628a58.514286 58.514286 0 0 1 0 82.753829zM512 731.428571c-121.183086 0-219.428571-98.245486-219.428571-219.428571 0-121.183086 98.245486-219.428571 219.428571-219.428571 121.183086 0 219.428571 98.245486 219.428571 219.428571 0 121.183086-98.245486 219.428571-219.428571 219.428571z" fill="#F7B500" p-id="24607"></path></svg>
+                  <IconFont iconName='icon-taiyang1' className='text-[22px] text-[#F7B500]'></IconFont>
                 <div data-theme="night" className="">
                   <div className="flex-grow text-sm font-bold"></div>
                 </div>
@@ -677,7 +675,9 @@ const NavBar = (props: any) => {
           </div>
           {/* 后台 */}
           <div className='w-16 flex items-center cursor-pointer lg:hidden' onClick={handleBackLogin}>
-            <span><svg className="icon w-7 h-7 pt-1" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4252" width="20" height="20"><path d="M737.477981 1024L8.949126 954.206816v-884.913583L737.477981 0.09999v393.061615L686.682941 382.962601V55.694561l-626.938775 59.994141V907.911337l626.938775 60.494092V641.137389l50.79504-10.099014z" fill="var(--bgcolor-social-default)" p-id="4253"></path><path d="M282.222439 547.746509v-71.393028l-33.89669 1.899815V545.946685zM383.712528 553.445953v-82.791915l-67.693389 3.799629v75.192657zM1015.250854 512.049995L823.769554 308.969827v137.286593l-406.160336 22.597793v86.491554l406.160336 22.497803v137.386583z" fill="var(--bgcolor-social-default)" p-id="4254"></path></svg></span>
+            <span>
+              <IconFont iconName='icon-houtaituichufanhuichu' className=' text-[28px]'></IconFont>
+            </span>
             <span style={{ userSelect: 'none' }}>后台</span>
           </div>
         </div>

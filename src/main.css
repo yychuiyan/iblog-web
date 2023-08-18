@@ -200,6 +200,7 @@ body {
 .ant-pagination .ant-pagination-item {
   width: 45px;
   height: 45px;
+  color: var(--color-icon-default);
   background-color: var(--page-count-bgcolor);
 }
 .ant-pagination .ant-pagination-item a {

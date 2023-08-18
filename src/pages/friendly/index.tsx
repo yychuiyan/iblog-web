@@ -5,6 +5,7 @@ import * as BlogActions from '@/redux/actionCreator';
 import PageDesc from '@/components/sidemenu/PageDesc';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import IconFont from '@/components/iconfont';
 interface DataType {
   avatar: string;
   createTime: string;
@@ -59,7 +60,10 @@ const Friendly = (props: any) => {
       <div className="flex flex-col w-1000 min-h-screen bg-base-100 mt-10 pb-6 pt-2 mx-auto  rounded-2xl lg:min-h-[90%] lg:pb-6 lg:w-full sm:w-full">
         <div className='mt-2'>
           <div className='mx-5'>
-            <p className='text-2xl'>优秀博主</p>
+            <p className='flex text-2xl'>
+              <IconFont iconName='icon-chengchangdaoshi' className=' text-[28px]'></IconFont>
+              <span className='ml-2'>优秀博主</span>
+            </p>
             <p className="w-full border border-t-0 border-l-0 border-r-0 border-b-1 border-solid mt-2 lg:w-full"></p>
           </div>
           {list.map((item) => {
@@ -85,11 +89,12 @@ const Friendly = (props: any) => {
         </div>
         <div className='mt-5'>
           <div className='mx-5'>
-            <p className=''>
-              <span className='text-2xl'>失联博主</span>
-              <span className='text-[13px] text-[var(--article-content-default)]'>(网站正常后可联系博主恢复友链信息，长时间未更新将取消贵站链接。)</span>
-            </p>
-            <p className="w-full border border-t-0 border-l-0 border-r-0 border-b-1 border-solid mt-2 lg:w-full"></p>
+            <div className='text-2xl flex'>
+              <IconFont iconName='icon-jiankongbaojing' className='text-[28px]'></IconFont>
+              <span className='ml-2'>失联博主</span>
+              <span className='text-[13px] pt-1 text-[var(--article-content-default)]'>(网站正常后可联系博主恢复友链信息，长时间未更新将取消贵站链接。)</span>
+            </div>
+            <p className="w-full border border-t-0 border-l-0 border-r-0 border-b-1 border-solid mb-2 lg:w-full"></p>
           </div>
           {invalidLink.map((item) => {
             return (
