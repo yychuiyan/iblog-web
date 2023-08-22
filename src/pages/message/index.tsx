@@ -389,7 +389,7 @@ const Message = (props: any) => {
                   label=""
                   name="email"
                   rules={[
-                    { required: true, message: '请输入邮箱' },
+                    { required: true, message: '请输入你的邮箱' },
                     {
                       pattern:
                         /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
@@ -634,7 +634,7 @@ const Message = (props: any) => {
                                         label=""
                                         name="email"
                                         rules={[
-                                          { required: true, message: '请输入邮箱' },
+                                          { required: true, message: '请输入你的邮箱' },
                                           {
                                             pattern:
                                               /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,

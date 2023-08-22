@@ -16,6 +16,7 @@ interface DataType {
   _id: string;
 }
 interface FriendlyData{
+  checked: boolean;
   status: boolean;
   data:[]
 }
@@ -43,8 +44,10 @@ const Friendly = (props: any) => {
       // 获取友链
       let { data } = res.data as unknown as FriendlyData;
       let shuffle = data.sort(() => Math.random() - 0.5);
-      let friendlyData = shuffle.filter((item: FriendlyData) => item.status === true)
-      let invalidLink = shuffle.filter((item: FriendlyData) => item.status === false)
+      // 筛选已下线数据
+      let lineData = shuffle.filter((item: FriendlyData) => item.checked === true)
+      let friendlyData = lineData.filter((item: FriendlyData) => item.status === true)
+      let invalidLink = lineData.filter((item: FriendlyData) => item.status === false)
       setList(friendlyData);
       setInvalidLink(invalidLink)
     });
