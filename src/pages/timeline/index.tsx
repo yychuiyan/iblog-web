@@ -74,7 +74,7 @@ const TimeLine = (props: any) => {
       style={{ userSelect: "none" }}
     >
       <PageDesc title="时间线" />
-      <div className="flex justify-center w-1000 min-h-screen mx-auto my-8  bg-base-100 rounded-2xl lg:w-full sm:w-full">
+      <div className="flex justify-center w-1000 min-h-screen mx-auto my-8 pb-4  bg-base-100 rounded-2xl lg:w-full sm:w-full">
         {list.map((item: any) => {
           return (
             <div key={item} className="lg:w-full lg:px-5">

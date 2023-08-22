@@ -48,6 +48,7 @@ const Friendly = (props: any) => {
       let lineData = shuffle.filter((item: FriendlyData) => item.checked === true)
       let friendlyData = lineData.filter((item: FriendlyData) => item.status === true)
       let invalidLink = lineData.filter((item: FriendlyData) => item.status === false)
+      console.log("invalidLink1", invalidLink);
       setList(friendlyData);
       setInvalidLink(invalidLink)
     });
@@ -90,7 +91,8 @@ const Friendly = (props: any) => {
             );
           })}
         </div>
-        <div className='mt-5'>
+        {
+          invalidLink.length > 0 ? <div className='mt-5'>
           <div className='mx-5'>
             <div className='text-2xl flex'>
               <IconFont iconName='icon-jiankongbaojing' className='text-[28px]'></IconFont>
@@ -119,7 +121,9 @@ const Friendly = (props: any) => {
               </div>
             );
           })}
-        </div>
+          </div> : <div></div>
+        }
+
       </div>
     </div>
   );
