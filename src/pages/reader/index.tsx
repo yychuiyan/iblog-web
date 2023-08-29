@@ -100,7 +100,7 @@ const Reader = (props: any) => {
           <div className='mx-5'>
             <div className='text-2xl flex'>
               <IconFont iconName='icon-yuedu' className='text-[28px]'></IconFont>
-              <span className='ml-2'>阅读中</span>
+              <span className='ml-2'>正在阅读</span>
             </div>
             <p className="w-full border border-t-0 border-l-0 border-r-0 border-b-1 border-solid mb-2 lg:mb-0 lg:w-full"></p>
           </div>
