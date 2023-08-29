@@ -65,13 +65,13 @@ const Reader = (props: any) => {
   return (
     // @ts-ignore
     <div className="w-1200  mx-auto lg:w-full lg:mx-5" ref={myRef} style={{ userSelect: "none" }}>
-      <PageDesc title="阅读管理" desc="人生路漫漫，读书不能倦。" />
+      <PageDesc title="书友会" desc="以书为友，人生路漫漫，读书不能倦。" />
       <div className="flex flex-col w-1000 min-h-screen bg-base-100 mt-10 pb-6 pt-2 mx-auto  rounded-2xl lg:min-h-screen lg:pb-6 lg:w-full sm:w-full">
         <div className='mt-2 lg:hidden'>
           <div className='mx-5'>
             <p className='flex text-2xl'>
               <IconFont iconName='icon-yuedu1' className='text-[28px]'></IconFont>
-              <span className='ml-2'>阅读中</span>
+              <span className='ml-2'>正在阅读</span>
             </p>
             <p className="w-full border border-t-0 border-l-0 border-r-0 border-b-1 border-solid mt-2 lg:w-full"></p>
           </div>
@@ -132,7 +132,7 @@ const Reader = (props: any) => {
             <div className='mx-5'>
               <div className='text-2xl flex'>
                 <IconFont iconName='icon-yuedu' className='text-[28px]'></IconFont>
-                <span className='ml-2'>待阅读</span>
+                <span className='ml-2'>待读清单</span>
               </div>
               <p className="w-full border border-t-0 border-l-0 border-r-0 border-b-1 border-solid mb-2 lg:w-full lg:mb-0"></p>
             </div>
