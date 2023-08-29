@@ -78,7 +78,7 @@ const Reader = (props: any) => {
           {reading.map((item) => {
             return (
               <div
-                className="home_reader_page float-left w-48 h-76 px-2 pb-2 pt-2 ml-8 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-4"
+                className="home_reader_page float-left w-48 h-72 px-2 pb-2 pt-2 ml-8 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-4"
                 key={item._id}
                 onClick={() => handleJump(item.link)}
               >
@@ -87,8 +87,8 @@ const Reader = (props: any) => {
                   <LazyLoadImage src={item.avatar} alt="Image" loading='lazy' effect="blur" className="image_reader_page rounded-lg w-44 h-52" />
                 </div>
                 <div className='flex justify-center flex-wrap'>
-                  <p className="flex justify-center text-xl line-clamp-1 overflow-hidden">{item.name}</p>
-                  <div className="flex items-center h-12">
+                  <div className="flex justify-center text-xl line-clamp-1 overflow-hidden">{item.name}</div>
+                  <div className="flex items-center h-12 w-full">
                     <p className="line-clamp-2 overflow-hidden">{item.desc}</p>
                   </div>
                 </div>
@@ -109,8 +109,8 @@ const Reader = (props: any) => {
               <div className='lg:w-full lg:mx-auto lg:flex lg:justify-center'>
                 <div
                   className="home_friendly_page flex items-center justify-center float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:float-none lg:flex-wrap lg:ml-0"
-                key={item._id}
-                onClick={() => handleJump(item.link)}
+                  key={item._id}
+                  onClick={() => handleJump(item.link)}
               >
                 {/* 封面 */}
                 <div className='relative overflow-hidden rounded-xl'>
