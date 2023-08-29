@@ -66,8 +66,8 @@ const Reader = (props: any) => {
     // @ts-ignore
     <div className="w-1200  mx-auto lg:w-full lg:mx-5" ref={myRef} style={{ userSelect: "none" }}>
       <PageDesc title="阅读管理" desc="人生路漫漫，读书不能倦。" />
-      <div className="flex flex-col w-1000 min-h-screen bg-base-100 mt-10 pb-6 pt-2 mx-auto  rounded-2xl lg:min-h-[90%] lg:pb-6 lg:w-full sm:w-full">
-        <div className='mt-2'>
+      <div className="flex flex-col w-1000 min-h-screen bg-base-100 mt-10 pb-6 pt-2 mx-auto  rounded-2xl lg:min-h-[74%] lg:pb-6 lg:w-full sm:w-full">
+        <div className='mt-2 lg:hidden'>
           <div className='mx-5'>
             <p className='flex text-2xl'>
               <IconFont iconName='icon-yuedu1' className='text-[28px]'></IconFont>
@@ -96,6 +96,35 @@ const Reader = (props: any) => {
             );
           })}
         </div>
+        <div className='mt-5 hidden lg:block'>
+          <div className='mx-5'>
+            <div className='text-2xl flex'>
+              <IconFont iconName='icon-yuedu' className='text-[28px]'></IconFont>
+              <span className='ml-2'>阅读中</span>
+            </div>
+            <p className="w-full border border-t-0 border-l-0 border-r-0 border-b-1 border-solid mb-2 lg:w-full"></p>
+          </div>
+          {reading.map((item) => {
+            return (
+              <div
+                className="home_friendly_page  flex items-center float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-8"
+                key={item._id}
+                onClick={() => handleJump(item.link)}
+              >
+                {/* 封面 */}
+                <div className='relative overflow-hidden rounded-xl'>
+                  <LazyLoadImage src={item.avatar} alt="Image" loading='lazy' effect="blur" className="image_friendly_page w-20 h-20 rounded-xl" />
+                </div>
+                <div className="ml-2 w-48">
+                  <p className="flex justify-start text-xl line-clamp-1 overflow-hidden">{item.name}</p>
+                  <div className="flex items-center h-12">
+                    <p className="line-clamp-2 overflow-hidden">{item.desc}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
         {
           waitReading.length > 0 ? <div className='mt-5'>
             <div className='mx-5'>
@@ -108,7 +137,7 @@ const Reader = (props: any) => {
             {waitReading.map((item) => {
               return (
                 <div
-                  className="home_friendly_page  flex float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-4"
+                  className="home_friendly_page  flex float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-8"
                   key={item._id}
                   onClick={() => handleJump(item.link)}
                 >
@@ -139,7 +168,7 @@ const Reader = (props: any) => {
             {read.map((item) => {
               return (
                 <div
-                  className="home_friendly_page  flex float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-4"
+                  className="home_friendly_page  flex float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-8"
                   key={item._id}
                   onClick={() => handleJump(item.link)}
                 >
