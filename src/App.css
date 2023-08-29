@@ -196,3 +196,25 @@ html, body {
   -webkit-transition: all .6s, filter 375ms ease-in .2s !important;
   transition: all .6s, filter 375ms ease-in .2s !important;
 }
+/* 阅读管理 */
+.home_reader_page {
+  transition: all .3s;
+}
+
+.home_reader_page:hover {
+  transform: scale(1.02);
+}
+
+.image_reader_page {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transition: all .6s, filter 375ms ease-in .2s !important;
+  -webkit-transition: all .6s, filter 375ms ease-in .2s !important;
+}
+
+.home_reader_page:hover .image_reader_page {
+  transform: scale(1.05);
+  -webkit-transition: all .6s, filter 375ms ease-in .2s !important;
+  transition: all .6s, filter 375ms ease-in .2s !important;
+}

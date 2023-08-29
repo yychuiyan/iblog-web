@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4147876 */
-  src: url('iconfont.woff2?t=1692339608457') format('woff2'),
-       url('iconfont.woff?t=1692339608457') format('woff'),
-       url('iconfont.ttf?t=1692339608457') format('truetype');
+  src: url('iconfont.woff2?t=1693303448514') format('woff2'),
+       url('iconfont.woff?t=1693303448514') format('woff'),
+       url('iconfont.ttf?t=1693303448514') format('truetype');
 }
 
 .iconfont {
@@ -13,8 +13,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-lishi:before {
-  content: "\10047";
+.icon-yuedu:before {
+  content: "\e66a";
+}
+
+.icon-Ejudge_julei:before {
+  content: "\e650";
+}
+
+.icon-yuedu1:before {
+  content: "\e671";
 }
 
 .icon-biaoqing:before {

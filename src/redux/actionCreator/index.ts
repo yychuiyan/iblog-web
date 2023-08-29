@@ -28,6 +28,7 @@ import {
   WEBSIT_VISIT_NUMBER,
   APOTHEGM_LIST,
   GET_WEATHER,
+  READER_LIST,
 } from '@/redux/constants';
 import {
   ArticleViews,
@@ -404,6 +405,17 @@ export const asyncWebsitVisitNumberAction = () => {
     dispatch({
       type: WEBSIT_VISIT_NUMBER,
       visit: res,
+    });
+    return res;
+  };
+};
+// 阅读列表
+export const asyncReaderListAction = () => {
+  return async (dispatch: Dispatch) => {
+    const res = await api.getReaderList();
+    dispatch({
+      type: READER_LIST,
+      reader: res,
     });
     return res;
   };

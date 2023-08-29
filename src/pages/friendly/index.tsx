@@ -48,7 +48,6 @@ const Friendly = (props: any) => {
       let lineData = shuffle.filter((item: FriendlyData) => item.checked === true)
       let friendlyData = lineData.filter((item: FriendlyData) => item.status === true)
       let invalidLink = lineData.filter((item: FriendlyData) => item.status === false)
-      console.log("invalidLink1", invalidLink);
       setList(friendlyData);
       setInvalidLink(invalidLink)
     });

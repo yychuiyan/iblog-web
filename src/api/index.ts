@@ -107,6 +107,10 @@ const api: Api = {
   getEassayLike() {
     return axios.get(`/iblog/essay/like`);
   },
+  // 阅读列表
+  getReaderList() {
+    return axios.get(`/iblog/reader/list`);
+  },
   // 友链列表
   getFriendlyList() {
     return axios.get(`/iblog/friendly/list`);

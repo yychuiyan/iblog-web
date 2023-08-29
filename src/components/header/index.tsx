@@ -40,10 +40,10 @@ const NavBar = (props: any) => {
           path: '/rblog/timeline',
           title: '时间线',
         },
-        // {
-        //   path: '/rblog/resource',
-        //   title: '资源库',
-        // },
+        {
+          path: '/rblog/reader',
+          title: '书友会',
+        },
       ],
     },
     {

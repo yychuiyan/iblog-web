@@ -20,6 +20,7 @@ export interface Action {
   visit?: number;
   apothegm?: string[];
   weather?: string[];
+  reader?: string[];
 }
 interface DataType {
   createYear: any;

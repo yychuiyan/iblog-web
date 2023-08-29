@@ -54,4 +54,6 @@ export const AFFICHE_LIST = 'AFFICHE_LIST';
 export const APOTHEGM_LIST = 'APOTHEGM_LIST';
 // 网站访问量
 export const WEBSIT_VISIT = 'WEBSIT_VISIT';
-export const WEBSIT_VISIT_NUMBER='WEBSIT_VISIT_NUMBER'
+export const WEBSIT_VISIT_NUMBER = 'WEBSIT_VISIT_NUMBER';
+// 阅读列表
+export const READER_LIST = 'READER_LIST';

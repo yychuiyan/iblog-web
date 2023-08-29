@@ -6,11 +6,25 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "26797019",
-      "name": "历史",
-      "font_class": "lishi",
-      "unicode": "10047",
-      "unicode_decimal": 65607
+      "icon_id": "909456",
+      "name": "i-阅读",
+      "font_class": "yuedu",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "8921594",
+      "name": "Ejudge_julei",
+      "font_class": "Ejudge_julei",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "22895356",
+      "name": "阅读_线性",
+      "font_class": "yuedu1",
+      "unicode": "e671",
+      "unicode_decimal": 58993
     },
     {
       "icon_id": "8219237",

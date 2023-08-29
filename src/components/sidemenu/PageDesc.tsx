@@ -5,7 +5,7 @@ const PageDesc = (props: any) => {
       <p className="text-3xl font-medium " style={{ userSelect: 'none' }}>
         {props.title}
       </p>
-      {/* <p className="mt-2 text-[var(--article-content-default)]">{props.desc}</p> */}
+      <p className="mt-2 text-[var(--article-content-default)]">{props.desc}</p>
     </div>
   );
 };
