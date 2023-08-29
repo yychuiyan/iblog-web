@@ -335,7 +335,7 @@ const Message = (props: any) => {
             className="lg:w-full sm:w-full"
           >
             {/* <p className="text-xl" style={{ userSelect: 'none' }}>欢迎来到夜雨炊烟的小站</p> */}
-            <div className="h-36 px-20 mt-5 font-normal lg:px-0">
+            <div className="h-36 px-20 mt-5 font-normal lg:px-0 lg:mt-1">
               <div className="flex flex-col items-start w-[100%]  absolute">
                 <p className="flex absolute text-xl" style={{ userSelect: "none" }}>本站信息:</p>
                 <div className="flex items-start relative justify-center flex-col w-800 mt-8 bg-base-200  rounded-xl hover:transition hover:duration-500 hover:shadow cursor-pointer lg:w-full" style={{ userSelect: 'none' }}>

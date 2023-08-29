@@ -63,16 +63,17 @@ const Friendly = (props: any) => {
       <div className="flex flex-col w-1000 min-h-screen bg-base-100 mt-10 pb-6 pt-2 mx-auto  rounded-2xl lg:min-h-[90%] lg:pb-6 lg:w-full sm:w-full">
         <div className='mt-2'>
           <div className='mx-5'>
-            <p className='flex text-2xl'>
-              <IconFont iconName='icon-chengchangdaoshi' className=' text-[28px]'></IconFont>
-              <span className='ml-2'>优秀博主</span>
+            <p className='flex items-center text-2xl'>
+              <IconFont iconName='icon-chengchangdaoshi' className='text-[28px] lg:text-[24px] '></IconFont>
+              <span className='ml-2 lg:text-xl'>优秀博主</span>
             </p>
             <p className="w-full border border-t-0 border-l-0 border-r-0 border-b-1 border-solid mt-2 lg:w-full"></p>
           </div>
           {list.map((item) => {
             return (
-              <div
-                className="home_friendly_page  flex float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-4"
+              <div className='lg:w-full lg:mx-auto lg:flex lg:justify-center'>
+                <div
+                  className="home_friendly_page  flex float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:float-none lg:flex-wrap lg:ml-0"
                 key={item._id}
                 onClick={() => handleJump(item.link)}
               >
@@ -87,6 +88,7 @@ const Friendly = (props: any) => {
                   </div>
                 </div>
               </div>
+              </div>
             );
           })}
         </div>
@@ -95,15 +97,16 @@ const Friendly = (props: any) => {
           <div className='mx-5'>
             <div className='text-2xl flex'>
               <IconFont iconName='icon-jiankongbaojing' className='text-[28px]'></IconFont>
-              <span className='ml-2'>失联博主</span>
-              <span className='text-[13px] pt-1 text-[var(--article-content-default)]'>(网站正常后可联系博主恢复友链信息，长时间未更新将取消贵站链接。)</span>
+                <span className='ml-2 items-center lg:text-xl'>失联博主</span>
+                <span className='text-[13px] pt-1 text-[var(--article-content-default)] lg:hidden'>(网站正常后可联系博主恢复友链信息，长时间未更新将取消贵站链接。)</span>
             </div>
-            <p className="w-full border border-t-0 border-l-0 border-r-0 border-b-1 border-solid mb-2 lg:w-full"></p>
+              <p className="w-full border border-t-0 border-l-0 border-r-0 border-b-1 border-solid mb-2 lg:w-full lg:mb-0"></p>
           </div>
           {invalidLink.map((item) => {
             return (
-              <div
-                className="home_friendly_page  flex float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-4"
+              <div className='lg:w-full lg:mx-auto lg:flex lg:justify-center'>
+                <div
+                  className="home_friendly_page  flex float-left w-280 h-20 p-2 ml-6 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:float-none lg:flex-wrap lg:ml-0"
                 key={item._id}
                 onClick={() => handleJump(item.link)}
               >
@@ -117,6 +120,7 @@ const Friendly = (props: any) => {
                     <p className="line-clamp-2 overflow-hidden">{item.desc}</p>
                   </div>
                 </div>
+              </div>
               </div>
             );
           })}

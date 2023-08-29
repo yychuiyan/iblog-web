@@ -74,7 +74,7 @@ const TimeLine = (props: any) => {
       style={{ userSelect: "none" }}
     >
       <PageDesc title="时间线" />
-      <div className="flex justify-center w-1000 min-h-screen mx-auto my-8 pb-4  bg-base-100 rounded-2xl lg:w-full sm:w-full">
+      <div className="flex justify-center w-1000 min-h-screen mx-auto mt-10 pb-6 pt-2  bg-base-100 rounded-2xl lg:min-h-screen lg:pb-2 lg:w-full sm:w-full">
         {list.map((item: any) => {
           return (
             <div key={item} className="lg:w-full lg:px-5">
@@ -90,8 +90,8 @@ const TimeLine = (props: any) => {
                     className="flex items-center text-xl h-10 font-medium rounded-xl my-1 cursor-pointer hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500 lg:w-full sm:w-full"
                     onClick={() => handleClickTime(it._id)}
                   >
-                    <p className="text-sm pl-2 lg:w-12 lg:h-5 lg:pl-1 lg:pr-0">{it.createTime}</p>
-                    <p className="text-sm pl-2">{it.title}</p>
+                    <p className="text-base lg:text-sm pl-2 lg:w-12 lg:h-5 lg:pl-1 lg:pr-0">{it.createTime}</p>
+                    <p className="text-base lg:text-sm pl-2 line-clamp-2 overflow-hidden">{it.title}</p>
                   </div>
                 );
               })}

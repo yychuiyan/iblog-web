@@ -48,7 +48,7 @@ const About = (props: any) => {
     // @ts-ignore
     <div className="w-1200 mx-auto pb-5 lg:w-[calc(100%-38px)] lg:mx-auto " ref={myRef}>
       <PageDesc title="关于" />
-      <div className="w-1000 min-h-screen mx-auto my-10  bg-base-100 rounded-2xl lg:w-full">
+      <div className="w-1000 min-h-screen mx-auto mt-10 pb-0 pt-0  bg-base-100 rounded-2xl lg:min-h-screen lg:pb-6 lg:w-full sm:w-full">
         <div className="flex items-center w-full h-24 -mb-8 lg:-mb-8">
           <p
             className={`text-2xl mx-3 ${isChecked ? 'text-gray-500' : ' bg-base-100'}`}
