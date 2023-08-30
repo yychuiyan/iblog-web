@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 const NotFound = () => {
   // 跳转到首页
   const handleJump = () => {
@@ -5,6 +6,9 @@ const NotFound = () => {
   }
   return (
     <div style={{ userSelect: 'none' }}>
+      <Helmet>
+        <title>页面找不到 | 夜雨炊烟</title>
+      </Helmet>
       <div className='relative w-screen h-full'>
         <div className='fixed top-[30%] left-[40%] m-auto w-[500px] h-[300px]'>
           <p className='flex items-end'>
