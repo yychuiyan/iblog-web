@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 const Home = lazy(() => import('@/pages/home'));
 const Category = lazy(() => import('@/pages/category'));
@@ -18,20 +18,12 @@ import 'nprogress/nprogress.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as BlogActions from '@/redux/actionCreator';
-// import classnames from 'classnames';
-// import s from './index.module.css';
 import './index.css'
 const LayoutIndex = (props: any) => {
   NProgress.start();
   NProgress.done();
-  // const [clasess, setClasses] = useState<any>([])
-  // useEffect(() => {
-  //   const bgClasses = [s.bg0, s.bg1];
-  //   setClasses(bgClasses)
-  // }, [setClasses])
   return (
     <div className='parent'>
-      {/* <div className={classnames(s.img_style, clasess[props.mode])} > */}
       <div className={`${Boolean(props.mode) ? 'bg1' : 'bg0'}`}>
       <NavBar></NavBar>
         <main className="flex justify-between  w-full min-h-screen mx-auto lg:w-full" >

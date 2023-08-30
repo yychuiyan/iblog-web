@@ -5,6 +5,7 @@ import * as BlogActions from '@/redux/actionCreator';
 import MarkDown from '@/components/markdown/MarkDown';
 import '@/components/markdown/github-markdown-dark.css';
 import PageDesc from '@/components/sidemenu/PageDesc';
+import { Helmet } from 'react-helmet';
 interface DataType {
   checked: boolean;
   content: string;
@@ -47,6 +48,9 @@ const About = (props: any) => {
   return (
     // @ts-ignore
     <div className="w-1200 mx-auto pb-5 lg:w-[calc(100%-38px)] lg:mx-auto " ref={myRef}>
+      <Helmet>
+        <title>关于 | 夜雨炊烟</title>
+      </Helmet>
       <PageDesc title="关于" />
       <div className="w-1000 min-h-screen mx-auto mt-10 pb-0 pt-0  bg-base-100 rounded-2xl lg:min-h-screen lg:pb-6 lg:w-full sm:w-full">
         <div className="flex items-center w-full h-24 -mb-8 lg:-mb-8">

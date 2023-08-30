@@ -14,6 +14,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { FloatButton } from 'antd';
 import { VerticalAlignTopOutlined } from '@ant-design/icons';
 import IconFont from '@/components/iconfont';
+import { Helmet } from 'react-helmet';
 interface CoverData {
   thumbUrl: string | undefined;
 }
@@ -305,6 +306,9 @@ const Essay = (props: any) => {
   return (
     // @ts-ignore
     <div className="w-1200 mx-auto  lg:mx-5 lg:w-full sm:w-full" ref={myRef}>
+      <Helmet>
+        <title>随笔 | 夜雨炊烟</title>
+      </Helmet>
       <PageDesc title="随笔" />
       <div className="w-1000  mt-10 pt-5 pb-5 mx-auto bg-base-100 rounded-2xl  lg:w-full sm:w-full">
         {/* 无限滚动，实现上拉加载数据【注意：防止失效，一定要记得加高度。这儿的高度是我随便写的，实际高度是去css里改的】 */}

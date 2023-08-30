@@ -17,6 +17,7 @@ import { faClone } from '@fortawesome/free-solid-svg-icons';
 import jwtDecode from 'jwt-decode';
 import avatar from '../../assets/images/avatar.webp'
 import IconFont from '@/components/iconfont';
+import { Helmet } from 'react-helmet';
 interface DataType {
   _id: string;
   nickname: any;
@@ -321,6 +322,9 @@ const Message = (props: any) => {
   return (
     // @ts-ignore
     <div className="w-1200 mx-auto pb-5 lg:w-full lg:mx-5 sm:w-full" ref={myRef}>
+      <Helmet>
+        <title>留言板 | 夜雨炊烟</title>
+      </Helmet>
       <PageDesc title="留言板" />
       <div className="w-1000 mx-auto mt-10 lg:w-full sm:w-full">
         <Card className=" rounded-2xl bg-base-100">

@@ -6,6 +6,7 @@ import PageDesc from '@/components/sidemenu/PageDesc';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import IconFont from '@/components/iconfont';
+import { Helmet } from 'react-helmet';
 interface DataType {
   avatar: string;
   createTime: string;
@@ -65,6 +66,9 @@ const Reader = (props: any) => {
   return (
     // @ts-ignore
     <div className="w-1200  mx-auto lg:w-full lg:mx-5" ref={myRef} style={{ userSelect: "none" }}>
+      <Helmet>
+        <title>书友会 | 夜雨炊烟</title>
+      </Helmet>
       <PageDesc title="书友会" desc="以书为友，人生路漫漫，读书不能倦。" />
       <div className="flex flex-col w-1000 min-h-screen bg-base-100 mt-10 pb-6 pt-2 mx-auto  rounded-2xl lg:min-h-screen lg:pb-6 lg:w-full sm:w-full">
         <div className='mt-2 lg:hidden'>

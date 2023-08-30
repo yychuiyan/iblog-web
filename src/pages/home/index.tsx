@@ -15,6 +15,7 @@ import { ArticleList, DataType } from '@/types/comm'
 import Affiche from '@/components/sidemenu/Affiche';
 import { VerticalAlignTopOutlined } from '@ant-design/icons';
 import qs from 'qs';
+import { Helmet } from 'react-helmet';
 const Home = (props: any) => {
   // 文章列表
   const [list, setList] = useState<DataType[]>([]);
@@ -66,6 +67,9 @@ const Home = (props: any) => {
   return (
     // @ts-ignore
     <div className="w-full" ref={navRef}>
+      <Helmet>
+        <title>首页 | 夜雨炊烟</title>
+      </Helmet>
       <div
         className="flex justify-center items-center flex-col h-screen relative bottom-10 lg:h-36"
         style={{ userSelect: 'none' }}

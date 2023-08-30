@@ -7,7 +7,7 @@ import PageDesc from '@/components/sidemenu/PageDesc';
 import { ArticleList } from '@/types/comm'
 import { FloatButton } from 'antd';
 import { VerticalAlignTopOutlined } from '@ant-design/icons';
-import IconFont from '@/components/iconfont';
+import { Helmet } from 'react-helmet';
 const TimeLine = (props: any) => {
   // 文章列表
   const [list, setList] = useState<any>([]);
@@ -73,6 +73,9 @@ const TimeLine = (props: any) => {
       ref={myRef}
       style={{ userSelect: "none" }}
     >
+      <Helmet>
+        <title>时间线 | 夜雨炊烟</title>
+      </Helmet>
       <PageDesc title="时间线" />
       <div className="flex justify-center w-1000 min-h-screen mx-auto mt-10 pb-6 pt-2  bg-base-100 rounded-2xl lg:min-h-screen lg:pb-2 lg:w-full sm:w-full">
         {list.map((item: any) => {

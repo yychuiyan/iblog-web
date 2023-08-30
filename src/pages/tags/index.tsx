@@ -10,6 +10,7 @@ import User from '@/components/sidemenu/User';
 import PageDesc from '@/components/sidemenu/PageDesc';
 import { ArticleList, DataType } from '@/types/comm'
 import { VerticalAlignTopOutlined } from '@ant-design/icons';
+import { Helmet } from 'react-helmet';
 const Tags = (props: any) => {
   // 文章列表
   const [list, setList] = useState<DataType[]>([]);
@@ -48,6 +49,9 @@ const Tags = (props: any) => {
   return (
     // @ts-ignore
     <div className="w-1200 mx-auto lg:w-full" ref={myRef}>
+      <Helmet>
+        <title>标签 | 夜雨炊烟</title>
+      </Helmet>
       <div className="mb-10">
         <PageDesc title="标签" />
       </div>
