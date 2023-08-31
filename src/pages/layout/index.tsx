@@ -29,8 +29,8 @@ const LayoutIndex = (props: any) => {
         <main className="flex justify-between  w-full min-h-screen mx-auto lg:w-full" >
           <Suspense fallback={<></>}>
           <Switch>
-              <Route path="/" component={Home}></Route>
-              <Route path="/" render={() => <Redirect to="/home"></Redirect>} exact></Route>
+              <Route path="/" component={Home} exact></Route>
+              <Route path="/home" render={() => <Redirect to="/"></Redirect>} ></Route>
               <Route path="/article/detail/:id" component={ArticleDetail}></Route>
               <Route path="/category" component={Category}></Route>
               <Route path="/tags" component={Tags}></Route>

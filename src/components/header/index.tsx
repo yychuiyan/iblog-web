@@ -21,7 +21,7 @@ interface DataType {
 const NavBar = (props: any) => {
   const items = [
     {
-      path: '/home',
+      path: '/',
       title: '首页',
     },
     {
