@@ -194,7 +194,7 @@ const NavBar = (props: any) => {
     const grant_type = "authorization_code";
     const clientId = '102055926';
     const clientSecret = 'gIivvkTzKSM3Wmpe';
-    const redirectUri = `https://yychuiyan.com${props.location.pathname}`;
+    const redirectUri = `https://yychuiyan.com/home`;
     const encoded_redirect_uri = encodeURIComponent(redirectUri);
     const authorizationCode: string | any = new URLSearchParams(window.location.search).get('code');
 
