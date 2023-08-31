@@ -64,7 +64,7 @@ const TimeLine = (props: any) => {
   }, [props.BlogActions]);
   // 点击文章跳转到详情页面
   const handleClickTime = (id: string) => {
-    props.history.push(`/rblog/article/detail/${id}`);
+    props.history.push(`/article/detail/${id}`);
   };
   return (
     <div

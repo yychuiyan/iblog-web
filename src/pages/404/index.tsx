@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet';
 const NotFound = () => {
   // 跳转到首页
   const handleJump = () => {
-    window.location.href = 'https://yychuiyan.com/rblog/home'
+    window.location.href = 'https://yychuiyan.com/home'
   }
   return (
     <div style={{ userSelect: 'none' }}>

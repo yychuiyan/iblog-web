@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const QQLoginButton = () => {
   const clientId = '102055926';
-  const redirectUri = 'https://yychuiyan.com/rblog/home';
+  const redirectUri = 'https://yychuiyan.com/home';
   const encoded_redirect_uri = encodeURIComponent(redirectUri);
   const scope = 'all'
   const loginUrl = `https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${encoded_redirect_uri}&scope=${scope}&state=test`;

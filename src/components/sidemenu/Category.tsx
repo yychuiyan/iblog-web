@@ -37,7 +37,7 @@ const Category = (props: any) => {
   }, [props.data]);
 
   const handleCategory = (name: string) => {
-    props.history.push(`/rblog/category?c=${name}`);
+    props.history.push(`/category?c=${name}`);
   };
   return (
     <div className="h-auto mb-5 pb-2 bg-base-100 rounded-2xl mx-auto text-lg transition duration-500 ease-in-out  transform  hover:scale-x-[104%] hover:scale-y-[102%]" style={{ userSelect: "none" }}>

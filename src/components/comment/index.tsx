@@ -150,7 +150,7 @@ const ArticleComment = (props: any) => {
         // 邮件提醒
         let email = "haoju.zhang@outlook.com"
         let title = `您的文章【${articleTitle}】收到来自${values.nickname}<${values.email}>的评论`
-        let content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上的文章《${articleTitle}》收到新的评论</p><hr /><span style="color: cadetblue">${values.nickname}:</span><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/rblog/article/detail/${articleId}"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
+        let content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上的文章《${articleTitle}》收到新的评论</p><hr /><span style="color: cadetblue">${values.nickname}:</span><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/article/detail/${articleId}"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
         let newContent = content.split('\n').join('\n<br/>\n')
         props.BlogActions.asyncSendMailAction({
           email,
@@ -226,7 +226,7 @@ const ArticleComment = (props: any) => {
         let email = replyObj.email
         let title = `您在夜雨炊烟小站文章《${articleTitle}》的评论收到了回复`
         //@ts-ignore
-        let content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上的文章《${articleTitle}》的评论：</p><hr /><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${replyObj.currentReplayContent}</span></p>收到<span style="color: cadetblue;padding-right:2px;">${values.nickname}</span>的回复:<p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/rblog/article/detail/${articleId}"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
+        let content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上的文章《${articleTitle}》的评论：</p><hr /><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${replyObj.currentReplayContent}</span></p>收到<span style="color: cadetblue;padding-right:2px;">${values.nickname}</span>的回复:<p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/article/detail/${articleId}"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
         let newContent = content.split('\n').join('\n<br/>\n')
         props.BlogActions.asyncSendMailAction({
           email,

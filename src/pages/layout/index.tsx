@@ -29,17 +29,17 @@ const LayoutIndex = (props: any) => {
         <main className="flex justify-between  w-full min-h-screen mx-auto lg:w-full" >
           <Suspense fallback={<></>}>
           <Switch>
-            <Route path="/rblog/home" component={Home}></Route>
-            <Route path="/" render={() => <Redirect to="/rblog/home"></Redirect>} exact></Route>
-            <Route path="/rblog/article/detail/:id" component={ArticleDetail}></Route>
-            <Route path="/rblog/category" component={Category}></Route>
-            <Route path="/rblog/tags" component={Tags}></Route>
-            <Route path="/rblog/timeline" component={TimeLine}></Route>
-              <Route path="/rblog/reader" component={Reader}></Route>
-            <Route path="/rblog/essay" component={Essay}></Route>
-            <Route path="/rblog/message" component={Message}></Route>
-            <Route path="/rblog/friendly" component={Friendly}></Route>
-            <Route path="/rblog/about" component={About}></Route>
+              <Route path="/" component={Home} exact></Route>
+              {/* <Route path="/" render={() => <Redirect to="/home"></Redirect>} exact></Route> */}
+              <Route path="/article/detail/:id" component={ArticleDetail}></Route>
+              <Route path="/category" component={Category}></Route>
+              <Route path="/tags" component={Tags}></Route>
+              <Route path="/timeline" component={TimeLine}></Route>
+              <Route path="/reader" component={Reader}></Route>
+              <Route path="/essay" component={Essay}></Route>
+              <Route path="/message" component={Message}></Route>
+              <Route path="/friendly" component={Friendly}></Route>
+              <Route path="/about" component={About}></Route>
               <Route component={NotFound}></Route>
           </Switch>
         </Suspense>

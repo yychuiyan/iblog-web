@@ -232,13 +232,13 @@ const Content = (props: any) => {
     })
   }
   const handleTags = (name: string) => {
-    props.history.push(`/rblog/tags?t=${name}`);
+    props.history.push(`/tags?t=${name}`);
   };
   const handleCategory = (name: string) => {
-    props.history.push(`/rblog/category?c=${name}`);
+    props.history.push(`/category?c=${name}`);
   };
   const handleArticle = (id: string) => {
-    props.history.push(`/rblog/article/detail/${id}`);
+    props.history.push(`/article/detail/${id}`);
   };
   return (
     // @ts-ignore

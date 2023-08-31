@@ -45,7 +45,7 @@ const Tags = (props: any) => {
   }, [props.data]);
   const handleTags = (name: string, event: React.MouseEvent) => {
     event.preventDefault();
-    history.push(`/rblog/tags?t=${name}`);
+    history.push(`/tags?t=${name}`);
   };
   // 使用styled-components创建带有背景颜色的标签组件
   const RandomColorTag = styled.span`

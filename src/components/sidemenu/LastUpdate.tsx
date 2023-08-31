@@ -14,7 +14,7 @@ const LastUpdate = (props: any) => {
     setLastData(newLastUpdate);
   }, [props.data]);
   const handleLastUpdate = (id: string) => {
-    props.history.push(`/rblog/article/detail/${id}`);
+    props.history.push(`/article/detail/${id}`);
   };
   // 使用styled-components创建带有背景颜色的标签组件
   const RandomColorTag = styled.span`

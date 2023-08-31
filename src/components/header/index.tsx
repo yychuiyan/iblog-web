@@ -21,45 +21,45 @@ interface DataType {
 const NavBar = (props: any) => {
   const items = [
     {
-      path: '/rblog/home',
+      path: '/',
       title: '首页',
     },
     {
-      path: '/rblog/rindex',
+      path: '/rindex',
       title: '索引',
       children: [
         {
-          path: '/rblog/category',
+          path: '/category',
           title: '分类',
         },
         {
-          path: '/rblog/tags',
+          path: '/tags',
           title: '标签',
         },
         {
-          path: '/rblog/timeline',
+          path: '/timeline',
           title: '时间线',
         },
         {
-          path: '/rblog/reader',
+          path: '/reader',
           title: '书友会',
         },
       ],
     },
     {
-      path: '/rblog/essay',
+      path: '/essay',
       title: '随笔',
     },
     {
-      path: '/rblog/message',
+      path: '/message',
       title: '留言',
     },
     {
-      path: '/rblog/friendly',
+      path: '/friendly',
       title: '友链',
     },
     {
-      path: '/rblog/about',
+      path: '/about',
       title: '关于',
     }
   ];
@@ -194,11 +194,11 @@ const NavBar = (props: any) => {
     const grant_type = "authorization_code";
     const clientId = '102055926';
     const clientSecret = 'gIivvkTzKSM3Wmpe';
-    const redirectUri = 'https://yychuiyan.com/rblog/home';
+    const redirectUri = `https://yychuiyan.com${props.location.pathname}`;
     const encoded_redirect_uri = encodeURIComponent(redirectUri);
     const authorizationCode: string | any = new URLSearchParams(window.location.search).get('code');
 
-    // QQ是否则正常登录
+    // QQ是否正常登录
     if (authorizationCode !== null) {
       props.BlogActions.asyncQQLoginAction(
         grant_type,
@@ -210,7 +210,8 @@ const NavBar = (props: any) => {
         setLoginInfo(res)
         setAvatar(res.avatar)
         setLoginStatus(true)
-        window.location.href = `https://yychuiyan.com/rblog/home`
+        // window.location.href = `https://yychuiyan.com`
+        window.location.href = `https://yychuiyan.com${props.location.pathname}`
       })
     }
     // 获取登录态
@@ -350,13 +351,13 @@ const NavBar = (props: any) => {
 
   // 点击文章名称跳转到详情页面
   const handleSearchData = (id: string) => {
-    props.history.push(`/rblog/article/detail/${id}`);
+    props.history.push(`/article/detail/${id}`);
     // 模态框
     setIsModalOpen(!isModalOpen);
   };
   // 跳转到首页
   const handleHomeRouter = () => {
-    props.history.push('/rblog/home');
+    props.history.push('/');
   };
   // 背景图片显示
   const handleChangeImage = (i: number | string | any) => {
@@ -395,7 +396,8 @@ const NavBar = (props: any) => {
       } else {
         message.error('出现未知错误，请联系管理员解决！')
       }
-      window.location.reload();
+      // window.location.reload();
+      window.location.href = `https://yychuiyan.com${props.location.pathname}`
     });
     setIsLoginModalOpen(!isLoginModalOpen)
     form.resetFields();

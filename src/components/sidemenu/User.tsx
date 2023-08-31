@@ -157,15 +157,15 @@ const User = (props: any) => {
 
   // 跳转到文章页面
   const handleJumpArticles = () => {
-    history.replace(`/rblog/timeline`)
+    history.replace(`/timeline`)
   }
   // 分类
   const handleJumpCategories = () => {
-    history.replace(`/rblog/category`)
+    history.replace(`/category`)
   }
   // 详情
   const handleJumpTags = () => {
-    history.replace(`/rblog/tags`)
+    history.replace(`/tags`)
   }
   // 鼠标移动事件
   const handleMouseEnter = () => {

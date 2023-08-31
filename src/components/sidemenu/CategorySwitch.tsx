@@ -44,7 +44,7 @@ const CategorySwitch = (props: any) => {
 
   // 路由跳转
   const handleCategory = (name: string) => {
-    props.history.push(`/rblog/category?c=${name}`);
+    props.history.push(`/category?c=${name}`);
   };
   return (
     <div
