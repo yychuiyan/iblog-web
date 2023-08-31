@@ -21,7 +21,7 @@ interface DataType {
 const NavBar = (props: any) => {
   const items = [
     {
-      path: '/',
+      path: '/home',
       title: '首页',
     },
     {
@@ -207,11 +207,10 @@ const NavBar = (props: any) => {
         authorizationCode,
         encoded_redirect_uri,
       ).then((res: any) => {
-        console.log("res", res)
         setLoginInfo(res)
         setAvatar(res.avatar)
         setLoginStatus(true)
-        window.location.href = `https://yychuiyan.com`
+        window.location.href = `https://yychuiyan.com${props.location.pathname}`
       })
     }
     // 获取登录态
