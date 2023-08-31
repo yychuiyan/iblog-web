@@ -211,7 +211,7 @@ const NavBar = (props: any) => {
         setLoginInfo(res)
         setAvatar(res.avatar)
         setLoginStatus(true)
-        window.location.href = `https://yychuiyan.com/home`
+        window.location.href = `https://yychuiyan.com`
       })
     }
     // 获取登录态

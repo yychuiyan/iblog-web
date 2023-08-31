@@ -30,7 +30,7 @@ const LayoutIndex = (props: any) => {
           <Suspense fallback={<></>}>
           <Switch>
               <Route path="/" component={Home} exact></Route>
-              <Route path="/home" render={() => <Redirect to="/"></Redirect>} ></Route>
+              {/* <Route path="/home" render={() => <Redirect to="/"></Redirect>} ></Route> */}
               <Route path="/article/detail/:id" component={ArticleDetail}></Route>
               <Route path="/category" component={Category}></Route>
               <Route path="/tags" component={Tags}></Route>
