@@ -13,6 +13,7 @@ import jwtDecode from 'jwt-decode';
 import { Affix, FloatButton, message } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { VerticalAlignTopOutlined } from '@ant-design/icons';
+import { Helmet } from 'react-helmet';
 import {
   faClock,
   faComments,
@@ -187,6 +188,9 @@ const ArticleDetail = (props: any) => {
     //@ts-ignore
     <div className="flex flex-col items-center w-1200 mx-auto  mt-20  sm:w-full " style={{ scrollBehavior: 'smooth' }} ref={myRef}
     >
+      <Helmet>
+        <title>文章详情 | 夜雨炊烟</title>
+      </Helmet>
       <div className="w-full h-80 lg:h-60 lg:w-full">
         {list.map((item, index) => {
           return (
