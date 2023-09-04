@@ -316,6 +316,7 @@ const NavBar = (props: any) => {
                 : 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl hover:ring-1 ring-current '
                 }`}
               onClick={() => handleRouter(item.path)}
+              style={{ userSelect: "none" }}
             >
               {item.title}
             </li>

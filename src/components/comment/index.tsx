@@ -62,6 +62,8 @@ const ArticleComment = (props: any) => {
   const replyArea = useRef(null);
   // 表情显示隐藏
   const [open, setOpen] = useState(false)
+  // 回复表情显示隐藏
+  const [replyOpen, setReplyOpen] = useState(false)
   // 登录数据
   let [loginInfo, setLoginInfo] = useState<any>()
   dayjs.extend(relativeTime);
@@ -299,7 +301,7 @@ const ArticleComment = (props: any) => {
       content: emojiReply.concat(item)
     })
     setEmojiReply(emojiReply.concat(item))
-    setOpen(!open)
+    setReplyOpen(!replyOpen)
   }
   const onChangeReplyVal = (e: any) => {
     setEmojiReply(e.target.value)
@@ -381,14 +383,14 @@ const ArticleComment = (props: any) => {
             />
           </Form.Item>
           <Popover
-            overlayStyle={{ width: '260px' }}
+            overlayStyle={{ width: '280px' }}
             placement="top"
             open={open}
             onOpenChange={() => setOpen(!open)}
             content={emojiList.map((item) => {
               return (
                 <span
-                  className=' inline-block cursor-pointer px-2 text-[20px] hover:bg-blue-400 w-5 h-8 rounded-md'
+                  className='inline-block cursor-pointer px-2 text-[20px] hover:bg-blue-400 w-5 h-8 rounded-md'
                   key={item.id}
                   onClick={() => handleAddEmoji(item.emoji)}>
                   {item.emoji}
@@ -603,14 +605,14 @@ const ArticleComment = (props: any) => {
                                   />
                                 </Form.Item>
                                 <Popover
-                                  overlayStyle={{ width: '260px' }}
+                                  overlayStyle={{ width: '280px' }}
                                   placement="top"
-                                  open={open}
-                                  onOpenChange={() => setOpen(!open)}
+                                  open={replyOpen}
+                                  onOpenChange={() => setReplyOpen(!replyOpen)}
                                   content={emojiList.map((item) => {
                                     return (
                                       <span
-                                        className=' inline-block cursor-pointer px-2 text-[20px] hover:bg-blue-400 w-5 h-8 rounded-md'
+                                        className='inline-block cursor-pointer px-2 text-[20px] hover:bg-blue-400 w-5 h-8 rounded-md'
                                         key={item.id}
                                         onClick={() => handleReplyEmoji(item.emoji)}>
                                         {item.emoji}
