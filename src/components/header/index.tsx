@@ -55,7 +55,7 @@ const NavBar = (props: any) => {
       title: '留言',
     },
     {
-      path: '/friendly',
+      path: '/links',
       title: '友链',
     },
     {

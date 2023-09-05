@@ -38,7 +38,7 @@ const LayoutIndex = (props: any) => {
               <Route path="/reader" component={Reader}></Route>
               <Route path="/essay" component={Essay}></Route>
               <Route path="/message" component={Message}></Route>
-              <Route path="/friendly" component={Friendly}></Route>
+              <Route path="/links" component={Friendly}></Route>
               <Route path="/about" component={About}></Route>
               <Route component={NotFound}></Route>
           </Switch>
