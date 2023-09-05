@@ -131,4 +131,5 @@ export interface Api {
   getVisitNumber(): Promise<ApiResponse>;
   getApothegmList(): Promise<ApiResponse>;
   getReaderList(): Promise<ApiResponse>;
+  getNavigationList(): Promise<ApiResponse>;
 }

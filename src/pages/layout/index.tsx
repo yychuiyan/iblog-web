@@ -9,6 +9,9 @@ const Message = lazy(() => import('@/pages/message'));
 const Friendly = lazy(() => import('@/pages/friendly'));
 const Essay = lazy(() => import('@/pages/essay'));
 const Reader = lazy(() => import('@/pages/reader'));
+const FE_Project = lazy(() => import('@/pages/navigation/fe-project'));
+const FE_Tools = lazy(() => import('@/pages/navigation/fe-tools'));
+const FE_Website = lazy(() => import('@/pages/navigation/fe-website'));
 const ArticleDetail = lazy(() => import('@/components/content/ArticleDetail'));
 import NavBar from '@/components/header';
 import NotFound from '@/pages/404';
@@ -39,6 +42,9 @@ const LayoutIndex = (props: any) => {
               <Route path="/essay" component={Essay}></Route>
               <Route path="/message" component={Message}></Route>
               <Route path="/links" component={Friendly}></Route>
+              <Route path="/project" component={FE_Project}></Route>
+              <Route path="/tools" component={FE_Tools}></Route>
+              <Route path="/website" component={FE_Website}></Route>
               <Route path="/about" component={About}></Route>
               <Route component={NotFound}></Route>
           </Switch>

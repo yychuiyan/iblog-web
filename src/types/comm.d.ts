@@ -21,6 +21,7 @@ export interface Action {
   apothegm?: string[];
   weather?: string[];
   reader?: string[];
+  nav?: string[];
 }
 interface DataType {
   createYear: any;

@@ -149,5 +149,8 @@ const api: Api = {
   getVisitNumber() {
     return axios.get(`/iblog/websit/visit`);
   },
+  getNavigationList() {
+    return axios.get(`/iblog/navigation/list`);
+  },
 };
 export default api;

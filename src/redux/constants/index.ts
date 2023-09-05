@@ -57,3 +57,5 @@ export const WEBSIT_VISIT = 'WEBSIT_VISIT';
 export const WEBSIT_VISIT_NUMBER = 'WEBSIT_VISIT_NUMBER';
 // 阅读列表
 export const READER_LIST = 'READER_LIST';
+// 导航列表
+export const NAVIGATION_LIST = 'NAVIGATION_LIST';

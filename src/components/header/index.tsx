@@ -61,7 +61,25 @@ const NavBar = (props: any) => {
     {
       path: '/about',
       title: '关于',
-    }
+    },
+    {
+      path: '/frontend-nav',
+      title: '前端导航',
+      children: [
+        {
+          path: '/project',
+          title: '项目侧',
+        },
+        {
+          path: '/tools',
+          title: '工具侧',
+        },
+        {
+          path: '/website',
+          title: '常用网站',
+        },
+      ],
+    },
   ];
   // 移动端侧边栏显示
   const [navbar, setNavbar] = useState(false);

@@ -29,6 +29,7 @@ import {
   APOTHEGM_LIST,
   GET_WEATHER,
   READER_LIST,
+  NAVIGATION_LIST,
 } from '@/redux/constants';
 import {
   ArticleViews,
@@ -416,6 +417,17 @@ export const asyncReaderListAction = () => {
     dispatch({
       type: READER_LIST,
       reader: res,
+    });
+    return res;
+  };
+};
+// 导航列表
+export const asyncNavigationListAction = () => {
+  return async (dispatch: Dispatch) => {
+    const res = await api.getNavigationList();
+    dispatch({
+      type: NAVIGATION_LIST,
+      nav: res,
     });
     return res;
   };

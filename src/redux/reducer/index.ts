@@ -27,6 +27,7 @@ import { AfficheListReducer } from '@/redux/reducer/affiche/list';
 import { ApothegmListReducer } from '@/redux/reducer/apothegm/list';
 import { WebsitVisitReducer } from '@/redux/reducer/visit';
 import { WebsitVisitNumberReducer } from '@/redux/reducer/visit/list';
+import { NavigationListReducer } from '@/redux/reducer/navigation/list';
 const RootReducer = combineReducers({
   UserLoginReducer,
   UserRegisterReducer,
@@ -56,5 +57,6 @@ const RootReducer = combineReducers({
   WebsitVisitReducer,
   WebsitVisitNumberReducer,
   ApothegmListReducer,
+  NavigationListReducer,
 });
 export default RootReducer;
