@@ -70,7 +70,7 @@ const FE_Project = (props: any) => {
       </Helmet>
       <PageDesc title="作品" desc="" />
       <div className="flex flex-col w-1000 min-h-screen bg-base-100 mt-10 pb-6 pt-2 mx-auto  rounded-2xl lg:min-h-screen lg:pb-6 lg:w-full sm:w-full">
-        <div className='mt-2'>
+        <div className='mt-2 text-[#fff]'>
           {navigation.map((item) => {
             return (
               <div
