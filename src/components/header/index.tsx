@@ -318,16 +318,17 @@ const NavBar = (props: any) => {
   };
   // 遍历路由mobile
   const renderMobileMenu = (menuList: any) => {
-    menuList
+    let mobileMenuList = menuList.filter((item: any) => item.title !== '作品' && item.title !== '工具' && item.title !== '常用网站')
+    mobileMenuList
       .map((item: any) => {
         return item;
       })
       .flat();
-    return menuList.map((item: any) => {
+    return mobileMenuList.map((item: any) => {
       // 如果没有 正常渲染列表 添加点击事件进行路由跳转
       return (
         <div onClick={handleCancel} key={item.path} className="">
-          <ul className={`flex items-center font-medium text-xl list-none h-11 py-[3px]`}>
+          <ul className={`flex items-center font-medium text-xl list-none h-16`}>
             <li
               className={`px-5 cursor-pointer  ${selectKeys === item.path
                 ? 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl ring-1 ring-current'
