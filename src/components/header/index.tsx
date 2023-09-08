@@ -350,7 +350,6 @@ const NavBar = (props: any) => {
   };
   const showModal = () => {
     onChangeSearch()
-
     setIsModalOpen(!isModalOpen);
   };
   const onChangeSearch = () => {
@@ -554,7 +553,7 @@ const NavBar = (props: any) => {
   }
   return (
     <nav
-      className={` shadow-sm  w-full backdrop-blur-none bg-[var(--bgcolor-navbar-default)]  h-16 z-50 fixed top-0
+      className={`shadow-sm w-full backdrop-blur-none bg-[var(--bgcolor-navbar-default)]  h-16 z-[1000] fixed top-0
       ${
         isShow
           ? 'fixed -top-16 transform duration-300 ease-in'
@@ -664,7 +663,7 @@ const NavBar = (props: any) => {
                 </Popconfirm>
           }
         </div>
-
+        {/* 搜索 */}
         <div className='flex'>
           <div className='w-24  flex items-center justify-center lg:hidden'>
             <IconFont iconName='icon-sousuo' className='text-[20px]' onIconClick={showModal}></IconFont>
@@ -878,7 +877,7 @@ const NavBar = (props: any) => {
                       确认修改密码
                     </Button>
               }
-              <div className=' relative top-3' style={{ userSelect: 'none' }}>
+              <div className=' relative top-3 text-[var(--color-font-color)]' style={{ userSelect: 'none' }}>
                 <div className='absolute right-0'>
                   {
                     objLogin[isLogin] === '登录' ?
@@ -890,7 +889,7 @@ const NavBar = (props: any) => {
                         <span className='cursor-pointer ml-1 text-blue-500' onClick={handleBakLogin}>返回登录页面</span> : <span className='cursor-pointer ml-1 text-blue-500' onClick={handleBakLogin}>返回登录页面</span>
                   }
                 </div>
-                <div className='flex'>推荐登录：
+                <div className='flex text-[var(--color-font-color)]'>推荐登录：
                   <QQLoginButton />
                 </div>
               </div>
