@@ -25,6 +25,8 @@ const Home = (props: any) => {
   const myRef = React.useRef();
   const navRef = React.useRef();
   const { c } = qs.parse(props.location.search.slice(1));
+  console.log('props.location.search', props.location.search);
+
   const { t } = qs.parse(props.location.search.slice(1));
   // 获取诗词
   useEffect(() => {
@@ -32,13 +34,14 @@ const Home = (props: any) => {
       setVerse(res.content);
     });
   }, [props.BlogActions]);
-// 打字机效果
+  // 打字机效果
   const name = useTypewriter(verse);
   // 获取文章列表数据
   useEffect(() => {
     props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
       // 获取文章
       let { data } = res.data as unknown as ArticleList;
+      console.log('文章列表：', data);
       setList(data);
     });
   }, [props.BlogActions]);
@@ -70,17 +73,20 @@ const Home = (props: any) => {
       <Helmet>
         <title>首页 | 夜雨炊烟</title>
       </Helmet>
+
       <div
-        className="flex justify-center items-center flex-col h-screen relative bottom-10 lg:h-36"
+        className="flex justify-center items-center flex-col h-52 relative bottom-10 lg:h-36"
         style={{ userSelect: 'none' }}
       >
-        <p className="h-12 text-5xl lg:hidden">夜雨炊烟</p>
+        {/* <p className="h-12 text-5xl lg:hidden">夜雨炊烟</p> */}
         {/* 古诗词 */}
-        <p className="h-12  mt-3 text-3xl lg:mt-48 lg:text-lg lg:hidden">{name}</p>
+        <p className="h-12  mt-48 text-3xl lg:mt-48 lg:text-lg lg:hidden">{name}</p>
 
-        <div className='hidden lg:block lg:mt-48 lg:w-full'><Affiche /></div>
-        {/* 动画图标显示 */}
-        <div className="flex justify-center items-center w-full h-20 absolute bottom-0 lg:hidden">
+        <div className="hidden lg:block lg:mt-48 lg:w-full">
+          <Affiche />
+        </div>
+        {/* 下拉图标 */}
+        {/* <div className="flex justify-center items-center w-full h-20 absolute bottom-0 lg:hidden">
           <div className="animate-bounce">
             <div
               className=" flex items-center justify-center h-14 w-14  rounded-full border-10 shadow-2xl cursor-pointer"
@@ -106,15 +112,12 @@ const Home = (props: any) => {
               </svg>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       {/* @ts-ignore */}
       <div className="flex justify-between w-1200 mx-auto mt-10 lg:w-full sm:w-full" ref={myRef}>
         <article className="w-[calc(100%-320px)] lg:w-full sm:w-full">
-          {
-            Boolean(c) === false || Boolean(t) === false ? <Content /> : <ContentCT />
-          }
-
+          {Boolean(c) === false || Boolean(t) === false ? <Content /> : <ContentCT />}
         </article>
         <aside className="w-300 lg:hidden">
           <User data={list} />
