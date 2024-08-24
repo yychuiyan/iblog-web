@@ -399,6 +399,8 @@ const ArticleDetail = () => {
                       source={articleContent}
                       headingTopOffset={80}
                       ordered={true} //是否显示标题题号1,2等
+                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                      // @ts-ignore
                       ref={markNavRef}
                       getHash={(node) => {
                         // 隐藏锚点后缀，只返回标题的 ID 部分

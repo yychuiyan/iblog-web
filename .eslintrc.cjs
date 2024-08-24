@@ -33,5 +33,6 @@ module.exports = {
     'no-mixed-spaces-and-tabs': 'off',
     '@typescript-eslint/no-explicit-any': 'off', // any校验
     'react-hooks/exhaustive-deps': 'off', // 取消依赖项校验
+    'no-warning-comments': 'off',
   },
 }

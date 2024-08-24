@@ -15,3 +15,15 @@ export interface ModeState {
   mode?: number
   type?: string
 }
+export interface CategoryData {
+  views: any
+  id: Key | null | undefined
+  tags: any
+  history: any
+  data: any
+  title: ReactNode
+  count: number
+  name: string
+  categories: string
+  _id: string
+}

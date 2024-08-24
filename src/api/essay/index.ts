@@ -2,7 +2,7 @@ import useSWR, { mutate } from 'swr'
 import { request } from '@/utils/request'
 import { EssayLikeType, EssayTypeResponse } from './type'
 import useSWRInfinite from 'swr/infinite'
-import { EssayHandleLike } from '@/types/api'
+
 // 获取随笔列表
 const fetcher = async (url: string): Promise<EssayTypeResponse> => {
   try {
@@ -24,7 +24,7 @@ const fetcherEssay = async (url: string) => {
   }
 }
 // 点赞
-const fetchHandleLike = async ([url, params]: [string, EssayHandleLike]) => {
+const fetchHandleLike = async ([url, params]: [string, EssayLikeType]) => {
   try {
     const response = await request.post(url, params)
 
