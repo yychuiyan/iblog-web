@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import osun from '../../assets/images/avatar02.webp'
+import avatar02 from '../../assets/images/avatar02.webp'
 import avatar from '../../assets/images/avatar.webp'
 import { useArticleAllList } from '@/api/articles'
 import { ArticleType } from '@/api/articles/type'
@@ -122,7 +122,7 @@ const User = () => {
       <div className="flex flex-col items-center justify-center">
         {
           <img
-            src={`${avatarShow ? osun : avatar}`}
+            src={`${avatarShow ? avatar02 : avatar}`}
             alt=""
             className={`image-container w-24 h-24 mt-3 rounded-full ${avatarShow ? 'rotate' : ''}`}
             onMouseEnter={handleMouseEnter}
