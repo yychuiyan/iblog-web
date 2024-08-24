@@ -3,8 +3,8 @@ import avatar02 from '../../assets/images/avatar02.webp'
 import avatar from '../../assets/images/avatar.webp'
 import { useArticleAllList } from '@/api/articles'
 import { ArticleType } from '@/api/articles/type'
-import { useApothegmList } from '@/api/apothegm'
-import { Typewriter } from 'react-simple-typewriter'
+// import { useApothegmList } from '@/api/apothegm'
+// import { Typewriter } from 'react-simple-typewriter'
 import { useState } from 'react'
 
 // 分类数量
@@ -85,14 +85,14 @@ const User = () => {
   // 标签数量
   const tagsNumber = tagsCountFunction(archiceAllSource)
   // 获取名言警句
-  const { apothegmList, isApothegmListFetched } = useApothegmList()
-  const apothegmSource =
-    isApothegmListFetched && apothegmList && apothegmList.data ? apothegmList.data.data : ''
-  const filterApothegmData =
-    apothegmSource &&
-    apothegmSource.filter((item) => item.checked === true).sort(() => Math.random() - 0.5)
+  // const { apothegmList, isApothegmListFetched } = useApothegmList()
+  // const apothegmSource =
+  //   isApothegmListFetched && apothegmList && apothegmList.data ? apothegmList.data.data : ''
+  // const filterApothegmData =
+  //   apothegmSource &&
+  //   apothegmSource.filter((item) => item.checked === true).sort(() => Math.random() - 0.5)
 
-  const apothegmContent = filterApothegmData && filterApothegmData.map((item) => item.content)
+  // const apothegmContent = filterApothegmData && filterApothegmData.map((item) => item.content)
 
   // 跳转到文章页面
   const handleJumpArticles = () => {
@@ -131,7 +131,7 @@ const User = () => {
         }
         <p className="flex items-center justify-center w-64 h-5   pl-2 mt-3 overflow-clip">
           <span className="">
-            <Typewriter
+            {/* <Typewriter
               cursor
               cursorBlinking
               delaySpeed={5000}
@@ -139,7 +139,7 @@ const User = () => {
               loop={0}
               typeSpeed={260}
               words={apothegmContent || []}
-            />
+            /> */}
           </span>
         </p>
       </div>
