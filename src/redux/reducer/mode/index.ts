@@ -1,15 +1,17 @@
-import { SET_MODE } from '@/redux/constants';
-import { Action } from '@/types/comm';
-const userState = {
-  mode: 0,
-};
-export const ModeReducer = (state = userState, action: Action) => {
+import { SET_MODE } from '@/redux/constants'
+import { ModeState } from '@/types/comm'
+
+const initState = {
+  mode: 0
+}
+export const ModeReducer = (state = initState, action: ModeState) => {
   switch (action.type) {
     case SET_MODE:
       return {
-        mode: action.mode,
-      };
+        ...state,
+        mode: action.payload
+      }
     default:
-      return state;
+      return state
   }
-};
+}

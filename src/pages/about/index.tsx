@@ -1,53 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Dispatch, bindActionCreators } from 'redux';
-import * as BlogActions from '@/redux/actionCreator';
-import MarkDown from '@/components/markdown/MarkDown';
-import '@/components/markdown/github-markdown-dark.css';
-import PageDesc from '@/components/sidemenu/PageDesc';
-import { Helmet } from 'react-helmet';
-interface DataType {
-  checked: boolean;
-  content: string;
-  createTime: string;
-  updateTime: string;
-  _id: string;
-}
-interface AboutData {
-  data: DataType[]
-}
-const About = (props: any) => {
+import React, { useEffect, useState } from 'react'
+
+import MarkDown from '@/components/markdown/MarkDown'
+import '@/components/markdown/github-markdown-dark.css'
+import PageDesc from '@/components/sidemenu/PageDesc'
+import { Helmet } from 'react-helmet'
+import { useAboutList } from '@/api/about'
+const About = () => {
   // 选中状态
-  const [isChecked, setIsChecked] = useState(false);
-  // 关于信息
-  const [list, setList] = useState<DataType[]>([]);
+  const [isChecked, setIsChecked] = useState(false)
   // 滚动位置
-  const myRef = React.useRef();
+  const myRef = React.useRef<HTMLDivElement>()
   useEffect(() => {
     if (myRef.current) {
-      // window.scrollTo(0, myRef.current.offsetTop || 0);
       window.scroll({
-        //@ts-ignore
         top: myRef.current.offsetTop - 80 || 0,
         left: 0,
-        behavior: 'smooth',
-      });
+        behavior: 'smooth'
+      })
     }
-  }, []);
+  }, [])
   // 获取关于列表数据
-  useEffect(() => {
-    props.BlogActions.asyncAboutListAction(isChecked).then((res: AboutData) => {
-      // 获取关于
-      let { data } = res.data as unknown as AboutData;
-      setList(data);
-    });
-  }, [props.BlogActions, isChecked]);
+  const { aboutList, aboutListFetched } = useAboutList(isChecked)
+  const aboutListSource = aboutListFetched && aboutList && aboutList.data ? aboutList.data.data : ''
+
   const handleClickChecked = () => {
-    setIsChecked(!isChecked);
-  };
+    setIsChecked(!isChecked)
+  }
   return (
-    // @ts-ignore
-    <div className="w-1200 mx-auto pb-5 lg:w-[calc(100%-38px)] lg:mx-auto " ref={myRef}>
+    <div className="w-1200 mx-auto pb-5 lg:w-[calc(100%-38px)] lg:mx-auto" ref={myRef}>
       <Helmet>
         <title>关于 | 夜雨炊烟</title>
       </Helmet>
@@ -65,8 +45,9 @@ const About = (props: any) => {
             onClick={handleClickChecked}
           >
             <p
-              className={`rounded-3xl h-10 w-10 absolute left-5  ${isChecked ? 'translate-x-1/2 transition-all ' : '-translate-x-1/2 transition-all'
-                }`}
+              className={`rounded-3xl h-10 w-10 absolute left-5  ${
+                isChecked ? 'translate-x-1/2 transition-all ' : '-translate-x-1/2 transition-all'
+              }`}
               style={{ backgroundColor: 'var(--color-icon-default)' }}
             ></p>
           </div>
@@ -80,37 +61,34 @@ const About = (props: any) => {
 
         {/* 具体内容-关于本站 */}
         {isChecked
-          ? list.map((item) => {
-            return (
-              <div className={`block ${isChecked ? 'block' : 'hidden'}`} key={item._id}>
-                <div className="rounded-lg">
-                  <div className="markdown-body content">
-                    <MarkDown content={item.content} />
-                    {/* <Comment title={list.map((item) => item.title)} /> */}
+          ? aboutListSource &&
+            aboutListSource.map((item) => {
+              return (
+                <div className={`block ${isChecked ? 'block' : 'hidden'}`} key={item._id}>
+                  <div className="rounded-lg">
+                    <div className="markdown-body content">
+                      <MarkDown content={item.content} />
+                      {/* <Comment title={list.map((item) => item.title)} /> */}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })
-          : list.map((item) => {
-            return (
-              <div className={`block ${isChecked ? 'hidden' : 'block'}`} key={item._id}>
-                <div>
-                  <div className="markdown-body content">
-                    <MarkDown content={item.content} />
+              )
+            })
+          : aboutListSource &&
+            aboutListSource.map((item) => {
+              return (
+                <div className={`block ${isChecked ? 'hidden' : 'block'}`} key={item._id}>
+                  <div>
+                    <div className="markdown-body content">
+                      <MarkDown content={item.content} />
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              )
+            })}
       </div>
     </div>
-  );
-};
+  )
+}
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    BlogActions: bindActionCreators(BlogActions, dispatch),
-  };
-};
-export default connect(null, mapDispatchToProps)(About);
+export default About

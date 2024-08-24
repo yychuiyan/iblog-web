@@ -1,44 +1,37 @@
-import { CategoryData } from '@/types/comm';
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Dispatch, bindActionCreators } from 'redux';
-import * as BlogActions from '@/redux/actionCreator';
-import IconFont from '../iconfont';
-const WebSite = (props: any) => {
-  // 访问量
-  const [viewCount, setViewCount] = useState();
+import { useEffect, useState } from 'react'
+import IconFont from '../iconfont'
+import { useWebSiteView } from '@/api/webSite'
+import { useArticleAllList } from '@/api/articles'
+const WebSite = () => {
   // 运行天数
-  const [days, setDays] = useState(0);
+  const [days, setDays] = useState(0)
   // 网站访问量
-  const [visitNumber, setVisitNumber] = useState()
-  // 网站访问量
+  const { webSiteView, isWebSiteViewFetched } = useWebSiteView()
+  const webSiteViewSource =
+    isWebSiteViewFetched && webSiteView && webSiteView.data ? webSiteView.data.data : ''
+  const visitNumber = webSiteViewSource && webSiteViewSource[0].visitNumber
+  // 获取全部文章
+  const { articleAllList, isArticleAllListFetched } = useArticleAllList(1, 1)
+  const articleAllSource =
+    isArticleAllListFetched && articleAllList && articleAllList.data ? articleAllList.data.data : ''
+  const viewTemp = articleAllSource && articleAllSource.map((item) => item.views)
+  const init = 0
+  const viewCount =
+    viewTemp &&
+    viewTemp.reduce((prev, curr) => {
+      return prev + curr
+    }, init)
   useEffect(() => {
-    props.BlogActions.asyncWebsitVisitNumberAction().then((res: any) => {
-      let { data } = res.data
-      setVisitNumber(data[0].visitNumber)
-    })
-  }, [props.BlogActions])
-  useEffect(() => {
-    let articles = props.data;
-    let viewTemp = articles.map((item: CategoryData) => item.views);
-
-    let init = 0;
-    let viewCount = viewTemp.reduce((prev: any, curr: any) => {
-      return prev + curr;
-    }, init);
-    setViewCount(viewCount);
-  }, [props.data]);
-  useEffect(() => {
-    countDown('2023/03/22 00:00:00');
-  }, []);
-  function countDown(start: any) {
+    countDown('2023/03/22 00:00:00')
+  }, [])
+  function countDown(start) {
     // 获取当前时间
-    let endDate = new Date().getTime();
-    let starDate = new Date(start).valueOf();
-    let intervalTime = endDate - starDate;
+    const endDate = new Date().getTime()
+    const starDate = new Date(start).valueOf()
+    const intervalTime = endDate - starDate
     // 计算天
-    let days = Math.floor(intervalTime / 24 / 60 / 60 / 1000);
-    setDays(days);
+    const days = Math.floor(intervalTime / 24 / 60 / 60 / 1000)
+    setDays(days)
   }
 
   return (
@@ -48,14 +41,16 @@ const WebSite = (props: any) => {
     >
       <div className="flex justify-between">
         <p className="flex">
-          <IconFont iconName='icon-fangwenliang' className=' text-[28px] pr-2'></IconFont>
+          <IconFont iconName="icon-fangwenliang" className=" text-[28px] pr-2"></IconFont>
           <span>网站访问量</span>
         </p>
-        <p><span>{visitNumber}</span></p>
+        <p>
+          <span>{visitNumber}</span>
+        </p>
       </div>
       <div className="flex justify-between">
         <p className="flex">
-          <IconFont iconName='icon-wiappfangwenliang' className=' text-[28px] pr-2'></IconFont>
+          <IconFont iconName="icon-wiappfangwenliang" className=" text-[28px] pr-2"></IconFont>
           <span>文章访问量</span>
         </p>
         <p>
@@ -64,7 +59,7 @@ const WebSite = (props: any) => {
       </div>
       <div className="flex justify-between">
         <p className="flex">
-          <IconFont iconName='icon-wangzhan' className='text-[28px] pr-2'></IconFont>
+          <IconFont iconName="icon-wangzhan" className="text-[28px] pr-2"></IconFont>
           <span>本网站已运行</span>
         </p>
         <p>
@@ -72,12 +67,7 @@ const WebSite = (props: any) => {
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    BlogActions: bindActionCreators(BlogActions, dispatch),
-  };
-};
-export default connect(null, mapDispatchToProps)(WebSite);
+export default WebSite

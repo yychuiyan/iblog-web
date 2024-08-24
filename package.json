@@ -4,9 +4,21 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "dev": "vite --mode development",
+    "build:env": "vite build --mode development",
+    "start": "vite --mode production",
+    "build": "tsc && vite build  --mode production",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "prepare": "husky && husky install",
+    "commitlint": "commitlint --config commitlint.config.js -e -V"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": "npm run lint",
+    "**/*.{js,jsx,tsx,ts,less,md,json}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   },
   "dependencies": {
     "@ant-design/compatible": "^5.1.1",
@@ -42,10 +54,11 @@
     "react-lines-ellipsis": "^0.15.3",
     "react-markdown": "^8.0.7",
     "react-redux": "^8.0.5",
-    "react-router-dom": "5",
+    "react-router-dom": "^6.26.1",
     "react-scripts": "^5.0.1",
     "react-scroll": "^1.8.9",
     "react-scrollspy": "^3.4.3",
+    "react-simple-typewriter": "^5.0.1",
     "react-syntax-highlighter": "^15.5.0",
     "react-toggle-dark-mode": "^1.1.1",
     "react-typewriter-hook": "^1.0.1",
@@ -58,9 +71,12 @@
     "remark-toc": "^8.0.1",
     "remarkable": "^2.0.1",
     "styled-components": "^5.3.9",
+    "swr": "^2.2.5",
     "theme-change": "^2.5.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/lodash": "^4.14.191",
     "@types/markdown-navbar": "^1.4.0",
@@ -77,7 +93,14 @@
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.13",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react-refresh": "^0.4.9",
+    "husky": "^9.1.4",
+    "install": "^0.13.0",
+    "lint-staged": "^15.2.9",
     "postcss": "^8.4.21",
+    "prettier": "3.3.3",
     "tailwindcss": "^3.2.6",
     "typescript": "^4.9.3",
     "vite": "^4.1.0"

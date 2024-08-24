@@ -1,53 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import Content from '@/components/content';
-import CategorySwitch from '@/components/sidemenu/CategorySwitch';
-import { connect } from 'react-redux';
-import { Dispatch, bindActionCreators } from 'redux';
-import * as BlogActions from '@/redux/actionCreator';
-import { withRouter } from 'react-router-dom';
-import { Affix, FloatButton } from 'antd';
-import User from '@/components/sidemenu/User';
-import PageDesc from '@/components/sidemenu/PageDesc';
-import { ArticleList, DataType } from '@/types/comm'
-import { VerticalAlignTopOutlined } from '@ant-design/icons';
-import { Helmet } from 'react-helmet';
-const Category = (props: any) => {
-  // 文章列表
-  const [list, setList] = useState<DataType[]>([]);
-  // 页面可视化宽度
-  const [clientWidth, setClientWidth] = useState(970);
+import React, { useEffect } from 'react'
+import Content from '@/components/content'
+import CategorySwitch from '@/components/sidemenu/CategorySwitch'
+import { Affix, FloatButton } from 'antd'
+import User from '@/components/sidemenu/User'
+import PageDesc from '@/components/sidemenu/PageDesc'
+import { VerticalAlignTopOutlined } from '@ant-design/icons'
+import { Helmet } from 'react-helmet'
+const Category = () => {
   // 滚动位置
-  const myRef = React.useRef();
+  const myRef = React.useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     if (myRef.current) {
-      // window.scrollTo(0, myRef.current.offsetTop || 0);
       window.scroll({
-        //@ts-ignore
         top: myRef.current.offsetTop - 80 || 0,
         left: 0,
-        behavior: 'smooth',
-      });
+        behavior: 'smooth'
+      })
     }
-  }, []);
-  // 获取文章列表数据
-  useEffect(() => {
-    props.BlogActions.asyncArticleAllListAction(1, 1).then((res: ArticleList) => {
-      // 获取文章
-      let { data } = res.data as unknown as ArticleList;
-      setList(data);
-    });
-  }, [props.BlogActions]);
-  // 页面可视化宽度
-  useEffect(() => {
-    window.addEventListener('resize', setPageHeight);
-  }, [window.addEventListener]);
-
-  // 页面可视化宽度
-  let setPageHeight = () => {
-    setClientWidth(document.body.clientWidth);
-  };
+  }, [])
   return (
-    // @ts-ignore
     <div className="w-1200 mx-auto lg:w-full" ref={myRef}>
       <Helmet>
         <title>分类 | 夜雨炊烟</title>
@@ -60,25 +32,20 @@ const Category = (props: any) => {
           <Content />
         </article>
         <aside className="w-300 hidden lg:w-full lg:block lg:order-1 sm:w-full">
-          <User data={list} />
-          <CategorySwitch data={list} />
+          <User />
+          <CategorySwitch />
           <FloatButton.BackTop shape="square" icon={<VerticalAlignTopOutlined />} />
         </aside>
         <aside className="w-300 lg:w-full lg:hidden sm:w-full">
-          <User data={list} />
+          <User />
           <Affix offsetTop={70}>
-            <CategorySwitch data={list} />
+            <CategorySwitch />
           </Affix>
           <FloatButton.BackTop shape="square" icon={<VerticalAlignTopOutlined />} />
         </aside>
       </div>
     </div>
-  );
-};
+  )
+}
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    BlogActions: bindActionCreators(BlogActions, dispatch),
-  };
-};
-export default connect(null, mapDispatchToProps)(withRouter(Category));
+export default Category

@@ -1,57 +1,17 @@
-export interface Action {
-  type?: string;
-  articles?: string;
-  comments?: string;
-  message?: string;
-  messages?: string;
-  views?: number;
-  about?: string;
-  essay?: string;
-  friendly?: string;
-  mail?: string;
-  verse?: string;
-  mode?: number;
-  isLoading?: boolean;
-  userToken?: string;
-  userinfo?: string;
-  like?: number;
-  user?: object;
-  affiche?: string[];
-  visit?: number;
-  apothegm?: string[];
-  weather?: string[];
-  reader?: string[];
-  nav?: string[];
+export interface TokenType {
+  avatar?: string
+  _id?: string
+  userId?: string
+  userName?: string
+  username?: string
+  userAvatar?: string
 }
-interface DataType {
-  createYear: any;
-  comment: string;
-  createTime: number;
-  isTop: number;
-  introduction: string;
-  title: string;
-  cover: string;
-  _id: string;
-  page: number;
-  pageSize: number;
-  status: number;
-  publishStatus: number;
-  categories: string;
-  tags: string[];
+export interface LoginInfoType {
+  avatar?: string
 }
-export interface ArticleList {
-  isTop: number;
-  data: DataType[];
-}
-export interface CategoryData {
-  views: any;
-  id: Key | null | undefined;
-  tags: any;
-  history: any;
-  data: any;
-  title: ReactNode;
-  count: number;
-  name: string;
-  categories: string;
-  _id: string;
+export interface ModeState {
+  ModeReducer: any
+  payload?: number
+  mode?: number
+  type?: string
 }

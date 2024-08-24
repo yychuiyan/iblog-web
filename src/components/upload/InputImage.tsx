@@ -1,39 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, Modal } from 'antd';
+import { useEffect, useState } from 'react'
+import { Button, Form, Input, Modal } from 'antd'
 
 const InputImage = (props: any) => {
   // form
-  const [form] = Form.useForm();
+  const [form] = Form.useForm()
   // 窗口显示隐藏
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false)
   useEffect(() => {
     if (props.fileList.length > 0) {
       form.setFieldsValue({
-        url: props.fileList[0].thumbUrl ? props.fileList[0].thumbUrl : '',
-      });
+        url: props.fileList[0].thumbUrl ? props.fileList[0].thumbUrl : ''
+      })
     }
-  }, [form, props.fileList, props.imgUrl]);
+  }, [form, props.fileList, props.imgUrl])
   // 点击确定
   const onOk = () => {
-    let val = form.getFieldsValue();
-    props.onChangeVal(val.url);
-    setVisible(false);
-  };
+    const val = form.getFieldsValue()
+    props.onChangeVal(val.url)
+    setVisible(false)
+  }
   const onCancel = () => {
-    setVisible(false);
-  };
+    setVisible(false)
+  }
   const onVisible = () => {
-    setVisible(true);
+    setVisible(true)
     if (props.imgUrl.url === '') {
-      form.resetFields();
+      form.resetFields()
     }
     // 重新赋值
     if (props.fileList.length > 0) {
       form.setFieldsValue({
-        url: props.fileList[0].thumbUrl ? props.fileList[0].thumbUrl : '',
-      });
+        url: props.fileList[0].thumbUrl ? props.fileList[0].thumbUrl : ''
+      })
     }
-  };
+  }
   return (
     <div>
       <Button className="btn-input" onClick={onVisible} type="primary">
@@ -59,7 +59,7 @@ const InputImage = (props: any) => {
         </Modal>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default InputImage;
+export default InputImage

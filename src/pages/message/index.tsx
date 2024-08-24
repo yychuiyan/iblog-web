@@ -1,334 +1,308 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Card, Form, Input, Button, message, List, Avatar, Row, Col, Modal, Tooltip, Popover } from 'antd';
-import { Comment } from '@ant-design/compatible';
-import { connect } from 'react-redux';
-import { Dispatch, bindActionCreators } from 'redux';
-import * as BlogActions from '@/redux/actionCreator';
-import MyPagination from '@/components/pagination';
-import { CloudUploadOutlined, CommentOutlined, MessageOutlined } from '@ant-design/icons';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import { withRouter } from 'react-router-dom';
-import PageDesc from '@/components/sidemenu/PageDesc';
+import React, { useEffect, useRef, useState } from 'react'
+import { Card, Form, Input, Button, message, List, Avatar, Row, Col, Tooltip, Popover } from 'antd'
+import { Comment } from '@ant-design/compatible'
+import MyPagination from '@/components/pagination'
+import { CloudUploadOutlined, CommentOutlined, MessageOutlined } from '@ant-design/icons'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import PageDesc from '@/components/sidemenu/PageDesc'
 import { emojiList } from '@/utils/emoji'
-import { SoundOutlined } from '@ant-design/icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClone } from '@fortawesome/free-solid-svg-icons';
-import jwtDecode from 'jwt-decode';
+import { SoundOutlined } from '@ant-design/icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClone } from '@fortawesome/free-solid-svg-icons'
+import jwtDecode from 'jwt-decode'
 import avatar from '../../assets/images/avatar.webp'
-import IconFont from '@/components/iconfont';
-import { Helmet } from 'react-helmet';
-interface DataType {
-  _id: string;
-  nickname: any;
-  content: any;
-  children: any;
-  messageTime: any;
-  pid: string;
-  targetReplayId: string;
-  targetReplayContent: string;
-  currentReplayContent: string;
-  auditTime: string;
-  auditStatus: string;
-  avatar: string;
-  email: string;
-  nickName: string;
-}
-interface MessageData {
-  data: DataType[];
-  totalCount: number;
-  page: number;
-  pageSize: number;
-}
-const Message = (props: any) => {
-  // 留言列表数据
-  const [messageList, setMessageList] = useState<DataType[]>([]);
+import IconFont from '@/components/iconfont'
+import { Helmet } from 'react-helmet'
+import { useAddMessageBorad, useMessageBoradList } from '@/api/message'
+import { useSendEmail } from '@/api/sendEmail'
+import { MessageBoradType, MessageBoradTypeResponse } from '@/api/message/type'
+import { LoginInfoType, TokenType } from '@/types/comm'
 
+const Message = () => {
+  // 留言列表数据
+  const [messageList, setMessageList] = useState<MessageBoradType[]>([])
+  // 留言内容
+  const [messageContent, setMessageContent] = useState<MessageBoradType>(null)
   // 回复的文本对象信息
-  const [replyObj, setReplyObj] = useState({ _id: '', pid: '-1' });
-  // 分页总数
-  const [total, setTotal] = useState(0);
+  const [replyObj, setReplyObj] = useState<MessageBoradType>({ _id: '', pid: '-1' })
   // 当前第几页
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1)
   // 每页显示条数
-  const [pageSize, setPageSize] = useState(10);
+  const [pageCount, setPageCount] = useState(10)
   // 是留言还是回复（1是留言，2是回复）
-  const [type, setType] = useState(1);
+  const [type, setType] = useState(1)
   // 功能名称
-  const [text, setText] = useState('cm');
+  const [text] = useState('cm')
   // 回复的表单
-  const [replyForm] = Form.useForm();
-  const [form] = Form.useForm();
+  const [replyForm] = Form.useForm()
+  const [form] = Form.useForm()
   // 页面效果
-  const replyArea = useRef(null);
+  const replyArea = useRef(null)
+  // 邮件参数
+  const [emailParams, setEmailParams] = useState<{
+    email?: string
+    subject?: string
+    html?: string
+  }>(null)
   // 登录数据
-  let [loginInfo, setLoginInfo] = useState<any>()
+  const [loginInfo, setLoginInfo] = useState<LoginInfoType>()
   // 表情显示隐藏
   const [open, setOpen] = useState(false)
   // 回复表情显示隐藏
   const [replyOpen, setReplyOpen] = useState(false)
-  dayjs.extend(relativeTime);
+  dayjs.extend(relativeTime)
   // 滚动位置
-  const myRef = React.useRef();
+  const myRef = React.useRef<HTMLDivElement>(null)
+  const messageRef = React.useRef<HTMLDivElement>(null)
 
   // 表情内容
   const [emoji, setEmoji] = useState('')
   const [emojiReply, setEmojiReply] = useState('')
   useEffect(() => {
     if (myRef.current) {
-      // window.scrollTo(0, myRef.current.offsetTop || 0);
       window.scroll({
-        //@ts-ignore
         top: myRef.current.offsetTop - 80 || 0,
         left: 0,
-        behavior: 'smooth',
-      });
+        behavior: 'smooth'
+      })
     }
-  }, []);
+  }, [])
   // 登录信息 解析token
   useEffect(() => {
     // 获取登录态
-    let isLoginInfo = localStorage.getItem('zhj')
+    const isLoginInfo = localStorage.getItem('zhj')
     if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
-      const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as object | any;
+      const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as TokenType
       setLoginInfo(token)
     } else {
       setLoginInfo(null)
     }
-  }, [localStorage])
-  // 获取列表
+  }, [])
+  // 获取留言列表
+  const {
+    messageBoardList,
+    isMessageBoradListFetched,
+    mutate: messageBoradMutate
+  } = useMessageBoradList(currentPage, pageCount, 1)
+  const messageBoardListData =
+    isMessageBoradListFetched && messageBoardList && messageBoardList.data
+      ? messageBoardList.data
+      : ''
+
   useEffect(() => {
-    props.BlogActions.asyncMessageListAction(currentPage, pageSize, 1).then((res: MessageData) => {
-      // 获取留言数据
-      let { data, totalCount, page, pageSize } = res.data as unknown as MessageData;
-      // 时间格式化
-      data.map((item) => {
-        item.messageTime = dayjs(item.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss');
-        item.children.map((it: any) => {
-          it.messageTime = dayjs(it.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss');
-        });
-      });
-      setMessageList(data);
-      setTotal(totalCount);
-      setCurrentPage(page);
-      setPageSize(pageSize);
-    });
-  }, [currentPage, pageSize, props.BlogActions]);
-  // 提交留言数据
-  const onFinish = (values: DataType) => {
-    if (values.content === undefined || values.content === '') {
-      return message.warning('留言内容不能为空😯')
+    if (isMessageBoradListFetched) {
+      setMessageList(messageBoardList.data.data)
     }
-    props.BlogActions.asyncMessageInsertAction({
-      pid: replyObj.pid,
-      targetReplayId: replyObj._id || '-1',
-      targetReplayContent: '',
-      currentReplayContent: values.content,
-      auditTime: 0,
-      auditStatus: '1',
-      avatar: Boolean(loginInfo) ? loginInfo.avatar : loginInfo,
-      email: values.email,
-      nickName: values.nickname,
-    }).then(() => {
+  }, [isMessageBoradListFetched, messageBoardList, messageBoardListData])
+
+  const { totalCount } = messageBoardListData as MessageBoradTypeResponse
+  // 提交留言数据
+  const { addMessageBoard, isAddMessageBoradFetched } = useAddMessageBorad(messageContent)
+  const messageBoardListSource =
+    isMessageBoradListFetched && messageBoardList && messageBoardList.data
+      ? messageBoardList.data.data
+      : ''
+  // 排序
+  messageBoardListSource &&
+    messageBoardListSource.forEach((item) =>
+      item.children.sort((prev, curr) => {
+        prev.messageTime - curr.messageTime
+      })
+    )
+  // 接收邮件
+  const { sendEmail, isSendEmailFetched } = useSendEmail(emailParams)
+  useEffect(() => {
+    if (isSendEmailFetched) {
+      console.log('')
+    }
+  }, [sendEmail, isSendEmailFetched])
+  useEffect(() => {
+    if (isAddMessageBoradFetched) {
+      // if (addMessageBoard.msg !== '添加留言成功') {
+      //   message.error('数据异常！')
+      //   return
+      // }
+      if (addMessageBoard.res && addMessageBoard.res.pid === '-1') {
+        // 当数据成功获取后，更新消息列表
+        setMessageList((prevState) => [addMessageBoard.res, ...prevState])
+      } else {
+        // 回复内容
+        const parentMessage =
+          messageBoardListSource &&
+          messageBoardListSource.find((message) => message._id === addMessageBoard.res.pid)
+
+        // 如果找到了父留言
+        if (parentMessage) {
+          // 将新回复插入到该父留言的 children 数组中
+          parentMessage.children.push(addMessageBoard.res)
+          console.log('找到父留言：', parentMessage)
+        } else {
+          console.error('未找到对应的留言')
+        }
+        setMessageList((prevState) => [parentMessage, ...prevState])
+      }
+    }
+  }, [isAddMessageBoradFetched])
+  // 提交留言
+  const onFinish = async (values) => {
+    if (values.content === undefined || values.content === '') {
+      return message.warning('留言不能为空哦！')
+    }
+    try {
+      // 更新 messageContent 状态
+      setMessageContent({
+        pid: replyObj.pid,
+        targetReplayId: replyObj._id || '-1',
+        targetReplayContent: '',
+        currentReplayContent: values.content,
+        auditTime: 0,
+        auditStatus: '1',
+        avatar: loginInfo ? loginInfo.avatar : (loginInfo as string),
+        email: values.email,
+        nickName: values.nickname
+      })
+
+      // 邮件提醒 默认接收邮箱
+      const email = 'haoju.zhang@outlook.com'
+      const title = `您的博客收到来自${values.nickname}<${values.email}>的留言`
+      const content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上收到新的留言</p><hr /><span style="color: cadetblue;">${values.nickname}:</span><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/message"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
+      const newContent = content.split('\n').join('\n<br/>\n')
+      setEmailParams({
+        email,
+        subject: title,
+        html: newContent
+      })
       setTimeout(() => {
-        message.success('留言成功~');
+        message.success('留言成功！')
+        setCurrentPage(1)
         if (type === 1) {
-          form.resetFields();
+          form.resetFields()
         }
         if (type === 2) {
-          setReplyObj({ _id: '', pid: '-1' });
-          replyForm.resetFields();
+          setReplyObj({ _id: '', pid: '-1' })
+          replyForm.resetFields()
         }
-        // 重新调用查询接口
-        props.BlogActions.asyncMessageListAction(currentPage, pageSize, 1).then((res: MessageData) => {
-          // 获取留言数据
-          let { data, totalCount, page, pageSize } = res.data as unknown as MessageData;
-          // 时间格式化
-          data.map((item) => {
-            item.messageTime = dayjs(item.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss');
-            item.children.map((it: any) => {
-              it.messageTime = dayjs(it.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss');
-            });
-          });
-          setMessageList(data);
-          setTotal(totalCount);
-          setCurrentPage(page);
-          setPageSize(pageSize);
-        });
-        // 邮件提醒 默认接收邮箱
-        let email = "haoju.zhang@outlook.com"
-        let title = `您的博客收到来自${values.nickname}<${values.email}>的留言`
-        let content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上收到新的留言</p><hr /><span style="color: cadetblue;">${values.nickname}:</span><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/message"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
-        let newContent = content.split('\n').join('\n<br/>\n')
-        props.BlogActions.asyncSendMailAction({
-          email,
-          subject: title,
-          html: newContent
-        });
-      }, 500);
-    });
-  };
-  const onFinishFailed = () => { };
+        setMessageContent(null)
+        setEmailParams(null)
+        messageBoradMutate() // 调用留言数据
+      }, 500)
+    } catch (error) {
+      message.error('留言失败，请重试！')
+    }
+  }
+
+  // 提交一次
+  const onFinishFailed = () => {
+    return
+  }
   // 回复控件
-  const replyMsg = (item: any) => {
-    setReplyObj(item);
-    replyForm.resetFields();
+  const replyMsg = (item) => {
+    setReplyObj(item)
+    replyForm.resetFields()
     if (replyArea) {
       setTimeout(() => {
-        // @ts-ignore
         replyArea?.current?.scrollIntoView({
           behavior: 'smooth',
           block: 'center',
-          inline: 'center',
-        });
-      }, 100);
+          inline: 'center'
+        })
+      }, 100)
     }
-  };
+  }
   // 提交回复
-  const onFinishReply = (values: DataType) => {
+  const onFinishReply = (values) => {
     if (values.content === undefined || values.content === '') {
-      return message.warning('回复内容不能为空😯')
+      return message.warning('回复内容不能为空哦！')
     }
-    setType(2);
-    props.BlogActions.asyncMessageInsertAction({
+    setType(2)
+    const replyParmas = {
       pid: replyObj.pid === '-1' ? replyObj._id : replyObj.pid,
       targetReplayId: replyObj._id || '-1',
-      //@ts-ignore
       targetReplayContent: `${values?.nickname}@${replyObj?.nickName} ${replyObj?.currentReplayContent}`,
       currentReplayContent: values.content,
       auditTime: 0,
       auditStatus: '1',
-      avatar: Boolean(loginInfo) ? loginInfo.avatar : loginInfo,
+      avatar: loginInfo ? loginInfo.avatar : (loginInfo as string),
       email: values.email,
-      nickName: values.nickname,
-    }).then(() => {
-      setTimeout(() => {
-        message.success('回复成功~');
-        if (type === 1) {
-          form.resetFields();
-        }
-        if (type === 2) {
-          setReplyObj({ _id: '', pid: '-1' });
-          replyForm.resetFields();
-        }
-        // 重新调用查询接口
-        props.BlogActions.asyncMessageListAction(currentPage, pageSize, 1).then((res: any) => {
-          // 获取留言数据
-          let { data, totalCount, page, pageSize } = res.data;
-          // 时间格式化
-          data.map((item: DataType) => {
-            item.messageTime = dayjs(item.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss');
-            item.children.map((it: any) => {
-              it.messageTime = dayjs(it.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss');
-            });
-          });
-          setMessageList(data);
-          setReplyObj(data);
-          setTotal(totalCount);
-          setCurrentPage(page);
-          setPageSize(pageSize);
-        });
-        // 邮件提醒
-        //@ts-ignore
-        let email = replyObj.email
-        let title = `您在夜雨炊烟小站中的留言收到了回复`
-        //@ts-ignore
-        let content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客中的留言：</p><hr /><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${replyObj.currentReplayContent}</span></p>收到<span style="color: cadetblue; padding-right:2px;">${values.nickname}</span>的回复:<p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/message"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
-        let newContent = content.split('\n').join('\n<br/>\n')
-        props.BlogActions.asyncSendMailAction({
-          email,
-          subject: title,
-          html: newContent
-        });
-      }, 500);
-    });
-    // 关闭窗口
-    cancelReply();
-  };
+      nickName: values.nickname
+    }
+    setMessageContent(replyParmas)
+    setTimeout(() => {
+      message.success('回复成功！')
+      if (type === 1) {
+        form.resetFields()
+      }
+      if (type === 2) {
+        setReplyObj({ _id: '', pid: '-1' })
+        replyForm.resetFields()
+      }
+      // 邮件提醒
+      const email = replyObj.email
+      const title = `您在夜雨炊烟小站中的留言收到了回复`
+      const content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客中的留言：</p><hr /><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${replyObj.currentReplayContent}</span></p>收到<span style="color: cadetblue; padding-right:2px;">${values.nickname}</span>的回复:<p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/message"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
+      const newContent = content.split('\n').join('\n<br/>\n')
+      setEmailParams({
+        email,
+        subject: title,
+        html: newContent
+      })
+      messageBoradMutate() // 调用留言数据
+    }, 500)
+    cancelReply()
+  }
   const cancelReply = () => {
-    setReplyObj({ _id: '', pid: '-1' });
-  };
-  // 前台处理留言数据 层级始终为两层
-  // const articleMessage = (params: any) => {
-  //   // 查询所有留言数据
-  //   let message = params.filter((item: any) => item.pid === '-1');
-  //   const pids = Array.isArray(message) ? message.map((i: any) => i._id) : [];
-  //   let resReply: any[] = [];
-  //   // 查询出所有的回复内容 数组对象过滤数组
-  //   resReply = params.filter((item: any) => pids.indexOf(item.pid) > -1);
-
-  //   // 遍历
-  //   let newMessage = message.map((item: any) => {
-  //     const children = resReply.filter((it: any) => it.pid === item._id);
-  //     const tranformChildren = children.map((innerItem: any) => ({
-  //       ...innerItem,
-  //     }));
-  //     return {
-  //       ...item,
-  //       children: tranformChildren,
-  //     };
-  //   });
-  //   // 时间格式化
-  //   newMessage.map((item: any) => {
-  //     item.messageTime = dayjs(item.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss');
-  //     item.children.map((it: any) => {
-  //       it.messageTime = dayjs(it.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss');
-  //     });
-  //   });
-  //   setList(newMessage);
-  // };
+    setReplyObj({ _id: '', pid: '-1' })
+  }
   // 跳转页数
-  const onChangePage = (page: number, pageSize: number) => {
-    // 重新调用接口将参数传递过去
-    props.BlogActions.asyncArticleCommentsAction(page, pageSize, 1).then((res: MessageData) => {
-      // 获取留言数据
-      let { data, totalCount, page, pageSize } = res.data as unknown as MessageData;
-      setMessageList(data);
-      setTotal(totalCount);
-      setCurrentPage(page);
-      setPageSize(pageSize);
-    });
-  };
+  const onChangePage = (currentPage, pageCount) => {
+    setCurrentPage(currentPage)
+    setPageCount(pageCount)
+    window.scroll({
+      top: messageRef.current.offsetTop + 180 || 0,
+      left: 0,
+      behavior: 'smooth'
+    })
+  }
   // 点击表情
-  const handleAddEmoji = (item: any) => {
+  const handleAddEmoji = (item) => {
     form.setFieldsValue({
       content: emoji.concat(item)
     })
     setEmoji(emoji.concat(item))
     setOpen(!open)
   }
-  const onChangeVal = (e: any) => {
+  const onChangeVal = (e) => {
     setEmoji(e.target.value)
   }
   // 回复表情
-  const handleReplyEmoji = (item: any) => {
+  const handleReplyEmoji = (item) => {
     replyForm.setFieldsValue({
       content: emojiReply.concat(item)
     })
     setEmojiReply(emojiReply.concat(item))
     setReplyOpen(!replyOpen)
   }
-  const onChangeReplyVal = (e: any) => {
+  const onChangeReplyVal = (e) => {
     setEmojiReply(e.target.value)
   }
   const msgContent = `name: 夜雨炊烟\nlink: https://yychuiyan.com\navatar: https://op.yychuiyan.com/avatar.webp\ndesc: 三餐烟火暖，四季皆安然。`
   // 点击复制
   const handleCopy = () => {
-    navigator.clipboard.writeText(msgContent);
+    navigator.clipboard.writeText(msgContent)
     message.info({
       content: '复制成功!',
       icon: <SoundOutlined style={{ color: 'var(--bgcolor-social-default)' }} />,
       className: 'text-[var(--bgcolor-social-default)]'
     })
-  };
+  }
   return (
-    // @ts-ignore
-    <div className="w-1200 mx-auto pb-5 lg:w-full lg:mx-5 sm:w-full" ref={myRef}>
+    <div className="w-1200 mx-auto pb-5 lg:w-full lg:mx-5 sm:w-[calc(100%-40px)]" ref={myRef}>
       <Helmet>
         <title>留言板 | 夜雨炊烟</title>
       </Helmet>
       <PageDesc title="留言板" />
-      <div className="w-1000 mx-auto mt-10 lg:w-full sm:w-full">
+      <div className="w-1000 mx-auto mt-10 lg:w-full">
         <Card className=" rounded-2xl bg-base-100">
           <div
             style={{
@@ -336,17 +310,22 @@ const Message = (props: any) => {
               fontSize: '16px',
               fontWeight: 'bolder',
               marginBottom: '24px',
-              position: 'relative',
+              position: 'relative'
             }}
             className="lg:w-full sm:w-full"
           >
             {/* <p className="text-xl" style={{ userSelect: 'none' }}>欢迎来到夜雨炊烟的小站</p> */}
             <div className="h-36 px-20 mt-5 font-normal lg:px-0 lg:mt-1">
               <div className="flex flex-col items-start w-[100%]  absolute">
-                <p className="flex absolute text-xl" style={{ userSelect: "none" }}>本站信息:</p>
-                <div className="flex items-start relative justify-center flex-col w-800 mt-8 bg-base-200  rounded-xl hover:transition hover:duration-500 hover:shadow cursor-pointer lg:w-full" style={{ userSelect: 'none' }}>
-                  <p className='absolute right-2 top-2' onClick={handleCopy}>
-                    <FontAwesomeIcon icon={faClone} size='xl' />
+                <p className="flex absolute text-xl" style={{ userSelect: 'none' }}>
+                  本站信息:
+                </p>
+                <div
+                  className="flex items-start relative justify-center flex-col w-800 mt-8 bg-base-200  rounded-xl hover:transition hover:duration-500 hover:shadow cursor-pointer lg:w-full"
+                  style={{ userSelect: 'none' }}
+                >
+                  <p className="absolute right-2 top-2" onClick={handleCopy}>
+                    <FontAwesomeIcon icon={faClone} size="xl" />
                   </p>
                   <p className="pl-2 py-1">
                     <span>name: </span>
@@ -384,7 +363,7 @@ const Message = (props: any) => {
                     { required: true, message: '请输入你的昵称' },
                     { whitespace: true, message: '输入不能为空' },
                     { min: 2, message: '昵称不能小于2个字符' },
-                    { max: 30, message: '主题不能大于30个字符' },
+                    { max: 30, message: '主题不能大于30个字符' }
                   ]}
                 >
                   <Input maxLength={30} placeholder="请输入你的昵称" />
@@ -399,8 +378,8 @@ const Message = (props: any) => {
                     {
                       pattern:
                         /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
-                      message: '邮箱格式不正确',
-                    },
+                      message: '邮箱格式不正确'
+                    }
                   ]}
                 >
                   <Input maxLength={30} placeholder="请输入你的邮箱" />
@@ -413,7 +392,7 @@ const Message = (props: any) => {
               // rules={[
               //   { required: true, message: '请输入你的内容' },
               //   { whitespace: true, message: '留言不能为空' },
-                // { min: 6, message: '内容不能小于6个字符' },
+              // { min: 6, message: '内容不能小于6个字符' },
               // ]}
             >
               <Input.TextArea
@@ -422,7 +401,7 @@ const Message = (props: any) => {
                 value={emoji}
                 autoSize={{
                   minRows: 6,
-                  maxRows: 12,
+                  maxRows: 12
                 }}
               />
             </Form.Item>
@@ -434,20 +413,28 @@ const Message = (props: any) => {
               content={emojiList.map((item) => {
                 return (
                   <span
-                    className='inline-block cursor-pointer px-2 text-[20px] hover:bg-blue-400 w-5 h-8 rounded-md'
+                    className="inline-block cursor-pointer px-2 text-[20px] hover:bg-blue-400 w-5 h-8 rounded-md"
                     key={item.id}
-                    onClick={() => handleAddEmoji(item.emoji)}>
+                    onClick={() => handleAddEmoji(item.emoji)}
+                  >
                     {item.emoji}
                   </span>
                 )
-              })
-              }
+              })}
             >
-              <div className='-mt-5 mb-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200' style={{ userSelect: "none" }}>
+              <div
+                className="-mt-5 mb-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200"
+                style={{ userSelect: 'none' }}
+              >
                 <span>
-                  <IconFont iconName='icon-biaoqing' className='text-[20px] text-[var(--color-icon-default)] pr-1'></IconFont>
+                  <IconFont
+                    iconName="icon-biaoqing"
+                    className="text-[20px] text-[var(--color-icon-default)] pr-1"
+                  ></IconFont>
                 </span>
-                <span className='text-[var(--color-icon-default)]' style={{ userSelect: "none" }}>表情</span>
+                <span className="text-[var(--color-icon-default)]" style={{ userSelect: 'none' }}>
+                  表情
+                </span>
               </div>
             </Popover>
             <Form.Item className="">
@@ -462,28 +449,41 @@ const Message = (props: any) => {
             </Form.Item>
           </Form>
 
-          <Row className="mt:h-4 w-full mx-auto lg:w-full sm:w-full">
+          <Row className="mt:h-4 w-full mx-auto lg:w-full sm:w-full" ref={messageRef}>
             <Col span={24} className="sm:w-full lg:w-full">
-              <b style={{ marginBottom: '24px', color: 'var(--color-icon-default)', userSelect: 'none' }}>
+              <b
+                style={{
+                  marginBottom: '24px',
+                  color: 'var(--color-icon-default)',
+                  userSelect: 'none'
+                }}
+              >
                 留言展示&nbsp;
                 <CommentOutlined />
               </b>
-              {messageList.length > 0 ? (
+              {messageList && messageList.length > 0 ? (
                 <List
                   itemLayout="horizontal"
                   className="sm:w-full lg:w-full"
-                  dataSource={messageList}
-                  renderItem={(item, index) => (
+                  dataSource={messageList && messageList}
+                  renderItem={(item: MessageBoradType, index) => (
                     <List.Item actions={[]} key={index}>
                       <List.Item.Meta
                         avatar={
-                          item.nickName.trim() === "夜雨炊烟" ? <Avatar style={{ userSelect: 'none' }} src={avatar} /> : Boolean(item.avatar) ? <Avatar style={{ userSelect: 'none' }} src={item.avatar} /> :
-                          <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }} >
-                            {item.nickName?.slice(0, 1)?.toUpperCase()}
-                          </Avatar>
+                          item.nickName.trim() === '夜雨炊烟' ? (
+                            <Avatar style={{ userSelect: 'none' }} src={avatar} />
+                          ) : item.avatar ? (
+                            <Avatar style={{ userSelect: 'none' }} src={item.avatar} />
+                          ) : (
+                            <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }}>
+                              {item.nickName?.slice(0, 1)?.toUpperCase()}
+                            </Avatar>
+                          )
                         }
                         title={
-                          <b style={{ color: 'var(--color-icon-default)', userSelect: 'none' }}>{item.nickName}</b>
+                          <b style={{ color: 'var(--color-icon-default)', userSelect: 'none' }}>
+                            {item.nickName}
+                          </b>
                         }
                         description={
                           <>
@@ -496,9 +496,9 @@ const Message = (props: any) => {
                                     ($url) => {
                                       return (
                                         "<a href='" + $url + "' target='_blank'>" + $url + '</a>'
-                                      );
+                                      )
                                     }
-                                  ),
+                                  )
                                 }}
                               ></pre>
                             </div>
@@ -512,14 +512,14 @@ const Message = (props: any) => {
                                 alignItems: 'center',
                                 display: 'flex',
                                 flexWrap: 'wrap',
-                                justifyContent: 'space-between',
+                                justifyContent: 'space-between'
                               }}
                             >
                               <span className="user_desc" style={{ userSelect: 'none' }}>
                                 用户&nbsp;{item.nickName}&nbsp;&nbsp;发表于&nbsp;
-                                {item.messageTime}
+                                {dayjs(item.messageTime * 1000).format('YYYY-MM-DD HH:mm:ss')}
                               </span>
-                              <span style={{ userSelect: "none" }}>
+                              <span style={{ userSelect: 'none' }}>
                                 {/* {
                               <a
                                 style={{ color: 'red', fontSize: '12px', marginRight: '12px' }}
@@ -541,7 +541,7 @@ const Message = (props: any) => {
                             {/* 回复的内容 */}
                             {item.children && item.children.length ? (
                               <>
-                                {item.children.map((innerItem: any, innerIndex: any) => (
+                                {item.children.map((innerItem, innerIndex) => (
                                   <Comment
                                     key={innerIndex}
                                     className="bg-base-100"
@@ -551,10 +551,23 @@ const Message = (props: any) => {
                                       </span>
                                     }
                                     avatar={
-                                      innerItem.nickName.trim() === "夜雨炊烟" ? <Avatar style={{ userSelect: 'none' }} src={avatar} /> : Boolean(innerItem.avatar) ? <Avatar style={{ userSelect: 'none' }} src={innerItem.avatar} /> :
-                                        <Avatar style={{ backgroundColor: '#1890ff', userSelect: 'none' }}>
+                                      innerItem.nickName.trim() === '夜雨炊烟' ? (
+                                        <Avatar style={{ userSelect: 'none' }} src={avatar} />
+                                      ) : innerItem.avatar ? (
+                                        <Avatar
+                                          style={{ userSelect: 'none' }}
+                                          src={innerItem.avatar}
+                                        />
+                                      ) : (
+                                        <Avatar
+                                          style={{
+                                            backgroundColor: '#1890ff',
+                                            userSelect: 'none'
+                                          }}
+                                        >
                                           {innerItem.nickName?.slice(0, 1)?.toUpperCase()}
                                         </Avatar>
+                                      )
                                     }
                                     content={
                                       <span className="user_content font-normal">
@@ -570,16 +583,22 @@ const Message = (props: any) => {
                                                   "' target='_blank'>" +
                                                   $url +
                                                   '</a>'
-                                                );
+                                                )
                                               }
-                                            ),
+                                            )
                                           }}
                                         ></pre>
                                       </span>
                                     }
                                     datetime={
                                       <Tooltip title={innerItem.messageTime}>
-                                        <span style={{ userSelect: 'none' }}>{dayjs(innerItem.messageTime).fromNow()}</span>
+                                        <span style={{ userSelect: 'none' }}>
+                                          {dayjs(
+                                            dayjs(innerItem.messageTime * 1000).format(
+                                              'YYYY-MM-DD HH:mm:ss'
+                                            )
+                                          ).fromNow()}
+                                        </span>
                                       </Tooltip>
                                     }
                                     actions={[
@@ -599,18 +618,21 @@ const Message = (props: any) => {
                                       //   ) : null}
                                       // </>,
                                       <a
-                                        style={{ fontSize: '12px', marginRight: '12px', userSelect: "none" }}
+                                        style={{
+                                          fontSize: '12px',
+                                          marginRight: '12px',
+                                          userSelect: 'none'
+                                        }}
                                         onClick={() => replyMsg(innerItem)}
                                       >
                                         <MessageOutlined />
                                         &nbsp; 回复
-                                      </a>,
+                                      </a>
                                     ]}
                                   />
                                 ))}
                               </>
                             ) : null}
-
                             {/* 回复的表单 */}
                             {replyObj._id === item._id || replyObj.pid === item._id ? (
                               <div style={{ marginTop: '12px' }} ref={replyArea}>
@@ -629,7 +651,7 @@ const Message = (props: any) => {
                                           { required: true, message: '请输入你的昵称' },
                                           { whitespace: true, message: '输入不能为空' },
                                           { min: 2, message: '昵称不能小于2个字符' },
-                                          { max: 30, message: '主题不能大于30个字符' },
+                                          { max: 30, message: '主题不能大于30个字符' }
                                         ]}
                                       >
                                         <Input maxLength={30} placeholder="请输入你的昵称" />
@@ -644,8 +666,8 @@ const Message = (props: any) => {
                                           {
                                             pattern:
                                               /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
-                                            message: '邮箱格式不正确',
-                                          },
+                                            message: '邮箱格式不正确'
+                                          }
                                         ]}
                                       >
                                         <Input maxLength={30} placeholder="请输入你的邮箱" />
@@ -666,10 +688,10 @@ const Message = (props: any) => {
                                       value={emojiReply}
                                       autoSize={{
                                         minRows: 6,
-                                        maxRows: 12,
+                                        maxRows: 12
                                       }}
-                                    // showCount
-                                    // maxLength={300}
+                                      // showCount
+                                      // maxLength={300}
                                     />
                                   </Form.Item>
                                   <Popover
@@ -680,20 +702,26 @@ const Message = (props: any) => {
                                     content={emojiList.map((item) => {
                                       return (
                                         <span
-                                          className=' inline-block cursor-pointer px-2 text-[20px] hover:bg-blue-400 w-5 h-8 rounded-md'
+                                          className=" inline-block cursor-pointer px-2 text-[20px] hover:bg-blue-400 w-5 h-8 rounded-md"
                                           key={item.id}
-                                          onClick={() => handleReplyEmoji(item.emoji)}>
+                                          onClick={() => handleReplyEmoji(item.emoji)}
+                                        >
                                           {item.emoji}
                                         </span>
                                       )
-                                    })
-                                    }
+                                    })}
                                   >
-                                    <div className='-mt-5 mb-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200' style={{ userSelect: "none" }}>
+                                    <div
+                                      className="-mt-5 mb-1 flex items-center justify-center w-16 h-8 text-center rounded cursor-pointer border-1 border-solid border-base-200"
+                                      style={{ userSelect: 'none' }}
+                                    >
                                       <span>
-                                        <IconFont iconName='icon-biaoqing' className='text-[20px] text-[var(--color-icon-default)] pr-1'></IconFont>
+                                        <IconFont
+                                          iconName="icon-biaoqing"
+                                          className="text-[20px] text-[var(--color-icon-default)] pr-1"
+                                        ></IconFont>
                                       </span>
-                                      <span className='text-[var(--color-icon-default)]'>表情</span>
+                                      <span className="text-[var(--color-icon-default)]">表情</span>
                                     </div>
                                   </Popover>
                                   <Form.Item>
@@ -725,22 +753,17 @@ const Message = (props: any) => {
               )}
               <MyPagination
                 text={text}
-                pageSize={pageSize}
+                pageSize={pageCount}
                 currentPage={currentPage}
-                total={total}
+                total={totalCount}
                 onChange={onChangePage}
-              ></MyPagination>
+              />
             </Col>
           </Row>
         </Card>
       </div>
     </div>
-  );
-};
+  )
+}
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    BlogActions: bindActionCreators(BlogActions, dispatch),
-  };
-};
-export default connect(null, mapDispatchToProps)(withRouter(Message));
+export default Message
