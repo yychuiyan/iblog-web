@@ -15,8 +15,6 @@ import { Helmet } from 'react-helmet'
 import { usePoemList } from '@/api/thirdParty'
 import { useLocation } from 'react-router-dom'
 const Home = () => {
-  console.log('首页')
-
   // 路由信息
   const location = useLocation()
   // 滚动位置
