@@ -78,7 +78,10 @@ const TimeLine = () => {
         {sortArticleData &&
           sortArticleData.map((item) => {
             return (
-              <div key={item} className=" mx-12 lg:w-full lg:px-5">
+              <div
+                key={item}
+                className=" mx-12 lg:w-full lg:px-5 sm:px-0 sm:mx-2 sm:w-[calc(100%-16px)]"
+              >
                 {/* 年 */}
                 <p className="flex items-center py-3 text-2xl" key={item}>
                   <svg
@@ -115,10 +118,10 @@ const TimeLine = () => {
                       className="flex  items-center text-xl h-10 font-medium rounded-xl my-1 cursor-pointer hover:bg-[var(--article-content-tags-bgcolor-hover)] hover:text-[var(--article-content-tags-bgcolor-hover-font)] hover:transition hover:duration-500 lg:w-full sm:w-full"
                       onClick={() => handleClickTime(it._id)}
                     >
-                      <p className="text-base lg:text-sm pl-2 lg:w-12 lg:h-5 lg:pl-1 lg:pr-0">
+                      <p className="text-base lg:text-sm pl-2 lg:w-12 lg:h-5 lg:pl-1 lg:pr-0 sm:w-14">
                         {it.createTime}
                       </p>
-                      <p className="text-base lg:text-sm pl-2 line-clamp-2 overflow-hidden">
+                      <p className="text-base lg:text-sm pl-2 line-clamp-2 overflow-hidden sm:h-5 sm:w-[calc(100%-0px)] sm:line-clamp-1 sm:pl-2">
                         {it.title}
                       </p>
                     </div>

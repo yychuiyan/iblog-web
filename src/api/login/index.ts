@@ -1,6 +1,7 @@
 import useSWR from 'swr'
 import { request } from '@/utils/request'
 import { UserLoginType } from './type'
+import axios from 'axios'
 
 // 登录
 const fetcherLogin = async ([url, params]) => {
@@ -63,6 +64,18 @@ export const useQQLogin = (
     qqLoginInfoStatus: data as UserLoginType,
     isQQLoginInfoStatusFetched: !error && data !== undefined
   }
+}
+// QQ登录 状态
+export const getQQLogin = (
+  grant_type: string,
+  client_id: string,
+  client_secret: string,
+  code: string,
+  redirect_uri: string
+) => {
+  return axios.get(
+    `/iblog/getQQLogin?grant_type=${grant_type}&client_id=${client_id}&client_secret=${client_secret}&code=${code}&redirect_uri=${redirect_uri}`
+  )
 }
 // 退出登录
 export const useLoginOut = () => {

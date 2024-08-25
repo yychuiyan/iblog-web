@@ -22,17 +22,11 @@ import UploadImage from '@/components/upload'
 import QQLoginButton from '@/components/qq/QQLoginButton'
 import IconFont from '../iconfont'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { asyncModeAction } from '@/redux/actionCreator'
+import { useDispatch, useSelector } from 'react-redux'
+import { asyncModeAction, qqLogin } from '@/redux/actionCreator'
 import { useArticleSearch } from '@/api/articles'
 import { TokenType } from '@/types/comm'
-import {
-  useLogin,
-  useLoginFindPassowrd,
-  useLoginOut,
-  useLoginRegister,
-  useQQLogin
-} from '@/api/login'
+import { useLogin, useLoginFindPassowrd, useLoginOut, useLoginRegister } from '@/api/login'
 import { UserLoginType } from '@/api/login/type'
 const objLogin = {
   0: '登录',
@@ -117,7 +111,6 @@ const NavBar = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
   // 登录参数
   const [loginInfoParams, setLoginInfoParams] = useState<UserLoginType>(null)
-  const [qqLoginInfoParams, setQqLoginInfoParams] = useState<UserLoginType>(null)
   // 搜索输入的文本信息
   const [searchValue, setSearchValue] = useState('')
   // 搜索输入框中值
@@ -183,26 +176,37 @@ const NavBar = () => {
     }
   }, [form, isLoginInfoStatusFetched, isLoginModalOpen, loginInfoStatus])
   // QQ登录
-  // console.log('qqLoginInfoParams', qqLoginInfoParams)
-  const qqLoginParamsContent =
-    qqLoginInfoParams && qqLoginInfoParams.authorizationCode !== null ? qqLoginInfoParams : null
-  const { qqLoginInfoStatus, isQQLoginInfoStatusFetched } = useQQLogin(
-    qqLoginParamsContent?.grant_type,
-    qqLoginParamsContent?.clientId,
-    qqLoginParamsContent?.clientSecret,
-    qqLoginParamsContent?.authorizationCode,
-    qqLoginParamsContent?.encoded_redirect_uri
-  )
+  useSelector((state: any) => state.qqLogin)
+  // QQ登录授权
   useEffect(() => {
-    console.log('接口调用结果', isQQLoginInfoStatusFetched, qqLoginInfoStatus)
-
-    // if (isQQLoginInfoStatusFetched) {
-    //   setLoginInfo(qqLoginInfoStatus)
-    //   setAvatar(qqLoginInfoStatus && qqLoginInfoStatus.avatar)
-    //   setLoginStatus(true)
-    //   window.location.href = `https://yychuiyan.com/home`
-    // }
-  }, [isQQLoginInfoStatusFetched, qqLoginInfoStatus])
+    const grant_type = 'authorization_code'
+    const clientId = '102055926'
+    const clientSecret = 'gIivvkTzKSM3Wmpe'
+    const redirectUri = `https://yychuiyan.com/home`
+    const encoded_redirect_uri = encodeURIComponent(redirectUri)
+    const authorizationCode: string | any = new URLSearchParams(window.location.search).get('code')
+    // QQ是否正常登录
+    if (authorizationCode !== null) {
+      dispatch(
+        qqLogin(grant_type, clientId, clientSecret, authorizationCode, encoded_redirect_uri)
+      ).then((res: any) => {
+        if (res.payload) {
+          setLoginInfo(res.payload)
+          setAvatar(res.payload.avatar)
+          setLoginStatus(true)
+          window.location.href = `https://yychuiyan.com/home`
+        }
+      })
+    }
+    // 获取登录态
+    const isLoginInfo = localStorage.getItem('zhj')
+    if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
+      const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as TokenType
+      setLoginInfo(token)
+      setAvatar(token.avatar)
+      setLoginStatus(true)
+    }
+  }, [dispatch])
   // 退出登录
   const { loginOut } = useLoginOut()
   // 注册
@@ -317,30 +321,7 @@ const NavBar = () => {
     const localMode = Number(localStorage.getItem('localmode'))
     dispatch(asyncModeAction(localMode)) // 使用 dispatch 调用 asyncModeAction
   }
-  // QQ登录授权
-  useEffect(() => {
-    const grant_type = 'authorization_code'
-    const clientId = '102055926'
-    const clientSecret = 'gIivvkTzKSM3Wmpe'
-    const redirectUri = `https://yychuiyan.com/home`
-    const encoded_redirect_uri = encodeURIComponent(redirectUri)
-    const authorizationCode: string | any = new URLSearchParams(window.location.search).get('code')
-    setQqLoginInfoParams({
-      grant_type,
-      clientId,
-      clientSecret,
-      authorizationCode,
-      encoded_redirect_uri
-    })
-    // 获取登录态
-    const isLoginInfo = localStorage.getItem('zhj')
-    if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
-      const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as TokenType
-      setLoginInfo(token)
-      setAvatar(token.avatar)
-      setLoginStatus(true)
-    }
-  }, [])
+
   // 切换路由
   const handleRouter = (e: string) => {
     navigate(e)

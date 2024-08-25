@@ -218,35 +218,5 @@ html, body {
   -webkit-transition: all .6s, filter 375ms ease-in .2s !important;
   transition: all .6s, filter 375ms ease-in .2s !important;
 }
-/* 向前向后分页 */
-:where(.css-dev-only-do-not-override-1c0na6j).ant-pagination .ant-pagination-prev, :where(.css-dev-only-do-not-override-1c0na6j).ant-pagination .ant-pagination-next, :where(.css-dev-only-do-not-override-1c0na6j).ant-pagination .ant-pagination-jump-prev, :where(.css-dev-only-do-not-override-1c0na6j).ant-pagination .ant-pagination-jump-next{
-  height: 45px !important;
-  line-height: 45px !important;
-}
-:where(.css-dev-only-do-not-override-1c0na6j).ant-pagination .ant-pagination-jump-prev:hover .ant-pagination-item-link-icon, :where(.css-dev-only-do-not-override-1c0na6j).ant-pagination .ant-pagination-jump-next:hover .ant-pagination-item-link-icon{
-  font-size: 20px !important;
-  color: #bfd1c0 !important;
-}
 
-:where(.css-dev-only-do-not-override-1c0na6j).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select, :where(.css-dev-only-do-not-override-1c0na6j).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload.ant-upload-select{
-  margin-bottom: 5px !important;
-}
-
-/* 简单分页 */
-:where(.css-dev-only-do-not-override-1c0na6j).ant-pagination.ant-pagination-simple .ant-pagination-simple-pager{
-  width: 50px !important;
-  height: 45px !important;
-  line-height: 45px !important;
-  font-size: 15px !important;
-  color: var(--color-icon-default);
-}
-@media screen and (max-width:380px) {
-  :where(.css-1c0na6j).ant-pagination.ant-pagination-simple .ant-pagination-simple-pager{
-    display: flex !important;
-    align-items: center !important;
-    height: 45px !important;
-    font-size: 15px !important;
-    color: var(--color-icon-default);
-  }
-}
 

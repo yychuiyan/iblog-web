@@ -46,7 +46,10 @@ const MyPagination = (props) => {
             <Pagination
               style={{
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '45px',
+                lineHeight: '45px'
               }}
               simple={{ readOnly: true }}
               current={currentPage} // 当前页
@@ -76,7 +79,10 @@ const MyPagination = (props) => {
           <Pagination
             style={{
               display: 'flex',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '45px',
+              lineHeight: '45px'
             }}
             simple={{ readOnly: true }}
             current={currentPage} // 当前页

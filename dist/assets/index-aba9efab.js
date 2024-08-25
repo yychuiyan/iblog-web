@@ -1,0 +1,1 @@
+import{B as e,D as o}from"./index-a7da7c84.js";const s=async r=>{try{return(await o.get(r)).data}catch(t){throw console.error("Fetch error:",t),t}},i=()=>{const{data:r,error:t}=e("/iblog/navigation/list",s);return{navigationList:r,isNavigationListFetched:!t&&r!==void 0}};export{i as u};
