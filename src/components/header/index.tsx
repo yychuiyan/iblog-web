@@ -190,12 +190,11 @@ const NavBar = () => {
       dispatch(
         qqLogin(grant_type, clientId, clientSecret, authorizationCode, encoded_redirect_uri)
       ).then((res: any) => {
-        if (res.userToken) {
-          setLoginInfo(res.userToken)
-          setAvatar(res.userToken.avatar)
-          setLoginStatus(true)
-          window.location.href = `https://yychuiyan.com/home`
-        }
+        console.log('登录成功后数据：', res)
+        setLoginInfo(res)
+        setAvatar(res.avatar)
+        setLoginStatus(true)
+        window.location.href = `https://yychuiyan.com/home`
       })
     }
     // 获取登录态
