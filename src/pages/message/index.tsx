@@ -11,7 +11,7 @@ import { SoundOutlined } from '@ant-design/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClone } from '@fortawesome/free-solid-svg-icons'
 import jwtDecode from 'jwt-decode'
-import avatar from '../../assets/images/avatar.webp'
+// import avatar from '../../assets/images/avatar.webp'
 import IconFont from '@/components/iconfont'
 import { Helmet } from 'react-helmet'
 import { useAddMessageBorad, useMessageBoradList } from '@/api/message'
@@ -471,7 +471,10 @@ const Message = () => {
                       <List.Item.Meta
                         avatar={
                           item.nickName.trim() === '夜雨炊烟' ? (
-                            <Avatar style={{ userSelect: 'none' }} src={avatar} />
+                            <Avatar
+                              style={{ userSelect: 'none' }}
+                              src={'https://op.yychuiyan.com/avatar1511.webp'}
+                            />
                           ) : item.avatar ? (
                             <Avatar style={{ userSelect: 'none' }} src={item.avatar} />
                           ) : (
@@ -552,7 +555,10 @@ const Message = () => {
                                     }
                                     avatar={
                                       innerItem.nickName.trim() === '夜雨炊烟' ? (
-                                        <Avatar style={{ userSelect: 'none' }} src={avatar} />
+                                        <Avatar
+                                          style={{ userSelect: 'none' }}
+                                          src={'https://op.yychuiyan.com/avatar1511.webp'}
+                                        />
                                       ) : innerItem.avatar ? (
                                         <Avatar
                                           style={{ userSelect: 'none' }}

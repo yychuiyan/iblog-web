@@ -196,8 +196,8 @@ const Content = () => {
           return (
             <div
               className="home_page rounded-2xl bg-base-100
-            lg:transition-none lg:hover:-translate-x-0 lg:hover:scale-100 lg:hover:ring-1 lg:mx-5
-            "
+      lg:transition-none lg:hover:-translate-x-0 lg:hover:scale-100 lg:hover:ring-1 lg:mx-5
+      "
               key={item._id}
             >
               <div>

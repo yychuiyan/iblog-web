@@ -1,11 +1,9 @@
 import { useNavigate } from 'react-router-dom'
-import avatar02 from '../../assets/images/avatar02.webp'
-import avatar from '../../assets/images/avatar.webp'
 import { useArticleAllList } from '@/api/articles'
 import { ArticleType } from '@/api/articles/type'
-// import { useApothegmList } from '@/api/apothegm'
-// import { Typewriter } from 'react-simple-typewriter'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useApothegmList } from '@/api/apothegm'
+import { ApothegmType } from '@/api/apothegm/type'
 
 // 分类数量
 const categoryCountFunction = (archiceAllSource) => {
@@ -75,7 +73,8 @@ const User = () => {
 
   // 获取全部文章
   const { articleAllList, isArticleAllListFetched } = useArticleAllList(1, 1)
-
+  // 名言警句
+  const [apothegmState, setApothegmState] = useState<ApothegmType[]>([])
   const archiceAllSource =
     isArticleAllListFetched && articleAllList && articleAllList.data ? articleAllList.data.data : ''
   // 文章数量
@@ -85,14 +84,63 @@ const User = () => {
   // 标签数量
   const tagsNumber = tagsCountFunction(archiceAllSource)
   // 获取名言警句
-  // const { apothegmList, isApothegmListFetched } = useApothegmList()
-  // const apothegmSource =
-  //   isApothegmListFetched && apothegmList && apothegmList.data ? apothegmList.data.data : ''
-  // const filterApothegmData =
-  //   apothegmSource &&
-  //   apothegmSource.filter((item) => item.checked === true).sort(() => Math.random() - 0.5)
+  const { apothegmList, isApothegmListFetched } = useApothegmList()
+  // 索引
+  const [currentIndex, setCurrentIndex] = useState(0)
+  // 警句
+  const [currentContent, setCurrentContent] = useState('')
+  const apothegmSource =
+    isApothegmListFetched && apothegmList && apothegmList.data ? apothegmList.data.data : ''
+  const filterApothegmData =
+    apothegmSource &&
+    apothegmSource.filter((item) => item.checked === true).sort(() => Math.random() - 0.5)
 
-  // const apothegmContent = filterApothegmData && filterApothegmData.map((item) => item.content)
+  useEffect(() => {
+    if (isApothegmListFetched) {
+      setApothegmState(filterApothegmData)
+    }
+  }, [isApothegmListFetched])
+  useEffect(() => {
+    if (apothegmState.length > 0) {
+      const currentData = apothegmState[currentIndex]
+      const content = currentData.content
+      let currentText = ''
+      let index = 0
+      let isReversing = false // 标记是否正在回退
+      const interval = setInterval(() => {
+        if (!isReversing) {
+          currentText += content[index]
+          setCurrentContent(currentText)
+          index++
+
+          if (index >= content.length) {
+            clearInterval(interval)
+            // 在此处设置延迟，然后继续到下一条数据
+            setTimeout(() => {
+              isReversing = true // 开始回退
+              const reverseInterval = setInterval(() => {
+                currentText = currentText.slice(0, -1)
+                setCurrentContent(currentText)
+
+                if (currentText.length === 0) {
+                  clearInterval(reverseInterval)
+                  isReversing = false // 回退结束
+                  if (currentIndex + 1 < apothegmState.length) {
+                    setCurrentIndex(currentIndex + 1)
+                  } else {
+                    // 如果已经到达最后一条数据，继续循环
+                    setCurrentIndex(0)
+                  }
+                }
+              }, 150) // 回退速度（毫秒）
+            }, 5000) // 延迟时间（毫秒）
+          }
+        }
+      }, 150) // 打字速度（毫秒）
+
+      return () => clearInterval(interval)
+    }
+  }, [apothegmState, currentIndex])
 
   // 跳转到文章页面
   const handleJumpArticles = () => {
@@ -122,7 +170,7 @@ const User = () => {
       <div className="flex flex-col items-center justify-center">
         {
           <img
-            src={`${avatarShow ? avatar02 : avatar}`}
+            src={`${avatarShow ? 'https://op.yychuiyan.com/avatar1513.webp' : 'https://op.yychuiyan.com/avatar1511.webp'}`}
             alt=""
             className={`image-container w-24 h-24 mt-3 rounded-full ${avatarShow ? 'rotate' : ''}`}
             onMouseEnter={handleMouseEnter}
@@ -130,17 +178,7 @@ const User = () => {
           />
         }
         <p className="flex items-center justify-center w-64 h-5   pl-2 mt-3 overflow-clip">
-          <span className="">
-            {/* <Typewriter
-              cursor
-              cursorBlinking
-              delaySpeed={5000}
-              deleteSpeed={260}
-              loop={0}
-              typeSpeed={260}
-              words={apothegmContent || []}
-            /> */}
-          </span>
+          <span className="">{currentContent}</span>
         </p>
       </div>
       <div className="flex justify-around w-64 h-20 pl-1 pt-2  rounded-xl overflow-clip">

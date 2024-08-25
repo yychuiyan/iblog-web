@@ -231,3 +231,12 @@ html, body {
 :where(.css-dev-only-do-not-override-1c0na6j).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select, :where(.css-dev-only-do-not-override-1c0na6j).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload.ant-upload-select{
   margin-bottom: 5px !important;
 }
+
+/* 简单分页 */
+:where(.css-dev-only-do-not-override-1c0na6j).ant-pagination.ant-pagination-simple .ant-pagination-simple-pager{
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  font-size: 15px;
+  color: var(--color-icon-default);
+}

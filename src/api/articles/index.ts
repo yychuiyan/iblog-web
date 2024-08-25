@@ -55,13 +55,14 @@ const fetcherPost = async ([url, params]) => {
 
 // 全部文章
 export const useArticleAllList = (status, publishStatus) => {
-  const { data, error, mutate } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     `/iblog/article/all?status=${status}&&publishStatus=${publishStatus}`,
     fetcher
   )
 
   return {
     articleAllList: data as ArticleTypeResponse,
+    isLoading: isLoading,
     isArticleAllListFetched: !error && data !== undefined, // 数据是否成功获取
     mutate
   }

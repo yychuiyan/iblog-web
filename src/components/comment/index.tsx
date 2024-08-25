@@ -7,7 +7,6 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { emojiList } from '@/utils/emoji'
 import jwtDecode from 'jwt-decode'
-import avatar from '../../assets/images/avatar.webp'
 import IconFont from '../iconfont'
 import { useAddArticleComment, useCommentList } from '@/api/articles'
 import { CommentType, CommentTypeResponse } from '@/api/articles/type'
@@ -431,7 +430,10 @@ const ArticleComment = (props) => {
                     <List.Item.Meta
                       avatar={
                         item.nickName.trim() === '夜雨炊烟' ? (
-                          <Avatar style={{ userSelect: 'none' }} src={avatar} />
+                          <Avatar
+                            style={{ userSelect: 'none' }}
+                            src={'https://op.yychuiyan.com/avatar1511.webp'}
+                          />
                         ) : item.avatar ? (
                           <Avatar style={{ userSelect: 'none' }} src={item.avatar} />
                         ) : (
@@ -508,7 +510,10 @@ const ArticleComment = (props) => {
                                     // https://source.unsplash.com/random
                                     // <Avatar src="https://img.paulzzh.tech/touhou/random"></Avatar>
                                     innerItem.nickName.trim() === '夜雨炊烟' ? (
-                                      <Avatar style={{ userSelect: 'none' }} src={avatar} />
+                                      <Avatar
+                                        style={{ userSelect: 'none' }}
+                                        src={'https://op.yychuiyan.com/avatar1511.webp'}
+                                      />
                                     ) : innerItem.avatar ? (
                                       <Avatar
                                         style={{ userSelect: 'none' }}
