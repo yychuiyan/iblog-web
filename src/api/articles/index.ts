@@ -149,14 +149,13 @@ export const useCommentList = (page, pageSize, articleId) => {
 export const useAddArticleComment = (params) => {
   const { data, error } = useSWR(
     params ? [`/iblog/article/comments/insert`, params] : null,
-    fetcherPost
+    fetcherPost,
+    {
+      revalidateOnFocus: false
+    }
   )
-  // const commentFetch = () => {
-  //   mutate(params ? [`/iblog/article/comments/insert`, params] : null)
-  // }
   return {
     addArticleComment: data as CommentType,
     isAddArticleCommentFetched: !error && data !== undefined
-    // commentFetch
   }
 }

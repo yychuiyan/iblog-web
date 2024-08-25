@@ -41,7 +41,9 @@ export const useMessageBoradList = (page, pageSize, auditStatus) => {
 
 // 新增留言
 export const useAddMessageBorad = (params) => {
-  const { data, error } = useSWR(params ? [`/iblog/message/insert`, params] : null, fetcherPost)
+  const { data, error } = useSWR(params ? [`/iblog/message/insert`, params] : null, fetcherPost, {
+    revalidateOnFocus: false
+  })
   return {
     addMessageBoard: data as MessageBoradType,
     isAddMessageBoradFetched: !error && data !== undefined
