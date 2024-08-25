@@ -44,6 +44,10 @@ const MyPagination = (props) => {
         {text === 'cm' ? (
           isMobile ? (
             <Pagination
+              style={{
+                display: 'flex',
+                justifyContent: 'center'
+              }}
               simple={{ readOnly: true }}
               current={currentPage} // 当前页
               pageSize={pageSize} // 每页条数
@@ -70,6 +74,10 @@ const MyPagination = (props) => {
           )
         ) : isMobile ? (
           <Pagination
+            style={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}
             simple={{ readOnly: true }}
             current={currentPage} // 当前页
             pageSize={pageSize} // 每页条数

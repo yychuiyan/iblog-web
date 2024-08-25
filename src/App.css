@@ -234,9 +234,9 @@ html, body {
 
 /* 简单分页 */
 :where(.css-dev-only-do-not-override-1c0na6j).ant-pagination.ant-pagination-simple .ant-pagination-simple-pager{
-  width: 45px;
-  height: 45px;
-  line-height: 45px;
-  font-size: 15px;
+  width: 50px !important;
+  height: 45px !important;
+  line-height: 45px !important;
+  font-size: 15px !important;
   color: var(--color-icon-default);
 }

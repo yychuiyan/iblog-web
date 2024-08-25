@@ -154,6 +154,30 @@ body {
   height: 45px !important;
   background-color: var(--page-count-bgcolor) !important;
 }
+
+@media screen and (max-width:380px){
+  .ant-pagination .ant-pagination-prev {
+    width: 10px !important;
+    height: 45px !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  .ant-pagination .ant-pagination-next{
+    width: 10px !important;
+    height: 45px !important;
+    display: flex !important;
+  }
+  .ant-pagination .ant-pagination-item-link{
+    width: 30px !important;
+    height: 45px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .ant-pagination .ant-pagination-next :hover{
+    background:  none !important;
+  }
+}
 /* .ant-pagination .ant-pagination-prev button{
   color: var(--page-count-color) !important;
 } */
@@ -188,6 +212,7 @@ body {
   color: var(--page-count-bgcolor) !important;
   background-color: var(--bgcolor-navbar-hover) !important;
 }
+
 .ant-pagination .ant-pagination-item-active {
   width: 45px;
   height: 45px;
@@ -203,6 +228,7 @@ body {
   color: var(--color-icon-default);
   background-color: var(--page-count-bgcolor);
 }
+
 .ant-pagination .ant-pagination-item a {
   line-height: 45px;
   font-weight: normal !important;
