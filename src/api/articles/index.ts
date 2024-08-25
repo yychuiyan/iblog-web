@@ -121,17 +121,22 @@ export const useHandleLike = (params) => {
   }
 }
 // 更新文章访问量
-export const useUpdateArtilceView = (params) => {
-  const { data, error } = useSWR([`/iblog/article/views/${params.id}`, params], fetchArticleView, {
-    revalidateOnFocus: true
+export const useUpdateArtilceView = () => {
+  const { data, error } = useSWR(null, fetchArticleView, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    shouldRetryOnError: false // 避免错误时自动重试
   })
-  const visitFetch = () => {
-    mutate([`/iblog/article/views/${params.id}`, params])
-  }
+  const handleUpdateView = useCallback(async (params) => {
+    if (!params) return
+    const response = await fetchArticleView([`/iblog/article/views/${params.id}`, params])
+    return response
+  }, [])
+
   return {
     articleView: data as HandleLikeType,
     articleViewFetched: !error && data !== undefined, // 数据是否成功获取
-    visitFetch
+    handleUpdateView
   }
 }
 

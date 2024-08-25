@@ -82,13 +82,15 @@ const ArticleDetail = () => {
   // 文章访问量
   const view = parseInt(articleDetail && articleDetail.map((item) => item.views).join(''))
   // 更新文章访问量
-  const { visitFetch, articleViewFetched } = useUpdateArtilceView({
-    views: view && view + 1,
-    id: articleId
-  })
+  const { handleUpdateView } = useUpdateArtilceView()
   useEffect(() => {
-    visitFetch
-  }, [articleViewFetched, visitFetch])
+    setTimeout(() => {
+      handleUpdateView({
+        views: view && view + 1,
+        id: articleId
+      })
+    }, 500)
+  }, [])
   // 点赞量
   const likeCount = parseInt(articleDetail && articleDetail.map((item) => item.like).join(''))
 
