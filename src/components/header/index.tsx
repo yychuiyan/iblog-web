@@ -194,12 +194,14 @@ const NavBar = () => {
     qqLoginParamsContent?.encoded_redirect_uri
   )
   useEffect(() => {
-    if (isQQLoginInfoStatusFetched) {
-      setLoginInfo(qqLoginInfoStatus)
-      setAvatar(qqLoginInfoStatus && qqLoginInfoStatus.avatar)
-      setLoginStatus(true)
-      window.location.href = `https://yychuiyan.com/home`
-    }
+    console.log('接口调用结果', isQQLoginInfoStatusFetched, qqLoginInfoStatus)
+
+    // if (isQQLoginInfoStatusFetched) {
+    //   setLoginInfo(qqLoginInfoStatus)
+    //   setAvatar(qqLoginInfoStatus && qqLoginInfoStatus.avatar)
+    //   setLoginStatus(true)
+    //   window.location.href = `https://yychuiyan.com/home`
+    // }
   }, [isQQLoginInfoStatusFetched, qqLoginInfoStatus])
   // 退出登录
   const { loginOut } = useLoginOut()
