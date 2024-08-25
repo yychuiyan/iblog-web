@@ -190,9 +190,9 @@ const NavBar = () => {
       dispatch(
         qqLogin(grant_type, clientId, clientSecret, authorizationCode, encoded_redirect_uri)
       ).then((res: any) => {
-        if (res.payload) {
-          setLoginInfo(res.payload)
-          setAvatar(res.payload.avatar)
+        if (res.userToken) {
+          setLoginInfo(res.userToken)
+          setAvatar(res.userToken.avatar)
           setLoginStatus(true)
           window.location.href = `https://yychuiyan.com/home`
         }
