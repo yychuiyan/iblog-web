@@ -19,7 +19,7 @@ import { faMagnifyingGlass, faBars } from '@fortawesome/free-solid-svg-icons'
 import { LoginOutlined, UserOutlined, LockOutlined } from '@ant-design/icons'
 import jwtDecode from 'jwt-decode'
 import UploadImage from '@/components/upload'
-import QQLoginButton from '@/components/qq/QQLoginButton'
+// import QQLoginButton from '@/components/qq/QQLoginButton'
 import IconFont from '../iconfont'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -1014,7 +1014,8 @@ const NavBar = () => {
                 </div>
                 <div className="flex text-[var(--color-font-color)]">
                   推荐登录：
-                  <QQLoginButton />
+                  {/* <QQLoginButton /> */}
+                  暂无
                 </div>
               </div>
             </Form.Item>
