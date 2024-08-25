@@ -240,3 +240,12 @@ html, body {
   font-size: 15px !important;
   color: var(--color-icon-default);
 }
+@media screen and (max-width:380px) {
+  :where(.css-dev-only-do-not-override-1c0na6j).ant-pagination.ant-pagination-simple .ant-pagination-simple-pager{
+    width: 50px !important;
+    height: 45px !important;
+    line-height: 45px !important;
+    font-size: 15px !important;
+    color: var(--color-icon-default);
+  }
+}
