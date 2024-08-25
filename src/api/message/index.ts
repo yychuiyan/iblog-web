@@ -1,6 +1,7 @@
 import useSWR from 'swr'
 import { request } from '@/utils/request'
 import { MessageBoradType, MessageBoradTypeResponse } from './type'
+import { useCallback } from 'react'
 
 // 根据传入的 URL 发送 HTTP GET 请求并返回数据
 const fetcher = async (url: string) => {
@@ -29,7 +30,7 @@ export const useMessageBoradList = (page, pageSize, auditStatus) => {
     `/iblog/message/list?page=${page}&&pageSize=${pageSize}&&auditStatus=${auditStatus}`,
     fetcher,
     {
-      revalidateOnFocus: true
+      revalidateOnFocus: false
     }
   )
   return {
@@ -40,11 +41,21 @@ export const useMessageBoradList = (page, pageSize, auditStatus) => {
 }
 
 // 新增留言
-export const useAddMessageBorad = (params) => {
-  const { data, error } = useSWR(params ? [`/iblog/message/insert`, params] : null, fetcherPost, {
-    revalidateOnFocus: false
+export const useAddMessageBorad = () => {
+  const { data, error } = useSWR(null, fetcherPost, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    shouldRetryOnError: false // 避免错误时自动重试
   })
+
+  const handleMessageBoard = useCallback(async (params) => {
+    if (!params) return
+    const response = await fetcherPost(['/iblog/message/insert', params])
+    return response
+  }, [])
+
   return {
+    handleMessageBoard,
     addMessageBoard: data as MessageBoradType,
     isAddMessageBoradFetched: !error && data !== undefined
   }

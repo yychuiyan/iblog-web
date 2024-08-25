@@ -8,6 +8,7 @@ import {
   HandleLikeTypeResponse,
   UpdateArticleViewType
 } from './type'
+import { useCallback } from 'react'
 
 // 根据传入的 URL 发送 HTTP GET 请求并返回数据
 const fetcher = async (url: string) => {
@@ -84,7 +85,12 @@ export const useArticleList = (page, pageSize, status, publishStatus, categories
 export const useArticleSearch = (status, publishStatus, title) => {
   const { data, isLoading, error } = useSWR(
     `/iblog/article/search?status=${status}&&publishStatus=${publishStatus}&&title=${title}`,
-    fetcher
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      shouldRetryOnError: false // 避免错误时自动重试
+    }
   )
   return {
     articleSearch: data as ArticleTypeResponse,
@@ -146,16 +152,20 @@ export const useCommentList = (page, pageSize, articleId) => {
 }
 
 // 新增评论
-export const useAddArticleComment = (params) => {
-  const { data, error } = useSWR(
-    params ? [`/iblog/article/comments/insert`, params] : null,
-    fetcherPost,
-    {
-      revalidateOnFocus: false
-    }
-  )
+export const useAddArticleComment = () => {
+  const { data, error } = useSWR(null, fetcherPost, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    shouldRetryOnError: false // 避免错误时自动重试
+  })
+  const handleCommentBoard = useCallback(async (params) => {
+    if (!params) return
+    const response = await fetcherPost([`/iblog/article/comments/insert`, params])
+    return response
+  }, [])
   return {
     addArticleComment: data as CommentType,
-    isAddArticleCommentFetched: !error && data !== undefined
+    isAddArticleCommentFetched: !error && data !== undefined,
+    handleCommentBoard
   }
 }

@@ -23,7 +23,7 @@ const Message = () => {
   // 留言列表数据
   const [messageList, setMessageList] = useState<MessageBoradType[]>([])
   // 留言内容
-  const [messageContent, setMessageContent] = useState<MessageBoradType>(null)
+  // const [messageContent, setMessageContent] = useState<MessageBoradType>(null)
   // 回复的文本对象信息
   const [replyObj, setReplyObj] = useState<MessageBoradType>({ _id: '', pid: '-1' })
   // 当前第几页
@@ -40,11 +40,11 @@ const Message = () => {
   // 页面效果
   const replyArea = useRef(null)
   // 邮件参数
-  const [emailParams, setEmailParams] = useState<{
-    email?: string
-    subject?: string
-    html?: string
-  }>(null)
+  // const [emailParams, setEmailParams] = useState<{
+  //   email?: string
+  //   subject?: string
+  //   html?: string
+  // }>(null)
   // 登录数据
   const [loginInfo, setLoginInfo] = useState<LoginInfoType>()
   // 表情显示隐藏
@@ -98,7 +98,7 @@ const Message = () => {
 
   const { totalCount } = messageBoardListData as MessageBoradTypeResponse
   // 提交留言数据
-  const { addMessageBoard, isAddMessageBoradFetched } = useAddMessageBorad(messageContent)
+  const { addMessageBoard, isAddMessageBoradFetched, handleMessageBoard } = useAddMessageBorad()
   const messageBoardListSource =
     isMessageBoradListFetched && messageBoardList && messageBoardList.data
       ? messageBoardList.data.data
@@ -111,7 +111,7 @@ const Message = () => {
       })
     )
   // 接收邮件
-  const { sendEmail, isSendEmailFetched } = useSendEmail(emailParams)
+  const { sendEmail, isSendEmailFetched, handleSendEmail } = useSendEmail()
   useEffect(() => {
     if (isSendEmailFetched) {
       console.log('')
@@ -149,9 +149,10 @@ const Message = () => {
     if (values.content === undefined || values.content === '') {
       return message.warning('留言不能为空哦！')
     }
+    message.success('留言成功！')
     try {
       // 更新 messageContent 状态
-      setMessageContent({
+      const messageContentParams = {
         pid: replyObj.pid,
         targetReplayId: replyObj._id || '-1',
         targetReplayContent: '',
@@ -161,20 +162,10 @@ const Message = () => {
         avatar: loginInfo ? loginInfo.avatar : (loginInfo as string),
         email: values.email,
         nickName: values.nickname
-      })
+      }
+      await handleMessageBoard(messageContentParams)
 
-      // 邮件提醒 默认接收邮箱
-      const email = 'haoju.zhang@outlook.com'
-      const title = `您的博客收到来自${values.nickname}<${values.email}>的留言`
-      const content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上收到新的留言</p><hr /><span style="color: cadetblue;">${values.nickname}:</span><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/message"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
-      const newContent = content.split('\n').join('\n<br/>\n')
-      setEmailParams({
-        email,
-        subject: title,
-        html: newContent
-      })
-      setTimeout(() => {
-        message.success('留言成功！')
+      setTimeout(async () => {
         setCurrentPage(1)
         if (type === 1) {
           form.resetFields()
@@ -183,15 +174,23 @@ const Message = () => {
           setReplyObj({ _id: '', pid: '-1' })
           replyForm.resetFields()
         }
-        setMessageContent(null)
-        setEmailParams(null)
+        // 邮件提醒 默认接收邮箱
+        const email = 'haoju.zhang@outlook.com'
+        const title = `您的博客收到来自${values.nickname}<${values.email}>的留言`
+        const content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上收到新的留言</p><hr /><span style="color: cadetblue;">${values.nickname}:</span><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/message"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
+        const newContent = content.split('\n').join('\n<br/>\n')
+        const sendEmailParams = {
+          email,
+          subject: title,
+          html: newContent
+        }
+        await handleSendEmail(sendEmailParams)
         messageBoradMutate() // 调用留言数据
       }, 500)
     } catch (error) {
       message.error('留言失败，请重试！')
     }
   }
-
   // 提交一次
   const onFinishFailed = () => {
     return
@@ -211,10 +210,11 @@ const Message = () => {
     }
   }
   // 提交回复
-  const onFinishReply = (values) => {
+  const onFinishReply = async (values) => {
     if (values.content === undefined || values.content === '') {
       return message.warning('回复内容不能为空哦！')
     }
+    message.success('回复成功！')
     setType(2)
     const replyParmas = {
       pid: replyObj.pid === '-1' ? replyObj._id : replyObj.pid,
@@ -227,9 +227,8 @@ const Message = () => {
       email: values.email,
       nickName: values.nickname
     }
-    setMessageContent(replyParmas)
-    setTimeout(() => {
-      message.success('回复成功！')
+    await handleMessageBoard(replyParmas)
+    setTimeout(async () => {
       if (type === 1) {
         form.resetFields()
       }
@@ -242,11 +241,12 @@ const Message = () => {
       const title = `您在夜雨炊烟小站中的留言收到了回复`
       const content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客中的留言：</p><hr /><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${replyObj.currentReplayContent}</span></p>收到<span style="color: cadetblue; padding-right:2px;">${values.nickname}</span>的回复:<p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/message"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
       const newContent = content.split('\n').join('\n<br/>\n')
-      setEmailParams({
+      const sendEmailParams = {
         email,
         subject: title,
         html: newContent
-      })
+      }
+      await handleSendEmail(sendEmailParams)
       messageBoradMutate() // 调用留言数据
     }, 500)
     cancelReply()

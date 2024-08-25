@@ -1,6 +1,7 @@
 import useSWR from 'swr'
 import { request } from '@/utils/request'
 import { SendEmailType } from './type'
+import { useCallback } from 'react'
 // 发送邮件
 const fetcherEmailPost = async ([url, params]) => {
   try {
@@ -12,10 +13,20 @@ const fetcherEmailPost = async ([url, params]) => {
   }
 }
 // 发送邮件
-export const useSendEmail = (params) => {
-  const { data, error } = useSWR(params ? [`/iblog/sendmail`, params] : null, fetcherEmailPost, {})
+export const useSendEmail = () => {
+  const { data, error } = useSWR(null, fetcherEmailPost, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    shouldRetryOnError: false // 避免错误时自动重试
+  })
+  const handleSendEmail = useCallback(async (params) => {
+    if (!params) return
+    const response = await fetcherEmailPost([`/iblog/sendmail`, params])
+    return response
+  }, [])
   return {
     sendEmail: data as SendEmailType,
-    isSendEmailFetched: !error && data !== undefined
+    isSendEmailFetched: !error && data !== undefined,
+    handleSendEmail
   }
 }
