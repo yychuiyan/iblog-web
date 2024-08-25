@@ -17,3 +17,9 @@ export interface UserLoginType {
   encoded_redirect_uri?: string
   data?: UserLoginType
 }
+export interface qqLoginType {
+  userToken?: any
+  type?: any
+  code?: number
+  data?: UserLoginType
+}

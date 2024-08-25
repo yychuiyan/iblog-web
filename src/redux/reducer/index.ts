@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import { ModeReducer } from '@/redux/reducer/mode'
-import { qqLoginReducer } from '@/redux/reducer/login'
+import { QQLoginReducer } from '@/redux/reducer/login'
 const RootReducer = combineReducers({
   ModeReducer,
-  qqLoginReducer
+  QQLoginReducer
 })
 export default RootReducer
