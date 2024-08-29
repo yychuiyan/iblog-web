@@ -26,11 +26,10 @@ const Friendly = () => {
     frilendlyListSource &&
     frilendlyListSource
       .sort(() => Math.random() - 0.5)
-      .filter((item) => item.checked === true)
-      .filter((item) => item.status === true)
+      .filter((item) => item.checked === true && item.status === true)
   const frilendlyListInvalidLink =
-    frilendlyListSourceData && frilendlyListSourceData.filter((item) => item.status === false)
-
+    frilendlyListSource &&
+    frilendlyListSource.filter((item) => item.status === false && item.checked === true)
   // 跳转页面
   const handleJump = (link: string) => {
     window.open(link)
