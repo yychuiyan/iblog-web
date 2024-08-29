@@ -86,7 +86,7 @@ const ArticleDetail = () => {
   useEffect(() => {
     setTimeout(() => {
       handleUpdateView({
-        views: view && view + 1,
+        views: view ? view + 1 : 1,
         id: articleId
       })
     }, 500)
