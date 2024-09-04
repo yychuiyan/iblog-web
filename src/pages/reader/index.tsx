@@ -52,7 +52,7 @@ const Reader = () => {
             reading.map((item) => {
               return (
                 <div
-                  className="home_reader_page float-left w-48 h-72 px-2 pb-2 pt-2 ml-8 mt-5 bg-base-200 rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-4"
+                  className="home_reader_page float-left w-52 h-72 px-2 pb-2 pt-2 mx-3 mt-5 bg-base-200 overflow-hidden rounded-2xl hover:ring-2 hover:transition hover:duration-500 cursor-pointer lg:ml-4"
                   key={item._id}
                   onClick={() => handleJump(item.link)}
                 >
@@ -67,8 +67,8 @@ const Reader = () => {
                     />
                   </div>
                   <div className="flex justify-center flex-wrap">
-                    <div className="flex justify-center text-xl line-clamp-1 overflow-hidden">
-                      {item.name}
+                    <div className="flex justify-center text-xl h-6 ">
+                      <p className="line-clamp-1 overflow-hidden">{item.name}</p>
                     </div>
                     <div className="flex items-center h-12 w-full">
                       <p className="line-clamp-2 overflow-hidden">{item.desc}</p>
@@ -137,20 +137,20 @@ const Reader = () => {
                       onClick={() => handleJump(item.link)}
                     >
                       {/* 封面 */}
-                      <div className="relative overflow-hidden rounded-xl">
+                      <div className="relative overflow-hidden">
                         <LazyLoadImage
                           src={item.avatar}
                           alt="Image"
                           loading="lazy"
                           effect="blur"
-                          className="image_friendly_page w-20 h-20 rounded-xl"
+                          className="image_friendly_page  w-16 h-20 rounded-md"
                         />
                       </div>
                       <div className="ml-2 w-48">
-                        <p className="flex justify-start text-xl line-clamp-1 overflow-hidden">
-                          {item.name}
+                        <p className="flex justify-start text-xl h-6">
+                          <p className="line-clamp-1 overflow-hidden">{item.name}</p>
                         </p>
-                        <div className="flex items-center h-12">
+                        <div className="flex items-center h-12 mt-2">
                           <p className="line-clamp-2 overflow-hidden">{item.desc}</p>
                         </div>
                       </div>
@@ -181,20 +181,20 @@ const Reader = () => {
                       onClick={() => handleJump(item.link)}
                     >
                       {/* 封面 */}
-                      <div className="relative overflow-hidden rounded-xl">
+                      <div className="relative overflow-hidden">
                         <LazyLoadImage
                           src={item.avatar}
                           alt="Image"
                           loading="lazy"
                           effect="blur"
-                          className="image_friendly_page w-20 h-20 rounded-xl"
+                          className="image_friendly_page w-16 h-20 rounded-md"
                         />
                       </div>
                       <div className="ml-2 w-48">
-                        <p className="flex justify-start text-xl line-clamp-1 overflow-hidden">
-                          {item.name}
+                        <p className="flex justify-start text-xl h-6">
+                          <p className="line-clamp-1 overflow-hidden">{item.name}</p>
                         </p>
-                        <div className="flex items-center h-12">
+                        <div className="flex items-center h-12 mt-2">
                           <p className="line-clamp-2 overflow-hidden">{item.desc}</p>
                         </div>
                       </div>

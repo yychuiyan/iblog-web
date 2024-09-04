@@ -186,7 +186,7 @@ html, body {
 .image_friendly_page {
   top: 0;
   left: 0;
-  object-fit: cover;
+  object-fit: fill;
   transition: all .6s, filter 375ms ease-in .2s !important;
   -webkit-transition: all .6s, filter 375ms ease-in .2s !important;
 }
@@ -206,9 +206,9 @@ html, body {
 }
 
 .image_reader_page {
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  top: 0;
+  left: 0;
+  object-fit:fill;
   transition: all .6s, filter 375ms ease-in .2s !important;
   -webkit-transition: all .6s, filter 375ms ease-in .2s !important;
 }
