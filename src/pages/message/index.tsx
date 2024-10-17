@@ -492,7 +492,7 @@ const Message = () => {
                           <>
                             <div className="user_content font-normal lg:w-full">
                               <pre
-                                className="whitespace-normal overflow-auto"
+                                className="whitespace-pre overflow-auto lg:whitespace-normal"
                                 dangerouslySetInnerHTML={{
                                   __html: item.currentReplayContent.replace(
                                     /((http|https):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|])/g,
@@ -578,7 +578,7 @@ const Message = () => {
                                     content={
                                       <span className="user_content font-normal">
                                         <pre
-                                          className="whitespace-normal overflow-auto"
+                                          className="whitespace-pre overflow-auto lg:whitespace-normal"
                                           dangerouslySetInnerHTML={{
                                             __html: innerItem.currentReplayContent.replace(
                                               /((http|https):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|])/g,
