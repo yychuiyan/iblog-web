@@ -1,8 +1,8 @@
-import { useWebSiteUpdate } from '@/api/webSite'
+// import { useWebSiteUpdate } from '@/api/webSite'
 import { useEffect } from 'react'
 
 const Footer = () => {
-  useWebSiteUpdate() // 网站访问
+  // useWebSiteUpdate() // 网站访问
   useEffect(() => {
     const hasVisited = sessionStorage.getItem('hasVisited')
     if (!hasVisited) {

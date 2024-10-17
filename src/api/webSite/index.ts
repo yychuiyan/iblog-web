@@ -33,6 +33,7 @@ export const useWebSiteUpdate = () => {
     revalidateOnReconnect: false,
     dedupingInterval: 0 // 避免短时间内的重复请求
   })
+
   return {
     webSiteUpdate: data as WebSiteType,
     isWebSiteUpdateFetched: !error && data !== undefined // 数据是否成功获取

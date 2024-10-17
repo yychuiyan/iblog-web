@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 import IconFont from '../iconfont'
 import { useWebSiteView } from '@/api/webSite'
 import { useArticleAllList } from '@/api/articles'
+import { useWebSiteUpdate } from '@/api/webSite'
 const WebSite = () => {
   // 运行天数
   const [days, setDays] = useState(0)
+  useWebSiteUpdate() // 网站访问
   // 网站访问量
   const { webSiteView, isWebSiteViewFetched } = useWebSiteView()
-  const webSiteViewSource =
-    isWebSiteViewFetched && webSiteView && webSiteView.data ? webSiteView.data.data : ''
-  const visitNumber = webSiteViewSource && webSiteViewSource[0].visitNumber
+  const visitNumber = isWebSiteViewFetched && webSiteView?.res?.visitNumber
   // 获取全部文章
   const { articleAllList, isArticleAllListFetched } = useArticleAllList(1, 1)
   const articleAllSource =
