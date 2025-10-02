@@ -7,3 +7,5 @@
 ### 打包
 
 `pnpm run build`
+
+远程仓库拉取test1...
