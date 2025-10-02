@@ -2,8 +2,8 @@
 
 ### 运行
 
-pnpm start
+`pnpm start`
 
 ### 打包
 
-pnpm run build
+`pnpm run build`
