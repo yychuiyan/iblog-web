@@ -11,7 +11,7 @@ export default defineConfig({
   // 跨域处理
   server: {
     open: false,
-    port: 3000,
+    port: 8000,
     proxy: {
       '/iblog': {
         target: 'http://127.0.0.1:7001',
