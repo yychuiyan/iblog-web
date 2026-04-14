@@ -44,6 +44,10 @@ const NavBar = () => {
       title: '索引',
       children: [
         {
+          path: '/project',
+          title: '作品'
+        },
+        {
           path: '/category',
           title: '分类'
         },
@@ -54,11 +58,12 @@ const NavBar = () => {
         {
           path: '/timeline',
           title: '时间线'
-        },
-        {
-          path: '/reader',
-          title: '书友会'
         }
+
+        // {
+        //   path: '/reader',
+        //   title: '书友会'
+        // }
       ]
     },
     {
@@ -76,25 +81,25 @@ const NavBar = () => {
     {
       path: '/about',
       title: '关于'
-    },
-    {
-      path: '/frontend-nav',
-      title: '前端导航',
-      children: [
-        {
-          path: '/project',
-          title: '作品'
-        },
-        {
-          path: '/tools',
-          title: '工具'
-        },
-        {
-          path: '/website',
-          title: '常用网站'
-        }
-      ]
     }
+    // {
+    //   path: '/frontend-nav',
+    //   title: '导航',
+    //   children: [
+    //     {
+    //       path: '/project',
+    //       title: '作品'
+    //     },
+    //     {
+    //       path: '/tools',
+    //       title: '工具'
+    //     },
+    //     {
+    //       path: '/website',
+    //       title: '常用网站'
+    //     }
+    //   ]
+    // }
   ]
   // 路由
   const navigate = useNavigate()
