@@ -198,34 +198,29 @@ const NavBar = () => {
             setLoginInfo(res)
             setAvatar(res.avatar)
             setLoginStatus(true)
-            // window.location.href = `https://yychuiyan.com/home`
+            window.location.href = `https://yychuiyan.com/home`
           } else {
             message.error('登录异常,success！')
           }
         })
         .catch((error) => {
-          console.log('获取错误：', error)
           // 适配axios响应拦截器返回的错误格式
           if (error && error.code === 0) {
             const res = error
-            console.log('从error中提取的数据：', res)
             setLoginInfo(res.data)
             setAvatar(res.data.avatar)
             setLoginStatus(true)
             localStorage.setItem('zhj', 'success')
             localStorage.setItem('yychuiyan', res.data.token)
-            // window.location.href = `https://yychuiyan.com/home`
+            window.location.href = `https://yychuiyan.com/home`
             return // 阻止执行下面的错误提示
           }
-
-          message.error('登录异常,error！')
         })
     }
     // 获取登录态
     const isLoginInfo = localStorage.getItem('zhj')
     if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
       const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as TokenType
-      console.log('登录态token：', token)
 
       setLoginInfo(token)
       setAvatar(token.avatar)

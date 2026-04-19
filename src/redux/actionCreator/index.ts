@@ -30,8 +30,6 @@ export const qqLogin = (
       code,
       redirect_uri
     )
-    console.log('response', response)
-
     if (response.code === 0) {
       message.success('恭喜你，登录成功~')
       // 将token存储存到本地
@@ -46,7 +44,7 @@ export const qqLogin = (
       return response
     } else {
       // 处理业务错误
-      console.log('登录失败11', response)
+      console.log('')
     }
   }
 }
