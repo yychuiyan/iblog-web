@@ -212,6 +212,8 @@ const NavBar = () => {
             setLoginInfo(res.data)
             setAvatar(res.data.avatar)
             setLoginStatus(true)
+            localStorage.setItem('zhj', 'success')
+            localStorage.setItem('yychuiyan', res.data.token)
             // window.location.href = `https://yychuiyan.com/home`
             return // 阻止执行下面的错误提示
           }
@@ -223,6 +225,8 @@ const NavBar = () => {
     const isLoginInfo = localStorage.getItem('zhj')
     if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
       const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as TokenType
+      console.log('登录态token：', token)
+
       setLoginInfo(token)
       setAvatar(token.avatar)
       setLoginStatus(true)
