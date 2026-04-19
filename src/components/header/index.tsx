@@ -190,39 +190,33 @@ const NavBar = () => {
     const redirectUri = `https://yychuiyan.com/home`
     const encoded_redirect_uri = encodeURIComponent(redirectUri)
     const authorizationCode: string | any = new URLSearchParams(window.location.search).get('code')
-    console.log('authorizationCode', authorizationCode)
-
     // QQ是否正常登录
     if (authorizationCode !== null) {
       dispatch(qqLogin(grant_type, clientId, clientSecret, authorizationCode, encoded_redirect_uri))
         .then((res: any) => {
-          console.log('登录成功后数据：', res)
           if (res.success) {
             setLoginInfo(res)
             setAvatar(res.avatar)
             setLoginStatus(true)
             window.location.href = `https://yychuiyan.com/home`
           } else {
-            message.error('登录异常！')
+            message.error('登录异常,success！')
           }
         })
         .catch((error) => {
+          console.log('获取错误：', error)
           // 适配axios响应拦截器返回的错误格式
-          if (error.response && error.response.data) {
-            const res = error.response.data
+          if (error && error.code === 0) {
+            const res = error
             console.log('从error中提取的数据：', res)
-
-            // 如果业务上是成功的，仍然执行登录逻辑
-            if (res.code === 0) {
-              setLoginInfo(res.data)
-              setAvatar(res.data.avatar)
-              setLoginStatus(true)
-              window.location.href = `https://yychuiyan.com/home`
-              return // 阻止执行下面的错误提示
-            }
+            setLoginInfo(res.data)
+            setAvatar(res.data.avatar)
+            setLoginStatus(true)
+            window.location.href = `https://yychuiyan.com/home`
+            return // 阻止执行下面的错误提示
           }
 
-          message.error('登录异常！')
+          message.error('登录异常,error！')
         })
     }
     // 获取登录态
