@@ -45,6 +45,9 @@ export const qqLogin = (
           userToken: userToken
         })
         return response
+      } else {
+        // 处理业务错误
+        console.log('登录失败', response)
       }
     } catch (error) {
       console.log('登录失败：', error)
