@@ -198,7 +198,7 @@ const NavBar = () => {
             setLoginInfo(res)
             setAvatar(res.avatar)
             setLoginStatus(true)
-            window.location.href = `https://yychuiyan.com/home`
+            // window.location.href = `https://yychuiyan.com/home`
           } else {
             message.error('登录异常,success！')
           }
@@ -212,7 +212,7 @@ const NavBar = () => {
             setLoginInfo(res.data)
             setAvatar(res.data.avatar)
             setLoginStatus(true)
-            window.location.href = `https://yychuiyan.com/home`
+            // window.location.href = `https://yychuiyan.com/home`
             return // 阻止执行下面的错误提示
           }
 
