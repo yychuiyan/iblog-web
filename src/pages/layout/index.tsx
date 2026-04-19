@@ -13,7 +13,7 @@ const LayoutIndex = () => {
   NProgress.done()
   const localMode = Number(localStorage.getItem('localmode'))
   const mode = useSelector((state: ModeState) => state.ModeReducer.mode)
-  const [isLoaded, setIdLoaded] = useState<boolean>(false)
+  const [, setIdLoaded] = useState<boolean>(false)
   // 文章加载
   const { isArticleAllListFetched } = useArticleAllList(1, 1)
   useEffect(() => {
@@ -26,7 +26,16 @@ const LayoutIndex = () => {
 
   return (
     <>
-      {isLoaded ? (
+      <div className={`parent`}>
+        <div className={`${mode || localMode ? 'bg1' : 'bg0'}`}>
+          <NavBar></NavBar>
+          <main className="flex justify-between  w-full min-h-screen mx-auto lg:w-full">
+            <Outlet></Outlet>
+          </main>
+          <Footer></Footer>
+        </div>
+      </div>
+      {/* {isLoaded ? (
         <div className={`parent`}>
           <div className={`${mode || localMode ? 'bg1' : 'bg0'}`}>
             <NavBar></NavBar>
@@ -51,7 +60,7 @@ const LayoutIndex = () => {
             </main>
           </div>
         </div>
-      )}
+      )} */}
     </>
   )
 }

@@ -142,31 +142,31 @@ const ArticleDetail = () => {
   // 禁止点击
   const handleCannot = () => {
     message.info({
-      content: '温馨提示：还未登录哦！',
+      content: '登录后才能点赞哦！',
       icon: <SoundOutlined style={{ color: 'var(--bgcolor-social-default)' }} />,
       className: 'text-[var(--bgcolor-social-default)]'
     })
   }
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTopValue = document.documentElement.scrollTop
-      if (scrollTopValue > 900) {
-        const activeItem = document.querySelector('.markdown-navigation .title-anchor.active')
-        if (activeItem) {
-          activeItem.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-          })
-        }
-      }
-    }
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrollTopValue = document.documentElement.scrollTop
+  //     if (scrollTopValue > 900) {
+  //       const activeItem = document.querySelector('.markdown-navigation .title-anchor.active')
+  //       if (activeItem) {
+  //         activeItem.scrollIntoView({
+  //           behavior: 'smooth',
+  //           block: 'center'
+  //         })
+  //       }
+  //     }
+  //   }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  //   window.addEventListener('scroll', handleScroll)
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll)
+  //   }
+  // }, [])
 
   return (
     <div

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, Form, Input, Modal } from 'antd'
+import { Form, Input, Modal } from 'antd'
 
 const InputImage = (props: any) => {
   // form
@@ -22,23 +22,23 @@ const InputImage = (props: any) => {
   const onCancel = () => {
     setVisible(false)
   }
-  const onVisible = () => {
-    setVisible(true)
-    if (props.imgUrl.url === '') {
-      form.resetFields()
-    }
-    // 重新赋值
-    if (props.fileList.length > 0) {
-      form.setFieldsValue({
-        url: props.fileList[0].thumbUrl ? props.fileList[0].thumbUrl : ''
-      })
-    }
-  }
+  // const onVisible = () => {
+  //   setVisible(true)
+  //   if (props.imgUrl.url === '') {
+  //     form.resetFields()
+  //   }
+  //   // 重新赋值
+  //   if (props.fileList.length > 0) {
+  //     form.setFieldsValue({
+  //       url: props.fileList[0].thumbUrl ? props.fileList[0].thumbUrl : ''
+  //     })
+  //   }
+  // }
   return (
     <div>
-      <Button className="btn-input" onClick={onVisible} type="primary">
+      {/* <Button className="btn-input" onClick={onVisible} type="primary">
         输入链接
-      </Button>
+      </Button> */}
       <div>
         <Modal
           forceRender

@@ -28,6 +28,7 @@ import { useArticleSearch } from '@/api/articles'
 import { TokenType } from '@/types/comm'
 import { useLogin, useLoginFindPassowrd, useLoginOut, useLoginRegister } from '@/api/login'
 import { UserLoginType } from '@/api/login/type'
+import QQLoginButton from '../qq/QQLoginButton'
 const objLogin = {
   0: '登录',
   1: '注册',
@@ -391,6 +392,7 @@ const NavBar = () => {
   const handleRegisterSuccess = async () => {
     await form.validateFields()
     const formDataFields = form.getFieldsValue()
+
     if (formDataFields) {
       if (formDataFields.password !== formDataFields.verifyPassword) {
         return message.warning('两次密码不相同，请检查后重新输入')
@@ -402,9 +404,9 @@ const NavBar = () => {
     } else {
       formDataFields.avatar = imageList
     }
-    if (formDataFields.avatar === undefined) {
-      return message.warning('头像不能为空哦~')
-    }
+    // if (formDataFields.avatar === undefined) {
+    //   return message.warning('头像不能为空哦~')
+    // }
     const { username, password, email, avatar } = formDataFields
 
     setRegisterParams({
@@ -930,7 +932,7 @@ const NavBar = () => {
             ) : (
               <div style={{ userSelect: 'none' }}>
                 <p className="text-[#fb7877] mb-2 font-medium">
-                  📢公告：昵称、头像、邮箱暂无修改入口，如需修改请留言联系博主~
+                  📢 公告：昵称、头像、邮箱修改功能迭代中···
                 </p>
                 <Form.Item name="username" rules={[{ validator: validateName }]}>
                   <Input
@@ -981,7 +983,7 @@ const NavBar = () => {
                   className="w-[calc(100%-0px)]"
                   onClick={handleFindPassword}
                 >
-                  确认修改密码
+                  功能迭代中
                 </Button>
               )}
               <div
@@ -1019,8 +1021,7 @@ const NavBar = () => {
                 </div>
                 <div className="flex text-[var(--color-font-color)]">
                   推荐登录：
-                  {/* <QQLoginButton /> */}
-                  暂无
+                  <QQLoginButton />
                 </div>
               </div>
             </Form.Item>

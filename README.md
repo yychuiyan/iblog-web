@@ -8,4 +8,6 @@
 
 `pnpm run build`
 
-远程仓库拉取test11...
+# 提交：
+
+git commit -m "feat, fix, docs, style, refactor, perf, test, chore, revert, build: xxxx"

@@ -148,7 +148,7 @@ const Content = () => {
   // 禁止点击
   const handleCannot = () => {
     message.info({
-      content: '温馨提示：还未登录哦！',
+      content: '登录后才能点赞哦！',
       icon: <SoundOutlined style={{ color: 'var(--bgcolor-social-default)' }} />,
       className: 'text-[var(--bgcolor-social-default)]'
     })
