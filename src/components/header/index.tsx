@@ -19,7 +19,7 @@ import { faMagnifyingGlass, faBars } from '@fortawesome/free-solid-svg-icons'
 import { LoginOutlined, UserOutlined, LockOutlined } from '@ant-design/icons'
 import jwtDecode from 'jwt-decode'
 import UploadImage from '@/components/upload'
-// import QQLoginButton from '@/components/qq/QQLoginButton'
+import QQLoginButton from '@/components/qq/QQLoginButton'
 import IconFont from '../iconfont'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -28,7 +28,6 @@ import { useArticleSearch } from '@/api/articles'
 import { TokenType } from '@/types/comm'
 import { useLogin, useLoginFindPassowrd, useLoginOut, useLoginRegister } from '@/api/login'
 import { UserLoginType } from '@/api/login/type'
-import QQLoginButton from '../qq/QQLoginButton'
 const objLogin = {
   0: '登录',
   1: '注册',
@@ -197,10 +196,14 @@ const NavBar = () => {
         qqLogin(grant_type, clientId, clientSecret, authorizationCode, encoded_redirect_uri)
       ).then((res: any) => {
         console.log('登录成功后数据：', res)
-        setLoginInfo(res)
-        setAvatar(res.avatar)
-        setLoginStatus(true)
-        window.location.href = `https://yychuiyan.com/home`
+        if (res.success) {
+          setLoginInfo(res)
+          setAvatar(res.avatar)
+          setLoginStatus(true)
+          window.location.href = `https://yychuiyan.com/home`
+        } else {
+          message.error('登录异常！')
+        }
       })
     }
     // 获取登录态

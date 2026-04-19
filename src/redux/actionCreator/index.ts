@@ -45,7 +45,7 @@ export const qqLogin = (
         return response
       }
     } catch (error) {
-      message.error('登录异常！', error as any)
+      console.log('登录失败：', error)
     }
   }
 }
