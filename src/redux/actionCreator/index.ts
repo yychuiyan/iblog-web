@@ -23,36 +23,30 @@ export const qqLogin = (
   redirect_uri: string
 ): any => {
   return async (dispatch: Dispatch) => {
-    try {
-      const response: qqLoginType = await getQQLogin(
-        grant_type,
-        client_id,
-        client_secret,
-        code,
-        redirect_uri
-      )
-      console.log('response', response)
+    const response: qqLoginType = await getQQLogin(
+      grant_type,
+      client_id,
+      client_secret,
+      code,
+      redirect_uri
+    )
+    console.log('response', response)
 
-      if (response.code === 0) {
-        message.success('恭喜你，登录成功~')
-        // 将token存储存到本地
-        localStorage.setItem('yychuiyan', response.data.token)
-        localStorage.setItem('zhj', 'success')
-        // 解析token
-        const userToken = jwtDecode(response.data.token)
-        dispatch({
-          type: QQ_LOGIN,
-          userToken: userToken
-        })
-        return response
-      } else {
-        // 处理业务错误
-        console.log('登录失败11', response)
-      }
-    } catch (error: qqLoginType | any) {
-      console.log('登录失败：', error)
-      message.error('网络错误或服务器异常')
-      return { success: false, error: error.message || '未知错误' }
+    if (response.code === 0) {
+      message.success('恭喜你，登录成功~')
+      // 将token存储存到本地
+      localStorage.setItem('yychuiyan', response.data.token)
+      localStorage.setItem('zhj', 'success')
+      // 解析token
+      const userToken = jwtDecode(response.data.token)
+      dispatch({
+        type: QQ_LOGIN,
+        userToken: userToken
+      })
+      return response
+    } else {
+      // 处理业务错误
+      console.log('登录失败11', response)
     }
   }
 }
