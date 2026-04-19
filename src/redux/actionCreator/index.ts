@@ -47,10 +47,12 @@ export const qqLogin = (
         return response
       } else {
         // 处理业务错误
-        console.log('登录失败', response)
+        console.log('登录失败11', response)
       }
-    } catch (error) {
+    } catch (error: qqLoginType | any) {
       console.log('登录失败：', error)
+      message.error('网络错误或服务器异常')
+      return { success: false, error: error.message || '未知错误' }
     }
   }
 }

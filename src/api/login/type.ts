@@ -18,6 +18,7 @@ export interface UserLoginType {
   data?: UserLoginType
 }
 export interface qqLoginType {
+  message?: string
   userToken?: any
   type?: any
   code?: number

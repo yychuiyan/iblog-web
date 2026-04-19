@@ -190,21 +190,26 @@ const NavBar = () => {
     const redirectUri = `https://yychuiyan.com/home`
     const encoded_redirect_uri = encodeURIComponent(redirectUri)
     const authorizationCode: string | any = new URLSearchParams(window.location.search).get('code')
+    console.log('authorizationCode', authorizationCode)
+
     // QQ是否正常登录
     if (authorizationCode !== null) {
-      dispatch(
-        qqLogin(grant_type, clientId, clientSecret, authorizationCode, encoded_redirect_uri)
-      ).then((res: any) => {
-        console.log('登录成功后数据：', res)
-        if (res.success) {
-          setLoginInfo(res)
-          setAvatar(res.avatar)
-          setLoginStatus(true)
-          window.location.href = `https://yychuiyan.com/home`
-        } else {
-          message.error('登录异常！')
-        }
-      })
+      dispatch(qqLogin(grant_type, clientId, clientSecret, authorizationCode, encoded_redirect_uri))
+        .then((res: any) => {
+          console.log('登录成功后数据：', res)
+          if (res.success) {
+            setLoginInfo(res)
+            setAvatar(res.avatar)
+            setLoginStatus(true)
+            window.location.href = `https://yychuiyan.com/home`
+          } else {
+            message.error('登录异常！')
+          }
+        })
+        .catch((error) => {
+          console.log('登录失败2：', error)
+          message.error('登录异常2！')
+        })
     }
     // 获取登录态
     const isLoginInfo = localStorage.getItem('zhj')
