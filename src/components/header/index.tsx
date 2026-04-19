@@ -207,8 +207,22 @@ const NavBar = () => {
           }
         })
         .catch((error) => {
-          console.log('登录失败2：', error)
-          message.error('登录异常2！')
+          // 适配axios响应拦截器返回的错误格式
+          if (error.response && error.response.data) {
+            const res = error.response.data
+            console.log('从error中提取的数据：', res)
+
+            // 如果业务上是成功的，仍然执行登录逻辑
+            if (res.code === 0) {
+              setLoginInfo(res.data)
+              setAvatar(res.data.avatar)
+              setLoginStatus(true)
+              window.location.href = `https://yychuiyan.com/home`
+              return // 阻止执行下面的错误提示
+            }
+          }
+
+          message.error('登录异常！')
         })
     }
     // 获取登录态
