@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Category from '@/components/sidemenu/Category'
-import Social from '@/components/sidemenu/Social'
+// import Social from '@/components/sidemenu/Social'
 import User from '@/components/sidemenu/User'
 import Content from '@/components/content/HomePage'
 import ContentCT from '@/components/content'
@@ -64,7 +64,7 @@ const Home = () => {
         </article>
         <aside className="w-300 lg:hidden">
           <User />
-          <Social />
+          {/* <Social /> */}
           <Affiche />
           <Category />
           <Affix offsetTop={70}>
