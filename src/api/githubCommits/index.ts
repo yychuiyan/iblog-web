@@ -1,28 +1,25 @@
 import useSWR from 'swr'
+import { request } from '@/utils/request'
 import { GitHubCommitsResponse } from './type'
 
-// 使用 fetch 直接请求 GitHub API（不走 axios 拦截器）
-const fetcher = async (url: string): Promise<GitHubCommitsResponse> => {
-  const response = await fetch(url, {
-    headers: {
-      Accept: 'application/vnd.github.v3+json'
-    }
-  })
-  if (!response.ok) {
-    throw new Error(`GitHub API error: ${response.status}`)
+const fetcher = async (url: string) => {
+  try {
+    const response = await request.get(url)
+    return (response as any).data.data as GitHubCommitsResponse
+  } catch (error) {
+    console.error('Fetch commits error:', error)
+    throw error
   }
-  return response.json()
 }
 
-const GITHUB_COMMITS_API =
-  'https://api.github.com/repos/yychuiyan/iblog-web/commits?sha=master&per_page=5'
+// 通过后端代理，浏览器 Network 只显示 /iblog/commits
+const COMMITS_API = '/iblog/commits'
 
-// 获取 GitHub 提交记录
 export const useGitHubCommits = () => {
-  const { data, error } = useSWR(GITHUB_COMMITS_API, fetcher, {
+  const { data, error } = useSWR(COMMITS_API, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: true,
-    dedupingInterval: 60000 // 1分钟内不重复请求
+    dedupingInterval: 60000
   })
 
   return {
