@@ -46,19 +46,16 @@ const ArticleDetail = () => {
   const articleId = parts[parts.length - 1]
   const { articleDetail } = useArticleDetail(articleId)
   const articleItem = (articleDetail as any)?.data
-  // 文章访问量
-  const view = articleItem?.views || 0
-  // 更新文章访问量
+  // 文章访问量（每次进入详情页 +1）
+  const [viewCount, setViewCount] = useState(0)
   const { handleUpdateView } = useUpdateArtilceView()
   useEffect(() => {
-    if (!articleId) return
-    setTimeout(() => {
-      handleUpdateView({
-        views: view ? view + 1 : 1,
-        id: articleId
-      })
-    }, 500)
-  }, [articleId])
+    if (!articleItem) return
+    const initViews = articleItem?.views || 0
+    const newViews = initViews + 1
+    setViewCount(newViews)
+    handleUpdateView({ views: newViews, id: articleId })
+  }, [location.pathname, articleItem?.views])
   // 点赞量初始化
   const initialLikeCount = articleItem?.like || 0
   useEffect(() => {
@@ -149,7 +146,7 @@ const ArticleDetail = () => {
                 <FontAwesomeIcon icon={faComments} size="lg" />
                 <span className="text-lg pl-2 pr-4">{articleItem.comment}</span>
                 <FontAwesomeIcon icon={faEye} />
-                <span className="text-lg pl-2">{articleItem.views}</span>
+                <span className="text-lg pl-2">{viewCount || articleItem.views || 0}</span>
               </div>
             </div>
           </div>

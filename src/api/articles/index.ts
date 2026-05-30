@@ -61,7 +61,7 @@ export const useArticleDetail = (articleId: string) => {
     fetcher,
     {
       revalidateOnFocus: false,
-      dedupingInterval: 60000
+      dedupingInterval: 0 // 每次挂载都重新请求，确保访问量等数据最新
     }
   )
 
