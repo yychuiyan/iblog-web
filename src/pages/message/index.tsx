@@ -149,7 +149,6 @@ const Message = () => {
     if (values.content === undefined || values.content === '') {
       return message.warning('留言不能为空哦！')
     }
-    message.success('留言成功！')
     try {
       // 更新 messageContent 状态
       const messageContentParams = {
@@ -163,30 +162,35 @@ const Message = () => {
         email: values.email,
         nickName: values.nickname
       }
-      await handleMessageBoard(messageContentParams)
-
-      setTimeout(async () => {
-        setCurrentPage(1)
-        if (type === 1) {
-          form.resetFields()
-        }
-        if (type === 2) {
-          setReplyObj({ _id: '', pid: '-1' })
-          replyForm.resetFields()
-        }
-        // 邮件提醒 默认接收邮箱
-        const email = 'haoju.zhang@outlook.com'
-        const title = `您的博客收到来自${values.nickname}<${values.email}>的留言`
-        const content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上收到新的留言</p><hr /><span style="color: cadetblue;">${values.nickname}:</span><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/message"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
-        const newContent = content.split('\n').join('\n<br/>\n')
-        const sendEmailParams = {
-          email,
-          subject: title,
-          html: newContent
-        }
-        await handleSendEmail(sendEmailParams)
-        messageBoradMutate() // 调用留言数据
-      }, 500)
+      const result: any = await handleMessageBoard(messageContentParams)
+      // 立即用 API 返回的数据更新列表，不等待邮件
+      const newMessage = result?.data?.res
+      if (newMessage && newMessage.pid === '-1') {
+        setMessageList((prevState) => [newMessage, ...prevState])
+      }
+      // 立即重置表单
+      setCurrentPage(1)
+      if (type === 1) {
+        form.resetFields()
+      }
+      if (type === 2) {
+        setReplyObj({ _id: '', pid: '-1' })
+        replyForm.resetFields()
+      }
+      message.success('留言成功！')
+      // 邮件提醒（不阻塞 UI）
+      const email = 'haoju.zhang@outlook.com'
+      const title = `您的博客收到来自${values.nickname}<${values.email}>的留言`
+      const content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上收到新的留言</p><hr /><span style="color: cadetblue;">${values.nickname}:</span><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/message"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
+      const newContent = content.split('\n').join('\n<br/>\n')
+      const sendEmailParams = {
+        email,
+        subject: title,
+        html: newContent
+      }
+      handleSendEmail(sendEmailParams) // 异步发送，不等待
+      // 后台静默刷新列表
+      messageBoradMutate()
     } catch (error) {
       message.error('留言失败，请重试！')
     }
@@ -214,7 +218,6 @@ const Message = () => {
     if (values.content === undefined || values.content === '') {
       return message.warning('回复内容不能为空哦！')
     }
-    message.success('回复成功！')
     setType(2)
     const replyParmas = {
       pid: replyObj.pid === '-1' ? replyObj._id : replyObj.pid,
@@ -227,28 +230,35 @@ const Message = () => {
       email: values.email,
       nickName: values.nickname
     }
-    await handleMessageBoard(replyParmas)
-    setTimeout(async () => {
-      if (type === 1) {
-        form.resetFields()
+    const result: any = await handleMessageBoard(replyParmas)
+    // 立即用 API 返回的数据更新列表
+    const newReply = result?.data?.res
+    if (newReply) {
+      const parentMessage =
+        messageBoardListSource &&
+        messageBoardListSource.find((message) => message._id === newReply.pid)
+      if (parentMessage) {
+        parentMessage.children.push(newReply)
+        setMessageList((prevState) => [parentMessage, ...prevState])
       }
-      if (type === 2) {
-        setReplyObj({ _id: '', pid: '-1' })
-        replyForm.resetFields()
-      }
-      // 邮件提醒
-      const email = replyObj.email
-      const title = `您在夜雨炊烟小站中的留言收到了回复`
-      const content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客中的留言：</p><hr /><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${replyObj.currentReplayContent}</span></p>收到<span style="color: cadetblue; padding-right:2px;">${values.nickname}</span>的回复:<p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/message"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
-      const newContent = content.split('\n').join('\n<br/>\n')
-      const sendEmailParams = {
-        email,
-        subject: title,
-        html: newContent
-      }
-      await handleSendEmail(sendEmailParams)
-      messageBoradMutate() // 调用留言数据
-    }, 500)
+    }
+    message.success('回复成功！')
+    // 立即重置表单
+    setReplyObj({ _id: '', pid: '-1' })
+    replyForm.resetFields()
+    // 邮件提醒（不阻塞 UI）
+    const email = replyObj.email
+    const title = `您在夜雨炊烟小站中的留言收到了回复`
+    const content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客中的留言：</p><hr /><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${replyObj.currentReplayContent}</span></p>收到<span style="color: cadetblue; padding-right:2px;">${values.nickname}</span>的回复:<p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/message"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
+    const newContent = content.split('\n').join('\n<br/>\n')
+    const sendEmailParams = {
+      email,
+      subject: title,
+      html: newContent
+    }
+    handleSendEmail(sendEmailParams) // 异步发送，不等待
+    // 后台静默刷新列表
+    messageBoradMutate()
     cancelReply()
   }
   const cancelReply = () => {

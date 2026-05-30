@@ -136,9 +136,7 @@ const ArticleComment = (props) => {
     if (values.content === undefined || values.content === '') {
       return message.warning('评论不能为空哦！')
     }
-    message.success('评论成功！')
     try {
-      // 更新 messageContent 状态
       const commentContentParams = {
         pid: replyObj.pid,
         targetReplayId: replyObj._id || '-1',
@@ -150,29 +148,35 @@ const ArticleComment = (props) => {
         articleId: commentArticleId,
         articleTitle: articleTitle
       }
-      await handleCommentBoard(commentContentParams)
-      setTimeout(async () => {
-        setCurrentPage(1)
-        if (type === 1) {
-          form.resetFields()
-        }
-        if (type === 2) {
-          setReplyObj({ _id: '', pid: '-1' })
-          replyForm.resetFields()
-        }
-        // 邮件提醒
-        const email = 'haoju.zhang@outlook.com'
-        const title = `您的文章【${articleTitle}】收到来自${values.nickname}<${values.email}>的评论`
-        const content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上的文章《${articleTitle}》收到新的评论</p><hr /><span style="color: cadetblue">${values.nickname}:</span><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/article/detail/${commentArticleId}"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
-        const newContent = content.split('\n').join('\n<br/>\n')
-        const sendEmailParams = {
-          email,
-          subject: title,
-          html: newContent
-        }
-        await handleSendEmail(sendEmailParams)
-        articleCommentMutate() // 即时更新数据
-      }, 500)
+      const result: any = await handleCommentBoard(commentContentParams)
+      // 立即用 API 返回的数据更新列表，不等待邮件
+      const newComment = result?.data?.res
+      if (newComment && newComment.pid === '-1') {
+        setCommentList((prevState) => [newComment, ...prevState])
+      }
+      // 立即重置表单
+      setCurrentPage(1)
+      if (type === 1) {
+        form.resetFields()
+      }
+      if (type === 2) {
+        setReplyObj({ _id: '', pid: '-1' })
+        replyForm.resetFields()
+      }
+      message.success('评论成功！')
+      // 邮件提醒（不阻塞 UI）
+      const email = 'haoju.zhang@outlook.com'
+      const title = `您的文章【${articleTitle}】收到来自${values.nickname}<${values.email}>的评论`
+      const content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上的文章《${articleTitle}》收到新的评论</p><hr /><span style="color: cadetblue">${values.nickname}:</span><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/article/detail/${commentArticleId}"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
+      const newContent = content.split('\n').join('\n<br/>\n')
+      const sendEmailParams = {
+        email,
+        subject: title,
+        html: newContent
+      }
+      handleSendEmail(sendEmailParams) // 异步发送，不等待
+      // 后台静默刷新列表
+      articleCommentMutate()
     } catch (error) {
       message.error('评论失败，请重试！')
     }
@@ -213,29 +217,34 @@ const ArticleComment = (props) => {
       articleId: commentArticleId,
       articleTitle: articleTitle
     }
-    await handleCommentBoard(replyParmas)
-    setTimeout(async () => {
-      message.success('回复成功！')
-      if (type === 1) {
-        form.resetFields()
+    const result: any = await handleCommentBoard(replyParmas)
+    // 立即用 API 返回的数据更新列表
+    const newReply = result?.data?.res
+    if (newReply) {
+      const parentComment =
+        commentListSource && commentListSource.find((message) => message._id === newReply.pid)
+      if (parentComment) {
+        parentComment.children.push(newReply)
+        setCommentList((prevState) => [parentComment, ...prevState])
       }
-      if (type === 2) {
-        setReplyObj({ _id: '', pid: '-1' })
-        replyForm.resetFields()
-      }
-      // 邮件提醒
-      const email = replyObj.email
-      const title = `您在夜雨炊烟小站文章《${articleTitle}》的评论收到了回复`
-      const content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上的文章《${articleTitle}》的评论：</p><hr /><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${replyObj.currentReplayContent}</span></p>收到<span style="color: cadetblue;padding-right:2px;">${values.nickname}</span>的回复:<p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/article/detail/${commentArticleId}"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
-      const newContent = content.split('\n').join('\n<br/>\n')
-      const sendEmailParams = {
-        email,
-        subject: title,
-        html: newContent
-      }
-      await handleSendEmail(sendEmailParams)
-      articleCommentMutate() // 即时更新数据
-    }, 500)
+    }
+    message.success('回复成功！')
+    // 立即重置表单
+    setReplyObj({ _id: '', pid: '-1' })
+    replyForm.resetFields()
+    // 邮件提醒（不阻塞 UI）
+    const email = replyObj.email
+    const title = `您在夜雨炊烟小站文章《${articleTitle}》的评论收到了回复`
+    const content = `<div><br /><p>您在<span style="color: cadetblue; padding: 3px">夜雨炊烟</span>博客上的文章《${articleTitle}》的评论：</p><hr /><p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${replyObj.currentReplayContent}</span></p>收到<span style="color: cadetblue;padding-right:2px;">${values.nickname}</span>的回复:<p style="width: 98%;min-height: 30px;padding-top: 10px;padding-left: 10px;padding-bottom: 10px;background-color: #f5f5f5;border-radius: 10px;"><span>${values.content}</span></p><p><a href="https://yychuiyan.com/article/detail/${commentArticleId}"target="_blank"style="text-decoration: none; color: #5c8fef">点击查看详情</a></p></div>`
+    const newContent = content.split('\n').join('\n<br/>\n')
+    const sendEmailParams = {
+      email,
+      subject: title,
+      html: newContent
+    }
+    handleSendEmail(sendEmailParams) // 异步发送，不等待
+    // 后台静默刷新列表
+    articleCommentMutate()
     cancelReply()
   }
   // 关闭窗口
