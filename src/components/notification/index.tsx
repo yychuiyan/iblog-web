@@ -12,8 +12,7 @@ dayjs.extend(relativeTime)
 const { Text, Link } = Typography
 
 const STORAGE_KEY = 'github_last_seen_sha'
-const COMMITS_URL =
-  'https://github.com/yychuiyan/iblog-web/commits/d8ae114810b2e77427f08507971fee259528ac51/'
+const COMMITS_URL = 'https://github.com/yychuiyan/iblog-web/commits/master/'
 
 const Notification = () => {
   const { commits, isCommitsFetched } = useGitHubCommits()

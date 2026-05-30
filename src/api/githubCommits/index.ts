@@ -15,7 +15,7 @@ const fetcher = async (url: string): Promise<GitHubCommitsResponse> => {
 }
 
 const GITHUB_COMMITS_API =
-  'https://api.github.com/repos/yychuiyan/iblog-web/commits?sha=d8ae114810b2e77427f08507971fee259528ac51&per_page=5'
+  'https://api.github.com/repos/yychuiyan/iblog-web/commits?sha=master&per_page=5'
 
 // 获取 GitHub 提交记录
 export const useGitHubCommits = () => {
