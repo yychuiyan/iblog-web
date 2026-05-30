@@ -58,6 +58,12 @@ const NavBar = () => {
     {
       path: '/about',
       title: '关于'
+    },
+    {
+      path: 'https://yychuiyan.github.io/docs/',
+      title: '炊烟小站',
+      isExternal: true,
+      color: '#f0932b'
     }
     // {
     //   path: '/frontend-nav',
@@ -273,10 +279,18 @@ const NavBar = () => {
               className={`px-5 cursor-pointer  ${
                 selectKeys === item.path
                   ? 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl text-[var(--bgcolor-navbar-default)] bg-[var(--bgcolor-navbar-click)]'
-                  : 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl hover:bg-[var(--bgcolor-navbar-hover)] hover:text-[var(--bgcolor-navbar-default)] hover:transition hover:duration-300 ring-current '
+                  : item.isExternal
+                    ? 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl'
+                    : 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl hover:bg-[var(--bgcolor-navbar-hover)] hover:text-[var(--bgcolor-navbar-default)] hover:transition hover:duration-300 ring-current '
               }`}
-              onClick={() => handleRouter(item.path)}
-              style={{ userSelect: 'none' }}
+              onClick={() =>
+                item.isExternal ? window.open(item.path, '_blank') : handleRouter(item.path)
+              }
+              style={{
+                userSelect: 'none',
+                color: item.color || undefined,
+                fontSize: item.isExternal ? '1.25rem' : undefined
+              }}
             >
               {item.title}
             </li>
@@ -304,10 +318,18 @@ const NavBar = () => {
               className={`px-5 cursor-pointer  ${
                 selectKeys === item.path
                   ? 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl ring-1 ring-current'
-                  : 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl hover:ring-1 ring-current '
+                  : item.isExternal
+                    ? 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl'
+                    : 'flex justify-center items-center w-15 h-8 ml-2 rounded-xl hover:ring-1 ring-current '
               }`}
-              onClick={() => handleRouter(item.path)}
-              style={{ userSelect: 'none' }}
+              onClick={() =>
+                item.isExternal ? window.open(item.path, '_blank') : handleRouter(item.path)
+              }
+              style={{
+                userSelect: 'none',
+                color: item.color || undefined,
+                fontSize: item.isExternal ? '1.25rem' : undefined
+              }}
             >
               {item.title}
             </li>
