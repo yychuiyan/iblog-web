@@ -54,6 +54,24 @@ const fetcherPost = async ([url, params]) => {
   }
 }
 
+// 单篇文章详情（按 ID 精确获取，含 content）
+export const useArticleDetail = (articleId: string) => {
+  const { data, error, isLoading } = useSWR(
+    articleId ? `/iblog/article/detail/${articleId}` : null,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      dedupingInterval: 60000
+    }
+  )
+
+  return {
+    articleDetail: data,
+    isLoading,
+    isFetched: !error && data !== undefined
+  }
+}
+
 // 全部文章
 export const useArticleAllList = (status, publishStatus) => {
   const { data, error, isLoading, mutate } = useSWR(

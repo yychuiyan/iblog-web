@@ -10,14 +10,12 @@ import { emojiList } from '@/utils/emoji'
 import { SoundOutlined } from '@ant-design/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClone } from '@fortawesome/free-solid-svg-icons'
-import jwtDecode from 'jwt-decode'
 // import avatar from '../../assets/images/avatar.webp'
 import IconFont from '@/components/iconfont'
 import { Helmet } from 'react-helmet'
 import { useAddMessageBorad, useMessageBoradList } from '@/api/message'
 import { useSendEmail } from '@/api/sendEmail'
 import { MessageBoradType, MessageBoradTypeResponse } from '@/api/message/type'
-import { LoginInfoType, TokenType } from '@/types/comm'
 
 const Message = () => {
   // 留言列表数据
@@ -46,7 +44,6 @@ const Message = () => {
   //   html?: string
   // }>(null)
   // 登录数据
-  const [loginInfo, setLoginInfo] = useState<LoginInfoType>()
   // 表情显示隐藏
   const [open, setOpen] = useState(false)
   // 回复表情显示隐藏
@@ -66,17 +63,6 @@ const Message = () => {
         left: 0,
         behavior: 'smooth'
       })
-    }
-  }, [])
-  // 登录信息 解析token
-  useEffect(() => {
-    // 获取登录态
-    const isLoginInfo = localStorage.getItem('zhj')
-    if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
-      const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as TokenType
-      setLoginInfo(token)
-    } else {
-      setLoginInfo(null)
     }
   }, [])
   // 获取留言列表
@@ -158,7 +144,7 @@ const Message = () => {
         currentReplayContent: values.content,
         auditTime: 0,
         auditStatus: '1',
-        avatar: loginInfo ? loginInfo.avatar : (loginInfo as string),
+        avatar: '',
         email: values.email,
         nickName: values.nickname
       }
@@ -226,7 +212,7 @@ const Message = () => {
       currentReplayContent: values.content,
       auditTime: 0,
       auditStatus: '1',
-      avatar: loginInfo ? loginInfo.avatar : (loginInfo as string),
+      avatar: '',
       email: values.email,
       nickName: values.nickname
     }

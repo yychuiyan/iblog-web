@@ -6,11 +6,9 @@ import { CloudUploadOutlined, CommentOutlined, MessageOutlined } from '@ant-desi
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { emojiList } from '@/utils/emoji'
-import jwtDecode from 'jwt-decode'
 import IconFont from '../iconfont'
 import { useAddArticleComment, useCommentList } from '@/api/articles'
 import { CommentType, CommentTypeResponse } from '@/api/articles/type'
-import { TokenType } from '@/types/comm'
 import { useSendEmail } from '@/api/sendEmail'
 import { useLocation } from 'react-router-dom'
 
@@ -47,8 +45,6 @@ const ArticleComment = (props) => {
   const [open, setOpen] = useState(false)
   // 回复表情显示隐藏
   const [replyOpen, setReplyOpen] = useState(false)
-  // 登录数据
-  const [loginInfo, setLoginInfo] = useState<TokenType>()
   dayjs.extend(relativeTime)
 
   // 表情内容
@@ -59,17 +55,6 @@ const ArticleComment = (props) => {
   const articleTitle = props.title.join('')
   const parts = location.pathname.split('/')
   const commentArticleId = parts[parts.length - 1]
-  // 登录信息 解析token
-  useEffect(() => {
-    // 获取登录态
-    const isLoginInfo = localStorage.getItem('zhj')
-    if (isLoginInfo === 'success' && localStorage.getItem('yychuiyan') !== null) {
-      const token = jwtDecode(localStorage.getItem('yychuiyan') as string) as TokenType
-      setLoginInfo(token)
-    } else {
-      setLoginInfo(null)
-    }
-  }, [])
   // 获取评论列表
   const {
     articleCommentList,
@@ -142,7 +127,7 @@ const ArticleComment = (props) => {
         targetReplayId: replyObj._id || '-1',
         targetReplayContent: '',
         currentReplayContent: values.content,
-        avatar: loginInfo ? loginInfo.avatar : (loginInfo as string),
+        avatar: '',
         email: values.email,
         nickName: values.nickname,
         articleId: commentArticleId,
@@ -211,7 +196,7 @@ const ArticleComment = (props) => {
       targetReplayId: replyObj._id || '-1',
       targetReplayContent: `${values?.nickname}@${replyObj?.nickName} ${replyObj?.currentReplayContent}`,
       currentReplayContent: values.content,
-      avatar: loginInfo ? loginInfo.avatar : (loginInfo as string),
+      avatar: '',
       email: values.email,
       nickName: values.nickname,
       articleId: commentArticleId,
