@@ -3,7 +3,11 @@ import { useEffect, useRef, useState } from 'react'
 import { SearchOutlined } from '@ant-design/icons'
 import { themeChange } from 'theme-change'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faBars } from '@fortawesome/free-solid-svg-icons'
+import {
+  faMagnifyingGlass,
+  faBars,
+  faArrowUpRightFromSquare
+} from '@fortawesome/free-solid-svg-icons'
 import Notification from '@/components/notification'
 import IconFont from '../iconfont'
 import { useNavigate, useLocation } from 'react-router-dom'
@@ -289,10 +293,18 @@ const NavBar = () => {
               style={{
                 userSelect: 'none',
                 color: item.color || undefined,
-                fontSize: item.isExternal ? '1.25rem' : undefined
+                fontSize: item.isExternal ? '1.125rem' : undefined
               }}
             >
               {item.title}
+              {item.isExternal && (
+                <FontAwesomeIcon
+                  icon={faArrowUpRightFromSquare}
+                  size="xs"
+                  className="ml-1"
+                  style={{ color: item.color || undefined }}
+                />
+              )}
             </li>
           </ul>
         </div>
@@ -328,10 +340,18 @@ const NavBar = () => {
               style={{
                 userSelect: 'none',
                 color: item.color || undefined,
-                fontSize: item.isExternal ? '1.25rem' : undefined
+                fontSize: item.isExternal ? '1.125rem' : undefined
               }}
             >
               {item.title}
+              {item.isExternal && (
+                <FontAwesomeIcon
+                  icon={faArrowUpRightFromSquare}
+                  size="xs"
+                  className="ml-1"
+                  style={{ color: item.color || undefined }}
+                />
+              )}
             </li>
           </ul>
         </div>

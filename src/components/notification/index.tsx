@@ -118,7 +118,7 @@ const Notification = () => {
         style={{ width: 40, height: 40 }}
       >
         <Badge dot={hasNew} offset={[-2, 2]}>
-          <FontAwesomeIcon icon={faBell} size="lg" />
+          <FontAwesomeIcon icon={faBell} size="lg" className="text-[var(--color-font-color)]" />
         </Badge>
       </span>
     </Popover>
