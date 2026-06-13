@@ -64,8 +64,8 @@ const NavBar = () => {
       title: '关于'
     },
     {
-      path: 'https://yychuiyan.github.io/docs/',
-      title: '炊烟小站',
+      path: 'https://docs.yychuiyan.com/',
+      title: '新版博客',
       isExternal: true,
       color: '#f0932b'
     }
