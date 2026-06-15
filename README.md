@@ -8,6 +8,6 @@
 
 `pnpm run build`
 
-# 提交：
+# 提交命令：
 
 git commit -m "feat, fix, docs, style, refactor, perf, test, chore, revert, build: xxxx"
