@@ -1,1 +1,0 @@
-const e="iblog_client_id";function n(){return"client_"+Math.random().toString(36).substring(2)+Date.now().toString(36)}function o(){let t=localStorage.getItem(e);return t||(t=n(),localStorage.setItem(e,t)),t}export{o as g};
